@@ -1,0 +1,13 @@
+/**
+
+!.gitignore
+!package.json
+!gulpfile.js
+
+
+!/themes/ogonek
+!/themes/ogonek/*
+!/themes/ogonek/**
+!/themes
+/themes/ogonek/cache
+/themes/ogonek/sass

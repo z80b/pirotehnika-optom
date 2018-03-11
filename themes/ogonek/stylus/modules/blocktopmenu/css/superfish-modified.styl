@@ -1,0 +1,67 @@
+.sf-contener
+    clear both
+    float left
+    width 100%
+    
+    .cat-title
+        display none
+
+    .sf-menu
+        position relative
+        display table
+        padding 0
+        background-color $topmenu-bg
+        width 100%
+        border-radius 10px
+        
+        li
+            position relative
+            list-style none
+            padding 0
+            display table-cell
+            border-right 1px solid #fff
+            
+            &:last-child
+                border-right none
+            
+            a
+                display block
+                color #fff
+                padding 17px 0
+                font 600 13px/1 $font-custom
+                text-align center
+                text-transform uppercase
+                
+            .submenu-container
+                display none
+                
+            ul
+                display block
+                absolute left 0 top 100% width 250px
+                margin 10px 0 0
+                background-color #fff
+                padding 20px
+                border solid 1px #d34633
+                border-radius 10px
+                
+                &::after
+                    absolute left 0 top -14px width 190px
+                    padding: 0 0 0 40px
+                    content $arrow-image
+                
+                li
+                    display block
+                    
+                    a
+                        font 600 13px/1.2 $font-custom
+                        color $base-text-color
+                        text-align left
+                        padding 6px 10px
+                        border-bottom 1px dashed #ccc
+                        
+                        &:hover
+                            color $link-hover-color
+                            
+                    &:last-child
+                        a
+                            border-bottom none

@@ -1,4 +1,10 @@
-#block_top_menu {
-  padding-top: 25px; }
-
-/*# sourceMappingURL=blocktopmenu.css.map */
+@media (min-width: 767px) {
+  #block_top_menu {
+    padding: 15px 0 0;
+  }
+}
+@media (max-width: 766px) {
+  #block_top_menu {
+    padding: 15px 15px 0;
+  }
+}

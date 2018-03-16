@@ -71,7 +71,7 @@ gulp.task('theme_styles', function() {
             'import': [
                 __basedir +'/themes/ogonek/stylus/variables.styl'
             ],
-            'compress': true,
+            'compress': false,
             'use': [axis(), bootstrap()],
             'rawDefine': { 'inline-image': stylus.stylus.url({
                 paths: ['./src/css/imgs']

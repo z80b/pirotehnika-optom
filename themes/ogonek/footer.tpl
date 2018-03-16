@@ -209,6 +209,7 @@ jQuery.fn.upScrollButton = function( options ) {
 				<div class="footer-container">
 					<footer id="footer"  class="container">
 						<div class="row">{$HOOK_FOOTER}</div>
+						<copyright>© «Огонёк» {date('Y')}</copyright>
 					</footer>
 				</div><!-- #footer -->
 			{/if}

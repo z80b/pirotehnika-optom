@@ -32,6 +32,17 @@ $(document).ready(function(){
 
 	highdpiInit();
 	responsiveResize();
+
+	$('.price, .old-price').html(function(ix, html) {
+		return html.replace(/([\d|\s]+)\,(\d+)\s*(.+)/, '$1,<span class="price__cents">$2</span> $3');
+	});
+
+	$('#short_description_content').on('click', function(event) {
+		console.log(event);
+		var $el = $(event.currentTarget);
+		$el.toggleClass('content--open');
+	});
+
 	$(window).resize(responsiveResize);
 	if (navigator.userAgent.match(/Android/i))
 	{

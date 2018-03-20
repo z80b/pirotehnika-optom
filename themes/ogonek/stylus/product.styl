@@ -1,0 +1,1285 @@
+$color-1 = #c4c4c4
+$color-2 = #999
+$color-3 = #fff
+$color-4 = #fbfbfb
+$color-5 = #777676
+$color-6 = rgba(255, 255, 255, 0.5)
+$color-7 = rgba(0, 0, 0, 0.16)
+$color-8 = #c0c0c0
+$color-9 = #333
+$color-10 = #dbdbdb
+$color-11 = #000
+$color-12 = #3a3939
+$color-13 = #666
+$color-14 = #d6d4d4
+$color-15 = #cfcccc
+$color-16 = #4d4d4d
+$color-17 = rgba(0, 0, 0, 0.05)
+$color-18 = #ededed
+$color-19 = #f6f6f6
+$color-20 = #f3aa38
+$color-21 = #493f29
+$color-22 = #06b2e6
+$color-23 = #015883
+$color-24 = #d2d0d0
+$color-25 = #b0afaf
+$color-26 = #0079b6
+$color-27 = #006fa8
+$color-28 = #012740
+$color-29 = #fdfdfd
+$color-30 = #515151
+$color-31 = #646464
+$color-32 = rgba(0, 0, 0, 0.10)
+$color-33 = #e4e4e4
+$color-34 = #8bb812
+$color-35 = #fe9126
+$color-36 = #e4752b
+$color-37 = #dfdede
+$color-38 = #f13340
+$color-39 = #d02a2c
+$color-40 = #777
+
+.primary_block
+    margin-bottom 40px
+
+    .pb-left-column
+        img
+            max-width 100%
+            height auto
+
+.top-hr
+    background $color-1
+    height 5px
+    margin 2px 0 31px
+
+.product-heading-h5
+    color $color-2
+    font-weight 200
+    margin 3px 0 8px
+    font-size 19px
+    font-family "Open Sans", sans-serif
+
+.box-security
+    border-top 1px solid $color-37
+    padding 19px 19px 6px
+    background-image url('data:image/svg+xmlbase64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZiZmJmYiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==')
+    background-size 100%
+    background-image linear-gradient(#ffffff, #fbfbfb)
+
+    .product-heading-h5
+        margin 3px 0 -8px
+
+@media (max-width: 1199px)
+    .box-security
+        .product-heading-h5
+            margin-bottom 8px
+
+    .box-info-product
+        .exclusive
+            span
+                padding 12px 22px 14px 55px
+                font-size 14px
+
+    #center_column
+        &.col-sm-9
+            .col-md-3
+                .box-info-product
+                    .exclusive
+                        span
+                            font-size 16px
+
+    #product
+        &.content_only
+            div
+                &.primary_block
+                    div
+                        &.pb-right-column
+                            .box-info-product
+                                #add_to_cart
+                                    .exclusive
+                                        span
+                                            padding 12px 22px 14px 70px
+                                            font-size 20px
+
+a
+    &.fancybox-nav
+        outline 0
+
+.pb-left-column
+    #image-block
+        position relative
+        display block
+        cursor pointer
+        padding 5px
+        background $color-3
+
+        img
+            background $color-4
+            width 100%
+
+        #view_full_size
+            .span_link
+                position absolute
+                bottom 20px
+                left 50%
+                margin-left -68px
+                display block
+                padding 10px 0
+                text-align center
+                line-height 22px
+                color $color-5
+                width 136px
+                font-weight 700
+                background $color-6
+                box-shadow 0 2px 8px $color-7
+
+                &:after
+                    font-family "FontAwesome"
+                    color $color-8
+                    font-size 20px
+                    line-height 22px
+                    content "\f00e"
+                    font-weight normal
+                    margin 0 0 0 4px
+
+                &:hover
+                    &:after
+                        color $color-9
+
+        a
+            &.jqzoom
+                div
+                    div
+                        img
+                            width auto
+                            max-width 10000px
+
+                        .zoomWrapper
+                            border none
+
+        .zoomPad
+            z-index auto !important
+
+    #views_block
+        margin-top 10px
+
+@media (max-width: 767px)
+    .pb-left-column
+        #image-block
+            width 280px
+            margin 0 auto
+
+        #views_block
+            width 280px
+            margin 10px auto 0px auto
+
+    #thumbs_list
+        width 196px
+
+    .show-right-column.hide-left-column #thumbs_list
+    .hide-right-column.show-left-column #thumbs_list
+        width 196px
+
+    span
+        &.view_scroll_spacer
+            width 45px
+            padding-left 18px
+
+    .show-right-column.hide-left-column span.view_scroll_spacer
+    .hide-right-column.show-left-column span.view_scroll_spacer
+        width 45px
+        padding-left 14px
+
+    table
+        &.table-product-discounts
+            width 100%
+
+    #send_friend_form
+        width 280px
+
+.pb-left-column #image-block .new-box
+.pb-left-column #image-block .sale-box
+    z-index 5002
+
+#thumbs_list
+    overflow hidden
+    float left
+    width 392px
+
+    ul
+        &#thumbs_list_frame
+            list-style-type none
+            padding-left 0
+            overflow hidden
+            height 90px
+
+    li
+        float left
+        height 90px
+        width 90px
+        cursor pointer
+        border 1px solid $color-10
+        margin-right 8px
+        line-height 0
+        box-sizing border-box
+
+        a
+            display block
+            border 3px solid $color-3
+            transition all 0.3s ease
+            box-sizing border-box
+            background $color-4
+
+        img
+            border 1px solid $color-3
+            width 100%
+            height 100%
+            box-sizing border-box
+
+@media (min-width: 992px) and (max-width: 1199px)
+    #thumbs_list
+        width 294px
+
+    .show-right-column.hide-left-column #thumbs_list
+    .hide-right-column.show-left-column #thumbs_list
+        width 194px
+
+    span
+        &.view_scroll_spacer
+            width 45px
+            padding-left 18px
+
+    .show-right-column.hide-left-column span.view_scroll_spacer
+    .hide-right-column.show-left-column span.view_scroll_spacer
+        width 44px
+        padding-left 16px
+
+@media (min-width: 768px) and (max-width: 991px)
+    #thumbs_list
+        width 164px
+
+        li
+            width 76px
+            height 76px
+            margin-right 6px
+
+            img
+                width 68px
+                height 68px
+
+    .show-right-column.hide-left-column #thumbs_list
+    .hide-right-column.show-left-column #thumbs_list
+        width 82px
+
+    span
+        &.view_scroll_spacer
+            width 30px
+            padding-left 3px
+
+    .show-right-column.hide-left-column span.view_scroll_spacer
+    .hide-right-column.show-left-column span.view_scroll_spacer
+        width 41px
+        padding-left 13px
+
+    #view_scroll_left
+    #view_scroll_right
+        margin-top 28px
+
+    .view_scroll_spacer
+        margin-top 28px
+
+    #usefull_link_block
+        li
+            float none !important
+
+            &.print
+                margin 8px 0 0
+                padding 0
+                border none
+
+#thumbs_list li a:hover
+#thumbs_list li a.shown
+    border-color $color-10
+
+.show-right-column.hide-left-column #thumbs_list
+.hide-right-column.show-left-column #thumbs_list
+    width 294px
+
+span
+    &.view_scroll_spacer
+        float left
+        width 39px
+        padding-left 12px
+
+.show-right-column.hide-left-column span.view_scroll_spacer
+.hide-right-column.show-left-column span.view_scroll_spacer
+    width 27px
+    padding-left 2px
+
+#view_scroll_left
+#view_scroll_right
+    margin-top 38px
+    height 20px
+    width 20px
+    line-height 0
+    font-size 0
+    overflow hidden
+
+#view_scroll_left:before
+#view_scroll_right:before
+    padding-left 2px
+    color $color-8
+    font-family "FontAwesome"
+    font-size 20px
+    line-height 22px
+
+#view_scroll_left:hover:before
+#view_scroll_right:hover:before
+    color $color-9
+
+#view_scroll_right
+    float left
+
+    &:before
+        content "\f138"
+
+#view_scroll_left
+    margin-top 0
+
+    &:before
+        content "\f137"
+        padding-right 2px
+
+.resetimg
+    padding 10px 0 0
+
+    #resetImages
+        i
+            margin-right 6px
+
+.view_scroll_spacer
+    margin-top 38px
+
+#usefull_link_block
+    list-style-type none
+
+    li
+        margin 0 0 8px 0
+
+        &:first-child
+            margin 0 0 8px 0
+            border none
+            padding 0
+
+        a
+            color $color-5
+            font-weight 700
+            position relative
+            padding-left 30px
+            line-height 22px
+            display inline-block
+
+            &:before
+                font-family "FontAwesome"
+                color $color-9
+                font-size 19px
+                line-height 24px
+                position absolute
+                top -2px
+                left 0
+                font-weight normal
+
+            &:hover
+                color $color-11
+
+        &.print
+            a
+                &:before
+                    content "\f02f"
+
+        &.sendtofriend
+            a
+                &:before
+                    content "\f003"
+
+        &#left_share_fb
+            clear both
+            float none
+
+            a
+                padding-left 18px
+
+                &:before
+                    content "\f09a"
+
+        &#favoriteproducts_block_extra_removed
+            &:before
+                content "\f004"
+
+#usefull_link_block li#favoriteproducts_block_extra_remove
+#usefull_link_block li#favoriteproducts_block_extra_add
+#usefull_link_block li#favoriteproducts_block_extra_removed
+#usefull_link_block li#favoriteproducts_block_extra_added
+    cursor pointer
+    font-weight 700
+    clear both
+    float none
+    margin 0 0 8px 0
+    border none
+    padding 0
+    position relative
+
+#usefull_link_block li#favoriteproducts_block_extra_remove:before
+#usefull_link_block li#favoriteproducts_block_extra_add:before
+#usefull_link_block li#favoriteproducts_block_extra_removed:before
+#usefull_link_block li#favoriteproducts_block_extra_added:before
+    font-family "FontAwesome"
+    color $color-9
+    font-size 19px
+    line-height 24px
+    position absolute
+    top -2px
+    left 0
+    font-weight normal
+    content "\f08a"
+
+#usefull_link_block li#favoriteproducts_block_extra_remove:hover
+#usefull_link_block li#favoriteproducts_block_extra_add:hover
+#usefull_link_block li#favoriteproducts_block_extra_removed:hover
+#usefull_link_block li#favoriteproducts_block_extra_added:hover
+    color $color-11
+
+.pb-center-column
+    margin-bottom 30px
+
+    h1
+        padding-bottom 16px
+        font-size 20px
+        color $color-12
+
+    p
+        margin-bottom 10px
+
+        &.online_only
+            font-weight 700
+            font-size 13px
+            color $color-38
+            text-align left
+
+    #product_reference
+        margin-bottom 6px
+
+    #short_description_block
+        color $color-13
+
+        .buttons_bottom_block
+            display none
+
+        #short_description_content
+            position relative
+            padding: 0 0 15px
+            word-wrap: break-word
+            height 45px
+            overflow hidden
+            text-overflow ellipsis
+            transition .5s height ease
+                
+            
+            &::after
+                content ''
+                absolute bottom 0 left 0 right 0 height 5px
+                display block
+                border-top dotted 1px #666
+                background #fff
+                z-index 1
+                
+            &::before
+                content ''
+                display block
+                absolute left 50% bottom 0 width 0 height 0
+                border-left 5px solid transparent
+                border-right 5px solid transparent
+                border-top 5px solid #666
+                margin-left -2.5px
+                z-index 2
+                cursor pointer
+                
+            &.content--open
+                height auto
+                
+                &::before
+                    border-top none
+                    border-bottom 5px solid #666
+                    bottom 5px
+
+            p
+                line-height 18px
+
+    #buy_block
+        margin-top 10px
+
+        label
+            display inline-block
+            width 125px
+            font-weight 700
+            font-size 12px
+            text-align right
+
+        p
+            &.price
+                padding 0
+
+    #color_picker
+        p
+            padding-bottom 5px
+            font-weight 700
+
+#product
+    p
+        &#loyalty
+            padding 17px 0 15px 35px
+            border-top 1px solid $color-14
+            border-bottom 1px solid $color-14
+            margin 10px 0 -5px
+            position relative
+
+            b
+                color $color-9
+
+            &:before
+                content "\f024"
+                font-family "FontAwesome"
+                color $color-15
+                font-size 26px
+                line-height 28px
+                position absolute
+                top 16px
+                left 0
+
+    &.content_only
+        div
+            &.primary_block
+                margin-bottom 0
+
+                div
+                    &.pb-left-column
+                        padding 20px 20px 5px 35px
+                        width 47%
+
+                        span
+                            &.view_scroll_spacer
+                                width 38px
+                                padding-left 10px
+
+                        #thumbs_list
+                            width 392px
+
+                    &.pb-center-column
+                        padding 20px 20px 60px 0px
+                        width 27.5%
+                        margin-bottom 0
+                        min-height 623px
+                        height 100%
+
+                        .product_comments_block_extra
+                            padding-right 0
+
+                        #ShareDiv
+                            position absolute
+                            bottom 8px
+
+                    &.pb-right-column
+                        width 25.5%
+                        padding-right 15px
+                        padding-left 0
+
+                        .box-info-product
+                            border-top-width 0px
+                            border-right none
+                            border-bottom none
+                            min-height 623px
+                            height 100%
+                            border-radius 0 4px 4px 0
+                            border-radius 0
+                            position relative
+                            padding-bottom 125px
+
+                            #add_to_cart
+                                .exclusive
+                                    display block
+                                    width 100%
+
+                                    span
+                                        font-size 20px
+                                        text-align center
+
+                            .box-cart-bottom
+                                right 0
+                                left 0
+
+                        #attributes
+                            .attribute_list
+                                .form-control
+                                    width 230px
+
+                        .product_attributes
+                            padding-top 0
+
+#page
+    .rte
+        padding 0 20px 20px
+        word-wrap break-word
+
+        p
+            margin-bottom 1em
+            min-height 1px
+
+#attributes
+    fieldset
+        padding-bottom 3px
+
+        label
+            vertical-align top
+            display block
+
+    .attribute_list
+        width 100%
+
+        .form-control
+            max-width 230px
+
+            option
+                background $color-3
+                color $color-13
+
+        ul
+            clear both
+
+            li
+                float left
+                margin-right 10px
+
+        input
+            &.attribute_radio
+                float left
+                margin-left 3px
+
+        #color_to_pick_list
+            list-style-type none
+
+            li
+                float left
+                margin 0 3px 3px 0
+                padding 1px
+                border 1px solid $color-14
+                clear none
+                width 26px
+                height 26px
+
+                a
+                    &.color_pick
+                        display block
+                        height 22px
+                        width 22px
+                        cursor pointer
+
+                        img
+                            display block
+                            height 22px
+                            width 22px
+
+                &.selected
+                    border 1px solid $color-16
+
+#attributes .attribute_list div.radio
+#attributes .attribute_list div.radio span
+#attributes .attribute_list div.radio input
+    float none
+    display inline-block
+
+.product_attributes
+.box-cart-bottom
+    box-shadow inset 0 6px 6px $color-17
+    padding 10px 5px 5px
+    background $color-18
+
+.box-cart-bottom
+    padding 0
+
+#short_description_content a
+.page-product-box .rte a
+    color $color-9
+    text-decoration underline
+
+#short_description_content a.btn
+.page-product-box .rte a.btn
+    text-decoration none
+
+.box-info-product
+    background $color-19
+
+    p
+        margin-bottom 7px
+
+    .exclusive
+        padding 0
+        border-top 1px solid $color-20
+        border-right 1px solid $color-20
+        border-left 1px solid $color-20
+        border-bottom 1px solid $color-20
+        border-radius 5px
+        position relative
+        display block
+        background-size 100%
+        background-image linear-gradient(#f3aa38, #007ab7)
+        background $color-20
+        line-height 32px
+        text-align left
+        color $color-21
+        border-radius 10px
+        font-size 11px
+        text-align center
+        font-weight 600
+        text-decoration none
+        padding 0 20px
+
+        span
+            border-radius 5px
+            font-weight 700
+            font-size 20px
+            line-height 22px
+            border-top 1px solid $color-22
+            border-right 1px solid $color-22
+            border-left 1px solid $color-22
+            border-bottom 1px solid $color-22
+            text-shadow 0 1px $color-23
+            padding 12px 36px 14px 60px
+            color $color-3
+            display block !important
+            transition all 0.3s ease
+
+        &:hover
+            background-image url('data:image/svg+xmlbase64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwN2FiNyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwOWFkMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==')
+            background-size 100%
+            background-image linear-gradient(#f1b347, #f1b347)
+            background-position 0 0
+
+@media (max-width: 991px)
+    .box-info-product
+        .exclusive
+            span
+                padding 8px 12px 10px
+                text-align left
+
+    #center_column
+        &.col-sm-9
+            .col-md-3
+                .box-info-product
+                    .exclusive
+                        &:before
+                            display none
+
+                        &:after
+                            display none
+
+                        span
+                            padding 8px 12px 10px
+                            text-align center
+
+    .our_price_display
+        font-size 26px
+        line-height 28px
+
+        .price
+            font-size 26px
+            line-height 28px
+
+    #product
+        &.content_only
+            div
+                &.primary_block
+                    margin-right 0
+
+                    div
+                        &.pb-center-column
+                            min-height 440px
+
+                        &.pb-right-column
+                            .box-info-product
+                                border-radius 0
+                                border 1px solid $color-14
+
+#center_column
+    &.col-sm-9
+        .col-md-3
+            .box-info-product
+                background $color-19
+                border 1px solid $color-24
+                border-top 1px solid $color-25
+                border-bottom 1px solid $color-25
+
+                .exclusive
+                    padding 0
+                    border-top 1px solid $color-26
+                    border-right 1px solid $color-27
+                    border-left 1px solid $color-27
+                    border-bottom 1px solid $color-28
+                    border-radius 5px
+                    position relative
+                    display block
+                    background-image url('data:image/svg+xmlbase64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwOWFkMCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwN2FiNyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==')
+                    background-size 100%
+                    background-image linear-gradient(#009ad0, #007ab7)
+
+                    &:before
+                        font-family "FontAwesome"
+                        position relative
+                        top 0
+                        left 0
+                        bottom 0
+                        color $color-3
+                        font-size 25px
+                        line-height 47px
+                        text-shadow 0 1px $color-23
+                        content "\f07a"
+                        z-index 2
+                        width 51px
+                        text-align center
+                        border none
+                        border-radius 0
+
+                    &.added
+                        &:before
+                            content "\f00c"
+
+                    &:after
+                        background none
+                        position absolute
+                        top 0
+                        bottom 0
+                        left 51px
+                        content ""
+                        width 1px
+                        z-index 2
+
+                    span
+                        font-weight 500
+                        font-size 18px
+                        line-height 22px
+                        border none
+                        border-top 1px solid $color-27
+                        text-shadow 0 1px $color-23
+                        padding 12px 16px 14px
+                        color $color-3
+                        display block !important
+                        border-radius 0
+                        transition all 0.3s ease
+
+                    &:hover
+                        background-image url('data:image/svg+xmlbase64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwN2FiNyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwOWFkMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==')
+                        background-size 100%
+                        background-image linear-gradient(#007ab7, #009ad0)
+                        background-position 0 0
+
+#center_column.col-sm-9 .col-md-3 .box-info-product .exclusive.added.disabled:before
+#center_column.col-sm-9 .col-md-3 .box-info-product .exclusive.disabled:before
+    content "\f110"
+    animation 2s linear 0s normal none infinite spin
+    border none
+
+.table-data-sheet
+    border-bottom 1px solid $color-14
+    width 100%
+    margin 0 0 20px
+    background $color-3
+
+    tr
+        border-top 1px solid $color-14
+
+        &.even
+            background $color-29
+
+        td
+            padding 10px 20px 11px
+
+            &:first-child
+                border-right 1px solid $color-14
+                width 30%
+                font-weight 700
+                color $color-9
+
+table
+    &.table-product-discounts
+        border none
+        border-bottom 1px solid $color-14
+        border-right 1px solid $color-14
+        width 50%
+        margin 0 0 20px
+        background $color-3
+
+        tr
+            th
+                background $color-4
+                color $color-9
+                font-weight 700
+                border none
+
+table.table-product-discounts tr td
+table.table-product-discounts tr th
+    border-left 1px solid $color-14
+    width 33%
+    padding 10px 20px 11px
+    border-top 1px solid $color-14
+    border-right none
+    text-shadow none
+    text-transform none
+    font-weight 13px
+    line-height 18px
+    border-bottom none
+
+.accessories-block
+    .block_description
+        display none
+
+    .exclusive
+        span
+            font-size 13px
+            line-height 18px
+            padding 2px 8px 3px
+            text-decoration none
+
+    .product-name
+        margin-bottom 5px
+
+        a
+            font-size 15px
+            line-height 18px
+            color $color-12
+
+            &:hover
+                color $color-30
+
+    div
+        ul
+            li
+                a
+                    display inline-block
+
+.accessories-block .exclusive span:focus
+.accessories-block .exclusive span:active
+    text-decoration none
+
+.accessories-block div ul li.s_title_block a
+.accessories-block div ul li.s_title_block span
+    font-weight 700
+
+#quantity_wanted_p
+    input
+        width 78px
+        height 27px
+        padding 0 6px
+        border 1px solid $color-14
+        line-height 27px
+        border-radius 15px
+        border none
+        color $color-31
+        font-size 14px
+        font-weight bold
+        text-align center
+        box-shadow inset 0 2px 3px $color-32
+        width 80px
+        border 1px solid $color-33
+        display inline-block
+
+    .btn
+        margin-left 3px
+
+    label
+        display block
+        margin-bottom 7px
+
+#availability_statut span#availability_label
+#availability_date_label
+    display inline-block
+    width 125px
+    font-weight 700
+    font-size 12px
+    text-align right
+
+#quantityAvailable
+    color $color-9
+    font-size 13px
+    line-height 18px
+    font-weight 700
+
+#availability_value
+#last_quantities
+    color $color-3
+    font-weight 700
+    line-height 18px
+    display inline-block
+    padding 3px 8px 4px
+    margin-left 5px
+    font-size 12px
+    margin 0 0 10px 0
+    padding 0 0 0 15px
+
+#availability_value
+    &.label-success
+        color $color-34
+        background url(../img/ogonek/circ.png) no-repeat 0 center
+
+#availability_value.label-warning
+#availability_value.label-danger
+    color red
+    background url(../img/ogonek/no.png) no-repeat 0 center
+    border none
+
+#last_quantities
+    background $color-35
+    border 1px solid $color-36
+    padding 4px 8px 3px
+    position relative
+    top 1px
+    margin-left 0px
+
+#availability_statut
+#pQuantityAvailable
+    display inline-block
+
+#pQuantityAvailable
+    span
+        font-weight 700
+        color $color-9
+
+.content_prices
+    padding 13px 19px
+
+.discount
+    display none
+
+.our_price_display
+    font-weight 600
+    font-size 29px
+    line-height 32px
+    font-family "Open Sans", sans-serif
+    color $color-9
+
+    .price
+        font-weight 600
+        line-height 32px
+        color $color-9
+
+#old_price
+    padding-bottom 15px
+    font-size 13px
+    text-decoration line-through
+    display inline-block
+    font-family "Open Sans", sans-serif
+    line-height 23px
+
+#reduction_percent
+#reduction_amount
+    margin-right 10px
+    padding 1px 2px
+    font-weight 600
+    font-family "Open Sans", sans-serif
+    font-size 21px
+    line-height 23px
+    color $color-3
+    background $color-38
+    border 1px solid $color-39
+
+#reduction_percent span
+#reduction_amount span
+    display block
+
+.hide-left-column.hide-right-column #reduction_percent
+.hide-left-column.hide-right-column #reduction_amount
+    display inline-block
+
+.buttons_bottom_block
+    clear both
+    padding 8px 38px 0
+
+    #wishlist_button
+        font-weight 700
+
+#send_friend_form
+    width 555px
+    overflow hidden
+
+    .product
+        img
+            margin 0 0 10px 0
+            border 1px solid $color-14
+
+        p
+            padding 0
+            color $color-9
+
+            .product_name
+                font-size 12px
+                color $color-11
+
+    .form_container
+        padding 10px 15px
+        border 1px solid $color-14
+        background $color-4
+
+        p
+            &.intro_form
+                padding-bottom 6px
+                font-weight 700
+                font-size 13px
+                color $color-9
+
+            &.txt_required
+                padding-bottom 0
+                color $color-13
+
+        .text
+            padding-bottom 10px
+
+            label
+                display block
+                padding 0
+                width 100%
+                font-size 12px
+
+            input
+                padding 0 5px
+                height 22px
+                width 100%
+                border 1px solid $color-14
+                font-size 12px
+                color $color-13
+
+    .submit
+        margin-top 20px
+        padding-bottom 0
+        text-align right
+
+p
+    &.infoCustomizable
+        margin-bottom 30px
+
+ul#uploadable_files
+ul#text_fields
+    list-style-type none
+
+.customizableProductsFile
+.customizableProductsText
+    margin-bottom 20px
+    padding-bottom 10px
+    border-bottom 1px solid $color-14
+
+.customizationUploadLine
+    padding-bottom 10px
+
+    label
+        display block
+        vertical-align top
+
+    textarea
+        width 50%
+        border 1px solid $color-14
+        color $color-40
+
+.customizationUploadBrowse
+    img
+        +a
+            position relative
+            top -51px
+
+#customizedDatas
+    float right
+
+@media (max-width: 479px)
+    #product
+        &.content_only
+            div
+                &.primary_block
+                    div
+                        &.pb-left-column
+                            width 100%
+                            float none
+
+                        &.pb-center-column
+                            width 100%
+                            float none
+
+                            .comments_advices
+                                li
+                                    display block
+
+                                a
+                                    &.reviews
+                                        margin 0
+                                        padding 0
+                                        border none
+
+#product.content_only div.primary_block div.pb-right-column .box-info-product #add_to_cart .exclusive:before
+#product.content_only div.primary_block div.pb-right-column .box-info-product #add_to_cart .exclusive:after
+    display block
+
+#product.content_only div.primary_block div.pb-right-column .product_attributes
+#product.content_only div.primary_block div.pb-right-column .box-cart-bottom
+    box-shadow transparent 0px 0px 0px
+
+.addsharethisinner
+    .stButton
+        .stArrow
+            display none !important
+
+@media (max-width: 1050px)
+    #product.content_only div.primary_block div.pb-left-column
+    #product.content_only section.primary_block div.pb-left-column
+        width 100%
+        padding-right 15px
+
+    #product.content_only div.primary_block div.pb-left-column #image-block
+    #product.content_only div.primary_block div.pb-left-column #views_block
+    #product.content_only section.primary_block div.pb-left-column #image-block
+    #product.content_only section.primary_block div.pb-left-column #views_block
+        max-width 470px
+        width 100%
+        margin-left auto
+        margin-right auto
+
+    #product.content_only div.primary_block div.pb-left-column #thumbs_list li
+    #product.content_only section.primary_block div.pb-left-column #thumbs_list li
+        width 90px
+        height 90px
+
+    #product.content_only div.primary_block div.pb-left-column #thumbs_list li img
+    #product.content_only section.primary_block div.pb-left-column #thumbs_list li img
+        width 82px
+        height 82px
+
+    #product.content_only div.primary_block div.pb-center-column
+    #product.content_only section.primary_block div.pb-center-column
+        width 50%
+        float left
+        padding-left 35px
+
+    #product.content_only div.primary_block div.pb-right-column
+    #product.content_only section.primary_block div.pb-right-column
+        width 50%
+        float left
+
+    #product.content_only div.primary_block div.pb-right-column .box-info-product
+    #product.content_only section.primary_block div.pb-right-column .box-info-product
+        border-top-width 1px
+        min-height 1px
+
+.ie8
+    .pb-left-column
+        #image-block
+            #view_full_size
+                .span_link
+                    background $color-3
+                    border 1px solid $color-14
+
+    .box-security
+        filter none

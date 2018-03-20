@@ -43,6 +43,20 @@
   }
   .sf-contener .sf-menu li a {
     text-align: center;
+    position: relative;
+  }
+  .sf-contener .sf-menu li a.sf-with-ul::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    width: 0;
+    height: 0;
+    margin-top: -5px;
+    border-top: 5px solid transparent;
+    border-left: 10px solid #fff;
+    border-bottom: 5px solid transparent;
   }
   .sf-contener .sf-menu li .submenu-container {
     display: none;
@@ -61,6 +75,7 @@
     -webkit-border-radius: 10px;
        -moz-border-radius: 10px;
             border-radius: 10px;
+    z-index: 1;
   }
   .sf-contener .sf-menu li ul::after {
     position: absolute;

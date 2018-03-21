@@ -1,3 +1,5 @@
+@import 'blocks/b-consult'
+
 $color-1 = #ff0
 $color-2 = #000
 $color-3 = #c0c0c0
@@ -679,6 +681,30 @@ a:hover
 a:focus
     color $color-7
     text-decoration underline
+
+#move_up
+    fixed bottom 30px right 30px width 70px height 70px
+    display block
+    color transparent
+    background-color #f2a13994
+    border-radius 50%
+    box-shadow 1px 1px 1px 1px #888
+    opacity 1
+    transition .5s opacity ease
+    
+    &::after
+        content ''
+        border-right 2px solid #888
+        border-top 2px solid #888
+        display block
+        height 30px
+        width 30px
+        transform: rotate(-45deg)
+        margin 10px auto
+    
+    &:hover
+        opacity .7
+    
 
 .img-responsive
     display block
@@ -4222,6 +4248,9 @@ input[type="button"].btn-block
     color $color-2
     text-transform uppercase
     margin -10px -15px 18px
+    
+    @media (max-width 766px)
+        margin -10px 0 18px
 
     >li
         display inline-block

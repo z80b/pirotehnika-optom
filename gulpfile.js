@@ -65,7 +65,9 @@ gulp.task('theme_styles', function() {
         axis         = require('axis'),
         __basedir      = __dirname;
 
-    return gulp.src('./themes/ogonek/stylus/**/*.styl')
+    return gulp.src([
+        './themes/ogonek/stylus/**/*.styl',
+        '!./themes/ogonek/stylus/blocks/'])
         .pipe(stylus({
             'include css': true,
             'import': [

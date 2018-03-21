@@ -1,3 +1,48 @@
+.b-consult {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  z-index: 10;
+}
+.b-consult__body {
+  background-color: #ddd;
+  border: 3px solid #aaa;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 30px;
+  width: 500px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  -webkit-transition: 0.5s all ease;
+  -o-transition: 0.5s all ease;
+  -moz-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+}
+.lp-contacts__switch:checked + .b-consult__body {
+  right: -500px;
+}
+.b-consult__title {
+  font: 700 16px/2 Arial;
+  width: 120px;
+  position: absolute;
+  top: 45px;
+  right: -158px;
+  -webkit-transform-origin: left top 0;
+     -moz-transform-origin: left top 0;
+      -ms-transform-origin: left top 0;
+       -o-transform-origin: left top 0;
+          transform-origin: left top 0;
+  -webkit-transform: rotate(90deg);
+     -moz-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+       -o-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+.b-consult__switcher {
+  display: none;
+}
 @charset "UTF-8";
 html,
 body,
@@ -536,6 +581,44 @@ a:hover,
 a:focus {
   color: #777;
   text-decoration: underline;
+}
+#move_up {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  display: block;
+  color: transparent;
+  background-color: rgba(242,161,57,0.58);
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+          border-radius: 50%;
+  -webkit-box-shadow: 1px 1px 1px 1px #888;
+     -moz-box-shadow: 1px 1px 1px 1px #888;
+          box-shadow: 1px 1px 1px 1px #888;
+  opacity: 1;
+  -webkit-transition: 0.5s opacity ease;
+  -o-transition: 0.5s opacity ease;
+  -moz-transition: 0.5s opacity ease;
+  transition: 0.5s opacity ease;
+}
+#move_up::after {
+  content: '';
+  border-right: 2px solid #888;
+  border-top: 2px solid #888;
+  display: block;
+  height: 30px;
+  width: 30px;
+  -webkit-transform: rotate(-45deg);
+     -moz-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+       -o-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  margin: 10px auto;
+}
+#move_up:hover {
+  opacity: 0.7;
 }
 .img-responsive {
   display: block;
@@ -4104,6 +4187,11 @@ input[type="button"].btn-block {
   color: #000;
   text-transform: uppercase;
   margin: -10px -15px 18px;
+}
+@media (max-width: 766px) {
+  .breadcrumb {
+    margin: -10px 0 18px;
+  }
 }
 .breadcrumb >li {
   display: inline-block;

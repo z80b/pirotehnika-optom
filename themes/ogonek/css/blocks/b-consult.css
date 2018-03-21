@@ -1,0 +1,45 @@
+.b-consult {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  z-index: 10;
+}
+.b-consult__body {
+  background-color: #ddd;
+  border: 3px solid #aaa;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 30px;
+  width: 500px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  -webkit-transition: 0.5s all ease;
+  -o-transition: 0.5s all ease;
+  -moz-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+}
+.lp-contacts__switch:checked + .b-consult__body {
+  right: -500px;
+}
+.b-consult__title {
+  font: 700 16px/2 Arial;
+  width: 120px;
+  position: absolute;
+  top: 45px;
+  right: -158px;
+  -webkit-transform-origin: left top 0;
+     -moz-transform-origin: left top 0;
+      -ms-transform-origin: left top 0;
+       -o-transform-origin: left top 0;
+          transform-origin: left top 0;
+  -webkit-transform: rotate(90deg);
+     -moz-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+       -o-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+.b-consult__switcher {
+  display: none;
+}

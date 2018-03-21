@@ -108,51 +108,9 @@
 		{/if}
 		</div>
 {/if}
-
-{if $page_name !== 'index'}
-{if $page_name !== 'order'}
-<div class="consult">
-<div class="container">
-
-
-<div class="consult-b col-xs-12 col-sm-8">
-<div class="consult-title">Возникли вопросы? </div>
-Обращайтесь за консультацией специалистов
-</div>
-
-<div class="clear"></div>
-<div class="col-xs-12 col-sm-4" style="margin: 0 auto;">
-<a href="/contact-us">Получить консультацию</a>
-</div>
-</div>
-</div>
+{if $page_name !== 'index' && $page_name !== 'order'}
+	{include file="$tpl_dir./consult.tpl"}
 {/if}
-{/if}
-<style>
- /* Button style */ 
-    a#move_up {
-        position        : fixed;
-        top			    : 10px;
-		right            : 10px;
-        width           : 50px;
-        height          : 2221px;
-        display         : none;
-        text-align      : center;
-        font            : 12px Verdana;
-        text-decoration : none;
-        color           : #ff0000;
-        background      : #e1e7ed;
-        padding-top     : 5px;
-        opacity         : 0.5;
-        filter          : alpha(opacity = 90);
-    }
-
-    a#move_up:hover {
-        color      : #fff;
-        background : #597da3;
-    }
-</style>
-
 
 <script type="text/javascript">
 

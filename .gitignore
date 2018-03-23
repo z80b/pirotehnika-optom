@@ -4,6 +4,9 @@
 !package.json
 !gulpfile.js
 
+!/controllers
+!/controllers/*
+!/controllers/**
 
 !/themes/ogonek
 !/themes/ogonek/*

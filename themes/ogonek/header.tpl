@@ -145,9 +145,7 @@ $(document).ready(function() {
 										</div>
 
 										<div class="slogan col-sm-9 col-xs-12" >
-											<h1 style="color:gray; font-size: 45px;">Первый оптовый</h1>
-                                            <h1 style="color:gray; font-size: 45px;">интернет-магазин пиротехники</h1>
-                                            <h1 style="color:gray; font-size: 45px;">с доставкой по России</h1>
+											<h1 class="b-header__title">Первый оптовый<br/>интернет-магазин пиротехники<br/>с доставкой по России</h1>
 										</div>
 									</div>
 

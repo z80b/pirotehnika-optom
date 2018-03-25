@@ -8,6 +8,11 @@
 !/controllers/*
 !/controllers/**
 
+!/modules/blocktopmenu
+!/modules/blocktopmenu/*
+!/modules/blocktopmenu/**
+!/modules
+
 !/themes/ogonek
 !/themes/ogonek/*
 !/themes/ogonek/**

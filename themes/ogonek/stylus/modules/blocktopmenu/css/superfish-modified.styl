@@ -35,7 +35,27 @@ $sf-menu-base
             
             .page--index &
                 border-radius 10px
-            
+                
+            &__link
+                &--active
+                    background-color #a83324
+                
+            &__item
+                &:first-child
+                    .sf-menu__link
+                        border-radius 10px 0 0 0
+                    
+                        .page--index &
+                            border-radius 10px 0 0 10px
+                        
+                &:last-child
+                    .sf-menu__link
+                        border-radius 0 10px 0 0
+                    
+                        .page--index &
+                            border-radius 0 10px 10px 0
+                    
+
             li
                 display table-cell
                 border-right 1px solid #fff
@@ -134,3 +154,4 @@ $sf-menu-base
                     
                 li
                     padding 0 0 0 34px
+        

@@ -29,6 +29,7 @@
 		<input type="hidden" name="orderby" value="position" />
 		<input type="hidden" name="orderway" value="desc" />
 		<input class="search_query form-control" type="text" id="search_query_top" name="search_query" placeholder="{l s='Search' mod='blocksearch'}" value="{$search_query|escape:'htmlall':'UTF-8'|stripslashes}" />
+		<button class="search_submit btn button-search" type="submit"></button>
 	</form>
 </div>
 <!-- /Block search module TOP -->

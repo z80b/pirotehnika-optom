@@ -27,22 +27,22 @@ $(document).ready(function(){
 	if ('ontouchstart' in document.documentElement)
 		is_touch_enabled = true;
 
-	$(document).on('click', '#header .shopping_cart > a:first', function(e){
-		e.preventDefault();
-		e.stopPropagation();
+	// $(document).on('click', '#header .shopping_cart > a:first', function(e){
+	// 	e.preventDefault();
+	// 	e.stopPropagation();
 
-		// Simulate hover when browser says device is touch based
-		if (is_touch_enabled)
-		{
-			if ($(this).next('.cart_block:visible').length && !cart_block.isHoveringOver())
-				$("#header .cart_block").stop(true, true).slideUp(450);
-			else if (ajaxCart.nb_total_products > 0 || parseInt($('.ajax_cart_quantity').html()) > 0)
-				$("#header .cart_block").stop(true, true).slideDown(450);
-			return;
-		}
-		else
-			window.location.href = $(this).attr('href');
-	});
+	// 	// Simulate hover when browser says device is touch based
+	// 	if (is_touch_enabled)
+	// 	{
+	// 		if ($(this).next('.cart_block:visible').length && !cart_block.isHoveringOver())
+	// 			$("#header .cart_block").stop(true, true).slideUp(450);
+	// 		else if (ajaxCart.nb_total_products > 0 || parseInt($('.ajax_cart_quantity').html()) > 0)
+	// 			$("#header .cart_block").stop(true, true).slideDown(450);
+	// 		return;
+	// 	}
+	// 	else
+	// 		window.location.href = $(this).attr('href');
+	// });
 
 	$("#header .shopping_cart a:first").hover(
 		function(){

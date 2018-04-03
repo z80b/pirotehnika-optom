@@ -26,9 +26,10 @@
 
 <!-- MODULE Block contact infos -->
 <section class="ps-head__contacts ps-contacts">
+    <div class="ps-contacts__info">пн-пт 10:00 - 17:00 Мск</div>
     <div class="ps-contacts__phone">
         {$blockcontactinfos_phone|escape:'html':'UTF-8'}
     </div>
-    <div class="ps-contacts__info">пн-пт 9:00 - 20:00</div>
+    <div class="ps-contacts__info">звонок бесплатный по России</div>
     <a class="ps-contacts__button" href="/contact-us">Свяжитесь с нами</a>
 </section>

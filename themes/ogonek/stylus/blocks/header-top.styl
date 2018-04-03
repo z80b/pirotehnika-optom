@@ -1,0 +1,61 @@
+.ps-head
+    display table
+    box-sizing border-box
+    width 100%
+    margin 0 auto
+    
+    @media (max-width 766px)
+        padding 0 15px
+    
+    &::after
+        content ''
+        display table
+        clear both
+    
+    &__block
+        display table-cell
+        vertical-align top
+        
+    &__logo
+        display block
+        size 160px 125px
+        background 50% 50% no-repeat
+        background-size 152px auto
+        transition .5s all ease
+        
+        &:hover
+            background-size 160px auto
+            
+        
+    &__title
+        text-align center
+        
+        @media (max-width 766px)
+            display none
+            
+    &__title, &__logo
+        &-block
+            @media (max-width 766px)
+                width 50%
+                
+    &__contacts
+        display inline-block
+        
+        &-block
+            text-align right
+        
+    &__cart
+        padding 0
+        height 40px
+        overflow hidden
+        
+        @media (max-width 766px)
+            padding 0 15px
+        
+        
+        .shopping_cart
+            width 195px
+        
+            @media (max-width 766px)
+                width auto
+                float none !important

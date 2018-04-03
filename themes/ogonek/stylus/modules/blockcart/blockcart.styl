@@ -1,0 +1,569 @@
+$color-1 = #fff
+$color-2 = #86d2e9
+$color-3 = #686666
+$color-4 = #777
+$color-5 = #515151
+$color-6 = #9c9b9b
+$color-7 = #333
+$color-8 = #d6d4d4
+$color-9 = #493f29
+$color-10 = #f3aa38
+$color-11 = #f1b347
+$color-12 = #000
+$color-13 = #ff0303
+$color-14 = #c20d0d
+$color-15 = #dedede
+$color-16 = #46a74e
+$color-17 = #fafafa
+$color-18 = #c0c0c0
+$color-19 = #7ac8df
+
+#header
+    .shopping_cart
+        position relative
+        float right
+
+        a
+            &:hover
+                background-color $color-19
+
+    .cart_block
+        position absolute
+        background $color-1
+        border 2px solid $color-10
+        right 0
+        display none
+        line-height 20px
+        width 390px
+        padding 5px
+        z-index 999
+        top 55px
+
+        a
+            color $color-12
+
+            &:hover
+                color $color-6
+
+        .price
+            color $color-12
+
+        dt
+            border-bottom 1px dashed $color-15
+
+            &.first_item
+                background none
+
+        .product-atributes
+            padding-bottom 10px
+            font-size 11px
+
+            a
+                color $color-6
+
+                &:hover
+                    color $color-1
+
+        .cart-prices
+            border none
+
+
+    .block_content
+        margin-bottom 0
+
+.ajax_cart_no_product
+    font-style italic
+    display none
+
+.shopping_cart
+    >a
+        &:first-child
+            right 0
+            top 60px
+            cursor pointer
+            border-radius 10px
+            height 40px
+            display block
+            line-height 40px
+            color $color-1
+            font-size 14px
+            padding 0 15px 0 50px
+            background $color-2 url(../../../img/ogonek/cart.png) no-repeat 13px center
+            background-color $color-2
+
+            b
+                color $color-1
+                font 400 15px "Open Sans", sans-serif
+                padding-right 5px
+
+
+    .ajax_cart_total
+        display none !important
+
+    .block_cart_collapse
+        &:after
+            content "\f0d8"
+            padding 4px 0px 2px 0px
+
+@media (max-width: 480px)
+    .shopping_cart
+        border-radius none
+
+    #header
+        .cart_block
+            width 100%
+
+    #layer_cart
+        .layer_cart_product
+            .product-image-container
+                float none
+                margin-right 0
+                margin-bottom 10px
+
+@media (max-width: 1200px)
+    .shopping_cart
+        margin 0 auto
+        float none
+        width 100%
+
+    #header
+        .cart_block
+            width 100%
+
+@media (min-width: 768px) and (max-width: 991px)
+    .shopping_cart > a:first-child span.ajax_cart_product_txt
+    .shopping_cart > a:first-child span.ajax_cart_product_txt_s
+        display none !important
+
+.shopping_cart .block_cart_expand:after
+.shopping_cart .block_cart_collapse:after
+    content "\f0d7"
+    font-family "FontAwesome"
+    display inline-block
+    float right
+    font-size 18px
+    color $color-3
+    padding 6px 0 0 0
+
+.cart_block
+    .cart_block_list
+        .remove_link
+            position absolute
+            right 10px
+            top 50px
+
+    .cart-images
+        float left
+        margin-right 20px
+
+    .cart-info
+        overflow hidden
+        position relative
+        padding-right 20px
+
+        .product-name
+            padding-bottom 5px
+            margin-top -4px
+
+            a
+                font-size 13px
+                line-height 18px
+                display inline-block
+
+        .quantity-formated
+            display inline-block
+            color $color-6
+            text-transform uppercase
+            font-size 10px
+            padding-right 5px
+
+            .quantity
+                font-size 15px
+
+    dt
+        font-weight normal
+        overflow hidden
+        padding 20px 10px 16px 20px
+        position relative
+
+    dd
+        position relative
+
+        .cart_block_customizations
+            border-top 1px dashed $color-7
+
+            li
+                padding 10px 20px
+
+                .deleteCustomizableProduct
+                    position absolute
+                    right 10px
+
+    .cart_block_no_products
+        margin 0
+        padding 10px 20px
+
+    .cart-prices
+        border-top 1px solid $color-8
+        font-weight bold
+        padding 0px 20px 22px 20px
+
+        .cart-prices-line
+            overflow hidden
+            padding 7px 0
+
+            &.last-line
+                border none
+
+    .cart-buttons
+        overflow hidden
+        padding 0px 20px 0px 20px
+        margin 0
+
+        a
+            width 100%
+            float left
+            text-align center
+            margin-bottom 10px
+            margin-right 10px
+
+            &#button_order_cart
+                margin-right 0
+                border none
+
+                span
+                    text-transform uppercase
+                    color $color-9
+                    padding 7px 0
+                    font-size 1.1em
+                    border solid 1px $color-10
+                    background $color-10
+                    border-radius 10px
+                    font-size 14px
+                    font-weight 600
+                    text-decoration none
+
+                &:hover
+                    span
+                        border solid 1px $color-11
+                        background $color-11
+
+    table
+        &.vouchers
+            clear both
+            width 80%
+            margin 0 auto
+            margin-bottom 10px
+
+            tr
+                td
+                    padding 2px
+
+                    &.quantity
+                        margin-right 5px
+                        min-width 18px
+
+                    &.delete
+                        padding-left 0
+                        padding-right 0
+                        text-align right
+                        width 15px
+
+.cart_block .cart_block_list .remove_link a
+.cart_block .cart_block_list .ajax_cart_block_remove_link
+    color $color-4
+    display block
+    width 100%
+    height 100%
+
+.cart_block .cart_block_list .remove_link a:hover
+.cart_block .cart_block_list .ajax_cart_block_remove_link:hover
+    color $color-5
+
+#header .cart_block .cart_block_list .remove_link a
+#header .cart_block .cart_block_list .ajax_cart_block_remove_link
+    color $color-13
+    outline none
+    text-decoration none
+
+#header .cart_block .cart_block_list .remove_link a:hover
+#header .cart_block .cart_block_list .ajax_cart_block_remove_link:hover
+    color $color-14
+
+.cart_block #cart_block_summary
+.cart_block .title_block span
+#header .cart_block h4
+#header .cart_block .title_block
+#header .cart_block h4
+    display none
+
+.cart_block .cart_block_shipping_cost
+.cart_block .cart_block_tax_cost
+.cart_block .cart_block_total
+.cart_block .cart_block_wrapping_cost
+    float right
+
+.layer_cart_overlay
+    background-color $color-12
+    display none
+    height 100%
+    left 0
+    position fixed
+    top 0
+    width 100%
+    z-index 98
+    opacity 0.2
+
+*
+    html
+        .layer_cart_overlay
+            position absolute
+            left 0
+            margin-left -160px
+            opacity 0.2
+
+#layer_cart
+    background-color $color-1
+    position absolute
+    display none
+    z-index 100
+    width 84%
+    margin-right 8%
+    margin-left 8%
+    border-radius 4px
+
+    .layer_cart_product
+        padding 30px 30px 30px 30px
+        overflow hidden
+        position static
+
+        .title
+            display block
+            font 400 23px/29px Arial, Helvetica, sans-serif
+            color $color-16
+            margin-bottom 22px
+
+            i
+                font-size 30px
+                line-height 30px
+                float left
+                padding-right 8px
+
+        .product-image-container
+            max-width 178px
+            border 1px solid $color-8
+            padding 5px
+            float left
+            margin-right 30px
+
+        .layer_cart_product_info
+            padding 38px 0 0 0
+
+            #layer_cart_product_title
+                display block
+                padding-bottom 8px
+
+            >div
+                padding-bottom 7px
+
+                strong
+                    padding-right 3px
+
+    .layer_cart_cart
+        background $color-17
+        border-left 1px solid $color-8
+        padding 21px 30px 170px 30px
+        border-radius 0px 4px 4px 0px
+        border-radius 0px
+        position relative
+
+        .title
+            display block
+            font 400 23px/29px Arial, Helvetica, sans-serif
+            color $color-7
+            border-bottom 1px solid $color-8
+            padding-bottom 13px
+            margin-bottom 17px
+
+        .layer_cart_row
+            padding 0 0 7px 0
+
+        .button-container
+            position absolute
+            bottom 0
+            left 0
+            width 100%
+            padding 0px 30px 20px 30px
+
+            .btn
+                margin-bottom 10px
+
+            span
+                &.exclusive-medium
+                    margin-right 5px
+
+                    i
+                        padding-right 5px
+                        color $color-4
+
+    .cross
+        position absolute
+        right 7px
+        top 8px
+        width 25px
+        height 25px
+        cursor pointer
+        color $color-7
+        z-index 2
+
+        &:before
+            content "\f057"
+            display block
+            font-family "FontAwesome"
+            font-size 25px
+            line-height 25px
+
+        &:hover
+            color $color-5
+
+    .continue
+        cursor pointer
+
+    p
+        padding 0px
+
+    .crossseling
+        .crossseling-content
+            border-top 1px solid $color-8
+            padding 26px 30px 40px 30px
+            position relative
+
+        h2
+            font 400 23px/26px Arial, Helvetica, sans-serif
+            color $color-7
+            margin-bottom 25px
+
+        #blockcart_list
+            max-width 773px
+            width 84%
+            margin 0 auto
+            overflow hidden
+
+            ul
+                display block
+
+                li
+                    float left
+                    width 178px
+                    margin 0 0px 0 0
+
+                    .product-image-container
+                        border 1px solid $color-8
+                        text-align center
+                        padding 5px
+                        margin-bottom 15px
+
+                        img
+                            width 100%
+
+                    .product-name
+                        padding-bottom 5px
+
+                        a
+                            font-size 15px
+                            line-height 20px
+
+            a
+                &.bx-prev
+                    left 5%
+
+                    &:after
+                        content "\f137"
+
+                &.bx-next
+                    right 5%
+
+                    &:after
+                        content "\f138"
+
+            .bx-controls
+                overflow hidden
+
+@media (max-width: 767px)
+    #layer_cart
+        .layer_cart_product
+            .title
+                font-size 18px
+                padding-right 0
+                line-height normal
+
+                i
+                    font-size 22px
+                    line-height 22px
+
+        .layer_cart_cart
+            .title
+                font-size 18px
+
+@media (min-width: 1200px)
+    #layer_cart
+        .layer_cart_cart
+            min-height 318px
+
+@media (min-width: 992px) and (max-width: 1199px)
+    #layer_cart
+        .layer_cart_cart
+            min-height 360px
+
+@media (max-width: 991px)
+    #layer_cart
+        .layer_cart_cart
+            border-radius 0px 0 4px 4px
+            border-radius 0px
+            border-left none
+            border-top 1px solid $color-8
+
+#layer_cart .crossseling #blockcart_list a.bx-prev
+#layer_cart .crossseling #blockcart_list a.bx-next
+    display block
+    font-family "FontAwesome"
+    font-size 20px
+    line-height 20px
+    width 20px
+    height 20px
+    color $color-7
+    text-indent -5000px
+    position absolute
+    top 45%
+    margin-top -20px
+
+#layer_cart .crossseling #blockcart_list a.bx-prev:after
+#layer_cart .crossseling #blockcart_list a.bx-next:after
+    display block
+    text-indent 0
+
+#layer_cart .crossseling #blockcart_list a.bx-prev:hover
+#layer_cart .crossseling #blockcart_list a.bx-next:hover
+    color $color-18
+
+#layer_cart .crossseling #blockcart_list a.bx-prev.disabled
+#layer_cart .crossseling #blockcart_list a.bx-next.disabled
+    display none
+
+#header .shopping_cart a span.ajax_cart_quantity
+#header .shopping_cart a span.ajax_cart_prod_num
+    font-weight 700
+    border-left 1px solid $color-1
+    padding 0 15px 0 15px
+    margin 0 0 0 15px
+    background $color-2 url(../../../img/ogonek/arrow.png) no-repeat right center
+    float right
+    display inline-block
+
+#header .shopping_cart a:hover span.ajax_cart_quantity
+#header .shopping_cart a:hover span.ajax_cart_prod_num
+    background $color-19 url(../../../img/ogonek/arrow10.png) no-repeat right center
+
+#header .shopping_cart a span.ajax_cart_product_txt
+#header .shopping_cart a span.ajax_cart_product_txt_s
+    display none

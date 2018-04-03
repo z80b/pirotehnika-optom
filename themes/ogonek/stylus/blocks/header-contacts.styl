@@ -1,0 +1,32 @@
+$ps_orange = #f3aa38
+$ps_grey = #666
+
+.ps-contacts
+    display block
+    text-align center
+    
+    &__phone
+        font 700 24px/2 'Open Sans', sans-serif
+        color $ps_orange
+        white-space nowrap
+        
+    &__info
+        font 700 14px/2 'Open Sans', sans-serif
+        color $ps_grey
+        
+    &__button
+        display inline-block
+        font 700 16px/2 'Open Sans', sans-serif
+        text-decoration none
+        color $ps_orange
+        background-color white
+        border solid 1px $ps_orange
+        margin 10px auto
+        padding 0 15px
+        transition .5s all ease
+        
+        &:hover
+            color white
+            background-color $ps_orange
+            text-decoration none
+        

@@ -25,18 +25,10 @@
 *}
 
 <!-- MODULE Block contact infos -->
-<section id="block_contact_infos" class="header-block col-xs-12 col-sm-3 mt-20">
-    <div class="out_box">
-        <div class="phone">
-            {if $blockcontactinfos_phone != ''}
-                <div>
-                    <span></span>{$blockcontactinfos_phone|escape:'html':'UTF-8'}
-                </div>
-            {/if}
-        </div>
- <!--        <p class="fs-18">(Звонок бесплатный)</p>
- -->        <a class="contactUsBtn" href="/contact-us">Свяжитесь с нами</a>
-        <div class="clearfix"></div>
+<section class="ps-head__contacts ps-contacts">
+    <div class="ps-contacts__phone">
+        {$blockcontactinfos_phone|escape:'html':'UTF-8'}
     </div>
-<!--Закрывается в другом модуле: blockcart>
-<!-- /MODULE Block contact infos -->
+    <div class="ps-contacts__info">пн-пт 9:00 - 20:00</div>
+    <a class="ps-contacts__button" href="/contact-us">Свяжитесь с нами</a>
+</section>

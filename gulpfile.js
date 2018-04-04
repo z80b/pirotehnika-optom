@@ -111,7 +111,7 @@ gulp.task('deploy', function() {
         if (err) throw err;
         ftpConf.log = console.log;
         var conn = ftp.create(ftpConf);
-        var files = stdout.split("/n");
+        var files = stdout.split("\n");
         return gulp.src( files, { base: '.', buffer: true } )
             .pipe(conn.dest('/pirotehnika-optom.ru/public_html'));
 

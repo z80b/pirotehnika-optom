@@ -61,13 +61,14 @@ gulp.task('theme_styles', function() {
         autoprefixer = require('gulp-autoprefixer'),
         cleanCSS     = require('gulp-clean-css'),
         rename       = require('gulp-rename'),
+        ignore       = require('gulp-ignore'),
         bootstrap    = require('bootstrap-styl'),
         axis         = require('axis'),
         __basedir      = __dirname;
 
     return gulp.src([
         './themes/ogonek/stylus/**/*.styl',
-        '!./themes/ogonek/stylus/blocks/'])
+        '!./themes/ogonek/stylus/blocks/*.styl'])
         .pipe(stylus({
             'include css': true,
             'import': [
@@ -100,6 +101,22 @@ gulp.task('sass', function() {
 });
 
 gulp.task('build', ['styles', 'scripts']);
+
+gulp.task('deploy', function() {
+    var git =     require('gulp-git'),
+        ftpConf = require('./ftp.json'),
+        ftp =     require( 'vinyl-ftp' );
+  
+    git.exec({args : 'diff --name-only HEAD^..HEAD'}, function (err, stdout) {
+        if (err) throw err;
+        ftpConf.log = console.log;
+        var conn = ftp.create(ftpConf);
+        var files = stdout.split("/n");
+        return gulp.src( files, { base: '.', buffer: true } )
+            .pipe(conn.dest('/pirotehnika-optom.ru/public_html'));
+
+    });
+});
 
 gulp.task('default', ['styles', 'scripts'], function() {
     gulp.watch('./src/css/**/*.styl', ['styles']);

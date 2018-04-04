@@ -42,6 +42,29 @@
        -moz-border-radius: 10px;
             border-radius: 10px;
   }
+  .sf-contener .sf-menu__link--active {
+    background-color: #a83324;
+  }
+  .sf-contener .sf-menu__item:first-child .sf-menu__link {
+    -webkit-border-radius: 10px 0 0 0;
+       -moz-border-radius: 10px 0 0 0;
+            border-radius: 10px 0 0 0;
+  }
+  .page--index .sf-contener .sf-menu__item:first-child .sf-menu__link {
+    -webkit-border-radius: 10px 0 0 10px;
+       -moz-border-radius: 10px 0 0 10px;
+            border-radius: 10px 0 0 10px;
+  }
+  .sf-contener .sf-menu__item:last-child .sf-menu__link {
+    -webkit-border-radius: 0 10px 0 0;
+       -moz-border-radius: 0 10px 0 0;
+            border-radius: 0 10px 0 0;
+  }
+  .page--index .sf-contener .sf-menu__item:last-child .sf-menu__link {
+    -webkit-border-radius: 0 10px 10px 0;
+       -moz-border-radius: 0 10px 10px 0;
+            border-radius: 0 10px 10px 0;
+  }
   .sf-contener .sf-menu li {
     display: table-cell;
     border-right: 1px solid #fff;
@@ -52,6 +75,9 @@
   .sf-contener .sf-menu li a {
     text-align: center;
     position: relative;
+  }
+  .sf-contener .sf-menu li a.sf-with-ul {
+    padding: 17px 10px 17px 0;
   }
   .sf-contener .sf-menu li a.sf-with-ul::after {
     content: '';

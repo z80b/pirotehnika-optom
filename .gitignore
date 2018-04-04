@@ -8,10 +8,13 @@
 !/controllers/*
 !/controllers/**
 
-!/modules/blocktopmenu
-!/modules/blocktopmenu/*
-!/modules/blocktopmenu/**
 !/modules
+!/modules/*
+!/modules/**
+
+!/override
+!/override/*
+!/override/**
 
 !/themes/ogonek
 !/themes/ogonek/*

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>invoicepayru</name>
+	<displayName><![CDATA[Invoice pay]]></displayName>
+	<version><![CDATA[0.1]]></version>
+	<description><![CDATA[Displayed an invoice pay (Russia)]]></description>
+	<author><![CDATA[PrestaDev.ru]]></author>
+	<tab><![CDATA[administration]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

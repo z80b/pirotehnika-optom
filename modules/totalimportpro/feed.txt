@@ -1,0 +1,2 @@
+id;name;price;cost_price;manufacturer;category;sub_category;image;weight;height;width;description;seo_keyword
+D7404;"Заколдованный замок (1,2""x19)";2340;1053;Диво Фейерверк;9;107,114;https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0ByUCjP2WhgNKeEJtU25mMkVkWjg;230;195;170;A test product;"Заколдованный замок (1,2""x19)Диво Фейерверк"

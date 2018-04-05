@@ -16,6 +16,10 @@
         display table-cell
         vertical-align top
         
+        &--button
+            text-align right
+            width 195px
+        
     &__logo
         display block
         size 160px 125px
@@ -23,26 +27,38 @@
         background-size 152px auto
         transition .5s all ease
         
+        &-block
+            width 160px
+        
         &:hover
             background-size 160px auto
+            
+        .ps-head--noindex &
+            height 64px
             
         
     &__title
         text-align center
         
+        @media (max-width 995px)
+            font-size 26px
+        
         @media (max-width 766px)
             display none
             
-    &__title, &__logo
-        &-block
-            @media (max-width 766px)
-                width 50%
+    &__title-block
+        @media (max-width 766px)
+            width 50%
                 
     &__contacts
         display inline-block
         
         &-block
             text-align right
+            
+            
+            .ps-head--noindex &
+                text-align center
         
     &__cart
         padding 0

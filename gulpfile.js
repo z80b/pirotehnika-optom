@@ -61,7 +61,6 @@ gulp.task('theme_styles', function() {
         autoprefixer = require('gulp-autoprefixer'),
         cleanCSS     = require('gulp-clean-css'),
         rename       = require('gulp-rename'),
-        ignore       = require('gulp-ignore'),
         bootstrap    = require('bootstrap-styl'),
         axis         = require('axis'),
         __basedir      = __dirname;

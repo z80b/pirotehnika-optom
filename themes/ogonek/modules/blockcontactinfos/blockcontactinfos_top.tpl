@@ -31,5 +31,7 @@
         {$blockcontactinfos_phone|escape:'html':'UTF-8'}
     </div>
     <div class="ps-contacts__info">звонок бесплатный по России</div>
+    {if $page_name =='index'}
     <a class="ps-contacts__button" href="/contact-us">Свяжитесь с нами</a>
+    {/if}
 </section>

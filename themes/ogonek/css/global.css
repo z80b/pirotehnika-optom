@@ -8279,6 +8279,14 @@ table.table_block td {
   margin-bottom: 30px;
   overflow: hidden;
 }
+.page-heading__wrapper {
+  padding: 0 0 15px;
+}
+.page-heading__wrapper::after {
+  content: '';
+  clear: both;
+  display: table;
+}
 .page-heading span.heading-counter {
   font: bold 13px/22px Arial, Helvetica, sans-serif;
   float: right;
@@ -8295,7 +8303,9 @@ table.table_block td {
 }
 .page-heading.product-listing {
   border-bottom: none;
-  margin-bottom: 0;
+  margin: 0;
+  padding: 0;
+  float: left;
 }
 .page-subheading {
   font-family: "Open Sans", sans-serif;
@@ -10836,6 +10846,9 @@ input[type='number'] {
 .b-header__title {
   font: 500 32px/1.6 Arial, Helvetica, sans-serif;
   color: #808080;
+}
+.ps-sort__display-type {
+  margin: 0;
 }
 @-moz-keyframes progress-bar-stripes {
   from {

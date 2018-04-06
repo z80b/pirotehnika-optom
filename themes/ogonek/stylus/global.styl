@@ -8682,6 +8682,15 @@ table.table_block td
     text-transform uppercase
     margin-bottom 30px
     overflow hidden
+    
+    &__wrapper
+        padding 0 0 15px
+        
+        &::after
+            content ''
+            clear both
+            display table
+        
 
     span
         &.heading-counter
@@ -8700,7 +8709,9 @@ table.table_block td
 
     &.product-listing
         border-bottom none
-        margin-bottom 0
+        margin 0
+        padding 0
+        float left
 
 .page-subheading
     font-family "Open Sans", sans-serif

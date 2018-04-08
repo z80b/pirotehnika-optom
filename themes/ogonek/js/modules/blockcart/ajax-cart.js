@@ -44,6 +44,10 @@ $(document).ready(function(){
 	// 		window.location.href = $(this).attr('href');
 	// });
 
+	$("#header .shopping_cart a:first").click(function() {
+		if (ajaxCart.nb_total_products <= 0) return false;
+	});
+
 	$("#header .shopping_cart a:first").hover(
 		function(){
 			if (ajaxCart.nb_total_products > 0 || parseInt($('.ajax_cart_quantity').html()) > 0)

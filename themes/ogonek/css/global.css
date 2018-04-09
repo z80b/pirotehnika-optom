@@ -10722,6 +10722,9 @@ input[type='number'] {
   background-color: #f3aa38;
   text-decoration: none;
 }
+.ulogin-header {
+  display: none;
+}
 .ps-head {
   display: table;
   -webkit-box-sizing: border-box;

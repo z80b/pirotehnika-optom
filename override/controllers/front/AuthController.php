@@ -3,7 +3,7 @@ class AuthController extends AuthControllerCore
 {
 	/*
     * module: ulogin
-    * date: 2018-04-07 01:01:04
+    * date: 2018-04-09 13:44:20
     * version: 0.8
     */
     public function preProcess()

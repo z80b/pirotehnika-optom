@@ -32,20 +32,22 @@ $(document).ready(function()
 	var $input = $("#search_query_" + blocksearch_type);
 
 	var width_ac_results = 	$input.parent('form').outerWidth();
+	console.log(width_ac_results);
 	if (typeof ajaxsearch != 'undefined' && ajaxsearch) {
 		$input.autocomplete(
 			search_url,
 			{
 				minChars: 3,
-				max: 10,
+				max: 34,
 				width: (width_ac_results > 0 ? width_ac_results : 500),
 				selectFirst: false,
-				scroll: false,
+				scroll: true,
 				dataType: "json",
 				formatItem: function(data, i, max, value, term) {
-					return value;
+					return '<div class="ac_results__block"><img class="ac_results__image" src="'+ data.image +'"/><span class="ac_results__value">'+ value +'</span></div>';
 				},
 				parse: function(data) {
+					console.log(data);
 					var mytab = [];
 					for (var i = 0; i < data.length; i++)
 						mytab[mytab.length] = { data: data[i], value: data[i].cname + ' > ' + data[i].pname };

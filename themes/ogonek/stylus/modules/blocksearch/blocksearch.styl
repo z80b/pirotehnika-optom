@@ -60,24 +60,77 @@ $color-8 = #686666
         box-shadow inset 0 2px 3px $color-6
 
 .ac_results
-    background $color-2
-    border 1px solid $color-7
     width 271px
-    margin-top -1px
+    z-index 9999
 
+    &::before, &::after
+        content ''
+        position absolute
+        display inline-block
+    
+    &::before
+        top 7px
+        left 19px
+        border-right 9px solid transparent
+        border-bottom 9px solid #ccc
+        border-left 9px solid transparent
+        border-bottom-color #e6e6e6
+    
+    &::after
+        top 5px
+        left 20px
+        border-right 8px solid transparent
+        border-bottom 8px solid #fff
+        border-left 8px solid transparent
+    
+    &__block
+        clear both
+        
+        &::after
+            content ''
+            clear both
+            display table
+    
+    &__image
+        width 32px
+        vertical-align top
+        margin 0 10px 0 0
+        float left
+        
+    &__value
+        display block
+        margin 0 0 0 42px
+    
+    ul
+        position relative
+        display block
+        background $color-2
+        border none
+        box-shadow 0px 0px 10px 0px #d0d0d0
+        margin 15px 0 0
+        padding 0
+        border-radius 5px
+        
     li
-        padding 0 10px
+        display block
+        box-sizing border-box
+        padding 5px 10px
         font-weight normal
         color $color-8
-        font-size 13px
-        line-height 22px
+        font-size 12px
+        line-height 16px
+        min-height 42px
+        cursor pointer
+        
+        &:first-child, &:last-child
+            padding 10px
 
         &.ac_odd
-            background $color-2
+            background rgba(253, 167, 2, 0.1)
 
 .ac_results li:hover
 .ac_results li.ac_over
-    background $color-4
+    background rgba(253, 167, 2, 0.2)
 
 form
     &#searchbox

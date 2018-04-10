@@ -56,11 +56,17 @@ class SearchControllerCore extends FrontController
     {
         $original_query = Tools::getValue('q');
         $query = Tools::replaceAccentedChars(urldecode($original_query));
+        $limit = Tools::getValue('limit');
+        $lang = Tools::getValue('id_lang');
         if ($this->ajax_search) {
-            $searchResults = Search::find((int)(Tools::getValue('id_lang')), $query, 1, 10, 'position', 'desc', true);
+            $searchResults = Search::find((int)(Tools::getValue('id_lang')), $query, 1, $limit, 'position', 'desc', true);
             if (is_array($searchResults)) {
                 foreach ($searchResults as &$product) {
                     $product['product_link'] = $this->context->link->getProductLink($product['id_product'], $product['prewrite'], $product['crewrite']);
+                    if ($id_image = Product::getCover((int)$product['id_product'])) {
+                        $productObj = new Product((int)$product['id_product'], false, (int)$lang);
+                        $product['image'] = $this->context->link->getImageLink($productObj->link_rewrite, $productObj->id.'-'.(int)$id_image['id_image'], 'small_default');
+                    }
                 }
                 Hook::exec('actionSearch', array('expr' => $query, 'total' => count($searchResults)));
             }

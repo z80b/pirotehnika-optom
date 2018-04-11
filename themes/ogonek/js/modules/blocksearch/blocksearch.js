@@ -24,6 +24,7 @@
 */
 
 var instantSearchQueries = [];
+
 $(document).ready(function()
 {
 	if (typeof blocksearch_type == 'undefined')
@@ -57,9 +58,6 @@ $(document).ready(function()
 				extraParams: {
 					ajaxSearch: 1,
 					id_lang: id_lang
-				},
-				result: function(data) {
-					console.log('result', data);
 				}
 			}
 		)

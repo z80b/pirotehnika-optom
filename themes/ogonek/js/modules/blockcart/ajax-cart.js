@@ -1281,7 +1281,7 @@ function fancyChangeProductCountInCart(e, productId, inputEl, total){
 function UpdatePriceInMenu(){//maxim.
 	localStorage.clear();
 		CategoryInfo =  $('span[categoryinfo]');
-		CategoryInfo[0].innerHTML='';
+		CategoryInfo[0] && (CategoryInfo[0].innerHTML='');
 		//обнуляем данные в меню
 		CatMass = $('span[menucatid]');
 		CountCatMass = CatMass.length;

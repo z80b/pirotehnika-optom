@@ -32,4 +32,14 @@
 		<button class="search_submit btn button-search" type="submit"></button>
 	</form>
 </div>
+<script id="_result_row" type="text/template">
+	<div class="ac_results__block">
+		<img class="ac_results__image" src="<%= image %>"/>
+		<span class="ac_results__value">
+			<span class="ac_results__cname"><%= cname %></span>
+			<span class="ac_results__pname"><%= pname %></span>
+			<span class="ac_results__price"><%= price %></span>
+		</span>
+	</div>
+</script>
 <!-- /Block search module TOP -->

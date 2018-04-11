@@ -94,9 +94,24 @@
   margin: 0 10px 0 0;
   float: left;
 }
+.ac_results__cname,
+.ac_results__pname {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+}
 .ac_results__value {
   display: block;
   margin: 0 0 0 42px;
+  font-size: 11px;
+  line-height: 12px;
+}
+.ac_results__price {
+  display: block;
+  color: #d34633;
+  font-weight: 800;
 }
 .ac_results ul {
   position: relative;
@@ -122,7 +137,7 @@
   color: #686666;
   font-size: 12px;
   line-height: 16px;
-  min-height: 42px;
+  min-height: 48px;
   cursor: pointer;
 }
 .ac_results li:first-child,

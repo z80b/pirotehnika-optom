@@ -30,9 +30,10 @@ $(document).ready(function()
 		return;
 
 	var $input = $("#search_query_" + blocksearch_type);
+	var _result_row = _.template(document.getElementById('_result_row').innerText);
 
 	var width_ac_results = 	$input.parent('form').outerWidth();
-	console.log(width_ac_results);
+
 	if (typeof ajaxsearch != 'undefined' && ajaxsearch) {
 		$input.autocomplete(
 			search_url,
@@ -40,14 +41,14 @@ $(document).ready(function()
 				minChars: 3,
 				max: 34,
 				width: (width_ac_results > 0 ? width_ac_results : 500),
+				scrollHeight: 346,
 				selectFirst: false,
 				scroll: true,
 				dataType: "json",
 				formatItem: function(data, i, max, value, term) {
-					return '<div class="ac_results__block"><img class="ac_results__image" src="'+ data.image +'"/><span class="ac_results__value">'+ value +'</span></div>';
+					return _result_row(data);
 				},
 				parse: function(data) {
-					console.log(data);
 					var mytab = [];
 					for (var i = 0; i < data.length; i++)
 						mytab[mytab.length] = { data: data[i], value: data[i].cname + ' > ' + data[i].pname };
@@ -56,6 +57,9 @@ $(document).ready(function()
 				extraParams: {
 					ajaxSearch: 1,
 					id_lang: id_lang
+				},
+				result: function(data) {
+					console.log('result', data);
 				}
 			}
 		)

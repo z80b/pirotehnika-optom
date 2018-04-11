@@ -66,6 +66,8 @@ class SearchControllerCore extends FrontController
                     if ($id_image = Product::getCover((int)$product['id_product'])) {
                         $productObj = new Product((int)$product['id_product'], false, (int)$lang);
                         $product['image'] = $this->context->link->getImageLink($productObj->link_rewrite, $productObj->id.'-'.(int)$id_image['id_image'], 'small_default');
+                        //$product['price'] = Tools::ps_round($productObj->price, 2);
+                        $product['price'] = Product::convertPrice(array('price' => $productObj->price), $smarty);
                     }
                 }
                 Hook::exec('actionSearch', array('expr' => $query, 'total' => count($searchResults)));

@@ -97,9 +97,22 @@ $color-8 = #686666
         margin 0 10px 0 0
         float left
         
+    &__cname, &__pname
+        display block
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
+        
     &__value
         display block
         margin 0 0 0 42px
+        font-size 11px
+        line-height 12px
+        
+    &__price
+        display block
+        color #d34633
+        font-weight 800
     
     ul
         position relative
@@ -119,7 +132,7 @@ $color-8 = #686666
         color $color-8
         font-size 12px
         line-height 16px
-        min-height 42px
+        min-height 48px
         cursor pointer
         
         &:first-child, &:last-child

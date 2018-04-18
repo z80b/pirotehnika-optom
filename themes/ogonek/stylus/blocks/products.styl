@@ -1,0 +1,98 @@
+.ps-products
+    display block
+    clear both
+    
+    &::after
+        content ''
+        display table
+        clear both
+    
+.ps-product
+    display block
+    position relative
+    box-sizing border-box
+    margin 1%
+    padding 1%
+    width 23%
+    min-width 200px
+    float left
+    text-align center
+    box-shadow 0 1px 2px 0 rgba(#000, 0.25)
+    cursor pointer
+    border-radius 5px
+    transition .5s box-shadow ease
+    
+    &, &:hover
+        text-decoration none
+        
+    &:hover
+        box-shadow 0 2px 5px rgba(#000, 0.3)
+    
+    &__image
+        display block
+        margin 0 auto
+        max-height 180px
+        background 50% 0 no-repeat
+        background-size contain
+        
+    &__info, &__name, &__description, &__price, &__discount
+        display block
+        
+    &__info
+        text-align left
+        
+    &__name
+        font 800 14px/2 'Open Sans', sans-serif
+        color #333
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
+        
+    &__description
+        font 100 10px/1.4 'Open Sans', sans-serif
+        color #555
+        height 6em
+        overflow hidden
+        text-overflow ellipsis
+        word-break break-word
+        
+    &__price
+        font 800 14px/1.2 'Open Sans', sans-serif
+        color #ec1818
+        
+        &--old
+            color #888
+            text-decoration line-through
+            font-weight 100
+    
+    &__discount
+        absolute top -8px right -8px
+        display block
+        font 800 15px/40px 'Open Sans', sans-serif
+        size 45px 45px
+        color #fff
+        background-color #ec1818
+        border solid 3px #fff
+        border-radius 50%
+        box-shadow 0 0 1px 0 #ec1818
+        
+    &__button
+        display block
+        size 40px 30px
+        background #f1b347 50% 50% no-repeat
+        background-size 25px
+        border-radius 5px
+        transition .5s background-color ease
+        
+        &:hover
+            background-color #ed9d12
+        
+        &--tocart
+            background-image inline-image('../../img/ogonek/cart.svg')
+            
+        &--compare
+            background-image inline-image('../../img/ogonek/compare.svg')
+
+        
+        
+        

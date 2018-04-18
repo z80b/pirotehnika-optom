@@ -6,6 +6,9 @@
         content ''
         display table
         clear both
+        
+    .ps-switch
+        display none
     
 .ps-product
     display block
@@ -14,10 +17,10 @@
     margin 1%
     padding 1%
     width 23%
+    min-width 200px
     float left
     text-align center
-    box-shadow 0 1px 2px 0 rgba(#000, 0.25)
-    cursor pointer
+    box-shadow 0 1px 4px 0 rgba(#000, 0.4)
     border-radius 5px
     transition .5s box-shadow ease
     
@@ -25,14 +28,20 @@
         text-decoration none
         
     &:hover
-        box-shadow 0 2px 5px rgba(#000, 0.3)
+        box-shadow 0 2px 8px rgba(#000, 0.6)
     
     &__image
         display block
         margin 0 auto
-        max-height 180px
+        min-height 185px
+        max-width 100%
         background 50% 0 no-repeat
         background-size contain
+        //box-shadow 0 0 1px 0px rgba(#f1b347, .5)
+        border solid 1px #f1b347
+        border-radius 5px
+        cursor pointer
+        
         
     &__info, &__name, &__description, &__price, &__discount
         display block
@@ -41,31 +50,95 @@
         text-align left
         
     &__name
-        font 800 14px/2 'Open Sans', sans-serif
+        font 800 14px/1.2 'Open Sans', sans-serif
         color #333
-        white-space nowrap
+        //white-space nowrap
+        height 2.4em
         overflow hidden
         text-overflow ellipsis
+        cursor pointer
         
     &__description
-        font 100 10px/1.4 'Open Sans', sans-serif
-        color #555
-        height 6em
-        overflow hidden
-        text-overflow ellipsis
-        word-break break-word
+        font 300 10px/1.4 'Open Sans', sans-serif
+        color #333
+        padding 0
+        
+        .ps-switch:checked + &
+            padding 12px 0
+        
+        .ps-description
+            &__button
+                @extends $form-button
+                position relative
+                display block
+                font 400 12px/2 'Open Sans', sans-serif
+                height auto
+                margin 0
+                text-align center
+                color transparent
+                cursor pointer
+                transition .2s position ease
+                
+                .ps-switch:checked + &
+                    absolute bottom 10px right 10px
+                    z-index 2
+                
+                &::after
+                    content 'Подробнее'
+                    display block
+                    absolute top 0 left 0 width 100% height 100%
+                    text-align center
+                    color #fff
+                    
+                    .ps-switch:checked + &
+                        content 'Закрыть'
+                    
+                
+            &__text
+                absolute top 0 left 0 width 0 height 0
+                display block
+                overflow hidden
+                text-overflow ellipsis
+                word-break break-word
+                color #000
+                background-color rgba(#fff, .8)
+                border-radius 5px
+                padding 15px
+                opacity 0
+                transform scale(0)
+                transition .2s opacity ease, .8s transform ease
+                z-index 1
+                
+                .ps-switch:checked + &
+                    size 100% 100%
+                    opacity 1
+                    transform scale(1)
+                    transition .8s opacity ease, .2s transform ease
+                    
+            &__empty
+                display block
+                padding 12px 0
+
+                    
+            
         
     &__price
-        font 800 14px/1.2 'Open Sans', sans-serif
+        font 800 18px/1.2 'Open Sans', sans-serif
         color #ec1818
+        padding .5em 0
+        height 3.4em
         
-        &--old
-            color #888
-            text-decoration line-through
-            font-weight 100
+        .ps-price__value
+            display block
+            em
+                font-size 14px
+            &--old
+                color #888
+                text-decoration line-through
+                font-weight 100
     
     &__discount
-        absolute bottom -8px right -8px
+        absolute top -8px right -8px
         display block
         font 800 15px/40px 'Open Sans', sans-serif
         size 45px 45px
@@ -76,10 +149,54 @@
         box-shadow 0 0 1px 0 #ec1818
         
     &__button
-        display block
-        size 40px 30px
-        background #f1b347 inline-image('../../img/ogonek/cart.png') 50% 50% no-repeat
-        border-radius 5px
+        @extends $form-button
+        width 40px
+        
+        &:hover
+            background-color #ed9d12
+        
+        &--tocart
+            background-image inline-image('../../img/ogonek/cart.svg')
+            float left
+            
+        &--compare
+            background-image inline-image('../../img/ogonek/compare.svg')
+            float right
+            
+            &.checked
+                background-color #47b347
+
+    &__controls
+        @extends $clear-block
+        
+    &__quantity
+        width 100px
+        float left
+        padding 0 0 0 5px
+        
+    .ps-quantity
+        &__button
+            @extends $form-button
+            font 800 14px/30px 'Open Sans', sans-serif
+            width 20px
+            display block
+            float left
+            &--dec
+                border-radius 5px 0 0 5px
+            &--inc
+                border-radius 0 5px 5px 0
+            
+        &__value
+            display block
+            font 800 14px/30px 'Open Sans', sans-serif
+            text-align center
+            size 2em 30px
+            margin 0
+            border solid 1px #f1b347
+            float left
+            
+
+        
 
         
         

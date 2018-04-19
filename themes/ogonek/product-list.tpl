@@ -20,16 +20,16 @@
             <span class="ps-product__info">
                 <input class="ps-switch" type="checkbox" id="ps-switch-{$product.id_product}"/>
                 <div class="ps-product__description ps-description">
-                    {if $product.description_short}
+                {if $product.description_short}
                     <label
                         class="ps-description__button"
                         for="ps-switch-{$product.id_product}">{l s='Description'}</label>
                     <span class="ps-description__text">
                         {$product.description_short|strip_tags:'UTF-8'}
                     </span>
-                    {else}
+                {else}
                     <span class="ps-description__empty"></span>
-                    {/if}
+                {/if}
                 </div>
                 
                 {if isset($product.show_price) && $product.show_price && !isset($restricted_country_mode)}
@@ -38,9 +38,9 @@
                         {convertPrice price=$product.price}
                     </span>
                     {if $product.specific_prices.reduction > 0}
-                    <span class="ps-price__value ps-price__value--old">
-                        {convertPrice price=$product.price_without_reduction}
-                    </span>
+                        <span class="ps-price__value ps-price__value--old">
+                            {convertPrice price=$product.price_without_reduction}
+                        </span>
                     {/if}
                 </div>
                 {/if}

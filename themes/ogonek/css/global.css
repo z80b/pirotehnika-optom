@@ -10960,6 +10960,7 @@ input[type='number'] {
 .ps-product__name {
   font: 800 14px/1.2 'Open Sans', sans-serif;
   color: #333;
+  margin: 0.5em 0;
   height: 2.4em;
   overflow: hidden;
   -o-text-overflow: ellipsis;
@@ -11110,6 +11111,9 @@ input[type='number'] {
 }
 .ps-product__button--compare.checked {
   background-color: #47b347;
+}
+.ps-product__controls {
+  height: 30px;
 }
 .ps-product__quantity {
   width: 100px;

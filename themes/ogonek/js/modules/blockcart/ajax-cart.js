@@ -1,7 +1,26 @@
 
 $(document).ready(function(){
 
+	// The button to increment the product value
+	$(document).on('click', '.ps-quantity__button--inc', function(e){
+		e.preventDefault();
+		var $qty_input = $(this).parent().find('input[name=' + $(this).data('field-qty') + ']');
 
+		if ($qty_input && $qty_input.val()) {
+			var qty_value = parseInt($qty_input.val());
+			$qty_input.val(qty_value + 1);
+		}
+	});
+	 // The button to decrement the product value
+	$(document).on('click', '.ps-quantity__button--dec', function(e){
+		e.preventDefault();
+		var $qty_input = $(this).parent().find('input[name=' + $(this).data('field-qty') + ']');
+
+		if ($qty_input && $qty_input.val()) {
+			var qty_value = parseInt($qty_input.val());
+			(qty_value > 1) && $qty_input.val(qty_value - 1);
+		}
+	});
 
 	ajaxCart.overrideButtonsInThePage();
 
@@ -822,7 +841,7 @@ var ajaxCart = {
 
 		$('.ajax_cart_tax_cost').text(jsonData.taxCost);
 		$('.cart_block_wrapping_cost').text(jsonData.wrappingCost);
-		$('.ajax_block_cart_total').text(jsonData.total);
+		$('.ajax_block_cart_total').html(jsonData.total);
 		$('.ajax_block_products_total').text(jsonData.productTotal);
 		$('.ajax_total_price_wt').text(jsonData.total_price_wt);
         $('.ajax_cart_prod_num').text(jsonData.products.length);

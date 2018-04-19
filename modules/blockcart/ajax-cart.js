@@ -629,7 +629,7 @@ var ajaxCart = {
 				$('.ajax_cart_shipping_cost').html(freeShippingTranslation);
 		$('.ajax_cart_tax_cost').text(jsonData.taxCost);
 		$('.cart_block_wrapping_cost').text(jsonData.wrappingCost);
-		$('.ajax_block_cart_total').text(jsonData.total);
+		$('.ajax_block_cart_total').html(jsonData.total);
 
 		this.nb_total_products = jsonData.nbTotalProducts;
 

@@ -59,7 +59,7 @@
                     type="submit"
                     name="Submit"
                     title="{l s='Add to cart'}"
-                    onClick="fancyChangeProductCountInCart(event, {$product.id_product}, 'ajax_input_prod_{$product.id_product}'); yaCounter46713966 && (yaCounter46713966.reachGoal('ADDCART')); return true;"
+                    onClick="fancyChangeProductCountInCart(event, {$product.id_product}, 'ajax_input_prod_{$product.id_product}'); this.yaCounter46713966 && (yaCounter46713966.reachGoal('ADDCART')); return true;"
                 ></a>
                 <div class="ps-product__quantity ps-quantity">
                     <button

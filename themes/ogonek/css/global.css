@@ -8717,6 +8717,11 @@ ul#blocknewproducts .product-container .right-block h5 {
 .bottom-pagination-content .product-count {
   padding: 11px 0 0 0;
   float: left;
+  font: 600 16px/1 'Open Sans', sans-serif;
+}
+.top-pagination-content .product-count em,
+.bottom-pagination-content .product-count em {
+  color: #f3aa38;
 }
 .bottom-pagination-content ul.pagination li.pagination_previous >a {
   background: url("../img/ogonek/arrow11.png") no-repeat 0 0;

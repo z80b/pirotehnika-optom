@@ -161,9 +161,9 @@
 			{assign var='itemShowingStart' value=$nbpagination*$page-$nbpagination+1}
 		{/if}
 		{if $orders|@count > 1}
-			{l s='Showing %1$d - %2$d of %3$d items' sprintf=[$itemShowingStart, $itemShowing, $orders|@count] mod='loyalty'}
+			{l s='Showing [1]%1$d[/1] - [1]%2$d[/1] of [1]%3$d[/1] items' sprintf=[$itemShowingStart, $itemShowing, $orders|@count] mod='loyalty' tags=['<em>']}
 		{else}
-			{l s='Showing %1$d - %2$d of 1 item' sprintf=[$itemShowingStart, $itemShowing] mod='loyalty'}
+			{l s='Showing [1]%1$d[/1] - [1]%2$d[/1] of [1]1[/1] item' sprintf=[$itemShowingStart, $itemShowing] mod='loyalty' tags=['<em>']}
 	{/if}
 	</div>
 </div>

@@ -8267,13 +8267,17 @@ table.table_block td {
           border-radius: 10px;
   padding: 15px 5px;
   border: 1px solid #dadada;
+  text-align: center;
 }
 .block .products-block li .products-block-image {
-  float: left;
-  margin-right: 19px;
+  display: inline-block;
+  padding: 0 15px;
 }
 .block .products-block li .product-content {
+  display: inline-block;
   overflow: hidden;
+  width: 140px;
+  text-align: left;
 }
 .block .products-block li .product-content h5 {
   position: relative;

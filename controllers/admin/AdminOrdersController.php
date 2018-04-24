@@ -155,6 +155,12 @@ class AdminOrdersControllerCore extends AdminController
                 'align' => 'text-right',
                 'type' => 'decimal',
             ),
+            'full_paid' => array (
+                'title' => 'Оплачено',
+                'type'  => 'bool',
+                'align' => 'text-center',
+                'callback' => 'printPaidIcon'
+            ),
             'total_paid_real' => array(
                 'title' => $this->l('Оплачено'),
                 'align' => 'text-right',
@@ -317,6 +323,20 @@ class AdminOrdersControllerCore extends AdminController
             '</a>';
     }
 
+    public function printPaidIcon($value, $order)
+    {
+        return sprintf(
+            '<a class="%s js-change-paid-val" href="/%s"><i class="%s"></i></a>',
+            'list-action-enable ' . ($value ? 'action-enabled' : 'action-disabled'),
+            Tools::safeOutput($this->admin_webpath . '/?tab=AdminOrders&id_order=' . (int)$order['id_order'] . '&action=changePaidVal&token=' . Tools::getAdminTokenLite('AdminOrders')),
+            $value ? 'icon-check' : 'icon-remove'
+        );
+        return '<a class="list-action-enable '.($value ? 'action-enabled' : 'action-disabled').'" href="index.php?'.Tools::safeOutput('tab=AdminOrders&id_oder='
+            .(int)$order['id_order'].'&changePaidVal&token='.Tools::getAdminTokenLite('AdminOrders')).'">
+                '.($value ? '<i class="icon-check"></i>' : '<i class="icon-remove"></i>').
+            '</a>';
+    }
+
     public function initProcess()
     {
         parent::initProcess();
@@ -355,7 +375,21 @@ class AdminOrdersControllerCore extends AdminController
         die(Tools::jsonEncode(array('hasErrors' => false, 'blocked' => $order->blocker)));
     }
 
-
+    public function processChangePaidVal()
+    {
+        $order = new Order(Tools::getValue('id_order'));
+        if (!Validate::isLoadedObject($order)) {
+            $this->errors[] = Tools::displayError('An error occurred while updating order information. 1');
+            die(Tools::jsonEncode(array('hasErrors' => true, 'errors' => $this->errors)));
+        }
+        $order->full_paid = $order->full_paid ? 0 : 1;
+        if (!$order->update()) {
+            $this->errors[] = Tools::displayError('An error occurred while updating order information. 2');
+            die(Tools::jsonEncode(array('hasErrors' => true, 'errors' => $this->errors)));
+        }
+        $iconClass = $order->full_paid ? '' : '';
+        die(Tools::jsonEncode(array('hasErrors' => false, 'full_paid' => $order->full_paid)));
+    }
     
 	public static function setOrderCurrency($echo, $tr)
     {

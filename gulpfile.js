@@ -55,6 +55,32 @@ gulp.task('scripts', function() {
 gulp.task('theme', ['theme_styles'], function() {
     gulp.watch('./themes/ogonek/stylus/**/*.styl', ['theme_styles'])
 });
+gulp.task('admin_theme_styles', function() {
+    var stylus       = require('gulp-stylus'),
+        autoprefixer = require('gulp-autoprefixer'),
+        cleanCSS     = require('gulp-clean-css'),
+        rename       = require('gulp-rename'),
+        bootstrap    = require('bootstrap-styl'),
+        axis         = require('axis'),
+        __basedir      = __dirname;
+
+    return gulp.src([
+        './admin100/themes/default/src/css/**/*.styl',
+        '!./admin100/themes/default/src/css/blocks/*.styl'])
+        .pipe(stylus({
+            'include css': true,
+            'import': [
+                __basedir +'/admin100/themes/default/src/css/variables.styl'
+            ],
+            'compress': false,
+            'use': [axis(), bootstrap()],
+            'rawDefine': { 'inline-image': stylus.stylus.url({
+                paths: ['./admin100/themes/default/src/css/imgs']
+            }) }
+        }))
+        .pipe(autoprefixer(['> 0%']))
+        .pipe(gulp.dest('./admin100/themes/default/css/')); 
+})
 
 gulp.task('theme_styles', function() {
     var stylus       = require('gulp-stylus'),

@@ -304,56 +304,76 @@ function bindGrid()
 	// Узнаем текщий режим отображения
 	// Если его нет, тогда отображаем list
 
-	// var storage = false;
-	// if (typeof(getStorageAvailable) !== 'undefined') {
-	// 	storage = getStorageAvailable();
+	function displayView(event) {
+		var $productsBlock = $('.js-ps-products').get(0);
+		var defaultViewId = $.cookie('display') || 'list';
+		var viewClasses = {
+			'list': 'ps-products ps-products--list js-ps-products',
+			'grid': 'ps-products ps-products--grid js-ps-products',
+			'tab': 'ps-products ps-products--table js-ps-products'
+		};		
+
+		if (event) {
+			event.preventDefault();
+			var $currentTab = $(event.currentTarget);
+			var currentViewId = $currentTab.attr('id');
+			$currentTab.addClass('selected').siblings().removeClass('selected');
+			$.cookie('display', currentViewId);
+		} else {
+			$('#displayType').find('#' + defaultViewId).addClass('selected');
+		}
+
+		if ($productsBlock) $productsBlock.className = viewClasses[currentViewId || defaultViewId];
+	}
+
+	// var view = $.cookie('display') || 'list';
+
+	// if (!view && (typeof displayList != 'undefined') && displayList) {
+	// 	view = 'list';
 	// }
-	// if (!storage) {
-	// 	return;
-	// }
 
-	var view = $.cookie('display') || 'list';
-
-	if (!view && (typeof displayList != 'undefined') && displayList)
-		view = 'list';
-
-////	$('#displayType').attr('data-display', view);
-
-	if(view && view === 'grid'){
-        $('.display').find('li#grid').addClass('selected');
-	}
-	else if(view && view === 'tab'){
-        $('.display').find('li#tab').addClass('selected');
-	}
-    else if(view && view === 'extend'){
-        $('.display').find('li#extend').addClass('selected');
-    }
-	else {
-		view = 'list';
-        $('.display').find('li#list').addClass('selected');
-	}
-
-    display(view); // отображаем
+	$('#displayType').on('click', 'li', displayView);
+	displayView();
 
 
-	// Привязываем обработчики событий к каждой кнопке
-	$(document).on('click', '#grid', function(e){
-		e.preventDefault();
-		display('grid');
-	});
 
-	$(document).on('click', '#list', function(e){
-		e.preventDefault();
-		display('list');
-	});
-	$(document).on('click', '#tab', function(e){
-		e.preventDefault();
-		display('tab');
-	});
-    $(document).on('click', '#extend', function(e){
-        e.preventDefault();
-        display('extend');
-    });
+// ////	$('#displayType').attr('data-display', view);
+
+// 	if(view && view === 'grid'){
+//         $('.display').find('li#grid').addClass('selected');
+// 	}
+// 	else if(view && view === 'tab'){
+//         $('.display').find('li#tab').addClass('selected');
+// 	}
+//     else if(view && view === 'extend'){
+//         $('.display').find('li#extend').addClass('selected');
+//     }
+// 	else {
+// 		view = 'list';
+//         $('.display').find('li#list').addClass('selected');
+// 	}
+
+//     display(view); // отображаем
+
+
+// 	// Привязываем обработчики событий к каждой кнопке
+// 	$(document).on('click', '#grid', function(e){
+// 		e.preventDefault();
+// 		display('grid');
+// 	});
+
+// 	$(document).on('click', '#list', function(e){
+// 		e.preventDefault();
+// 		display('list');
+// 	});
+// 	$(document).on('click', '#tab', function(e){
+// 		e.preventDefault();
+// 		display('tab');
+// 	});
+//     $(document).on('click', '#extend', function(e){
+//         e.preventDefault();
+//         display('extend');
+//     });
 
 }
 

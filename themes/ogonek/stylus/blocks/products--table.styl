@@ -1,0 +1,82 @@
+.ps-products--table
+    width 100%
+    
+    thead
+        th
+            text-align center
+    
+    .ps-product
+        &__table
+            display block
+        
+        &__grid, &__list, &__extended
+            display none
+            
+        &__image
+            width 65px
+            
+        &__name
+            font 800 14px/1 'Open Sans', sans-serif
+            color #d34633
+            
+            
+        &__quantity
+            width 54px
+            margin 10px auto 0
+            
+            &::after
+                content ''
+                display table
+                clear both
+            
+        .ps-quantity
+            &__button
+                @extends $form-button
+                font 800 12px/20px 'Open Sans', sans-serif
+                size 15px 20px
+                display block
+                float left
+                
+                &--dec
+                    border-radius 5px 0 0 5px
+                &--inc
+                    border-radius 0 5px 5px 0
+                
+            &__value
+                display block
+                font 800 12px/20px 'Open Sans', sans-serif
+                text-align center
+                size 2em 20px
+                margin 0
+                border solid 1px #f1b347
+                float left
+                
+        &__button
+            @extends $form-button
+            font 12px/20px 'Open Sans', sans-serif
+            size 54px 20px
+            text-align center
+            text-transform uppercase
+            text-decoration none
+            clear both
+            margin 3px auto 0
+
+            &:hover
+                background-color #ed9d12
+                text-decoration none
+                
+        &__price
+            font 800 12px/1 'Open Sans', sans-serif
+            color #ec1818
+            padding .5em 0
+            height 3.4em
+            
+            .ps-price__value
+                display inline-block
+                white-space nowrap
+                em
+                    font-size 10px
+                &--old
+                    color #888
+                    text-decoration line-through
+                    font-weight 100

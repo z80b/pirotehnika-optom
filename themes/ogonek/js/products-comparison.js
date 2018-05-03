@@ -24,7 +24,11 @@
 */
 
 $(document).ready(function(){
-	$(document).on('click', '.js-product-compare', function(e){
+	$(document)
+	.on('click', '.js-go-product-compare', function() {
+		$.cookie('prev_url', document.location.href);
+	})
+	.on('click', '.js-product-compare', function(e){
 		e.preventDefault();
 		if (typeof addToCompare != 'undefined')
 			addToCompare(parseInt($(this).data('id-product')));
@@ -85,7 +89,13 @@ function addToCompare(productId)
 
 function reloadProductComparison()
 {
-	$(document).on('click', 'a.cmp_remove', function(e){
+	$(document)
+	.on('click', '.js-continue-shopping', function(e) {
+		e.preventDefault();
+		var targetUrl = $.cookie('prev_url') || '/';
+		document.location.href = targetUrl;
+	})
+	.on('click', 'a.cmp_remove', function(e){
 		e.preventDefault();
 		var idProduct = parseInt($(this).data('id-product'));
 		$.ajax({
@@ -120,10 +130,10 @@ function compareButtonsStatusRefresh()
 function totalCompareButtons()
 {
 	var totalProductsToCompare = parseInt($('.bt_compare .total-compare-val').html());
-	if (typeof totalProductsToCompare !== "number" || totalProductsToCompare === 0)
-		$('.bt_compare').attr("disabled",true);
+	if (typeof totalProductsToCompare !== "number" || totalProductsToCompare < 2)
+		$('.bt_compare').css("opacity", 0);
 	else
-		$('.bt_compare').attr("disabled",false);
+		$('.bt_compare').css("opacity", 1);
 }
 
 function totalValue(value)

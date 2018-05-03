@@ -27,7 +27,6 @@
 
 <div class="page-heading__wrapper content_sortPagiBar">
 	<h1 class="page-heading product-listing">{l s='Price drop'}</h1>
-	{include file="./product-sort-display-type.tpl"}
 </div>
 
 {if $products}

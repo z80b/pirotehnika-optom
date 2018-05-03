@@ -1,0 +1,107 @@
+{foreach from=$products item=product name=products}
+    {foreach from=$product.features item=feat}
+        {if $feat.name == 'Фасовка'}{assign var='fasovka' value=$feat.value}{else}{assign var='fasovka' value=''}{/if}
+    {/foreach}
+    <div class="ps-products__item ps-product">
+        <div class="ps-product__cell">
+            <a class="ps-product__link" href="{$product.link|escape:'html':'UTF-8'}">
+                <img
+                    class="ps-product__image"
+                    alt="{$product.name|escape:'html':'UTF-8'}"
+                    title="{$product.name|escape:'html':'UTF-8'}"
+                    src="{$link->getImageLink($product.link_rewrite, $product.id_image, 'home_default')|escape:'html':'UTF-8'}"/>
+                {if $product.specific_prices.reduction_type == 'percentage'}
+                <span class="ps-product__discount">
+                    -{$product.specific_prices.reduction * 100}%
+                </span>
+                {/if}
+            </a>
+        </div>
+        <div class="ps-product__cell">
+            <h2 class="ps-product__name" href="{$product.link|escape:'html':'UTF-8'}">
+                {$product.name|escape:'html':'UTF-8'}
+            </h2>
+            <div class="ps-product__option ps-option">
+                <b class="ps-option__title">{l s='Артикул'}:</b>
+                <span class="ps-option__value">{$product.reference}</span>
+            </div>
+            <span class="ps-product__description">
+                {$product.description_short|strip_tags:'UTF-8'}
+            </span>
+            <div class="ps-product__price ps-price">
+                <span class="ps-price__title">{l s="Цена"}:</span>
+                <span class="ps-price__value">
+                    {convertPrice price=$product.price}
+                </span>
+                {if $product.specific_prices.reduction > 0}
+                    <span class="ps-price__value ps-price__value--old">
+                        {convertPrice price=$product.price_without_reduction}
+                    </span>
+                {/if}
+            </div>
+        </div>
+        <div class="ps-product__cell ps-product__cell--right">
+            <div class="ps-product__option">
+                {if $product.quantity > 0}
+                <b class="ps-option__title">{l s='В наличии'}:</b>
+                <span class="ps-option__value">
+                    {$product.quantity}
+                    {Product::SGetProductUnity($product.sale_unity)}
+                </span>
+                {else}
+                <b class="ps-option__title">{l s='Отсутствует'}</b>
+                {/if}
+            </div>
+            <div class="ps-product__option">
+                <b class="ps-option__title">{l s='В заказе'}:</b>
+                <span class="ps-option__value">
+                    {if !empty($productsCart) }
+                        {$productsCart.cart_quantity}
+                    {else} 0 {/if}
+                    {Product::SGetProductUnity($product.sale_unity)}
+                </span>
+            </div>
+            <div class="ps-product__option">
+                <b class="ps-option__title">{l s='На сумму'}:</b>
+                <span class="ps-option__value">
+                    {if !empty($productsCart) }
+                        {convertPrice price=$productsCart.total}
+                    {else}
+                        {convertPrice price=0}
+                    {/if}
+                </span>
+            </div>
+            <hr class="ps-product__separator" />
+            <div class="ps-product__controls">
+            {if $product.quantity > 0}
+                <div class="ps-product__quantity ps-quantity">
+                    <button
+                        class="ps-quantity__button ps-quantity__button--dec"
+                        data-field-qty="qty">-</button>
+                    <input
+                        id="quantity_wanted"
+                        name="qty"
+                        class="ps-quantity__value ajax_input_prod_{$product.id_product}"
+                        type="number"
+                        value="1"
+                        data-prev-val="{if isset($productsCart.cart_quantity)}{$productsCart.cart_quantity}{else}0{/if}"
+                        min="1"
+                        max="{$product.quantity}"/>
+                    <button
+                        class="ps-quantity__button ps-quantity__button--inc"
+                        data-field-qty="qty">+</button>
+                </div>
+                <a class="ps-product__button ps-product__button--tocart"
+                    id="btnid{$product.id_product}" 
+                    btncatid="{$product.id_category_default}" 
+                    type="submit"
+                    name="Submit"
+                    title="{l s='Add to cart'}"
+                    onClick="fancyChangeProductCountInCart(event, {$product.id_product}, 'ajax_input_prod_{$product.id_product}'); this.yaCounter46713966 && (yaCounter46713966.reachGoal('ADDCART')); return true;"
+                >{l s="В заказ"}</a>
+                <a class="ps-product__button ps-product__button--compare js-product-compare" href="{$product.link|escape:'html':'UTF-8'}" data-id-product="{$product.id_product}" title="{l s='К сравнению'}">{l s='К сравнению'}</a>
+            {/if}
+            </div>
+        </div>
+    </div>
+{/foreach}

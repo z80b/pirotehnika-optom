@@ -5,7 +5,7 @@
 		<li id="grid"><a rel="nofollow" href="#" title="{l s='Grid'}"><i class="fa fa-th-large" aria-hidden="true"></i></a></li>
 		<li id="list"><a rel="nofollow" href="#" title="{l s='List'}"><i class="fa fa-list" aria-hidden="true"></i></a></li>
 		<li id="tab"><a rel="nofollow" href="#" title="{l s='Tab'}"><i class="fa fa-table" aria-hidden="true"></i></a></li>
-		<li id="extend"><a rel="nofollow" href="#" title="{l s='Extended'}"><i class="fa fa-tachometer" aria-hidden="true"></i></a></li>
+		<!--li id="extend"><a rel="nofollow" href="#" title="{l s='Extended'}"><i class="fa fa-tachometer" aria-hidden="true"></i></a></li-->
 	</ul>
 	{if !isset($request)}
 		<!-- Sort products -->

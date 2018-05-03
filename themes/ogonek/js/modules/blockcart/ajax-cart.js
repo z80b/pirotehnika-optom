@@ -1119,13 +1119,13 @@ function changeProductCountInCart(productId, inputEl, total){
 
     var qty = 0;
 	var direct = '';
-    if(cur>prev){
-		qty = cur - prev;
-	}
-	else{
-        qty = prev - cur;
-        direct = '&op=down';
-	}
+ //    if(cur>prev){
+	// 	qty = cur - prev;
+	// }
+	// else{
+ //        qty = prev - cur;
+ //        direct = '&op=down';
+	// }
 
     $.ajax({
         type: 'POST',

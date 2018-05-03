@@ -103,7 +103,6 @@
         {/if}
 		{/if}
 		{if $products}
-
 			<hr/>
 			<div class="content_sortPagiBar clearfix">
             	<div  class="sortPagiBar clearfix">

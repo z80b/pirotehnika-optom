@@ -47,7 +47,10 @@
 			<!--<label><input type="checkbox" value="one" {if isset($is_with_skid) && $is_with_skid == '1'}checked="checked"{/if}>Цены со скидкой</label>-->
 		</div>
 	</form>
-
+            <div class="page-heading__wrapper content_sortPagiBar">
+                {include file="./product-sort-display-type.tpl"}
+            </div>
+	{if false}
 	<form id="productsSortForm{if isset($paginationId)}_{$paginationId}{/if}" action="{$request|escape:'html':'UTF-8'}" class="{if $manufacts && count($manufacts) && true}productsManufForm{else}hidden{/if}">
 		<div class="select selector1">
 			<!-- <label for="selectProductSort{if isset($paginationId)}_{$paginationId}{/if}">{l s='Sort by'}</label> -->
@@ -63,6 +66,7 @@
 			<!--<label><input type="checkbox" value="one" {if isset($is_with_skid) && $is_with_skid == '1'}checked="checked"{/if}>Цены со скидкой</label>-->
 		</div>
 	</form>
+	{/if}
 <!-- /Sort products -->
 	{if !isset($paginationId) || $paginationId == ''}
 		{addJsDef request=$request}

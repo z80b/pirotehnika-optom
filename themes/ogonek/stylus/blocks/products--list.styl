@@ -1,0 +1,179 @@
+.ps-products--list
+    display block
+    clear both
+
+    .ps-switch
+        display none
+        
+    .ps-product
+        display block
+        clear both
+        position relative
+        box-sizing border-box
+        box-shadow 0 1px 4px 0 rgba(#000, 0.4)
+        border-radius 5px
+        transition .5s box-shadow ease
+        padding 10px
+        margin 0 0 20px
+        
+        &, &:hover
+            text-decoration none
+            
+        &:hover
+            box-shadow 0 2px 8px rgba(#000, 0.6)
+        
+        &::after
+            content ''
+            display table
+            clear both
+        
+        &__list
+            display block
+        
+        &__grid, &__table, &__extended
+            display none
+        
+        &__cell
+            display block
+            float left
+            width 33%
+            box-sizing border-box
+            padding 10px
+            
+        &__link
+            display block
+            position relative
+            
+        &__image
+            display block
+            width 100%
+            vertical-align top
+            
+            
+        &__name
+            margin 0 0 10px
+            font-size 15px
+            font-weight 800
+            color #d34633
+            
+        &__description
+            display block
+            font-size 13px
+            color #555
+            padding 10px 0
+            
+        &__separator
+            display block
+            border none
+            background none
+            padding 0
+            margin 20px 0
+            border-bottom 2px dashed #f3aa38
+            
+        &__option
+            display block
+            font-size 13px
+            padding 0 0 5px
+            
+            &::after
+                content ''
+                display table
+                clear both
+            
+        .ps-option
+            &__title
+                font-weight 300
+                color #777
+            
+            &__value
+                font-weight 800
+                color #f3aa38
+                
+        &__cell--right
+            .ps-option__value
+                float right
+                
+        &__price
+            font-size 16px
+            em
+                font-size 12px
+        .ps-price
+            &__title
+                font-weight 300
+                color #777
+            &__value
+                font-weight 800
+                color #ec1818
+                
+                &--old
+                    color #888
+                    text-decoration line-through
+                    font-weight 100
+                    
+        &__discount
+            absolute bottom 0 right -8px
+            display block
+            font 800 15px/40px 'Open Sans', sans-serif
+            size 45px 45px
+            color #fff
+            background-color #ec1818
+            border solid 3px #fff
+            border-radius 50%
+            box-shadow 0 0 1px 0 #ec1818
+                
+        &__quantity
+            width 75px
+            margin 10px auto 0
+            
+            &::after
+                content ''
+                display table
+                clear both
+            
+        .ps-quantity
+            &__button
+                @extends $form-button
+                font 800 14px/30px 'Open Sans', sans-serif
+                width 20px
+                display block
+                float left
+                
+                &--dec
+                    border-radius 5px 0 0 5px
+                &--inc
+                    border-radius 0 5px 5px 0
+                
+            &__value
+                display block
+                font 800 14px/30px 'Open Sans', sans-serif
+                text-align center
+                size 2em 30px
+                margin 0
+                border solid 1px #f1b347
+                float left
+                
+        &__button
+            @extends $form-button
+            font 14px/30px 'Open Sans', sans-serif
+            width 80%
+            text-align center
+            text-transform uppercase
+            text-decoration none
+            clear both
+            margin 10px auto
+
+            &:hover
+                background-color #ed9d12
+                text-decoration none
+            
+            &--compare
+                background-color #86d2e9
+                
+                &.checked
+                    background-color #47b347
+                
+                &:hover
+                    background-color darken(#86d2e9, 20%)
+                    
+                    &.checked
+                        background-color #47b347

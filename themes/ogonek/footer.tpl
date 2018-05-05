@@ -182,6 +182,12 @@ jQuery.fn.upScrollButton = function( options ) {
 <!-- //Падает снег -->
 <!-- <script type="text/javascript" src="snow-fall.js"></script> -->
 
-
+<!-- BEGIN TURBOPARSER CODE -->
+<script type='text/javascript'>
+{literal}
+(function(a,b,c,d){var s = document.createElement(a); s.type = b; s.async = true; s.src = c; var ss = document.getElementsByTagName(d)[0]; ss.parentNode.insertBefore(s, ss);})('script', 'text/javascript', 'https://turboparser.ru/parser/widget/loader?hash=3cb3752a99f18b746f50340754100548&ts='+Date.now(), 'script');
+{/literal}
+</script>
+<!-- END TURBOPARSER CODE -->
 	</body>
 </html>

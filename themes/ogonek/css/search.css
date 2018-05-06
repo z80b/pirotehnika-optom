@@ -1,0 +1,24 @@
+.ps-search__showall {
+  display: block;
+  height: 30px;
+  color: #fff;
+  background: #f1b347 50% 50% no-repeat;
+  -moz-background-size: 25px;
+       background-size: 25px;
+  border: none;
+  outline: none;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-transition: 0.5s background-color ease;
+  -o-transition: 0.5s background-color ease;
+  -moz-transition: 0.5s background-color ease;
+  transition: 0.5s background-color ease;
+  cursor: pointer;
+}
+.ps-search__showall:hover {
+  background-color: #ed9d12;
+}
+.ps-search__showall {
+  margin: auto;
+}

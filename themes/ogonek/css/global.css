@@ -8350,7 +8350,7 @@ table.table_block td {
 .page-heading.product-listing {
   border-bottom: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 10px;
   float: left;
 }
 .page-subheading {

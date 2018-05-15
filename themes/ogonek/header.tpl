@@ -74,6 +74,9 @@
         <![endif]-->
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic" rel="stylesheet">
+<script type="text/javascript">{literal}
+!function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://vk.com/js/api/openapi.js?154",t.onload=function(){VK.Retargeting.Init("VK-RTRG-243535-ckbi5"),VK.Retargeting.Hit()},document.head.appendChild(t)}();{/literal}</script>
+<noscript><img src="https://vk.com/rtrg?p=VK-RTRG-243535-ckbi5" style="position:fixed; left:-999px;" alt=""/></noscript>
 <script>
 $(document).ready(function() {
     if(page_name == 'category' || page_name == 'products-comparison' || page_name == 'new-products'){

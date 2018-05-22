@@ -21,4 +21,4 @@
     </div>
     {/if}
 </div>
-<div class="ps-head__cart">{hook h="top" mod="blockcart"}</div>
+{*<div class="ps-head__cart">{hook h="top" mod="blockcart"}</div>*}

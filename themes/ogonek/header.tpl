@@ -128,7 +128,13 @@ $(document).ready(function() {
                         <div class="nav">
                             <div class="container">
                                 <div class="row">
-                                    <nav>{$smarty.capture.displayNav}</nav>
+                                    {*<nav>{$smarty.capture.displayNav}</nav>*}
+                                    <nav>
+                                        {hook h="displayNav" mod="blockpermanentlinks"}
+                                        {hook h="displayNav" mod="blocksearch"}
+                                        {hook h="displayTop" mod="blockcart"}
+                                        {hook h="displayNav" mod="blockuserinfo"}
+                                    </nav>
                                 </div>
                             </div>
                         </div>

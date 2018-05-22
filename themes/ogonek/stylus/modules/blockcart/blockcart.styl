@@ -22,10 +22,13 @@ $color-19 = #7ac8df
     .shopping_cart
         position relative
         float right
+        margin 9px
+        width auto
         
-        &--fixed
-            position fixed
-            top 0
+        @media (max-width: 670px)
+            float left
+            margin 9px 0
+            width 260px
 
         a
             &:hover
@@ -571,3 +574,9 @@ $color-19 = #7ac8df
 #header .shopping_cart a span.ajax_cart_product_txt
 #header .shopping_cart a span.ajax_cart_product_txt_s
     display none
+    
+header .nav nav
+    &::after
+        content ''
+        display table
+        clear both

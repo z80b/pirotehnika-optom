@@ -2,6 +2,7 @@ $ps_orange = #f3aa38
 $ps_grey = #666
 
 .ps-contacts
+    position relative
     display block
     text-align center
     
@@ -13,13 +14,10 @@ $ps_grey = #666
     &__info
         font 700 14px/1.5 'Open Sans', sans-serif
         color $ps_grey
-        
-        &:last-of-type
-            font-size 10px
-        
+      
     &__button
         display inline-block
-        font 700 16px/2 'Open Sans', sans-serif
+        font 700 14px/2 'Open Sans', sans-serif
         text-decoration none
         text-align center
         color $ps_orange
@@ -28,6 +26,12 @@ $ps_grey = #666
         margin 10px auto
         padding 0 15px
         transition .5s all ease
+        
+        @media (max-width: 670px) and (min-width: 570px)
+            position absolute
+            display block
+            left -88%
+            top 50%
         
         &:hover
             color white

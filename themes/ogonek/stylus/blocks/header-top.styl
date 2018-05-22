@@ -19,6 +19,9 @@
         display table-cell
         vertical-align top
         
+        &:last-child
+            width 225px
+        
         &--button
             text-align right
             width 195px
@@ -42,9 +45,10 @@
         
     &__title
         text-align center
+        font 700 24px/1.2 'Open Sans',sans-serif
         
         @media (max-width 995px)
-            font-size 26px
+            font-size 22px
         
         @media (max-width 766px)
             display none

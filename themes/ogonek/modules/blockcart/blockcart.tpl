@@ -57,11 +57,11 @@
 				<span class="block_cart_collapse{if isset($colapseExpandStatus) && $colapseExpandStatus eq 'collapsed'} unvisible{/if}">&nbsp;</span>
 			{/if}
 		</a>
-		{if $cart_qties > 0}
+		{*if $cart_qties > 0}
 			<span >Вес заказа&nbsp;</span>{$cart->getTotalWeight()}<span >&nbsp;кг.</span>
 			<br>
 			<span >Объем заказа&nbsp;</span>{$cart->getTotalVolume()}<span >&nbsp;куб.м.</span>
-		{/if}
+		{/if*}
 		{if !$PS_CATALOG_MODE}
 			<div class="cart_block block exclusive">
 				<div class="block_content">
@@ -85,9 +85,13 @@
 											{/if} -->
 											<span class="price" CartPrice="{$product.total_wt}" CartCatId="{$product.id_category_default}">
 												{if !isset($product.is_gift) || !$product.is_gift}
-													{if $priceDisplay == $smarty.const.PS_TAX_EXC}{displayWtPrice p="`$product.total`"}{else}{displayWtPrice p="`$product.total_wt`"}{/if}
+{* 													{if $priceDisplay == $smarty.const.PS_TAX_EXC}
+														{displayWtPrice p="`$product.total`"}
+													{else}
+														{displayWtPrice p="`$product.total_wt`"}
+													{/if} *}
                                                     <div class="hookDisplayProductPriceBlock-price">
-                                                        {hook h="displayProductPriceBlock" product=$product type="price" from="blockcart"}
+{*                                                         {hook h="displayProductPriceBlock" product=$product type="price" from="blockcart"} *}
                                                     </div>
 												{else}
 													{l s='Free!' mod='blockcart'}

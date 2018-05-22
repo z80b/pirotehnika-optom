@@ -130,10 +130,10 @@ $(document).ready(function() {
                                 <div class="row">
                                     {*<nav>{$smarty.capture.displayNav}</nav>*}
                                     <nav>
-                                        {hook h="displayNav" mod="blockuserinfo"}
-                                        {hook h="displayTop" mod="blockcart"}
-                                        {hook h="displayNav" mod="blocksearch"}
                                         {hook h="displayNav" mod="blockpermanentlinks"}
+                                        {hook h="displayNav" mod="blocksearch"}
+                                        {hook h="displayTop" mod="blockcart"}
+                                        {hook h="displayNav" mod="blockuserinfo"}
                                     </nav>
                                 </div>
                             </div>

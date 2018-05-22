@@ -3333,6 +3333,12 @@ input[type="button"].btn-block {
   padding-left: 0;
   list-style: none;
 }
+header .nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 5004;
+}
 .nav:after {
   clear: both;
 }
@@ -7499,6 +7505,12 @@ header .nav {
   height: 58px;
   line-height: 58px;
 }
+@media (max-width: 670px) {
+  header .nav {
+    height: auto;
+    line-height: normal;
+  }
+}
 header .nav .row {
   margin: 0px;
 }
@@ -8321,7 +8333,6 @@ table.table_block td {
 .page-heading {
   font: 700 22px/24px "Open Sans", sans-serif;
   color: #555454;
-  text-transform: uppercase;
   margin-bottom: 30px;
   overflow: hidden;
 }
@@ -8847,6 +8858,14 @@ div.star a:hover {
   border: 1px solid #e6db55;
   font-size: 13px;
   background: none repeat scroll 0 0 #ffffe0;
+}
+#page {
+  padding: 58px 0 0;
+}
+@media (max-width: 670px) {
+  #page {
+    padding: 112px 0 0;
+  }
 }
 #page .rte {
   background: transparent none repeat scroll 0 0;
@@ -10748,6 +10767,7 @@ input[type='number'] {
   clear: both;
 }
 .ps-contacts {
+  position: relative;
   display: block;
   text-align: center;
 }
@@ -10760,12 +10780,9 @@ input[type='number'] {
   font: 700 14px/1.5 'Open Sans', sans-serif;
   color: #666;
 }
-.ps-contacts__info:last-of-type {
-  font-size: 10px;
-}
 .ps-contacts__button {
   display: inline-block;
-  font: 700 16px/2 'Open Sans', sans-serif;
+  font: 700 14px/2 'Open Sans', sans-serif;
   text-decoration: none;
   text-align: center;
   color: #f3aa38;
@@ -10777,6 +10794,14 @@ input[type='number'] {
   -o-transition: 0.5s all ease;
   -moz-transition: 0.5s all ease;
   transition: 0.5s all ease;
+}
+@media (max-width: 670px) and (min-width: 570px) {
+  .ps-contacts__button {
+    position: absolute;
+    display: block;
+    left: -88%;
+    top: 50%;
+  }
 }
 .ps-contacts__button:hover {
   color: #fff;
@@ -10808,6 +10833,9 @@ input[type='number'] {
   display: table-cell;
   vertical-align: top;
 }
+.ps-head__block:last-child {
+  width: 225px;
+}
 .ps-head__block--button {
   text-align: right;
   width: 195px;
@@ -10836,10 +10864,11 @@ input[type='number'] {
 }
 .ps-head__title {
   text-align: center;
+  font: 700 24px/1.2 'Open Sans', sans-serif;
 }
 @media (max-width: 995px) {
   .ps-head__title {
-    font-size: 26px;
+    font-size: 22px;
   }
 }
 @media (max-width: 766px) {

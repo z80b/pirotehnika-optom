@@ -2,6 +2,11 @@
   padding: 12px 35px 12px 0px;
   float: right;
 }
+@media (max-width: 670px) {
+  #search_block_top {
+    float: left;
+  }
+}
 #search_block_top #searchbox {
   float: left;
   width: 100%;

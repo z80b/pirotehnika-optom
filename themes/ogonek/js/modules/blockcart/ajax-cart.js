@@ -1297,6 +1297,10 @@ function fancyChangeProductCountInCart(e, productId, inputEl, total){
 //UpdatePriceInMenu();
 }
 
+function plural(n, titles) {
+  return titles[(n % 10 === 1 && n % 100 !== 11) ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2]
+}
+
 function UpdatePriceInMenu(){//maxim.
 	localStorage.clear();
 		CategoryInfo =  $('span[categoryinfo]');
@@ -1337,14 +1341,16 @@ function UpdatePriceInMenu(){//maxim.
 			var ln = document.getElementById(CatId);
 				ln.innerHTML = localStorage[CatId];
 			var Textln = document.getElementById(TextCatId);
-				Textln.innerHTML = " товар(а/ов) на сумму - ";
+				Textln.innerHTML = plural(localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - ";
 			var Percln = document.getElementById(PercCatId);
-				Percln.innerHTML = " ("+localStorage[PercCatId]+" %)";
+				Percln.innerHTML = " р ("+localStorage[PercCatId]+" %)";
+				Percln.setAttribute('title', localStorage[PercCatId]+"% от заказа");
 			var Countln = document.getElementById(CountCatId);
 				Countln.innerHTML= localStorage[CountCatId]+' ';
 			var CategoryInfoElement = document.getElementById(CategoryInfo);
 			if(CategoryInfoElement != null){
-				CategoryInfoElement.innerHTML=localStorage[CountCatId]+" товар(а/ов) на сумму - "+localStorage[CatId]+" ("+localStorage[PercCatId]+"%)";
+				CategoryInfoElement.innerHTML=localStorage[CountCatId] +' '+ plural(localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - "+localStorage[CatId]+" р ("+localStorage[PercCatId]+"%)";
+				CategoryInfoElement.setAttribute('title', localStorage[PercCatId]+"% от заказа");
 			}
 		}
 }

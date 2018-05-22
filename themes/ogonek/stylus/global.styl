@@ -3378,6 +3378,12 @@ input[type="button"].btn-block
     margin-bottom 0
     padding-left 0
     list-style none
+    
+    header &
+        position fixed
+        width 100%
+        top 0
+        z-index 5004
 
     &:after
         clear both
@@ -7881,6 +7887,10 @@ header
         background $color-14
         height 58px
         line-height 58px
+        
+        @media (max-width: 670px)
+            height auto
+            line-height normal
 
         .row
             margin 0px
@@ -8706,7 +8716,7 @@ table.table_block td
 .page-heading
     font 700 22px/24px "Open Sans", sans-serif
     color $color-87
-    text-transform uppercase
+    //text-transform uppercase
     margin-bottom 30px
     overflow hidden
     
@@ -9248,6 +9258,11 @@ div.star a:hover
     background none repeat scroll 0 0 lightyellow
 
 #page
+    padding 58px 0 0
+    
+    @media (max-width: 670px)
+        padding 112px 0 0
+    
     .rte
         background transparent none repeat scroll 0 0
 

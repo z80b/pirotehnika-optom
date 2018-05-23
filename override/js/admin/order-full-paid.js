@@ -2,6 +2,8 @@ function initFullPaid() {
 
     function initPopup() {
         $('[name=full_paid_date]', $popup).datepicker();
+        $('[name=full_paid_date]', $popup).datepicker('setDate', 'today');
+        
 
         $popup
             .on('submit', '.ps-form', function(event) {

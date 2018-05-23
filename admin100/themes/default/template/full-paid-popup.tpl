@@ -1,4 +1,4 @@
-<div class="ps-popup__overlay">
+<div class="ps-popup__overlay" style="display: none;">
     <div class="ps-popup ps-popup--full-paid js-ps-popup">
         <form class="ps-popup__form ps-form">
             <div class="ps-popup__header">

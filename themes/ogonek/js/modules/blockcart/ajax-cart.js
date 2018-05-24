@@ -849,8 +849,8 @@ var ajaxCart = {
 		console.log(jsonData);
 		//console.log(jsonData.products[0].id);
 		//console.log(jsonData->$products);
-		//localStorage["jsonData"] ='';
-		//localStorage["jsonData"] = jsonData.products; 
+		//_localStorage["jsonData"] ='';
+		//_localStorage["jsonData"] = jsonData.products; 
 		
 		// Обновляем продукты
 		//Вначале установим все на 0 по умолчанию. Нужно при удалении
@@ -1302,7 +1302,7 @@ function plural(n, titles) {
 }
 
 function UpdatePriceInMenu(){//maxim.
-	localStorage.clear();
+		var _localStorage = {};
 		CategoryInfo =  $('span[categoryinfo]');
 		CategoryInfo[0] && (CategoryInfo[0].innerHTML='');
 		//обнуляем данные в меню
@@ -1329,28 +1329,28 @@ function UpdatePriceInMenu(){//maxim.
 			PercCatId = "PercCatId"+Id;//процент
 			CountCatId = "CountCatId"+Id;
 			CategoryInfo = "CategoryInfo"+Id;
-			if(!!!localStorage[CatId]) {localStorage[CatId]=0;localStorage[CountCatId]="0";localStorage[PercCatId]="0";localStorage[TextCatId]="";} 
+			if(!!!_localStorage[CatId]) {_localStorage[CatId]=0;_localStorage[CountCatId]="0";_localStorage[PercCatId]="0";_localStorage[TextCatId]="";} 
 			q1 = ElMass[i].innerHTML.replace(/\s*/g, '');
 			q1 = q1.replace('руб', '');
 			q1 = q1.replace(',', '.');
-			summ=parseFloat(localStorage[CatId])+parseFloat(q1);
-			localStorage[CatId] = summ.toFixed(2);
-			locPerc = localStorage[CatId] / summAll * 100;
-			localStorage[PercCatId] = locPerc.toFixed(0);
-			localStorage[CountCatId] = parseInt(localStorage[CountCatId])+parseInt(1);
+			summ=parseFloat(_localStorage[CatId])+parseFloat(q1);
+			_localStorage[CatId] = summ.toFixed(2);
+			locPerc = _localStorage[CatId] / summAll * 100;
+			_localStorage[PercCatId] = locPerc.toFixed(0);
+			_localStorage[CountCatId] = parseInt(_localStorage[CountCatId])+parseInt(1);
 			var ln = document.getElementById(CatId);
-				ln.innerHTML = localStorage[CatId];
+				ln.innerHTML = _localStorage[CatId];
 			var Textln = document.getElementById(TextCatId);
-				Textln.innerHTML = plural(localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - ";
+				Textln.innerHTML = plural(_localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - ";
 			var Percln = document.getElementById(PercCatId);
-				Percln.innerHTML = " р ("+localStorage[PercCatId]+" %)";
-				Percln.setAttribute('title', localStorage[PercCatId]+"% от заказа");
+				Percln.innerHTML = " р ("+_localStorage[PercCatId]+" %)";
+				Percln.setAttribute('title', _localStorage[PercCatId]+"% от заказа");
 			var Countln = document.getElementById(CountCatId);
-				Countln.innerHTML= localStorage[CountCatId]+' ';
+				Countln.innerHTML= _localStorage[CountCatId]+' ';
 			var CategoryInfoElement = document.getElementById(CategoryInfo);
 			if(CategoryInfoElement != null){
-				CategoryInfoElement.innerHTML=localStorage[CountCatId] +' '+ plural(localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - "+localStorage[CatId]+" р ("+localStorage[PercCatId]+"%)";
-				CategoryInfoElement.setAttribute('title', localStorage[PercCatId]+"% от заказа");
+				CategoryInfoElement.innerHTML=_localStorage[CountCatId] +' '+ plural(_localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - "+_localStorage[CatId]+" р ("+_localStorage[PercCatId]+"%)";
+				CategoryInfoElement.setAttribute('title', _localStorage[PercCatId]+"% от заказа");
 			}
 		}
 }

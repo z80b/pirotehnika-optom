@@ -134,6 +134,7 @@ $(document).ready(function() {
                                         {hook h="displayNav" mod="blocksearch"}
                                         {hook h="displayTop" mod="blockcart"}
                                         {hook h="displayNav" mod="blockuserinfo"}
+                                        {hook h="displayNav" mod="blockmyaccount"}
                                     </nav>
                                 </div>
                             </div>

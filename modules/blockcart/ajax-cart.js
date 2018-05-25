@@ -607,6 +607,7 @@ var ajaxCart = {
 			ajaxCart.hideOldProducts(jsonData);
 			ajaxCart.displayNewProducts(jsonData);
 			ajaxCart.refreshVouchers(jsonData);
+			localStotage.setItem('card', jsonData);
 
 			//update 'first' and 'last' item classes
 			$('#cart_block .products dt').removeClass('first_item').removeClass('last_item').removeClass('item');

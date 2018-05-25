@@ -11143,8 +11143,14 @@ input[type='number'] {
 .ps-products--table {
   width: 100%;
 }
-.ps-products--table thead th {
+.ps-products--table th {
   text-align: center;
+}
+.ps-products--table td {
+  text-align: center;
+}
+.ps-products--table tr:nth-child(odd) td {
+  background-color: #fae2b8;
 }
 .ps-products--table .ps-product__table {
   display: block;
@@ -11158,8 +11164,16 @@ input[type='number'] {
   width: 65px;
 }
 .ps-products--table .ps-product__name {
+  text-align: left;
+}
+.ps-products--table .ps-product__name .ps-product__link {
   font: 800 14px/1 'Open Sans', sans-serif;
   color: #d34633;
+  text-decoration: none;
+}
+.ps-products--table .ps-product__name .ps-product__link:hover {
+  color: #d34633;
+  text-decoration: underline;
 }
 .ps-products--table .ps-product__quantity {
   width: 54px;

@@ -21,6 +21,31 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('./css/admin'));
 });
 
+
+gulp.task('coffee', function() {
+    var coffee = require('gulp-coffee');
+        
+    gulp.src('themes/ogonek/src/js/*.coffee')
+        .pipe(coffee({ bare: true }))
+        .pipe(gulp.dest('./themes/ogonek/src/.tmp/js'));
+});
+
+gulp.task('babel', function() {
+    var uglify     = require('gulp-uglify'),
+        browserify = require('gulp-browserify');
+    
+    gulp.src('themes/ogonek/src/.tmp/js/*.js')
+        .pipe(browserify({
+            transform: ['babelify'],
+            debug: false
+        }))
+        .pipe(uglify())
+        .pipe(gulp.dest('./themes/ogonek/js'));
+});
+
+gulp.task('theme_scripts', [ 'coffee', 'babel' ]);
+
+
 gulp.task('scripts', function() {
     var browserify = require('browserify'),
         babelify   = require('babelify'),

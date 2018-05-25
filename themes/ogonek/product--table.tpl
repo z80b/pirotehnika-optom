@@ -5,6 +5,9 @@
         <th>Наименование</th>
         <th>Ед</th>
         <th>Цена</th>
+        <th></th>
+        <th></th>
+        <th></th>
         <th>Нал.</th>
         <th>В заказе</th>
         <th>Сумма</th>
@@ -18,11 +21,11 @@
     <tr class="ps-products__item ps-product">
         <td class="ps-product__articule">{$product.reference}</td>
         <td>
-        <img
-            class="ps-product__image"
-            alt="{$product.name|escape:'html':'UTF-8'}"
-            title="{$product.name|escape:'html':'UTF-8'}"
-            src="{$link->getImageLink($product.link_rewrite, $product.id_image, 'home_default')|escape:'html':'UTF-8'}"/>
+            <img
+                class="ps-product__image"
+                alt="{$product.name|escape:'html':'UTF-8'}"
+                title="{$product.name|escape:'html':'UTF-8'}"
+                src="{$link->getImageLink($product.link_rewrite, $product.id_image, 'home_default')|escape:'html':'UTF-8'}"/>
         </td>
         <td class="ps-product__name">{$product.name|escape:'html':'UTF-8'}</td>
         <td>{Product::SGetProductUnity($product.sale_unity)}</td>
@@ -36,6 +39,9 @@
                 </span>
             {/if}
         </td>
+        <td>{$product.r1}</td>
+        <td>{$product.r2}</td>
+        <td>{$product.r3}</td>
         <td>
             {$product.quantity}
             {Product::SGetProductUnity($product.sale_unity)}

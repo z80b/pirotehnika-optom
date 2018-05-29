@@ -1,0 +1,34 @@
+@import './blocks/popup.styl'
+
+
+.ps-popup--full-paid
+    .ps-form
+        width 500px
+        
+        &__field
+            padding 0 0 10px
+            
+            &-title, &-description
+                display block
+               
+            &-title
+                font 800 14px/2 "Open Sans",Helvetica,Arial,sans-serif
+                color #333
+                
+            &-description
+                font 400 14px/2 "Open Sans",Helvetica,Arial,sans-serif
+                color #666
+        
+        &__textarea, &__input
+            display block
+            box-sizing border-box
+            font 400 16px/30px "Open Sans",Helvetica,Arial,sans-serif
+            border 1px solid #C7D6DB
+            border-radius 3px
+            
+        &__textarea
+            size 100% 10em
+            resize none
+            
+        .ps-popup__footer
+            text-align right

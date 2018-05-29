@@ -1,0 +1,121 @@
+.ps-popup__submit {
+  display: inline-block;
+  font: 400 12px/30px "Open Sans", Helvetica, Arial, sans-serif;
+  padding: 0 20px;
+  color: #fff;
+  border: solid 1px #279cbb;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+  background-color: #2eacce;
+  -webkit-box-shadow: "#1B7088" 0 -1px 0 inset;
+     -moz-box-shadow: "#1B7088" 0 -1px 0 inset;
+          box-shadow: "#1B7088" 0 -1px 0 inset;
+  -webkit-transition: 0.5s all ease;
+  -o-transition: 0.5s all ease;
+  -moz-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+}
+.ps-popup__submit:hover {
+  background-color: #56bdd9;
+}
+.ps-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.ps-popup__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 9999;
+  display: none;
+}
+.ps-popup__close {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 25px;
+  height: 25px;
+  background: #333 url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 15 15'><path fill='#fff' d='M6.586 8L.93 2.343 2.342.93 8 6.585 13.657.93l1.414 1.413L9.42 8l5.657 5.657-1.413 1.414L8 9.42l-5.657 5.65L.93 13.658 6.585 8z'/></svg>") 50% 50% no-repeat;
+  border: solid 1px #fff;
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+          border-radius: 50%;
+  -webkit-box-shadow: 0 0 10px 0 #333;
+     -moz-box-shadow: 0 0 10px 0 #333;
+          box-shadow: 0 0 10px 0 #333;
+  -webkit-transition: 0.5s all ease;
+  -o-transition: 0.5s all ease;
+  -moz-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+}
+.ps-popup__close:hover {
+  background-color: #555;
+}
+.ps-popup__form {
+  display: block;
+  margin: -50% 0 0 -50%;
+  background-color: #fff;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+.ps-popup__header {
+  position: relative;
+  padding: 10px 20px;
+}
+.ps-popup__title {
+  font: 20px/1 "Open Sans", Helvetica, Arial, sans-serif;
+  text-align: left;
+}
+.ps-popup__content {
+  padding: 0 20px;
+}
+.ps-popup__footer {
+  padding: 10px 20px;
+}
+.ps-popup__submit {
+  text-transform: uppercase;
+}
+.ps-popup--full-paid .ps-form {
+  width: 500px;
+}
+.ps-popup--full-paid .ps-form__field {
+  padding: 0 0 10px;
+}
+.ps-popup--full-paid .ps-form__field-title,
+.ps-popup--full-paid .ps-form__field-description {
+  display: block;
+}
+.ps-popup--full-paid .ps-form__field-title {
+  font: 800 14px/2 "Open Sans", Helvetica, Arial, sans-serif;
+  color: #333;
+}
+.ps-popup--full-paid .ps-form__field-description {
+  font: 400 14px/2 "Open Sans", Helvetica, Arial, sans-serif;
+  color: #666;
+}
+.ps-popup--full-paid .ps-form__textarea,
+.ps-popup--full-paid .ps-form__input {
+  display: block;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  font: 400 16px/30px "Open Sans", Helvetica, Arial, sans-serif;
+  border: 1px solid #c7d6db;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+}
+.ps-popup--full-paid .ps-form__textarea {
+  width: 100%;
+  height: 10em;
+  resize: none;
+}
+.ps-popup--full-paid .ps-form .ps-popup__footer {
+  text-align: right;
+}

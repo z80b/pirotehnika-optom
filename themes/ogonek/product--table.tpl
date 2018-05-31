@@ -5,6 +5,9 @@
         <th>Наименование</th>
         <th>Ед</th>
         <th>Цена</th>
+        <th>В упаковке</th>
+        <th>В блоке</th>
+        <th>В коробке</th>
         <th>Нал.</th>
         <th>В заказе</th>
         <th>Сумма</th>
@@ -15,16 +18,18 @@
     {foreach from=$product.features item=feat}
         {if $feat.name == 'Фасовка'}{assign var='fasovka' value=$feat.value}{else}{assign var='fasovka' value=''}{/if}
     {/foreach}
-    <tr class="ps-products__item ps-product">
+    <tr class="ps-products__item ps-product" data-product-id="{$product.id_product}">
         <td class="ps-product__articule">{$product.reference}</td>
         <td>
-        <img
-            class="ps-product__image"
-            alt="{$product.name|escape:'html':'UTF-8'}"
-            title="{$product.name|escape:'html':'UTF-8'}"
-            src="{$link->getImageLink($product.link_rewrite, $product.id_image, 'home_default')|escape:'html':'UTF-8'}"/>
+            <img
+                class="ps-product__image"
+                alt="{$product.name|escape:'html':'UTF-8'}"
+                title="{$product.name|escape:'html':'UTF-8'}"
+                src="{$link->getImageLink($product.link_rewrite, $product.id_image, 'home_default')|escape:'html':'UTF-8'}"/>
         </td>
-        <td class="ps-product__name">{$product.name|escape:'html':'UTF-8'}</td>
+        <td class="ps-product__name">
+            <a class="ps-product__link" href="{$product.link|escape:'html':'UTF-8'}">{$product.name|escape:'html':'UTF-8'}</a>
+        </td>
         <td>{Product::SGetProductUnity($product.sale_unity)}</td>
         <td class="ps-product__price">
             <span class="ps-price__value">
@@ -36,6 +41,9 @@
                 </span>
             {/if}
         </td>
+        <td>{$product.r1}</td>
+        <td>{$product.r2}</td>
+        <td>{$product.r3}</td>
         <td>
             {$product.quantity}
             {Product::SGetProductUnity($product.sale_unity)}
@@ -51,9 +59,9 @@
                     name="qty"
                     class="ps-quantity__value ajax_input_prod_{$product.id_product}"
                     type="number"
-                    value="1"
+                    value="0"
                     data-prev-val="{if isset($productsCart.cart_quantity)}{$productsCart.cart_quantity}{else}0{/if}"
-                    min="1"
+                    min="0"
                     max="{$product.quantity}"/>
                 <button
                     class="ps-quantity__button ps-quantity__button--inc"
@@ -69,7 +77,7 @@
             >{l s="В заказ"}</a>
             {/if}
         </td>
-        <td></td>
+        <td class="js-product-summ">0</td>
     </tr>
 {/foreach}
 </tbody>

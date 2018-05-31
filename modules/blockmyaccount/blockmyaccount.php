@@ -74,9 +74,20 @@ class BlockMyAccount extends Module
 
 	public function hookDisplayLeftColumn($params)
 	{
-		if (!$this->context->customer->isLogged())
-			return false;
+		// if (!$this->context->customer->isLogged())
+		// 	return false;
 
+		$this->smarty->assign(array(
+			'location' => isset($params['location']) ? $params['location'] : '',
+			'voucherAllowed' => CartRule::isFeatureActive(),
+			'returnAllowed' => (int)Configuration::get('PS_ORDER_RETURN'),
+			'HOOK_BLOCK_MY_ACCOUNT' => Hook::exec('displayMyAccountBlock'),
+		));
+		return $this->display(__FILE__, $this->name.'.tpl');
+	}
+
+	public function hookDisplayNav($params)
+	{
 		$this->smarty->assign(array(
 			'voucherAllowed' => CartRule::isFeatureActive(),
 			'returnAllowed' => (int)Configuration::get('PS_ORDER_RETURN'),

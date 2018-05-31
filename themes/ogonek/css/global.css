@@ -10766,6 +10766,11 @@ input[type='number'] {
   display: block;
   clear: both;
 }
+@media (max-width: 990px) {
+  #header_links {
+    display: none !important;
+  }
+}
 .ps-contacts {
   position: relative;
   display: block;
@@ -11143,8 +11148,17 @@ input[type='number'] {
 .ps-products--table {
   width: 100%;
 }
-.ps-products--table thead th {
+.ps-products--table th {
   text-align: center;
+}
+.ps-products--table td {
+  text-align: center;
+}
+.ps-products--table tr:nth-child(odd) td {
+  background-color: #fae2b8;
+}
+.ps-products--table tr:hover td {
+  background-color: #f7ce88;
 }
 .ps-products--table .ps-product__table {
   display: block;
@@ -11158,8 +11172,16 @@ input[type='number'] {
   width: 65px;
 }
 .ps-products--table .ps-product__name {
+  text-align: left;
+}
+.ps-products--table .ps-product__name .ps-product__link {
   font: 800 14px/1 'Open Sans', sans-serif;
   color: #d34633;
+  text-decoration: none;
+}
+.ps-products--table .ps-product__name .ps-product__link:hover {
+  color: #d34633;
+  text-decoration: underline;
 }
 .ps-products--table .ps-product__quantity {
   width: 54px;
@@ -11495,6 +11517,77 @@ input[type='number'] {
   margin: 0;
   border: solid 1px #f1b347;
   float: left;
+}
+.ps-profile__button {
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  font: 20px/58px 'FontAwesome';
+  color: #f3aa38;
+  background-color: transparent;
+  -webkit-transition: 0.5s all ease;
+  -o-transition: 0.5s all ease;
+  -moz-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+}
+.ps-profile__button:hover {
+  color: #888;
+  background-color: #f3aa38;
+}
+.ps-profile__block {
+  position: relative;
+  display: block;
+  width: 58px;
+  height: 58px;
+  overflow: hidden;
+}
+.ps-profile__block:hover {
+  overflow: inherit;
+}
+.nav .ps-profile__block {
+  float: right;
+}
+.ps-profile__menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 250px;
+  background-color: #fff;
+  border: solid 2px #f3aa38;
+  -webkit-border-radius: 10px 0 10px 10px;
+     -moz-border-radius: 10px 0 10px 10px;
+          border-radius: 10px 0 10px 10px;
+  padding: 15px 0;
+  opacity: 0;
+  -webkit-transition: 0.5s all ease;
+  -o-transition: 0.5s all ease;
+  -moz-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+}
+.ps-profile__block:hover .ps-profile__menu {
+  opacity: 1;
+}
+.ps-profile__link {
+  display: block;
+  padding: 5px 15px;
+  margin: 0;
+  font: 14px/20px 'Open Sans', sans-serif;
+  color: #666;
+  text-align: left;
+  text-decoration: none;
+  -webkit-transition: 0.5s all ease;
+  -o-transition: 0.5s all ease;
+  -moz-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+}
+.ps-profile__link .icon-chevron-right {
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0 0 0 10px;
+}
+.ps-profile__link:hover {
+  background-color: #f7ce88;
+  text-decoration: none;
 }
 @-moz-keyframes progress-bar-stripes {
   from {

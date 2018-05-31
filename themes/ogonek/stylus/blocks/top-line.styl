@@ -1,0 +1,56 @@
+.ps-profile
+    &__button
+        display block
+        text-align center
+        vertical-align middle
+        font 20px/58px 'FontAwesome'
+        color #f3aa38
+        background-color transparent
+        transition .5s all ease
+        
+        &:hover
+            color #888
+            background-color #f3aa38
+        
+    &__block
+        position relative
+        display block
+        size 58px 58px
+        overflow hidden
+        
+        &:hover
+            overflow inherit
+        
+        .nav &
+            float right
+            
+    &__menu
+        absolute top 100% right 0 width 250px
+        background-color #fff
+        border solid 2px #f3aa38
+        border-radius 10px 0 10px 10px
+        padding 15px 0
+        opacity 0
+        transition .5s all ease
+        
+        ~/__block:hover &
+            opacity 1
+        
+    &__link
+        display block
+        padding 5px 15px
+        margin 0
+        font 14px/20px 'Open Sans', sans-serif
+        color #666
+        text-align left
+        text-decoration none
+        transition .5s all ease
+        
+        .icon-chevron-right
+            font-size 14px
+            line-height 20px
+            margin 0 0 0 10px
+        
+        &:hover
+            background-color #f7ce88
+            text-decoration none        

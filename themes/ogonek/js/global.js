@@ -37,10 +37,6 @@ $(document).ready(function(){
 		return html.replace(/([\d|\s]+)\,(\d+)\s*(.+)/, '$1,<span class="price__cents">$2</span> $3');
 	});
 
-	if (!document.location.pathname || document.location.pathname == '/') {
-		$('.js-product-compare').css('display', 'none');
-	}
-
 	$('#short_description_content').on('click', function(event) {
 		console.log(event);
 		var $el = $(event.currentTarget);

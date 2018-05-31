@@ -1,0 +1,35 @@
+.ps-contacts {
+  display: block;
+  text-align: center;
+}
+.ps-contacts__phone {
+  font: 700 24px/1.2 'Open Sans', sans-serif;
+  color: #f3aa38;
+  white-space: nowrap;
+}
+.ps-contacts__info {
+  font: 700 14px/1.5 'Open Sans', sans-serif;
+  color: #666;
+}
+.ps-contacts__info:last-of-type {
+  font-size: 10px;
+}
+.ps-contacts__button {
+  display: inline-block;
+  font: 700 16px/2 'Open Sans', sans-serif;
+  text-decoration: none;
+  color: #f3aa38;
+  background-color: #fff;
+  border: solid 1px #f3aa38;
+  margin: 10px auto;
+  padding: 0 15px;
+  -webkit-transition: 0.5s all ease;
+  -o-transition: 0.5s all ease;
+  -moz-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+}
+.ps-contacts__button:hover {
+  color: #fff;
+  background-color: #f3aa38;
+  text-decoration: none;
+}

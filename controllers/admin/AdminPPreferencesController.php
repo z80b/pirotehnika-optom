@@ -267,6 +267,14 @@ class AdminPPreferencesControllerCore extends AdminController
                         'type' => 'bool',
                         'visibility' => Shop::CONTEXT_ALL,
                     ),
+                    'PS_IS_SHOW_WARNING_PRODUCT_OUT_OF_STOCK' => array(
+                        'title' => $this->l('Показывать предупреждение о том, что товар закончился'),
+                        'hint' => $this->l('Показывать предупреждение о том, что товар закончился при редактировании заказа.'),
+                        'validation' => 'isBool',
+                        'cast' => 'intval',
+                        'required' => false,
+                        'type' => 'bool',
+                    ),
                     'PS_DEFAULT_WAREHOUSE_NEW_PRODUCT' => array(
                         'title' => $this->l('Default warehouse on new products'),
                         'hint' => $this->l('Automatically set a default warehouse when new product is created'),

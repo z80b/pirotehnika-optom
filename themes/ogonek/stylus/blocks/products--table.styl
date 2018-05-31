@@ -1,14 +1,23 @@
 .ps-products--table
     width 100%
     
-    thead
-        th
-            text-align center
+    th
+        text-align center
+        
+    td
+        text-align center
+        
+    tr:nth-child(odd) td
+        background-color #fae2b8
+        
+    tr:hover td
+        background-color #f7ce88
+
     
     .ps-product
         &__table
             display block
-        
+                    
         &__grid, &__list, &__extended
             display none
             
@@ -16,9 +25,16 @@
             width 65px
             
         &__name
-            font 800 14px/1 'Open Sans', sans-serif
-            color #d34633
+            text-align left
             
+            .ps-product__link
+                font 800 14px/1 'Open Sans', sans-serif
+                color #d34633
+                text-decoration none
+            
+                &:hover
+                    color #d34633
+                    text-decoration underline            
             
         &__quantity
             width 54px

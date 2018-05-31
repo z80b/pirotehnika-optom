@@ -47,7 +47,7 @@ class AdminMy_PaymentsControllerCore extends AdminController
     {
         parent::__construct();
         $this->table = 'my_payments';
-        $this->className = 'My_payments';
+        $this->className = 'My_Payments';
         $this->lang = false;
         $this->deleted = false;
         $this->allow_export = false;
@@ -307,7 +307,7 @@ class AdminMy_PaymentsControllerCore extends AdminController
 
 		$id_new_payments = Tools::getValue('id_payment');
 		if ($id_new_payments >0 ) {
-			$my_paym = new My_payments($id_new_payments);
+			$my_paym = new My_Payments($id_new_payments);
 			$my_paym->date_upd =  date('Y-m-d H:i:s');
 			$isnew = false;
 		} else {
@@ -426,7 +426,7 @@ class AdminMy_PaymentsControllerCore extends AdminController
     {
 		parent::renderForm();
         unset($this->toolbar_btn['save']);
-        $my_payment = new My_payments(Tools::getValue('id_my_payments'));
+        $my_payment = new My_Payments(Tools::getValue('id_my_payments'));
 		$this->addJqueryPlugin(array('autocomplete', 'fancybox', 'typewatch'));
 
         $defaults_order_state = array('cheque' => (int)Configuration::get('PS_OS_CHEQUE'),

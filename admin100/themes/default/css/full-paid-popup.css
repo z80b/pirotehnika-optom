@@ -116,6 +116,9 @@
   height: 10em;
   resize: none;
 }
+.ps-popup--full-paid .ps-form__textarea:disabled {
+  background-color: #eee;
+}
 .ps-popup--full-paid .ps-form .ps-popup__footer {
   text-align: right;
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>vkapi</name>
+	<displayName><![CDATA[Вконтакте open API]]></displayName>
+	<version><![CDATA[1.0]]></version>
+	<description><![CDATA[Асинхронный  open API Вконтакте]]></description>
+	<author><![CDATA[PrestaLab.Ru]]></author>
+	<tab><![CDATA[social_networks]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

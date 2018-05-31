@@ -458,6 +458,9 @@
 		<p class="form-group">
 			<textarea class="form-control" cols="67" rows="3" name="msgText"></textarea>
 		</p>
+		<p class="form-group">
+			<div id="captcha-holder" data-sitekey="{$captcha_public_key}"></div>
+		</p>
 		<div class="submit">
 			<input type="hidden" name="id_order" value="{$order->id|intval}" />
 			<input type="submit" class="unvisible" name="submitMessage" value="{l s='Send'}"/>

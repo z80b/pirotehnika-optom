@@ -49,10 +49,12 @@ class AdminOrdersControllerCore extends AdminController
     public $is_show_discount = false;
     protected $employees_array = array();
     protected $trcs_array = array();
-
+	public $Order_is_busy;
 	
     public function __construct()
     {
+        
+        $this->Order_is_busy = false;
         $this->bootstrap = true;
         $this->table = 'order';
         $this->className = 'Order';
@@ -65,8 +67,6 @@ class AdminOrdersControllerCore extends AdminController
         $this->deleted = false;
         $this->context = Context::getContext();
         parent::__construct();
-
-        $this->addJs(_PS_JS_DIR_.'/admin/attachments.js');
 
 		$this->is_show_fio = !Configuration::get('PS_OWN_NAME', null, null, (int)$this->context->shop->id);
  		$this->is_show_discount = Configuration::get('PS_OWN_COUNTRY_DISCOUNT', null, null, (int)$this->context->shop->id);
@@ -117,7 +117,7 @@ class AdminOrdersControllerCore extends AdminController
         foreach ($trcs as $trc) {
            $this->trcs_array[$trc['id_trc']] = $trc['name'];
         }
-        //die('<pre>'.print_r($this, true).'</pre>');
+
 
 /*         $groups = OrderStateGroup::getOrderStateGroups();
         foreach ($groups as $group) {
@@ -154,12 +154,6 @@ class AdminOrdersControllerCore extends AdminController
                 'title' => $this->l('Total'),
                 'align' => 'text-right',
                 'type' => 'decimal',
-            ),
-            'full_paid' => array (
-                'title' => 'Оплачено',
-                'type'  => 'bool',
-                'align' => 'text-center',
-                'callback' => 'printPaidIcon'
             ),
             'total_paid_real' => array(
                 'title' => $this->l('Оплачено'),
@@ -317,24 +311,6 @@ class AdminOrdersControllerCore extends AdminController
             Tools::safeOutput($this->admin_webpath . '/?tab=AdminOrders&id_order=' . (int)$order['id_order'] . '&action=changeBlockerVal&token=' . Tools::getAdminTokenLite('AdminOrders')),
             $value ? 'icon-check' : 'icon-remove'
         );
-        return '<a class="list-action-enable '.($value ? 'action-enabled' : 'action-disabled').'" href="index.php?'.Tools::safeOutput('tab=AdminOrders&id_oder='
-            .(int)$order['id_order'].'&changeBlockerVal&token='.Tools::getAdminTokenLite('AdminOrders')).'">
-				'.($value ? '<i class="icon-check"></i>' : '<i class="icon-remove"></i>').
-            '</a>';
-    }
-
-    public function printPaidIcon($value, $order)
-    {
-        return sprintf(
-            '<a class="%s js-change-paid-val" href="/%s"><i class="%s"></i></a>',
-            'list-action-enable ' . ($value ? 'action-enabled' : 'action-disabled'),
-            Tools::safeOutput($this->admin_webpath . '/?tab=AdminOrders&id_order=' . (int)$order['id_order'] . '&action=changePaidVal&token=' . Tools::getAdminTokenLite('AdminOrders')),
-            $value ? 'icon-check' : 'icon-remove'
-        );
-        return '<a class="list-action-enable '.($value ? 'action-enabled' : 'action-disabled').'" href="index.php?'.Tools::safeOutput('tab=AdminOrders&id_oder='
-            .(int)$order['id_order'].'&changePaidVal&token='.Tools::getAdminTokenLite('AdminOrders')).'">
-                '.($value ? '<i class="icon-check"></i>' : '<i class="icon-remove"></i>').
-            '</a>';
     }
 
     public function initProcess()
@@ -342,7 +318,6 @@ class AdminOrdersControllerCore extends AdminController
         parent::initProcess();
 //$text66 = '  ajax  - '.'Orders -  2*'.$this->id_object ;
 //file_put_contents('somefile.txt', PHP_EOL.$text66, FILE_APPEND);
-    //die('<pre>'.print_r($this).'</pre>');
 
         if (Tools::isSubmit('changeBlockerVal') && $this->id_object) {
             if ($this->tabAccess['edit'] === '1') { 
@@ -375,21 +350,7 @@ class AdminOrdersControllerCore extends AdminController
         die(Tools::jsonEncode(array('hasErrors' => false, 'blocked' => $order->blocker)));
     }
 
-    public function processChangePaidVal()
-    {
-        $order = new Order(Tools::getValue('id_order'));
-        if (!Validate::isLoadedObject($order)) {
-            $this->errors[] = Tools::displayError('An error occurred while updating order information. 1');
-            die(Tools::jsonEncode(array('hasErrors' => true, 'errors' => $this->errors)));
-        }
-        $order->full_paid = $order->full_paid ? 0 : 1;
-        if (!$order->update()) {
-            $this->errors[] = Tools::displayError('An error occurred while updating order information. 2');
-            die(Tools::jsonEncode(array('hasErrors' => true, 'errors' => $this->errors)));
-        }
-        $iconClass = $order->full_paid ? '' : '';
-        die(Tools::jsonEncode(array('hasErrors' => false, 'full_paid' => $order->full_paid)));
-    }
+
     
 	public static function setOrderCurrency($echo, $tr)
     {
@@ -734,39 +695,68 @@ class AdminOrdersControllerCore extends AdminController
                     $this->errors[] = Tools::displayError('The new order status is invalid.');
                 } else {
                     $current_order_state = $order->getCurrentOrderState();
-                    if ($current_order_state->id != $order_state->id) {
-                        // Create new OrderHistory
-                        $history = new OrderHistory();
-                        $history->id_order = $order->id;
-                        $history->id_employee = (int)$this->context->employee->id;
-						$history->comment = Tools::getValue('state_comment');
+					$current_order_busy = Context::getContext();
+//$text66 = '  otpusk zakaza 1 - '.$order->order_number.' ID - '.$order->id.' sostojanie '.Configuration::get('PS_ORDER_IS_BUSY', null, null, $order->id_shop);
+//file_put_contents('somefile2.txt', PHP_EOL.$text66, FILE_APPEND);
+                    if (($current_order_state->id != $order_state->id)  && (!Configuration::get('PS_ORDER_IS_BUSY', null, null, $order->id_shop))) {
+						Configuration::updateValue('PS_ORDER_IS_BUSY', 1);
+                        // Проверка на корректность уменьшения остатков при отгрузке заказа
+						// Изменение статуса происходит если остатки на складе больше отгружаемого количества 
+						$err_stock_quantity = [];
+						if (($current_order_state->shipped == 0) && ($order_state->shipped == 1)) {
+							$err_stock_quantity = Order::test_stock_quantity($order->id, $order->id_shop);
+						} else {
+						}
+//						if (($current_order_state->shipped == 0) && ($order_state->shipped == 1) && (!$err_stock_quantity)) {
+						if (!$err_stock_quantity) {
+							$my_own_test = false;
+//$text66 = '                2 - '.$order->order_number.' ID - '.$order->id.' sostojanie '.Configuration::get('PS_ORDER_IS_BUSY', null, null, $order->id_shop) ;
+//file_put_contents('somefile2.txt', PHP_EOL.$text66, FILE_APPEND);
+							if (!$my_own_test) {
+								// Create new OrderHistory
+								$history = new OrderHistory();
+								$history->id_order = $order->id;
+								$history->id_employee = (int)$this->context->employee->id;
+								$history->comment = Tools::getValue('state_comment');
 
-                        $use_existings_payment = false;
-                        if (!$order->hasInvoice()) {
-                            $use_existings_payment = true;
-                        }
-                        $history->changeIdOrderState((int)$order_state->id, $order, $use_existings_payment);
+								$use_existings_payment = false;
+								if (!$order->hasInvoice()) {
+									$use_existings_payment = true;
+								}
+								$history->changeIdOrderState((int)$order_state->id, $order, $use_existings_payment);
 
-                        $carrier = new Carrier($order->id_carrier, $order->id_lang);
-                        $templateVars = array();
-                        if ($history->id_order_state == Configuration::get('PS_OS_SHIPPING') && $order->shipping_number) {
-                            $templateVars = array('{followup}' => str_replace('@', $order->shipping_number, $carrier->url));
-                        }
+								$carrier = new Carrier($order->id_carrier, $order->id_lang);
+								$templateVars = array();
+								if ($history->id_order_state == Configuration::get('PS_OS_SHIPPING') && $order->shipping_number) {
+									$templateVars = array('{followup}' => str_replace('@', $order->shipping_number, $carrier->url));
+								}
 
-                        // Save all changes
-                        if ($history->addWithemail(true, $templateVars)) {
-                            // synchronizes quantities if needed..
-                            if (Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT')) {
-                                foreach ($order->getProducts() as $product) {
-                                    if (StockAvailable::dependsOnStock($product['product_id'])) {
-                                        StockAvailable::synchronize($product['product_id'], (int)$product['id_shop']);
-                                    }
-                                }
-                            }
-
-                            Tools::redirectAdmin(self::$currentIndex.'&id_order='.(int)$order->id.'&vieworder&token='.$this->token);
-                        }
-                        $this->errors[] = Tools::displayError('An error occurred while changing order status, or we were unable to send an email to the customer.');
+								// Save all changes
+								if ($history->addWithemail(true, $templateVars)) {
+//$text66 = '                3 - '.$order->order_number.' ID - '.$order->id.' sostojanie '.Configuration::get('PS_ORDER_IS_BUSY', null, null, $order->id_shop) ;
+//file_put_contents('somefile2.txt', PHP_EOL.$text66, FILE_APPEND);
+									// synchronizes quantities if needed..
+									if (Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT')) {
+										foreach ($order->getProducts() as $product) {
+											if (StockAvailable::dependsOnStock($product['product_id'])) {
+												StockAvailable::synchronize($product['product_id'], (int)$product['id_shop']);
+											}
+										}
+									}
+									Configuration::updateValue('PS_ORDER_IS_BUSY', 0);
+									Tools::redirectAdmin(self::$currentIndex.'&id_order='.(int)$order->id.'&vieworder&token='.$this->token);
+								}
+								$this->errors[] = Tools::displayError('An error occurred while changing order status, or we were unable to send an email to the customer.');
+							} else {
+								$this->errors[] = Tools::displayError('Ошибок нет!');
+							}
+						} else {
+							$this->errors[] = Tools::displayError('Внимание изменить статус заказа невозможно из-за следующих ошибок:');
+							foreach ($err_stock_quantity as $one_err_stock_quantity) {
+								$this->errors[] = Tools::displayError('Ошибка количества! '.$one_err_stock_quantity);
+							}	
+						}
+						Configuration::updateValue('PS_ORDER_IS_BUSY', 0);
                     } else {
                         $this->errors[] = Tools::displayError('The order has already been assigned this status.');
                     }
@@ -2005,7 +1995,7 @@ class AdminOrdersControllerCore extends AdminController
         $display_out_of_stock_warning = false;
         $current_order_state = $order->getCurrentOrderState();
         if (Configuration::get('PS_STOCK_MANAGEMENT') && (!Validate::isLoadedObject($current_order_state) || ($current_order_state->delivery != 1 && $current_order_state->shipped != 1))) {
-            $display_out_of_stock_warning = true;
+            $display_out_of_stock_warning = Configuration::get('PS_IS_SHOW_WARNING_PRODUCT_OUT_OF_STOCK', null, null, $this->context->shop->id);
         }
 
         // products current stock (from stock_available)
@@ -2034,6 +2024,9 @@ class AdminOrdersControllerCore extends AdminController
             // if the current stock requires a warning
             if ($product['current_stock'] <= 0 && $display_out_of_stock_warning) {
                 $this->displayWarning($this->l('This product is out of stock: ').' '.$product['product_name']);
+            }
+            if ($product['current_stock'] < 0 ) {
+				$this->errors[] = Tools::displayError($this->l('Свободное количество товара меньше нуля!: ').' id='.$product['product_id'].' '.$product['reference'].' '.$product['product_name'].' - ('.$product['current_stock'].')');
             }
             if ($product['id_warehouse'] != 0) {
                 $warehouse = new Warehouse((int)$product['id_warehouse']);
@@ -2146,6 +2139,7 @@ class AdminOrdersControllerCore extends AdminController
                 // Concret price
                 $product['price_tax_incl'] = Tools::ps_round(Tools::convertPrice($product['price_tax_incl'], $currency), 2);
                 $product['price_tax_excl'] = Tools::ps_round(Tools::convertPrice($product['price_tax_excl'], $currency), 2);
+				$product['original_product_price'] = Product::getPriceRetail((int)$product['id_product']) ;
                 $productObj = new Product((int)$product['id_product'], false, (int)$this->context->language->id);
                 $combinations = array();
                 $attributes = $productObj->getAttributesGroups((int)$this->context->language->id);
@@ -2439,12 +2433,16 @@ class AdminOrdersControllerCore extends AdminController
         $order_detail->createList($order, $cart, $order->getCurrentOrderState(), $cart->getProducts(), (isset($order_invoice) ? $order_invoice->id : 0), $use_taxes, (int)Tools::getValue('add_product_warehouse'));
 
         // update totals amount of order
-        $order->total_products += (float)$cart->getOrderTotal(false, Cart::ONLY_PRODUCTS);
-        $order->total_products_wt += (float)$cart->getOrderTotal($use_taxes, Cart::ONLY_PRODUCTS);
+//        $order->total_products += (float)$cart->getOrderTotal(false, Cart::ONLY_PRODUCTS);
+        $order->total_products = round($order->total_products + (float)$cart->getOrderTotal($use_taxes, Cart::ONLY_PRODUCTS),2);
+        $order->total_products_wt = round($order->total_products_wt + (float)$cart->getOrderTotal($use_taxes, Cart::RETAIL_PRICES),2);
 
-        $order->total_paid += Tools::ps_round((float)($cart->getOrderTotal(true, $total_method)), 2);
-        $order->total_paid_tax_excl += Tools::ps_round((float)($cart->getOrderTotal(false, $total_method)), 2);
-        $order->total_paid_tax_incl += Tools::ps_round((float)($cart->getOrderTotal($use_taxes, $total_method)), 2);
+//        $order->total_paid += Tools::ps_round((float)($cart->getOrderTotal(true, $total_method)), 2);
+//        $order->total_paid_tax_excl += Tools::ps_round((float)($cart->getOrderTotal(false, $total_method)), 2);
+//        $order->total_paid_tax_incl += Tools::ps_round((float)($cart->getOrderTotal($use_taxes, $total_method)), 2);
+        $order->total_paid = round($order->total_paid + Tools::ps_round((float)($cart->getOrderTotal($use_taxes, Cart::ONLY_PRODUCTS)), 2),2);
+        $order->total_paid_tax_excl = round($order->total_paid_tax_excl + Tools::ps_round((float)($cart->getOrderTotal($use_taxes, Cart::ONLY_PRODUCTS)), 2),2);
+        $order->total_paid_tax_incl = round($order->total_paid_tax_incl + Tools::ps_round((float)($cart->getOrderTotal($use_taxes, Cart::ONLY_PRODUCTS)), 2),2);
 
         if (isset($order_invoice) && Validate::isLoadedObject($order_invoice)) {
             $order->total_shipping = $order_invoice->total_shipping_tax_incl;
@@ -2676,9 +2674,15 @@ class AdminOrdersControllerCore extends AdminController
 		$my_order->skid_2 = Tools::getValue('order_skid_ros');
 		$my_order->skid_3 = Tools::getValue('order_skid_pol');
 
-        $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->ExecuteS('
+/*         $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->ExecuteS('
 		SELECT DISTINCT od.`id_order_detail`, od.`product_id`
 			FROM `'._DB_PREFIX_.'order_detail` od WHERE od.`id_order` = '.Tools::getValue('id_order'));
+ */
+        $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->ExecuteS('
+		SELECT DISTINCT od.`id_order_detail`, od.`product_id`, IFNULL(sp.reduction,0) as reduction
+			FROM `'._DB_PREFIX_.'order_detail` od 
+				left JOIN `'._DB_PREFIX_.'specific_price` sp on (sp.id_product = od.`product_id` and sp.`id_shop` = '.(int)$this->context->shop->id.')
+			WHERE od.`id_order` = '.Tools::getValue('id_order'));
 
         $product_list = 'Products -* ';
 		$my_order_sum_tax_incl = 0;
@@ -2714,7 +2718,9 @@ class AdminOrdersControllerCore extends AdminController
 							break;
 					} 
 				//  Скидка для расчета по Скидке из введенной менеджером	
-				$my_product_rab_discount = min($my_product_new_discount, $my_product_max_discount);
+//				$my_product_rab_discount = min($my_product_new_discount, $my_product_max_discount);
+				$my_product_rab_discount = max(min($my_product_new_discount, $my_product_max_discount),$row['reduction'] * 100);
+//				$my_product_rab_discount = 40;
 				$my_order_detail->my_real_discount = $my_product_rab_discount;
 
 				//  Скидка для показа в заказе - Скидка из карточки покупателя
@@ -2911,11 +2917,20 @@ die(Tools::jsonEncode(array('result' => false,'error' => ' дата - ')));
         $old_quantity = $order_detail->product_quantity;
 
         $order_detail->product_quantity = $product_quantity;
+		$diff_quantity = $product_quantity - $old_quantity;
 		
-		if (($old_quantity - ($order_detail->product_quantity)) < 0 )
+		if ($diff_quantity <> 0 )
+		{
+			$is_new_total = true;
+			$diff_total_products = $diff_quantity * $order_detail->original_product_price;
+		} else {
+			$is_new_total = false;
+			$diff_total_products = 0;
+		};
+		if ($diff_quantity > 0 )
 		{
 			$stock_av_value = StockAvailable::getQuantityAvailableByProduct($order_detail->product_id, $order_detail->product_attribute_id, $order->id_shop);
-			if (($stock_av_value + $old_quantity - ($order_detail->product_quantity)) < 0)
+			if (($stock_av_value - $diff_quantity) < 0)
 			{
 				die(Tools::jsonEncode(array(
                 'result' => false,
@@ -2953,7 +2968,7 @@ die(Tools::jsonEncode(array('result' => false,'error' => ' дата - ')));
             }
         }
 
-        if ($diff_price_tax_incl != 0 && $diff_price_tax_excl != 0) {
+        if (($diff_price_tax_incl != 0 && $diff_price_tax_excl != 0) || $diff_total_products != 0) {
             $order_detail->unit_price_tax_excl = $product_price_tax_excl;
             $order_detail->unit_price_tax_incl = $product_price_tax_incl;
 
@@ -2971,12 +2986,14 @@ die(Tools::jsonEncode(array('result' => false,'error' => ' дата - ')));
 
             // Apply changes on Order
             $order = new Order($order_detail->id_order);
-            $order->total_products += $diff_price_tax_excl;
-            $order->total_products_wt += $diff_price_tax_incl;
+			if (($is_new_total == true) ) {
+				$order->total_products_wt += $diff_total_products;
+			}	
+			$order->total_products += $diff_price_tax_incl;
 
-            $order->total_paid += $diff_price_tax_incl;
-            $order->total_paid_tax_excl += $diff_price_tax_excl;
-            $order->total_paid_tax_incl += $diff_price_tax_incl;
+			$order->total_paid += $diff_price_tax_incl;
+			$order->total_paid_tax_excl += $diff_price_tax_excl;
+			$order->total_paid_tax_incl += $diff_price_tax_incl;
 /* 			$my_discount_sum2 = my_getDiscountForOrder((int)$order_detail->id_order, (float)$order->total_products);
 			$my_discount_sum2_tax_excl = round(($my_discount_sum2 / $this->tax_nds),2);
  		$order->total_discounts = $my_discount_sum2;
@@ -2993,6 +3010,8 @@ die(Tools::jsonEncode(array('result' => false,'error' => ' дата - ')));
             $order_invoice->total_paid_tax_excl = $order->total_paid_tax_excl;
         }
  */			
+//$text66 = '  ajax  - '.$diff_quantity.' new '.$product_quantity.' old '.$old_quantity; ;
+//file_put_contents('somefile.txt', PHP_EOL.$text66, FILE_APPEND);
             $res &= $order->update(); // ******* Edit product
         }
 
@@ -3098,7 +3117,7 @@ die(Tools::jsonEncode(array('result' => false,'error' => ' дата - ')));
 
     public function ajaxProcessDeleteProductAllProductsFromOrder()
     {
-        $res = true;
+		$res = true;
 
         $order = new Order((int)Tools::getValue('id_order'));
 		$OrderDetailList = $order->getOrderDetailList();
@@ -3109,19 +3128,20 @@ die(Tools::jsonEncode(array('result' => false,'error' => ' дата - ')));
 			// Update OrderInvoice of this OrderDetail
 			if ($order_detail->id_order_invoice != 0) {
 				$order_invoice = new OrderInvoice($order_detail->id_order_invoice);
-				$order_invoice->total_paid_tax_excl -= $order_detail->total_price_tax_excl;
-				$order_invoice->total_paid_tax_incl -= $order_detail->total_price_tax_incl;
-				$order_invoice->total_products -= $order_detail->total_price_tax_excl;
-				$order_invoice->total_products_wt -= $order_detail->total_price_tax_incl;
+				$order_invoice->total_paid_tax_excl = round($order_invoice->total_paid_tax_excl - $order_detail->total_price_tax_excl,2);
+				$order_invoice->total_paid_tax_incl = round($order_invoice->total_paid_tax_incl - $order_detail->total_price_tax_incl,2);
+				$order_invoice->total_products = round($order_invoice->total_products - $order_detail->total_price_tax_excl,2);
+//				$order_invoice->total_products_wt -= $order_detail->total_price_tax_incl;
+				$order_invoice->total_products_wt = round($order_invoice->total_products_wt - $order_detail->original_product_price * $order_detail->product_quantity,2);
 				$res &= $order_invoice->update();
 			}
 
 			// Update Order
-			$order->total_paid -= $order_detail->total_price_tax_incl;
-			$order->total_paid_tax_incl -= $order_detail->total_price_tax_incl;
-			$order->total_paid_tax_excl -= $order_detail->total_price_tax_excl;
-			$order->total_products -= $order_detail->total_price_tax_excl;
-			$order->total_products_wt -= $order_detail->total_price_tax_incl;
+			$order->total_paid = round($order->total_paid - $order_detail->total_price_tax_incl,2);
+			$order->total_paid_tax_incl = round($order->total_paid_tax_incl - $order_detail->total_price_tax_incl,2);
+			$order->total_paid_tax_excl = round($order->total_paid_tax_excl - $order_detail->total_price_tax_excl,2);
+			$order->total_products = round($order->total_products - $order_detail->total_price_tax_excl,2);
+			$order->total_products_wt = round($order->total_products_wt - $order_detail->original_product_price * $order_detail->product_quantity,2);
 
 			$res &= $order->update();  // **********
 
@@ -3184,25 +3204,29 @@ die(Tools::jsonEncode(array('result' => false,'error' => ' дата - ')));
 
         $order_detail = new OrderDetail((int)Tools::getValue('id_order_detail'));
         $order = new Order((int)Tools::getValue('id_order'));
+//$text66 = '  ajax  - '.'Delete 1' ;
+//file_put_contents('somefile.txt', PHP_EOL.$text66, FILE_APPEND);
 
         $this->doDeleteProductLineValidation($order_detail, $order);
+//$text66 = '  ajax  - '.'Delete 2' ;
+//file_put_contents('somefile.txt', PHP_EOL.$text66, FILE_APPEND);
 
         // Update OrderInvoice of this OrderDetail
         if ($order_detail->id_order_invoice != 0) {
             $order_invoice = new OrderInvoice($order_detail->id_order_invoice);
-            $order_invoice->total_paid_tax_excl -= $order_detail->total_price_tax_excl;
-            $order_invoice->total_paid_tax_incl -= $order_detail->total_price_tax_incl;
-            $order_invoice->total_products -= $order_detail->total_price_tax_excl;
-            $order_invoice->total_products_wt -= $order_detail->total_price_tax_incl;
+            $order_invoice->total_paid_tax_excl = round($order_invoice->total_paid_tax_excl - $order_detail->total_price_tax_excl,2);
+            $order_invoice->total_paid_tax_incl = round($order_invoice->total_paid_tax_incl - $order_detail->total_price_tax_incl,2);
+//            $order_invoice->total_products -= $order_detail->total_price_tax_excl;
+			$order_invoice->total_products_wt = round($order_invoice->total_products_wt - $order_detail->original_product_price * $order_detail->product_quantity,2);
             $res &= $order_invoice->update();
         }
 
-        // Update Order
-        $order->total_paid -= $order_detail->total_price_tax_incl;
-        $order->total_paid_tax_incl -= $order_detail->total_price_tax_incl;
-        $order->total_paid_tax_excl -= $order_detail->total_price_tax_excl;
-        $order->total_products -= $order_detail->total_price_tax_excl;
-        $order->total_products_wt -= $order_detail->total_price_tax_incl;
+       // Update Order
+        $order->total_paid = round($order->total_paid - $order_detail->total_price_tax_incl,2);
+        $order->total_paid_tax_incl =round($order->total_paid_tax_incl - $order_detail->total_price_tax_incl,2);
+        $order->total_paid_tax_excl = round($order->total_paid_tax_excl - $order_detail->total_price_tax_excl,2);
+        $order->total_products = round($order->total_products - $order_detail->total_price_tax_excl,2);
+        $order->total_products_wt = round($order->total_products_wt - $order_detail->original_product_price * $order_detail->product_quantity,2);
 
         $res &= $order->update();  // **********
 
@@ -3464,6 +3488,8 @@ die(Tools::jsonEncode(array('result' => false,'error' => ' дата - ')));
 
             $id_product = $order_detail->product_id;
             if ($delete) {
+//$text66 = '  ajax  - '.'Delete 1' ;
+//file_put_contents('somefile.txt', PHP_EOL.$text66, FILE_APPEND);
                 $order_detail->delete();
             }
             StockAvailable::synchronize($id_product);
@@ -3476,6 +3502,8 @@ die(Tools::jsonEncode(array('result' => false,'error' => ' дата - ')));
                 );
 
             if ($delete) {
+//$text66 = '  ajax  - '.'Delete 2' ;
+//file_put_contents('somefile.txt', PHP_EOL.$text66, FILE_APPEND);
                 $order_detail->delete();
             }
         } else {

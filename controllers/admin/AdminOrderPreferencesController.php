@@ -94,6 +94,11 @@ class AdminOrderPreferencesControllerCore extends AdminController
                         'cast' => 'intval',
                         'type' => 'bool'
                     ),
+                    'PS_ORDER_IS_BUSY' => array(
+                        'title' => $this->l('Блокировка изменения статусов заказов'),
+                        'cast' => 'intval',
+                        'type' => 'bool'
+                    ),
                    'PS_ORDER_PROCESS_TYPE' => array(
                         'title' => $this->l('Order process type'),
                         'hint' => $this->l('Please choose either the five-step or one-page checkout process.'),

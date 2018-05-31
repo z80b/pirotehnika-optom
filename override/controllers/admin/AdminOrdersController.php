@@ -116,11 +116,18 @@ class AdminOrdersController extends AdminOrdersControllerCore
                         'errors' => $this->errors,
                     ));
                 }
+
+                if ($order->total_paid_real == 0 || $order->total_paid_real > $order->total_paid_tax_incl) {
+                    $total_paid_real = '<span class="badge badge-danger">'.number_format($order->total_paid_real, 2, '.', ' ').'</span>';
+                } elseif ($order->total_paid_real < $order->total_paid_tax_incl) {
+                    $total_paid_real = '<span class="badge badge-warning">'.number_format($order->total_paid_real, 2, '.', ' ').'</span>';
+                } else $total_paid_real = number_format($order->total_paid_real, 2, '.', ' ');
+
                 $this->sendJSON(array(
                     'hasErrors' => false,
                     'id_order' => $order->id,
                     'full_paid' => $order->full_paid,
-                    'total_paid_real' => $order->total_paid_real,
+                    'total_paid_real' => $total_paid_real,
                     'event' => 'full_paid:changed',
                 ));
 

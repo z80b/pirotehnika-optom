@@ -106,7 +106,7 @@ class AdminStockInstantStateControllerCore extends AdminController
 		$this->id_shop = (int)Context::getContext()->shop->id;	
 		$this->stock_instant_state_warehouses = Warehouse::getWarehouses(false,$this->id_shop);
 		$this->stock_instant_state_manufacturers = Manufacturer::getMyManufacturers();
-		$this->stock_instant_state_categories = Manufacturer::getMyManufacturers();
+		$this->stock_instant_state_categories = Category::getHomeCategories(1);
 		foreach ($this->stock_instant_state_warehouses as $items) {
 			 foreach ($items as $key => $value)
 				{
@@ -120,7 +120,7 @@ class AdminStockInstantStateControllerCore extends AdminController
         array_unshift($this->stock_instant_state_warehouses, array('id_warehouse' => -1, 'name' => $this->l('All Warehouses')));
         array_unshift($this->stock_instant_state_manufacturers, array('id_manufacturer' => 1000, 'name' => 'Не указан'));
         array_unshift($this->stock_instant_state_manufacturers, array('id_manufacturer' => -1, 'name' => 'Все производители'));
-        array_unshift($this->stock_instant_state_categories, array('id_def_category' => -1, 'name' => 'Все категории'));
+        array_unshift($this->stock_instant_state_categories, array('id_category' => -1, 'name' => 'Все категории'));
 
 		}
 
@@ -174,7 +174,15 @@ class AdminStockInstantStateControllerCore extends AdminController
             'search' => false,
             'hint' => $this->l('Physical quantity (usable) - Client orders + Supply Orders'),
         );
-
+		
+//		$tek_prod_id = (int)Tools::getValue('id_tek_product');
+		$tek_prod_id = 0;
+		if ($tek_prod_id > 0) {
+			$prod_filter = 'p.id_product = '.$tek_prod_id;
+		} else {
+			$prod_filter = '';
+		}
+			
         // query
         $this->_select = 'IFNULL(pa.ean13, p.ean13) as ean13,
             IFNULL(pa.upc, p.upc) as upc,
@@ -224,6 +232,17 @@ class AdminStockInstantStateControllerCore extends AdminController
 			}	
  		}
 		
+		$ctg = $this->getCurrentCoverageCategories();
+        if ($ctg != -1) {
+ 			if ($ctg != 1000) {
+				$this->_where .= ' AND p.id_category_default = '.$ctg;
+				self::$currentIndex .= '&id_category_default='.(int)$ctg;
+			} else {
+				$this->_where .= ' AND p.id_category_default = 0';
+				self::$currentIndex .= '&id_category_default=0';
+			}	
+ 		}
+		
 		
         // toolbar btn
         $this->toolbar_btn = array();
@@ -235,6 +254,7 @@ class AdminStockInstantStateControllerCore extends AdminController
                 $query->from('product','p');
 		        $query->leftjoin('stock_available', 'sa',  'sa.id_product = p.id_product and sa.quantity > 0 and sa.id_shop = '.$this->id_shop);
 				$query->where('p.active = 1');
+				$query->where($prod_filter);
  		        if ($mnf != -1) {
  					if ($mnf == 1000) {
 						$query->where('p.id_manufacturer = 0');
@@ -242,6 +262,9 @@ class AdminStockInstantStateControllerCore extends AdminController
 						$query->where('p.id_manufacturer = '.(int)$mnf);
 					}	
  				}
+				if ($ctg != -1) {
+					$query->where ('p.id_category_default = '.(int)$ctg);
+				}
 				
                 $res12 = Db::getInstance(_PS_USE_SQL_SLAVE_)->getRow($query);
 				
@@ -251,6 +274,7 @@ class AdminStockInstantStateControllerCore extends AdminController
                 $query->select('SUM(p.price * usable_quantity) as summa_usable');
                 $query->from('stock','s');
 		        $query->rightjoin('product', 'p',  'p.id_product = s.id_product and p.active = 1');
+				$query->where($prod_filter);
  				if ($this->getCurrentCoverageWarehouse() != -1) {
                     $query->where('id_warehouse = '.(int)$this->getCurrentCoverageWarehouse());
 				} else {
@@ -264,6 +288,9 @@ class AdminStockInstantStateControllerCore extends AdminController
 						$query->where('p.id_manufacturer = '.(int)$mnf);
 					}	
 				}
+				if ($ctg != -1) {
+					$query->where ('p.id_category_default = '.(int)$ctg);
+				}
 				
                 $res13 = Db::getInstance(_PS_USE_SQL_SLAVE_)->getRow($query);
 
@@ -272,8 +299,15 @@ class AdminStockInstantStateControllerCore extends AdminController
                 $query->select('SUM(p.price * od.product_quantity) as summa_bron');
                 $query->from('order_detail','od');
 		        $query->rightjoin('product', 'p',  'p.id_product = od.product_id and p.active = 1');
-		        $query->rightjoin('orders', 'o',  'o.id_order = od.id_order');
+		        $query->rightjoin('orders', 'o',  'o.id_order = od.id_order and o.current_state > 0');
 		        $query->rightjoin('order_state', 'os',  'os.id_order_state = o.current_state and os.shipped = 0');
+				$query->where($prod_filter);
+				if ($this->getCurrentCoverageWarehouse() != -1) {
+                    $query->where('id_warehouse = '.(int)$this->getCurrentCoverageWarehouse());
+				} else {
+					$query->where('id_warehouse IN ('.$this->wh_list.')');
+				}
+
 
 		        if ($mnf != -1) {
 					if ($mnf == 1000) {
@@ -281,6 +315,9 @@ class AdminStockInstantStateControllerCore extends AdminController
 					} else {
 						$query->where('p.id_manufacturer = '.(int)$mnf);
 					}	
+				}
+				if ($ctg != -1) {
+					$query->where ('p.id_category_default = '.(int)$ctg);
 				}
 				
                 $res14 = Db::getInstance(_PS_USE_SQL_SLAVE_)->getRow($query);
@@ -292,7 +329,7 @@ class AdminStockInstantStateControllerCore extends AdminController
         $this->tpl_list_vars['stock_instant_state_categories'] = $this->stock_instant_state_categories;
         $this->tpl_list_vars['stock_instant_state_cur_warehouse'] = $this->getCurrentCoverageWarehouse();
         $this->tpl_list_vars['stock_instant_state_cur_manufacturer'] = $mnf;
-        $this->tpl_list_vars['stock_instant_state_cur_category'] = $mnf;
+        $this->tpl_list_vars['stock_instant_state_cur_category'] = $ctg;
         $this->tpl_list_vars['summa_physical'] = $res13['summa_physical'];
         $this->tpl_list_vars['summa_usable'] = $res13['summa_usable'];
         $this->tpl_list_vars['summa_rest'] = $res12['summa_rest'];
@@ -615,6 +652,19 @@ class AdminStockInstantStateControllerCore extends AdminController
             }
         }
         return $manufacturer;
+    }
+
+    protected function getCurrentCoverageCategories()
+    {
+        static $category = 0;
+
+        if ($category == 0) {
+            $category = -1; // all warehouses
+            if ((int)Tools::getValue('id_category')) {
+                $category = (int)Tools::getValue('id_category');
+            }
+        }
+        return $category;
     }
 
     /**

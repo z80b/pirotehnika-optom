@@ -130,10 +130,11 @@ $(document).ready(function() {
                                 <div class="row">
                                     {*<nav>{$smarty.capture.displayNav}</nav>*}
                                     <nav>
-                                        {hook h="displayNav" mod="blockuserinfo"}
+                                        {hook h="displayNav" mod="blockpermanentlinks"}
+                                        {hook h="displayLeftColumn" mod="blockmyaccount" location='top'}
+                                        {*include file="$tpl_dir./profile-block.tpl"*}
                                         {hook h="displayTop" mod="blockcart"}
                                         {hook h="displayNav" mod="blocksearch"}
-                                        {hook h="displayNav" mod="blockpermanentlinks"}
                                     </nav>
                                 </div>
                             </div>

@@ -140,6 +140,7 @@ class OrderDetailControllerCore extends FrontController
                     }
 
                     $this->context->smarty->assign('message_confirmation', true);
+                    $this->context->smarty->assign('captcha_public_key', Tools::getValue('CAPTCHA_PUBLIC_KEY', Configuration::get('CAPTCHA_PUBLIC_KEY')));
                 } else {
                     $this->errors[] = Tools::displayError('Order not found');
                 }
@@ -220,13 +221,14 @@ class OrderDetailControllerCore extends FrontController
                     /* DEPRECATED: customizedDatas @since 1.5 */
                     'customizedDatas' => $customizedDatas,
                     /* DEPRECATED: customizedDatas @since 1.5 */
-                    'reorderingAllowed' => !(bool)Configuration::get('PS_DISALLOW_HISTORY_REORDERING')
+                    'reorderingAllowed' => !(bool)Configuration::get('PS_DISALLOW_HISTORY_REORDERING'),
+                    'captcha_public_key' => Tools::getValue('CAPTCHA_PUBLIC_KEY', Configuration::get('CAPTCHA_PUBLIC_KEY')),
                 ));
 
                 if ($carrier->url && $order->shipping_number) {
                     $this->context->smarty->assign('followup', str_replace('@', $order->shipping_number, $carrier->url));
                 }
-                $this->context->smarty->assign('HOOK_ORDERDETAILDISPLAYED', Hook::exec('displayOrderDetail', array('order' => $order)));
+                $this->context->smarty->assign('HOOK_ORDERDETAILDISPLAYED', Hook::exec('displayOrderDetail', array('order' => $order, 'ass' => 'ass')));
                 Hook::exec('actionOrderDetail', array('carrier' => $carrier, 'order' => $order));
 
                 unset($carrier, $addressInvoice, $addressDelivery);

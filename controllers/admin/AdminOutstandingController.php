@@ -144,7 +144,7 @@ class AdminOutstandingControllerCore  extends AdminController
         }
         $order = new Order($order_invoice->id_order);
         if (!Validate::isLoadedObject($order)) {
-            throw new PrestaShopException('object Order cannot be loaded');
+            throw new PrestaShopException('object Order cannot be loaded'.' id_invoice='.$id_invoice.' id_order='.$order_invoice->id_order);
         }
         $customer = new Customer((int)$order->id_customer);
         if (!Validate::isLoadedObject($order_invoice)) {

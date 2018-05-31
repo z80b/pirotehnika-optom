@@ -96,7 +96,7 @@
             border-radius: none;
   }
   #header .cart_block {
-    width: 100%;
+    width: 180%;
   }
   #layer_cart .layer_cart_product .product-image-container {
     float: none;
@@ -111,7 +111,7 @@
     width: 100%;
   }
   #header .cart_block {
-    width: 100%;
+    width: 180%;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {

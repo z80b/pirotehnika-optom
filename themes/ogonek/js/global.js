@@ -519,7 +519,7 @@ function display(view)
         html += "<tr><th>Артикул</th><th>Изобр.</th><th>Наименование</th><th>Ед</th><th>Цена</th><th>Нал.</th><th>В заказе (<a href='javascript:void(0)' onclick='appAlert(\"Для заказа сразу коробки в поле ввода нажмите Ctrl + Вверх или Ctrl + Вниз\");'>?</a>)</th><th>Сумма</th></tr>";
         html += "</thead>";
         html += "<tbody>";
-        $('.product_list > li').each(function(index, element) {
+        $('.ps-product__table tbody > tr').each(function(index, element) {
 
             var prodId = parseInt($(element).attr('data-product-id'));
 

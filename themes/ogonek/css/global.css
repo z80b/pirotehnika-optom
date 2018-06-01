@@ -11160,6 +11160,10 @@ input[type='number'] {
 .ps-products--table tr:hover td {
   background-color: #f7ce88;
 }
+.ps-products--table .ps-product--incard td,
+.ps-products--table .ps-product--incard:nth-child(odd) td {
+  background-color: #d4eff7;
+}
 .ps-products--table .ps-product__table {
   display: block;
 }
@@ -11170,6 +11174,31 @@ input[type='number'] {
 }
 .ps-products--table .ps-product__image {
   width: 65px;
+}
+.ps-products--table .ps-product__image-zoom {
+  position: relative;
+  display: block;
+}
+.ps-products--table .ps-product__image-zoom::after {
+  content: "\f00e";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 65px;
+  height: 100%;
+  font: 32px/65px "FontAwesome";
+  text-align: center;
+  background-color: rgba(0,0,0,0.2);
+  color: #fff;
+  -webkit-transition: 0.5s opacity ease;
+  -o-transition: 0.5s opacity ease;
+  -moz-transition: 0.5s opacity ease;
+  transition: 0.5s opacity ease;
+  opacity: 0;
+}
+.ps-products--table .ps-product__image-zoom:hover::after {
+  opacity: 1;
 }
 .ps-products--table .ps-product__name {
   text-align: left;

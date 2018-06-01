@@ -13,8 +13,11 @@
     tr:hover td
         background-color #f7ce88
 
-    
     .ps-product
+        &--incard
+            td, &:nth-child(odd) td
+                background-color #d4eff7
+                
         &__table
             display block
                     
@@ -24,6 +27,25 @@
         &__image
             width 65px
             
+            &-zoom
+                position relative
+                display block
+                
+                &::after
+                    content "\f00e"
+                    display block
+                    absolute top 0 left 0 width 65px height 100%
+                    font 32px/65px "FontAwesome"
+                    text-align center
+                    background-color rgba(#000, .2)
+                    color #fff
+                    transition .5s opacity ease
+                    opacity 0
+                    
+                &:hover::after
+                    opacity 1
+
+
         &__name
             text-align left
             

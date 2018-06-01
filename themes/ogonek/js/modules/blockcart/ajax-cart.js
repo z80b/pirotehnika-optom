@@ -864,8 +864,14 @@ var ajaxCart = {
         $('.ajax_table_tr_bg_null').removeClass('isInCart');
 
         jsonData.products.forEach(function (item, i, items) {
-            $('.ajax_block_cart_total_price_id_'+item.id).text(item.price);
-            $('.ajax_block_cart_total_price2_id_'+item.id).text(item.price.replace('руб', ''));
+            $('.ajax_block_cart_total_price_id_'+item.id).html(item.price);
+            $('.ajax_block_cart_total_price2_id_'+item.id).html(item.price.replace('руб', ''));
+            
+            if (parseFloat(item.price) > 0) {
+            	$('.ajax_block_cart_total_price2_id_'+item.id).parents('tr').addClass('ps-product--incard');
+            } else {
+            	$('.ajax_block_cart_total_price2_id_'+item.id).parents('tr').removeClass('ps-product--incard');
+            }
 
             $('.ajax_block_cart_count_id_'+item.id).text(item.quantity);
 

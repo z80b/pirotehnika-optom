@@ -21,11 +21,14 @@
     <tr class="ps-products__item ps-product" data-product-id="{$product.id_product}">
         <td class="ps-product__articule">{$product.reference}</td>
         <td>
-            <img
-                class="ps-product__image"
-                alt="{$product.name|escape:'html':'UTF-8'}"
-                title="{$product.name|escape:'html':'UTF-8'}"
-                src="{$link->getImageLink($product.link_rewrite, $product.id_image, 'home_default')|escape:'html':'UTF-8'}"/>
+            <a  class="ps-product__image-zoom fancyImg"
+                href="{$link->getImageLink($product.link_rewrite, $product.id_image, 'large_default')|escape:'html':'UTF-8'}">
+                <img
+                    class="ps-product__image"
+                    alt="{$product.name|escape:'html':'UTF-8'}"
+                    title="{$product.name|escape:'html':'UTF-8'}"
+                    src="{$link->getImageLink($product.link_rewrite, $product.id_image, 'home_default')|escape:'html':'UTF-8'}"/>
+            </a>
         </td>
         <td class="ps-product__name">
             <a class="ps-product__link" href="{$product.link|escape:'html':'UTF-8'}">{$product.name|escape:'html':'UTF-8'}</a>
@@ -77,7 +80,7 @@
             >{l s="В заказ"}</a>
             {/if}
         </td>
-        <td class="js-product-summ">0</td>
+        <td class="js-product-summ ajax_block_cart_total_price2_id_{$product.id_product}">0</td>
     </tr>
 {/foreach}
 </tbody>

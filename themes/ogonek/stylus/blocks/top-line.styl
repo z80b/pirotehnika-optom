@@ -8,7 +8,7 @@
         background-color transparent
         transition .5s all ease
         
-        &:hover
+        ~/__block:hover &
             color #888
             background-color #f3aa38
         
@@ -19,7 +19,7 @@
         overflow hidden
         
         &:hover
-            overflow inherit
+            overflow inherit           
         
         .nav &
             float right
@@ -29,7 +29,8 @@
         background-color #fff
         border solid 2px #f3aa38
         border-radius 10px 0 10px 10px
-        padding 15px 0
+        padding 0
+        overflow hidden
         opacity 0
         transition .5s all ease
         
@@ -45,6 +46,12 @@
         text-align left
         text-decoration none
         transition .5s all ease
+        
+        &:first-child
+            padding 15px 15px 5px
+            
+        &:last-child
+            padding 5px 15px 15px
         
         .icon-chevron-right
             font-size 14px

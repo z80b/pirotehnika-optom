@@ -198,6 +198,7 @@ var ajaxCart = {
 
             // Removing product from the cart
             ajaxCart.remove(productId, productAttributeId, customizationId, idAddressDelivery);
+            $('.ps-product__table [data-product-id='+ productId +']').removeClass('ps-product--incard');
             //console.log("removed"+productId);
             //testfunc();
         });

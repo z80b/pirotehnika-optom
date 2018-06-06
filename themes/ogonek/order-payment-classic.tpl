@@ -35,10 +35,10 @@
                     <tr>
                         <th class="cart_product first_item">{l s='Product'}</th>
                         <th class="cart_description item">{l s='Description'}</th>
+                        <th class="cart_unit item text-right">{l s='Unit price'}</th>
                         {if $PS_STOCK_MANAGEMENT}
                             <th class="cart_availability item text-center">{l s='Availability'}</th>
                         {/if}
-                        <th class="cart_unit item text-right">{l s='Unit price'}</th>
                         <th class="cart_quantity item text-center">{l s='Qty'}</th>
                         <th class="cart_total last_item text-right">{l s='Total'}</th>
                     </tr>
@@ -267,27 +267,27 @@
                             <tr class="cart_discount {if $smarty.foreach.discountLoop.last}last_item{elseif $smarty.foreach.discountLoop.first}first_item{else}item{/if}" id="cart_discount_{$discount.id_discount}">
                                 <td class="cart_discount_name" colspan="{if $PS_STOCK_MANAGEMENT}3{else}2{/if}">{$discount.name}</td>
                                 <td class="cart_discount_price">
-													<span class="price-discount">
-														{if $discount.value_real > 0}
+                                                    <span class="price-discount">
+                                                        {if $discount.value_real > 0}
                                                             {if !$priceDisplay}
                                                                 {displayPrice price=$discount.value_real*-1}
                                                             {else}
                                                                 {displayPrice price=$discount.value_tax_exc*-1}
                                                             {/if}
                                                         {/if}
-													</span>
+                                                    </span>
                                 </td>
                                 <td class="cart_discount_delete">1</td>
                                 <td class="cart_discount_price">
-													<span class="price-discount">
-														{if $discount.value_real > 0}
+                                                    <span class="price-discount">
+                                                        {if $discount.value_real > 0}
                                                             {if !$priceDisplay}
                                                                 {displayPrice price=$discount.value_real*-1}
                                                             {else}
                                                                 {displayPrice price=$discount.value_tax_exc*-1}
                                                             {/if}
                                                         {/if}
-													</span>
+                                                    </span>
                                 </td>
                             </tr>
                         {/foreach}

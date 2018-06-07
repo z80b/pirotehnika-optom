@@ -10747,6 +10747,34 @@ input[type='number'] {
 #app_header_logo >a {
   display: inline-block;
 }
+.cart_product .ps-product__image {
+  height: 100px;
+}
+.cart_product .ps-product__image-zoom {
+  position: relative;
+  display: block;
+}
+.cart_product .ps-product__image-zoom::after {
+  content: "\f00e";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  font: 32px/100px "FontAwesome";
+  text-align: center;
+  background-color: rgba(0,0,0,0.2);
+  color: #fff;
+  -webkit-transition: 0.5s opacity ease;
+  -o-transition: 0.5s opacity ease;
+  -moz-transition: 0.5s opacity ease;
+  transition: 0.5s opacity ease;
+  opacity: 0;
+}
+.cart_product .ps-product__image-zoom:hover::after {
+  opacity: 1;
+}
 .ps-footer__block {
   padding: 5px 0;
   float: left;

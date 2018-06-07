@@ -11,7 +11,14 @@
 				<!-- END Error return block -->
 				<p class="form-group">
 					<label for="login_email">{l s='Email address'}</label>
-					<input type="email" class="form-control validate" id="login_email" name="email" data-validate="isEmail" />
+					<input
+						type="email"
+						class="form-control validate"
+						id="login_email"
+						name="email"
+						data-warning="Не верный формат почтового адреса."
+						data-validate="isEmail" />
+					<span class="form-control-error"></span>
 				</p>
 				<p class="form-group">
 					<label for="login_passwd">{l s='Password'}</label>
@@ -61,7 +68,15 @@
 					<p class="required"><sup>*</sup>{l s='Required field'}</p>
 					<div class="required text form-group">
 						<label for="email">{l s='Email'} <sup>*</sup></label>
-						<input type="email" class="text form-control validate" id="email" name="email" data-validate="isEmail" value="{if isset($guestInformations) && isset($guestInformations.email) && $guestInformations.email}{$guestInformations.email}{/if}" />
+						<input
+							type="email"
+							class="text form-control validate"
+							id="email"
+							name="email"
+							data-validate="isEmail"
+							data-warning="Не верный формат почтового адреса."
+							value="{if isset($guestInformations) && isset($guestInformations.email) && $guestInformations.email}{$guestInformations.email}{/if}" />
+						<span class="form-control-error"></span>
 					</div>
 					<div class="required password is_customer_param form-group">
 						<label for="passwd">{l s='Password'} <sup>*</sup></label>

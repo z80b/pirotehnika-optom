@@ -82,7 +82,15 @@
                     <label for="email" class="required">
                         {l s='E-mail address'}
                     </label>
-                    <input class="is_required validate form-control" data-validate="isEmail" type="email" name="email" id="email" value="{$smarty.post.email}" />
+                    <input
+                        class="is_required validate form-control"
+                        data-validate="isEmail"
+                        data-warning="Не верный формат почтового адреса."
+                        type="email"
+                        name="email"
+                        id="email"
+                        value="{$smarty.post.email}" />
+                    <span class="form-control-error"></span>
                 </div>
                 <div class="form-group">
                     <label>

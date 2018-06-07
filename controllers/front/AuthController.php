@@ -284,7 +284,11 @@ class AuthControllerCore extends FrontController
             if (isset($authentication->active) && !$authentication->active) {
                 $this->errors[] = Tools::displayError('Your account isn\'t available at this time, please contact us');
             } elseif (!$authentication || !$customer->id) {
-                $this->errors[] = Tools::displayError('Authentication failed.');
+                if (Customer::customerExists($email)) {
+                    $this->errors[] = Tools::displayError('Invalid password.');
+                } else {
+                    $this->errors[] = Tools::displayError('Invalid email address.');
+                }
             } else {
                 $this->context->cookie->id_compare = isset($this->context->cookie->id_compare) ? $this->context->cookie->id_compare: CompareProduct::getIdCompareByIdCustomer($customer->id);
                 $this->context->cookie->id_customer = (int)($customer->id);

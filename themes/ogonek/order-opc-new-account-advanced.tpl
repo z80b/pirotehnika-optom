@@ -11,7 +11,14 @@
                 <!-- END Error return block -->
                 <p class="form-group">
                     <label for="login_email">{l s='Email address'}</label>
-                    <input type="email" class="form-control validate" id="login_email" name="email" data-validate="isEmail" />
+                    <input
+                        type="email"
+                        class="form-control validate"
+                        id="login_email"
+                        name="email"
+                        data-warning="Не верный формат почтового адреса."
+                        data-validate="isEmail" />
+                    <span class="form-control-error"></span>
                 </p>
                 <p class="form-group">
                     <label for="login_passwd">{l s='Password'}</label>

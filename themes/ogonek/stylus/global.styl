@@ -2344,6 +2344,12 @@ input[type="number"]::-webkit-inner-spin-button
 
     &.grey
         background $color-88
+        
+    &-error
+        display block
+        absolute top 102% left 0
+        font-size 10px
+        color red
 
 .form-control::-moz-placeholder
     color $color-10
@@ -2358,6 +2364,7 @@ fieldset[disabled] .form-control
     background-color $color-9
 
 .form-group
+    position relative
     margin-bottom 15px
 
 .radio

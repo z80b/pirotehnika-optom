@@ -110,7 +110,14 @@
                     </div>
                     <div class="text form-group">
                         <label>{l s='Email:'}</label>
-                        <input class="form-control" type="email" name="email" value="{if isset($smarty.get.email)}{$smarty.get.email|escape:'html':'UTF-8'}{else}{if isset($smarty.post.email)}{$smarty.post.email|escape:'html':'UTF-8'}{/if}{/if}" />
+                        <input
+                        	class="form-control"
+                        	data-validate="isEmail"
+                        	data-warning="Не верный формат почтового адреса."
+                        	type="email"
+                        	name="email"
+                        	value="{if isset($smarty.get.email)}{$smarty.get.email|escape:'html':'UTF-8'}{else}{if isset($smarty.post.email)}{$smarty.post.email|escape:'html':'UTF-8'}{/if}{/if}" />
+                        <span class="form-control-error"></span>
                     </div>
 			<p>
                 <button type="submit" name="submitGuestTracking" class="button btn btn-default button-medium"><span>{l s='Send'}<i class="icon-chevron-right right"></i></span></button>

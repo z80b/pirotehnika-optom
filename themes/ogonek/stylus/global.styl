@@ -8020,6 +8020,9 @@ header
                     color $color-63
                     font-size 16px
                     font-weight bold
+                    
+                    em
+                        font-size 12px
 
         &.bx-controls-direction
             a
@@ -8512,6 +8515,9 @@ table.table_block td
     color $color-63
     font-weight bold
     text-align center
+    
+    em
+        font-size .8em
     
     &__cents
         font-size .7em
@@ -10833,6 +10839,8 @@ a.sort-plitka.active
     ul
         margin 0 0 50px 0
         border-bottom 1px solid $color-147
+        display table
+        width 100%
 
         li
             position relative
@@ -10840,8 +10848,7 @@ a.sort-plitka.active
             border-top 1px solid transparent
             border-left 1px solid transparent
             border-right 1px solid transparent
-            display block
-            float left
+            display table-cell
             padding 0px
             color $color-155
             font-size 16px
@@ -10850,6 +10857,7 @@ a.sort-plitka.active
             text-transform uppercase
 
             a
+                display block
                 text-align center
                 padding 0 40px
                 color $color-155
@@ -10865,13 +10873,6 @@ a.sort-plitka.active
                 &:first-child
                     border-left 1px solid transparent
 
-@media (max-width: 520px)
-    .shops_tabs
-        ul
-            li
-                width 100%
-                border 1px solid $color-147
-
 .shops_tabs ul li.active
 .shops_tabs ul li:hover
 .shops_tabs ul li a.selected
@@ -10883,9 +10884,8 @@ a.sort-plitka.active
 
 .shops_tabs ul li a#more_info_tab_data_sheet
 .shops_tabs ul li a.selected
-    padding-top 18px
-    padding-bottom 18px
-    height 58px
+    padding-top 10px
+    padding-bottom 10px
 
 #idTab1
     >p

@@ -39,7 +39,7 @@
 	{/if}
 <div itemscope itemtype="https://schema.org/Product">
 	<meta itemprop="url" content="{$link->getProductLink($product)}">
-	<div class="primary_block row">
+	<div class="primary_block row ps-product-page">
 		<!-- {if !$content_only}
 			<div class="container">
 				<div class="top-hr"></div>
@@ -65,7 +65,7 @@
 			</p>
 		{/if}
 		<!-- left infos-->
-		<div class="pb-left-column col-xs-12 col-sm-4 col-md-5">
+		<div class="ps-product-page__block">
 			<!-- product img-->
 			<div id="image-block" class="clearfix">
 				{if false && $product->new}
@@ -81,27 +81,20 @@
 					<span class="discount">{l s='Reduced price!'}</span>
 				{/if}
 				{if $have_image}
-					<span id="view_full_size">
-						{if $jqZoomEnabled && $have_image && !$content_only}
-							<a class="jqzoom" title="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" rel="gal1" href="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'thickbox_default')|escape:'html':'UTF-8'}">
-								<img itemprop="image" src="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'large_default')|escape:'html':'UTF-8'}" title="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" alt="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}"/>
-							</a>
-						{else}
-							<img id="bigpic" itemprop="image" src="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'large_default')|escape:'html':'UTF-8'}" title="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" alt="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" width="{$largeSize.width}" height="{$largeSize.height}"/>
-							{if !$content_only}
-								<span class="span_link no-print">{l s='View larger'}</span>
-							{/if}
-						{/if}
-					</span>
+                <a  class="ps-product-page__image-zoom fancyImg"
+                    title="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}"
+                    href="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'thickbox_default')|escape:'html':'UTF-8'}">
+					<img
+                        class="ps-product-page__image"
+                        src="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'large_default')|escape:'html':'UTF-8'}"
+                        alt="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}"/>
+                </a>
 				{else}
-					<span id="view_full_size">
-						<img itemprop="image" src="{$img_prod_dir}{$lang_iso}-default-large_default.jpg" id="bigpic" alt="" title="{$product->name|escape:'html':'UTF-8'}" width="{$largeSize.width}" height="{$largeSize.height}"/>
-						{if !$content_only}
-							<span class="span_link">
-								{l s='View larger'}
-							</span>
-						{/if}
-					</span>
+				<img
+                    class="ps-product-page__image"
+                    src="{$img_prod_dir}{$lang_iso}-default-large_default.jpg"
+                    alt="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}"
+                    title="{$product->name|escape:'html':'UTF-8'}"/>
 				{/if}
 			</div> <!-- end image-block -->
 			{if isset($images) && count($images) > 0}
@@ -154,7 +147,7 @@
 		</div> <!-- end pb-left-column -->
 		<!-- end left infos-->
 		<!-- center infos -->
-		<div class="pb-center-column col-xs-12 col-sm-6">
+		<div class="ps-product-page__block">
 			{if $product->online_only}
 				<p class="online_only">{l s='Online only'}</p>
 			{/if}
@@ -180,17 +173,6 @@
 			{/if} -->
 			{if $product->description_short || $packItems|@count > 0}
 				<div id="short_description_block" class="mt-20">
-					{if $product->description_short}
-						<div id="short_description_content" class="rte align_justify" itemprop="description">{$product->description_short}</div>
-					{/if}
-
-					{if $product->description}
-						<p class="buttons_bottom_block">
-							<a href="javascript:{ldelim}{rdelim}" class="button">
-								{l s='More details'}
-							</a>
-						</p>
-					{/if}
 					{if $packItems|@count > 0}
 						<div class="short_description_pack">
 						<h3>{l s='Pack content'}</h3>
@@ -322,7 +304,7 @@
 		</div>
 		<!-- end center infos-->
 		<!-- pb-right-column-->
-		<div class="pb-right-column col-xs-12 col-sm-6">
+		<div class="ps-product-page__block">
 			{if ($product->show_price && !isset($restricted_country_mode)) || isset($groups) || $product->reference || (isset($HOOK_PRODUCT_ACTIONS) && $HOOK_PRODUCT_ACTIONS)}
 			<!-- add to cart form-->
 			<form id="buy_block"{if $PS_CATALOG_MODE && !isset($groups) && $product->quantity > 0} class="hidden"{/if} action="{$link->getPageLink('cart')|escape:'html':'UTF-8'}" method="post">

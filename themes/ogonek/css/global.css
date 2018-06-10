@@ -7627,6 +7627,9 @@ header .row #header_logo {
   font-size: 16px;
   font-weight: bold;
 }
+#product div.pb-center-column span#our_price_display em {
+  font-size: 12px;
+}
 #product div.bx-controls-direction a.bx-next {
   right: 0;
   background: url("../img/ogonek/arrow4-slider.png") no-repeat -42px 0;
@@ -8126,6 +8129,9 @@ table.table_block td {
   color: #d34633;
   font-weight: bold;
   text-align: center;
+}
+.price em {
+  font-size: 0.8em;
 }
 .price__cents {
   font-size: 0.7em;
@@ -10328,6 +10334,8 @@ a.sort-plitka.active {
 .shops_tabs ul {
   margin: 0 0 50px 0;
   border-bottom: 1px solid #d9d9d9;
+  display: table;
+  width: 100%;
 }
 .shops_tabs ul li {
   position: relative;
@@ -10335,8 +10343,7 @@ a.sort-plitka.active {
   border-top: 1px solid transparent;
   border-left: 1px solid transparent;
   border-right: 1px solid transparent;
-  display: block;
-  float: left;
+  display: table-cell;
   padding: 0px;
   color: #b2b2b2;
   font-size: 16px;
@@ -10345,6 +10352,7 @@ a.sort-plitka.active {
   text-transform: uppercase;
 }
 .shops_tabs ul li a {
+  display: block;
   text-align: center;
   padding: 0 40px;
   color: #b2b2b2;
@@ -10359,12 +10367,6 @@ a.sort-plitka.active {
 .shops_tabs ul li.current:first-child {
   border-left: 1px solid transparent;
 }
-@media (max-width: 520px) {
-  .shops_tabs ul li {
-    width: 100%;
-    border: 1px solid #d9d9d9;
-  }
-}
 .shops_tabs ul li.active,
 .shops_tabs ul li:hover,
 .shops_tabs ul li a.selected {
@@ -10376,9 +10378,8 @@ a.sort-plitka.active {
 }
 .shops_tabs ul li a#more_info_tab_data_sheet,
 .shops_tabs ul li a.selected {
-  padding-top: 18px;
-  padding-bottom: 18px;
-  height: 58px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 #idTab1 >p {
   line-height: 24px;

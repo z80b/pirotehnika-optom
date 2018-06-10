@@ -173,17 +173,6 @@
 			{/if} -->
 			{if $product->description_short || $packItems|@count > 0}
 				<div id="short_description_block" class="mt-20">
-					{if $product->description_short}
-						<div id="short_description_content" class="rte align_justify" itemprop="description">{$product->description_short}</div>
-					{/if}
-
-					{if $product->description}
-						<p class="buttons_bottom_block">
-							<a href="javascript:{ldelim}{rdelim}" class="button">
-								{l s='More details'}
-							</a>
-						</p>
-					{/if}
 					{if $packItems|@count > 0}
 						<div class="short_description_pack">
 						<h3>{l s='Pack content'}</h3>

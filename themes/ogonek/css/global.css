@@ -11038,6 +11038,11 @@ input[type='number'] {
 .ps-product-page__image-zoom:hover::after {
   opacity: 1;
 }
+.ps-product-page__share {
+  display: block;
+  text-align: center;
+  padding: 15px 0;
+}
 .ps-products--list {
   display: block;
   clear: both;

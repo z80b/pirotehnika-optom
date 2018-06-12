@@ -83,7 +83,7 @@
                         name="qty"
                         class="ps-quantity__value ajax_input_prod_{$product.id_product}"
                         type="number"
-                        value="1"
+                        value="0"
                         data-prev-val="{if isset($productsCart.cart_quantity)}{$productsCart.cart_quantity}{else}0{/if}"
                         min="1"
                         max="{$product.quantity}"/>

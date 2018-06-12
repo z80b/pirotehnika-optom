@@ -1205,53 +1205,17 @@ function fancyChangeProductCountInCart(e, productId, inputEl, total){
 
     var $cardButtonOffset = $('#header .shopping_cart').offset();
     
-    var isEl = false;
-    var el = null;
-
-    if($('*').is('.'+inputEl)){
-        isEl = true;
-        var el = $('.'+inputEl);
-    }
+    var el = $(e.currentTarget).parent('.ps-product__controls').find('[name="qty"]');
+    var isEl = el.length ? true : false;
 
     var customizationId = 0;
     var productAttributeId = 0;
     var id_address_delivery = 0;
 
-    var qty = 1;
+    var qty = el.val() || 1;
+    var prev = 0;
     var direct = '';
-
-
-    if(isEl){
-        var prev = parseInt(el.attr('data-prev-val'));
-        var cur = parseInt(el.val());
-
-        var exp = new RegExp("^[0-9]+$");
-        if (exp.test(cur) != true){
-            appAlert('Неверный формат числа');
-
-            el.val(prev);
-            return
-        }
-
-        if(cur < 0) {
-            el.val(prev);
-            appAlert('Значение не может быть меньше 0');
-
-            el.val(prev);
-            return
-        }
-
-        if(cur>prev){
-            qty = cur - prev;
-        }
-        else{
-            qty = prev - cur;
-            direct = '&op=down';
-        }
-    }
-
-
-
+    var cur = qty;
 
     $.ajax({
         type: 'POST',

@@ -51,7 +51,7 @@
             {$product.quantity}
             {Product::SGetProductUnity($product.sale_unity)}
         </td>
-        <td>
+        <td class="ps-product__controls">
             {if $product.quantity > 0}
             <div class="ps-product__quantity ps-quantity">
                 <button

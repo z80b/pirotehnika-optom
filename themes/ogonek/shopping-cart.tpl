@@ -89,7 +89,7 @@
 	{* eu-legal *}
 	{hook h="displayBeforeShoppingCartBlock"}
 	<div id="order-detail-content" class="table_block table-responsive">
-		<table id="cart_summary" class="table table-bordered {if $PS_STOCK_MANAGEMENT}stock-management-on{else}stock-management-off{/if}">
+		<div id="cart_summary" class="ps-order__table table-bordered {if $PS_STOCK_MANAGEMENT}stock-management-on{else}stock-management-off{/if}">
 			<!-- <thead>
 				<tr>
 					<th class="cart_product first_item">{l s='Product'}</th>
@@ -107,7 +107,7 @@
 				</tr>
 			</thead> -->
 			
-			<tbody>
+			<div class="ps-order__tbody">
 				{assign var='odd' value=0}
 				{assign var='have_non_virtual_products' value=false}
 				{foreach $products as $product}
@@ -124,9 +124,9 @@
 					{* Then the customized datas ones*}
 					{if isset($customizedDatas.$productId.$productAttributeId[$product.id_address_delivery])}
 						{foreach $customizedDatas.$productId.$productAttributeId[$product.id_address_delivery] as $id_customization=>$customization}
-							<tr
+							<div
 								id="product_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_{$product.id_address_delivery|intval}"
-								class="product_customization_for_{$product.id_product}_{$product.id_product_attribute}_{$product.id_address_delivery|intval}{if $odd} odd{else} even{/if} customization alternate_item {if $product@last && $customization@last && !count($gift_products)}last_item{/if}">
+								class="ps-order__row product_customization_for_{$product.id_product}_{$product.id_product_attribute}_{$product.id_address_delivery|intval}{if $odd} odd{else} even{/if} customization alternate_item {if $product@last && $customization@last && !count($gift_products)}last_item{/if}">
 								<td></td>
 								<td colspan="3">
 									{foreach $customization.datas as $type => $custom_data}
@@ -209,7 +209,7 @@
 								</td>
 								<td>
 								</td>
-							</tr>
+							</div>
 							{assign var='quantityDisplayed' value=$quantityDisplayed+$customization.quantity}
 						{/foreach}
 
@@ -228,10 +228,10 @@
 					{* Display the gift product line *}
 					{include file="$tpl_dir./shopping-cart-product-line.tpl" productLast=$product@last productFirst=$product@first}
 				{/foreach}
-			</tbody>
+			</div>
 			
 			{if sizeof($discounts)}
-				<tbody>
+				<div class="ps-order__tbody">
 					{foreach $discounts as $discount}
 					{if ((float)$discount.value_real == 0 && $discount.free_shipping != 1) || ((float)$discount.value_real == 0 && $discount.code == '')}
 						{continue}
@@ -259,9 +259,9 @@
 							</td>
 						</tr>
 					{/foreach}
-				</tbody>
+				</div>
 			{/if}
-		</table>
+		</div>
 		<table>
 			<tfoot>
 				{assign var='rowspan_total' value=2+$total_discounts_num+$total_wrapping_taxes_num}

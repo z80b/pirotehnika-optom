@@ -1,0 +1,67 @@
+.page--order
+    .total_price_container
+        @media(max-width 680px)
+            font-size 18px !important
+            
+    ul.step li a
+    ul.step li span
+    ul.step li.step_current span
+    ul.step li.step_current_end span
+        text-align center
+        
+        @media(max-width 520px)
+            font-size 12px
+            
+    ul.step li em
+        padding 0
+            
+
+        
+.ps-order
+    &__table
+        display table
+        width 100%
+        
+        @media(max-width 680px)
+            display block
+            max-width 360px
+            margin auto
+            
+    &__row
+        position relative
+        display table-row
+        
+        border-bottom solid 1px #ccc
+        
+        &:nth-child(even)
+            background-color #f7f7f7
+        
+        @media(max-width 680px)
+            display block
+            
+    &__cell
+        display table-cell
+        padding 5px
+        vertical-align middle
+        
+        .ps-product__image-zoom
+            text-align center
+            
+            @media(max-width 680px)
+                border solid 1px #ccc
+        
+        .price
+            text-align left
+            white-space nowrap
+        
+        @media(max-width 680px)
+            display inline-block
+            width 50%
+            text-align left
+            
+        &.cart_delete
+            absolute top 0 right 0 width auto
+        
+        .cart_quantity_button
+            display inline-block
+            white-space nowrap

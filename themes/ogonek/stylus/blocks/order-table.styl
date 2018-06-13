@@ -60,7 +60,8 @@
             text-align left
             
         &.cart_delete
-            absolute top 0 right 0 width auto
+            @media(max-width 680px)
+                absolute top 0 right 0 width auto
         
         .cart_quantity_button
             display inline-block

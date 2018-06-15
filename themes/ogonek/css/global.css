@@ -3345,6 +3345,7 @@ input[type="button"].btn-block {
 header .nav {
   position: fixed;
   width: 100%;
+  min-width: 360px;
   top: 0;
   z-index: 5004;
 }
@@ -11819,6 +11820,7 @@ input[type='number'] {
   -o-transition: 0.5s all ease;
   -moz-transition: 0.5s all ease;
   transition: 0.5s all ease;
+  z-index: 1;
 }
 .ps-profile__block:hover .ps-profile__menu {
   opacity: 1;

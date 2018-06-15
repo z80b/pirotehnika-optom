@@ -8,11 +8,15 @@ $color-7 = #d6d4d4
 $color-8 = #686666
 
 #search_block_top
-    padding 12px 35px 12px 0px
+    padding 9px 35px 9px 0px
     float right
     
     @media (max-width: 670px)
-        float left
+        //float left
+        //absolute top 0 left 0
+        width 100%
+        padding 9px 0
+        float none
 
     #searchbox
         float left
@@ -28,8 +32,9 @@ $color-8 = #686666
             border none
             color $color-2
             width 50px
+            line-height 40px
             text-align center
-            padding 3px 0
+            padding 0
             border-radius 0 15px 15px 0
 
             span
@@ -48,19 +53,18 @@ $color-8 = #686666
 
     #search_query_top
         display inline
-        padding 13px 60px 13px 13px
         height 45px
         background $color-4
-        margin-right 50px
-        height 30px
-        width 210px
+        height 40px
+        width 100%
         float right
-        padding 0 15px
+        padding 0 60px 0 10px
         background $color-2
-        border-radius 15px 0 0 15px
+        border-radius 15px
         border none
         color $color-5
         box-shadow inset 0 2px 3px $color-6
+        
 
 .ac_results
     width 271px

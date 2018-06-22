@@ -144,24 +144,6 @@
 					</span>
 				</p>
 			{/if}
-<!-- AddToAny BEGIN -->
-            <div class="ps-product-page__share a2a_kit a2a_kit_size_32 a2a_default_style">
-                <a class="a2a_button_facebook"></a>
-                <a class="a2a_button_twitter"></a>
-                <a class="a2a_button_google_plus"></a>
-                <a class="a2a_button_viber"></a>
-                <a class="a2a_button_odnoklassniki"></a>
-                <a class="a2a_button_vk"></a>
-                <a class="a2a_button_whatsapp"></a>
-                <a class="a2a_button_mail_ru"></a>
-            </div>
-            <script>
-            var a2a_config = a2a_config || {};
-            a2a_config.linkurl = "sdfsd";
-            a2a_config.locale = "ru";
-            </script>
-            <script async src="https://static.addtoany.com/menu/page.js"></script>
-            <!-- AddToAny END -->
 		</div> <!-- end pb-left-column -->
 		<!-- end left infos-->
 		<!-- center infos -->

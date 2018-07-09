@@ -226,7 +226,7 @@ class CartControllerCore extends FrontController
         $mode = (Tools::getIsset('update') && $this->id_product) ? 'update' : 'add';
 
         if ($this->qty == 0) {
-            $this->errors[] = Tools::displayError('Null quantity.', !Tools::getValue('ajax'));
+            //$this->errors[] = Tools::displayError('Null quantity.', !Tools::getValue('ajax'));
         } elseif (!$this->id_product) {
             $this->errors[] = Tools::displayError('Product not found', !Tools::getValue('ajax'));
         }
@@ -246,12 +246,12 @@ class CartControllerCore extends FrontController
                     (isset($this->id_product) && $cart_product['id_product'] == $this->id_product)) {
                     $qty_to_check = $cart_product['cart_quantity'];
 
-                    if (Tools::getValue('op', 'up') == 'down') {
-                        $qty_to_check -= $this->qty;
-                    } else {
-                        $qty_to_check += $this->qty;
-                    }
-
+                    // if (Tools::getValue('op', 'up') == 'down') {
+                    //     $qty_to_check -= $this->qty;
+                    // } else {
+                    //     $qty_to_check += $this->qty;
+                    // }
+                    $qty_to_check = $this->qty;
                     break;
                 }
             }

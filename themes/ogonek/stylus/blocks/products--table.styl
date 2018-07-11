@@ -19,7 +19,41 @@
                 background-color #d4eff7
                 
         &__table
-            display block
+            display table
+            width 100%
+            border-spacing: 0 8px
+            
+            &-thead
+                display table-header-group
+                
+                .ps-product__table-cell
+                    font-weight 800
+                
+            &-tbody
+                display table-row-group
+            
+            &-row
+                display table-row
+                margin 5px 0
+                box-sizing border-box
+                box-shadow 0 1px 4px 0 rgba(#000, 0.4)
+                border-radius 5px
+                transition .5s box-shadow ease
+                
+                &:hover
+                    box-shadow 0 2px 8px rgba(#000, 0.6)
+                    
+                &.ps-product--incard
+                    background-color #d4eff7
+                
+            &-cell
+                display table-cell
+                text-align center
+                vertical-align middle
+                padding 5px
+                
+                .ps-product__table-thead &
+                    font-weight 800
                     
         &__grid, &__list, &__extended
             display none
@@ -59,7 +93,8 @@
                     text-decoration underline            
             
         &__quantity
-            width 54px
+            display inline-block
+            size 54px 20px
             margin 10px auto 0
             
             &::after

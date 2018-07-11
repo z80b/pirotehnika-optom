@@ -11353,7 +11353,54 @@ input[type='number'] {
   background-color: #d4eff7;
 }
 .ps-products--table .ps-product__table {
-  display: block;
+  display: table;
+  width: 100%;
+  border-spacing: 0 8px;
+}
+.ps-products--table .ps-product__table-thead {
+  display: table-header-group;
+}
+.ps-products--table .ps-product__table-thead .ps-product__table-cell {
+  font-weight: 800;
+}
+.ps-products--table .ps-product__table-tbody {
+  display: table-row-group;
+}
+.ps-products--table .ps-product__table-row {
+  display: table-row;
+  margin: 5px 0;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
+     -moz-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
+          box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-transition: 0.5s -webkit-box-shadow ease;
+  transition: 0.5s -webkit-box-shadow ease;
+  -o-transition: 0.5s box-shadow ease;
+  -moz-transition: 0.5s box-shadow ease, 0.5s -moz-box-shadow ease;
+  transition: 0.5s box-shadow ease;
+  transition: 0.5s box-shadow ease, 0.5s -webkit-box-shadow ease, 0.5s -moz-box-shadow ease;
+}
+.ps-products--table .ps-product__table-row:hover {
+  -webkit-box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+     -moz-box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+.ps-products--table .ps-product__table-row.ps-product--incard {
+  background-color: #d4eff7;
+}
+.ps-products--table .ps-product__table-cell {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  padding: 5px;
+}
+.ps-product__table-thead .ps-products--table .ps-product__table-cell {
+  font-weight: 800;
 }
 .ps-products--table .ps-product__grid,
 .ps-products--table .ps-product__list,
@@ -11401,7 +11448,9 @@ input[type='number'] {
   text-decoration: underline;
 }
 .ps-products--table .ps-product__quantity {
+  display: inline-block;
   width: 54px;
+  height: 20px;
   margin: 10px auto 0;
 }
 .ps-products--table .ps-product__quantity::after {

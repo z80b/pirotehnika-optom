@@ -869,9 +869,9 @@ var ajaxCart = {
             $('.ajax_block_cart_total_price2_id_'+item.id).html(item.price.replace('руб', ''));
             
             if (parseFloat(item.price) > 0) {
-                $('.ajax_block_cart_total_price2_id_'+item.id).parents('tr').addClass('ps-product--incard');
+                $('.ajax_block_cart_total_price2_id_'+item.id).parents('.ps-products__item').addClass('ps-product--incard');
             } else {
-                $('.ajax_block_cart_total_price2_id_'+item.id).parents('tr').removeClass('ps-product--incard');
+                $('.ajax_block_cart_total_price2_id_'+item.id).parents('.ps-products__item').removeClass('ps-product--incard');
             }
 
             $('.ajax_block_cart_count_id_'+item.id).text(item.quantity);

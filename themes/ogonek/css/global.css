@@ -11451,6 +11451,8 @@ input[type='number'] {
   display: inline-block;
   width: 54px;
   height: 20px;
+}
+.ps-products--table .ps-product__quantity:first-child {
   margin: 10px auto 0;
 }
 .ps-products--table .ps-product__quantity::after {
@@ -11465,12 +11467,14 @@ input[type='number'] {
   display: block;
   float: left;
 }
-.ps-products--table .ps-product .ps-quantity__button--dec {
+.ps-products--table .ps-product .ps-quantity__button--dec,
+.ps-products--table .ps-product .ps-quantity__button--decbox {
   -webkit-border-radius: 5px 0 0 5px;
      -moz-border-radius: 5px 0 0 5px;
           border-radius: 5px 0 0 5px;
 }
-.ps-products--table .ps-product .ps-quantity__button--inc {
+.ps-products--table .ps-product .ps-quantity__button--inc,
+.ps-products--table .ps-product .ps-quantity__button--incbox {
   -webkit-border-radius: 0 5px 5px 0;
      -moz-border-radius: 0 5px 5px 0;
           border-radius: 0 5px 5px 0;

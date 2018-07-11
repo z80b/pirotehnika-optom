@@ -95,7 +95,9 @@
         &__quantity
             display inline-block
             size 54px 20px
-            margin 10px auto 0
+            
+            &:first-child
+                margin 10px auto 0
             
             &::after
                 content ''
@@ -110,9 +112,9 @@
                 display block
                 float left
                 
-                &--dec
+                &--dec, &--decbox
                     border-radius 5px 0 0 5px
-                &--inc
+                &--inc, &--incbox
                     border-radius 0 5px 5px 0
                 
             &__value

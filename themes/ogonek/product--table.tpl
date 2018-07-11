@@ -55,15 +55,31 @@
             {if $product.quantity > 0}
             <div class="ps-product__quantity ps-quantity">
                 <button
+                    class="ps-quantity__button ps-quantity__button--decbox"
+                    data-field-qty="boxqty">&lt;</button>
+                <input
+                    name="boxqty"
+                    class="ps-quantity__value ajax_box_input_prod_{$product.id_product} js-boxes-input"
+                    type="number"
+                    value="0"
+                    data-inbox="{$product.r3}"
+                    min="0"
+                    max="{$product.quantity / $product.r3}"/>
+                <button
+                    class="ps-quantity__button ps-quantity__button--incbox"
+                    data-field-qty="boxqty">&gt;</button>
+            </div>
+            <div class="ps-product__quantity ps-quantity">
+                <button
                     class="ps-quantity__button ps-quantity__button--dec"
                     data-field-qty="qty">-</button>
                 <input
-                    id="quantity_wanted"
                     name="qty"
-                    class="ps-quantity__value ajax_input_prod_{$product.id_product}"
+                    class="ps-quantity__value ajax_input_prod_{$product.id_product} js-qty-input"
                     type="number"
                     value="0"
                     data-prev-val="{if isset($productsCart.cart_quantity)}{$productsCart.cart_quantity}{else}0{/if}"
+                    data-inbox={$product.r3}
                     min="0"
                     max="{$product.quantity}"/>
                 <button

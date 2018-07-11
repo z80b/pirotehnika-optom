@@ -2,15 +2,33 @@
 $(document).ready(function(){
 
     // The button to increment the product value
-    $(document).on('click', '.ps-quantity__button--inc', function(e){
-        e.preventDefault();
-        var $qty_input = $(this).parent().find('input[name=' + $(this).data('field-qty') + ']');
+    $(document)
+        .on('click', '.ps-quantity__button--inc', function(e){
+            e.preventDefault();
+            var $qty_input = $(this).parent().find('input[name=' + $(this).data('field-qty') + ']');
 
-        if ($qty_input && $qty_input.val()) {
-            var qty_value = parseInt($qty_input.val());
-            $qty_input.val(qty_value + 1);
-        }
-    });
+            if ($qty_input && $qty_input.val()) {
+                var qty_value = parseInt($qty_input.val());
+                $qty_input.val(qty_value + 1);
+            }
+        })
+        .on('click', '.ps-quantity__button--incbox', function(e){
+            e.preventDefault();
+            var
+                $controls    = $(this).parents('ps-product__controls'),
+                $boxes_input = $controls.find('.js-boxes-input'),
+                $qty_input   = $controls.find('.js-qty-input');
+
+            //var $qty_input = $(this).parent().find('input[name=' + $(this).data('field-qty') + ']');
+            if ($boxes_input && $boxes_input.length) {
+                $boxes_input.val(parseInt($boxes_input.val()) + 1);
+            }
+            if ($qty_input && $qty_input.length) {
+                var _qty_value = parseInt($qty_input.val())
+                    _inbox = parseInt($qty_input.data('inbox'))
+                $qty_input.val(_qty_value + _inbox);
+            }
+        });
      // The button to decrement the product value
     $(document).on('click', '.ps-quantity__button--dec', function(e){
         e.preventDefault();

@@ -1,44 +1,103 @@
 
 $(document).ready(function(){
 
-    // The button to increment the product value
     $(document)
+        .on('input', '.js-qty-input', function(e) {
+            e.preventDefault();
+            var
+                $controls    = $(this).parents('.ps-product__controls'),
+                $boxes_input = $controls.find('.js-boxes-input'),
+                $qty_input   = $controls.find('.js-qty-input');
+
+            if ($boxes_input && $boxes_input.length) {
+                var _qty_value = parseInt($qty_input.val() || 0)
+                    _inbox = parseInt($qty_input.data('inbox'));
+                    
+                $boxes_input.val(Math.floor(_qty_value / _inbox));
+            }
+        })
+        .on('input', '.js-boxes-input', function(e) {
+            e.preventDefault();
+            var
+                $controls    = $(this).parents('.ps-product__controls'),
+                $boxes_input = $controls.find('.js-boxes-input'),
+                $qty_input   = $controls.find('.js-qty-input'),
+                _inbox = parseInt($qty_input.data('inbox')),
+                _boxes = parseInt($boxes_input.val() || 0);
+
+                $qty_input.val(_inbox * _boxes);
+        })
+        // The button to increment the product value
         .on('click', '.ps-quantity__button--inc', function(e){
             e.preventDefault();
-            var $qty_input = $(this).parent().find('input[name=' + $(this).data('field-qty') + ']');
+            var
+                $controls    = $(this).parents('.ps-product__controls'),
+                $boxes_input = $controls.find('.js-boxes-input'),
+                $qty_input   = $controls.find('.js-qty-input');
 
             if ($qty_input && $qty_input.val()) {
-                var qty_value = parseInt($qty_input.val());
+                var qty_value = parseInt($qty_input.val() || 0);
                 $qty_input.val(qty_value + 1);
+            }
+
+            if ($boxes_input && $boxes_input.length) {
+                var _qty_value = parseInt($qty_input.val() || 0)
+                    _inbox = parseInt($qty_input.data('inbox'));
+                $boxes_input.val(Math.floor(_qty_value / _inbox));
             }
         })
         .on('click', '.ps-quantity__button--incbox', function(e){
             e.preventDefault();
             var
-                $controls    = $(this).parents('ps-product__controls'),
+                $controls    = $(this).parents('.ps-product__controls'),
                 $boxes_input = $controls.find('.js-boxes-input'),
                 $qty_input   = $controls.find('.js-qty-input');
 
-            //var $qty_input = $(this).parent().find('input[name=' + $(this).data('field-qty') + ']');
             if ($boxes_input && $boxes_input.length) {
-                $boxes_input.val(parseInt($boxes_input.val()) + 1);
+                $boxes_input.val(parseInt($boxes_input.val() || 0) + 1);
             }
             if ($qty_input && $qty_input.length) {
-                var _qty_value = parseInt($qty_input.val())
+                var _qty_value = parseInt($qty_input.val() || 0)
                     _inbox = parseInt($qty_input.data('inbox'))
                 $qty_input.val(_qty_value + _inbox);
             }
-        });
-     // The button to decrement the product value
-    $(document).on('click', '.ps-quantity__button--dec', function(e){
-        e.preventDefault();
-        var $qty_input = $(this).parent().find('input[name=' + $(this).data('field-qty') + ']');
+        })
+        // The button to decrement the product value
+        .on('click', '.ps-quantity__button--dec', function(e){
+            e.preventDefault();
+            var
+                $controls    = $(this).parents('.ps-product__controls'),
+                $boxes_input = $controls.find('.js-boxes-input'),
+                $qty_input   = $controls.find('.js-qty-input');
 
-        if ($qty_input && $qty_input.val()) {
-            var qty_value = parseInt($qty_input.val());
-            (qty_value > 0) && $qty_input.val(qty_value - 1);
-        }
-    });
+            if ($qty_input && $qty_input.val()) {
+                var qty_value = parseInt($qty_input.val() || 0);
+                (qty_value > 0) && $qty_input.val(qty_value - 1);
+            }
+
+            if ($boxes_input && $boxes_input.length) {
+                var _qty_value = parseInt($qty_input.val() || 0)
+                    _inbox = parseInt($qty_input.data('inbox'));
+                $boxes_input.val(Math.floor(_qty_value / _inbox));
+            }
+        })
+        .on('click', '.ps-quantity__button--decbox', function(e){
+            e.preventDefault();
+            var
+                $controls    = $(this).parents('.ps-product__controls'),
+                $boxes_input = $controls.find('.js-boxes-input'),
+                $qty_input   = $controls.find('.js-qty-input');
+
+            if ($qty_input && $qty_input.length) {
+                var _qty_value = parseInt($qty_input.val() || 0)
+                    _inbox = parseInt($qty_input.data('inbox'));
+                ($boxes_input.val() > 0 && _qty_value >= _inbox) && $qty_input.val(_qty_value - _inbox);
+            }
+            if ($boxes_input && $boxes_input.length) {
+                ($boxes_input.val() > 0) && $boxes_input.val(parseInt($boxes_input.val() || 0) - 1);
+            }
+
+        });
 
     ajaxCart.overrideButtonsInThePage();
 
@@ -895,6 +954,8 @@ var ajaxCart = {
             $('.ajax_block_cart_count_id_'+item.id).text(item.quantity);
 
             $('.ajax_input_prod_'+item.id).val(item.quantity);
+            var _inbox = parseInt($('.ajax_box_input_prod_'+item.id).attr('data-inbox'));
+            $('.ajax_box_input_prod_'+item.id).val(Math.floor(item.quantity / _inbox));
             $('.ajax_input_prod_'+item.id).attr('data-prev-val', item.quantity);
 
             $('.ajax_table_tr_bg_'+item.id).addClass('isInCart');

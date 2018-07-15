@@ -1,6 +1,7 @@
 {if isset($categories)}
 <div class="ps-products__filter ps-filter js-products-filter">
 	{foreach from=$categories item=category}
+    {if $category.active}
         {if isset($category.categories)}
         {assign var="button_class" value="ps-filter__item --haschildren"}
         {else}
@@ -56,6 +57,7 @@
             </div>
             {/if}
         </div>
+    {/if}
     {/foreach}
     <div class="ps-filter__item">
         <input

@@ -203,10 +203,12 @@
         {else}
             {assign var='productShowingStart' value=$n*$p-$n+1}
         {/if}
-        {if $nb_products > 1}
-            {l s='Показано [1]%1$d[/1] - [1]%2$d[/1] из [1]%3$d[/1] товаров' sprintf=[$productShowingStart, $productShowing, $nb_products] tags=['<em>']}
-        {else}
-            {l s='Показано [1]%1$d[/1] - [1]%2$d[/1] из [1]1[/1] товара' sprintf=[$productShowingStart, $productShowing] tags=['<em>']}
+        {if $productShowing > 0}
+            {if $nb_products > 1}
+                {l s='Показано [1]%1$d[/1] - [1]%2$d[/1] из [1]%3$d[/1] товаров' sprintf=[$productShowingStart, $productShowing, $nb_products] tags=['<em>']}
+            {else}
+                {l s='Показано [1]%1$d[/1] - [1]%2$d[/1] из [1]1[/1] товара' sprintf=[$productShowingStart, $productShowing] tags=['<em>']}
+            {/if}
         {/if}
     </div>
     <!-- /Pagination -->

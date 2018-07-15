@@ -1,0 +1,161 @@
+.ps-products__filter
+    display block
+    
+.ps-filter
+    clear both
+    
+    &__controls
+        clear both
+        padding 10px 0 20px
+        
+        &::after
+            content ''
+            display table
+            clear both
+    
+    &__submit, &__reset
+        @extends $form-button
+        display block
+        float left
+        font 300 12px/2 'Open Sans', sans-serif
+        margin 0 10px 0 0
+        padding 0 15px
+        height 24px
+        
+    &__reset
+        background-color #ec1818
+        
+        &:hover
+            background-color darken(#ec1818, 20%)
+    
+    &::after
+        content ''
+        display table
+        clear both
+        
+    &__subticks
+        display block
+        padding 0 0 0 15px
+        
+    &__tick
+        display block
+        white-space nowrap
+        font 300 12px/2 'Open Sans', sans-serif
+        text-align left
+        color #222
+        
+        .checker, &__checkbox, &__label
+            display inline-block
+        
+    &__item
+        float left
+        position relative
+        
+        &[data-ticks-count]
+            color red
+            
+            &::after
+                content attr(data-ticks-count)
+                display block
+                box-sizing border-box
+                absolute right -2px top -4px min-width 1.6em
+                text-align center
+                background-color #444
+                color #fff
+                border solid 1px #fff
+                border-radius 50%
+                padding 0 .2em
+        
+        &__scroll
+            max-height 18em
+            overflow auto
+            padding 0 14px 0 10px
+        
+        &__checkbox
+            display none
+            
+        &__ticks
+            display none
+            absolute top 100% right 0
+            padding 10px 0
+            border 1px solid #f3aa38
+            background-color #fff
+            border-radius 5px 0 5px 5px
+            box-shadow 3px 3px 5px 0 rgba(#000, .3)
+            z-index 10
+            
+        &__button
+            display block
+            position relative
+            float left
+            font 300 12px/2 'Open Sans', sans-serif
+            padding 0 1.5em 0 1em
+            color #fff
+            background-color #222
+            //border 2px solid #f3aa38
+            border-radius 5px
+            margin 0 1px 2px
+            transition .5s background-color ease
+            cursor pointer
+            
+            &::after
+                line-height 1
+                absolute top .5em right 0 width 1em height 1em
+                text-align center
+                display block
+                
+                .--haschildren &
+                    content '>'
+                
+            
+            &:hover
+                background-color #666
+                
+            ../__checkbox:checked + &
+                background-color #666
+                
+                &::after
+                    content '\00d7'
+        
+        &:hover
+            .ps-filter__item
+                &__ticks
+                    display block
+                
+.ps-tick
+    &__checkbox
+        display none
+        
+    &__label
+        position relative
+        padding 0 0 0 27px
+        color #333
+        cursor pointer
+        
+        &::before
+            content ''
+            absolute left 3px top 3px width 18px height 18px
+            box-sizing border-box
+            border solid 1px #888
+            
+        &::after
+            content ''
+            absolute left 10px bottom 9px width 9px height 18px
+            box-sizing border-box
+            border-style solid
+            border-color #333
+            border-width 0 3px 3px 0
+            opacity 0
+            transform rotate(45deg) scaleX(0)
+            transition .3s transform ease
+            
+            .ps-tick__checkbox:disabled + &
+                color #ccc
+                border-color #ccc
+            
+            .ps-tick__checkbox:checked + &
+                opacity 1
+                transform rotate(45deg) scaleX(1)    
+                    
+        .ps-tick__checkbox:disabled + &
+            color #888

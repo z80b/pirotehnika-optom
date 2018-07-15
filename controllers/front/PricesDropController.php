@@ -42,6 +42,8 @@ class PricesDropControllerCore extends FrontController
     {
         parent::initContent();
 
+        $this->categories = Category::getCategoriesList($this->context->language->id);
+
         $this->productSort();
         $nbProducts = Product::getPricesDrop($this->context->language->id, null, null, true);
         $this->pagination($nbProducts);
@@ -50,10 +52,11 @@ class PricesDropControllerCore extends FrontController
         $this->addColorsToProductList($products);
 
         $this->context->smarty->assign(array(
-            'products' => $products,
-            'add_prod_display' => Configuration::get('PS_ATTRIBUTE_CATEGORY_DISPLAY'),
-            'nbProducts' => $nbProducts,
-            'homeSize' => Image::getSize(ImageType::getFormatedName('home')),
+            'categories'          => $this->categories,
+            'products'            => $products,
+            'add_prod_display'    => Configuration::get('PS_ATTRIBUTE_CATEGORY_DISPLAY'),
+            'nbProducts'          => $nbProducts,
+            'homeSize'            => Image::getSize(ImageType::getFormatedName('home')),
             'comparator_max_item' => Configuration::get('PS_COMPARATOR_MAX_ITEM')
         ));
 

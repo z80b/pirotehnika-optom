@@ -1,0 +1,76 @@
+.ps-filter
+    clear both
+    padding 0 0 20px
+    
+    &__list
+        &::after
+            content ''
+            display table
+            clear both
+        
+    &__button
+        display block
+        position relative
+        float left
+        font 300 12px/2 'Open Sans', sans-serif
+        padding 0 1em
+        color #fff
+        background-color #222
+        border 2px solid #f3aa38
+        border-radius 5px
+        margin 0 1px 2px
+        transition .5s background-color ease
+        cursor pointer
+        
+        &:hover
+            background-color #666
+            
+            
+        &--withchildren
+            padding 0 1.5em 0 1em
+            
+            &::after
+                content url('/themes/ogonek/img/ogonek/arrow.png')
+                absolute top 0 right 6px
+                transition .5s transform ease
+                
+            &:hover::after
+                transform rotateZ(180deg)
+        
+    &__ticks
+        display none
+        absolute top 100% right 0
+        padding 10px
+        border 2px solid #f3aa38
+        background-color #fff
+        border-radius 5px 0 5px 5px
+        box-shadow 3px 3px 5px 0 rgba(#000, .3)
+        z-index 10
+        
+        ~/__button:hover &
+            display block
+            
+    &__subticks
+        display block
+        padding 0 0 0 15px
+        
+    &__tick
+        display block
+        white-space nowrap
+        font 300 12px/2 'Open Sans', sans-serif
+        text-align left
+        color #222
+        
+        .checker, &__checkbox, &__label
+            display inline-block
+            
+    &__singlebutton
+        .ps-button__checkbox
+            display none
+            
+            &:checked +
+                .ps-filter__button
+                    &::after
+                        content ' \00d7'
+            
+        

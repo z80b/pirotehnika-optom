@@ -28,22 +28,40 @@ class MyCatalogControllerCore extends FrontController
 {
     public $php_self = 'mycatalog';
 
-	public function init() {
-		parent::init();
-	}
-	public function initContent() {
-		parent::initContent();
+    public function setMedia()
+    {
+        parent::setMedia();
+        //$this->addCSS(_THEME_CSS_DIR_.'global.css');
+        $this->addCSS(_THEME_CSS_DIR_.'product_list.css');
+        $this->addJS(_THEME_JS_DIR_.'category-filter.js');
+    }
+
+    public function initContent() {
+        parent::initContent();
+        $this->productSort();
+
+        $this->categories = Category::getCategoriesList($this->context->language->id);
+
+        $this->productsCount = Category::getProductsList($this->context->language->id, null, null, true);
+        $this->pagination($this->productsCount);
+        $this->products = Category::getProductsList($this->context->language->id, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
+        
         $categoryRoot = new Category(Configuration::get('PS_HOME_CATEGORY'),$this->context->language->id,$this->context->shop->id);
         $categoriesHome = $categoryRoot->getSubCategories($this->context->language->id);
-		$message = '';
+        $message = '';
         $this->context->smarty->assign(array(
-				'path' => 'каталог',
+                'path'          => 'каталог',
+                'categories'    => $this->categories,
+                'products'      => $this->products,
+                'checked'       => Category::getCheckedCategories(),
                 'subcategories' => $categoriesHome,
-				'messageSmarty' => $message,
-                'homeSize' => Image::getSize('medium_default')
+                'messageSmarty' => $message,
+                'homeSize'      => Image::getSize('medium_default'),
+                'nbProducts'          => $this->productsCount,
+                'comparator_max_item' => Configuration::get('PS_COMPARATOR_MAX_ITEM')
         ));
 
-		$this->setTemplate(_PS_THEME_DIR_.'blockhomecategorys.tpl');
-	}
+        $this->setTemplate(_PS_THEME_DIR_.'blockhomecategorys.tpl');
+    }
 
 }

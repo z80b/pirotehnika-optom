@@ -24,7 +24,7 @@
 *}
 
 {capture name=path}{l s='Price drop'}{/capture}
-
+{include file="$tpl_dir./products-filter.tpl"}
 <div class="page-heading__wrapper content_sortPagiBar">
 	<h1 class="page-heading product-listing">{l s='Price drop'}</h1>
 </div>

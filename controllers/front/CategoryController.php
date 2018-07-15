@@ -64,6 +64,7 @@ class CategoryControllerCore extends FrontController
         }
 
         $this->addJS(_THEME_JS_DIR_.'category.js');
+        $this->addJS(_THEME_JS_DIR_.'category-filter.js');
     }
 
     /**
@@ -103,6 +104,7 @@ class CategoryControllerCore extends FrontController
 
         // Instantiate category
         $this->category = new Category($id_category, $this->context->language->id);
+        $this->categories = $this->getCategories();
 
         parent::init();
 
@@ -146,6 +148,7 @@ class CategoryControllerCore extends FrontController
         $this->assignProductList();
 
         $this->context->smarty->assign(array(
+            'categories'           => $this->categories,
             'category'             => $this->category,
             'description_short'    => Tools::truncateString($this->category->description, 350),
             'products'             => (isset($this->cat_products) && $this->cat_products) ? $this->cat_products : null,
@@ -254,5 +257,50 @@ class CategoryControllerCore extends FrontController
     public function getCategory()
     {
         return $this->category;
+    }
+
+    public function getCategories() {
+        $arr = Category::getCategories($this->context->language->id);
+        $categories = array();
+        $subcategories = array();
+
+        foreach ($arr as $value) {
+            foreach ($value as $key => $item) {
+                $category = $item['infos'];
+                if ($category['level_depth'] == 4) {
+                    if (!isset($subcategories[$category['id_parent']])) {
+                        $subcategories[$category['id_parent']] = array();
+                    }
+                    $subcategories[$category['id_parent']][$category['id_category']] = $category;
+                }
+            }
+        }
+
+        foreach ($arr as $value) {
+            foreach ($value as $key => $item) {
+                $category = $item['infos'];
+                if ($category['level_depth'] == 2)
+                    if (!isset($categories[$category['id_category']]))
+                        $categories[$category['id_category']] = $category;
+                    else
+                        array_merge($categories[$category['id_category']], $category);
+                    
+                if ($category['level_depth'] == 3) {
+                    if (!isset($categories[$category['id_parent']])) {
+                        $categories[$category['id_parent']] = array('categories' => array());
+
+                    }
+
+                    if (isset($subcategories[$category['id_category']])) {
+                        $category['categories'] = $subcategories[$category['id_category']];
+                    }
+
+                    $categories[$category['id_parent']]['categories'][$category['id_category']] = $category;
+
+                }
+            }
+        }
+
+        return $categories;
     }
 }

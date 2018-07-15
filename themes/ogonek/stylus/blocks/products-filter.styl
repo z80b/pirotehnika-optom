@@ -1,0 +1,92 @@
+.ps-products__filter
+    display block
+    
+.ps-filter
+    clear both
+    
+    &__submit
+        @extends $form-button
+        display block
+        clear both
+        font 300 12px/2 'Open Sans', sans-serif
+    
+    &::after
+        content ''
+        display table
+        clear both
+        
+    &__subticks
+        display block
+        padding 0 0 0 15px
+        
+    &__tick
+        display block
+        white-space nowrap
+        font 300 12px/2 'Open Sans', sans-serif
+        text-align left
+        color #222
+        
+        .checker, &__checkbox, &__label
+            display inline-block
+        
+    &__item
+        float left
+        position relative
+        
+        &__scroll
+            max-height 18em
+            overflow auto
+            padding 0 14px 0 10px
+        
+        &__checkbox
+            display none
+            
+        &__ticks
+            display none
+            absolute top 100% right 0
+            padding 10px 0
+            border 2px solid #f3aa38
+            background-color #fff
+            border-radius 5px 0 5px 5px
+            box-shadow 3px 3px 5px 0 rgba(#000, .3)
+            z-index 10
+            
+        &__button
+            display block
+            position relative
+            float left
+            font 300 12px/2 'Open Sans', sans-serif
+            padding 0 1em
+            color #fff
+            background-color #222
+            border 2px solid #f3aa38
+            border-radius 5px
+            margin 0 1px 2px
+            transition .5s background-color ease
+            cursor pointer
+            
+            &::after
+                line-height 1
+                absolute top .5em right 0 width 1em height 1em
+                text-align center
+                display block
+                
+                .--haschildren &
+                    content '>'
+                
+            
+            &:hover
+                background-color #666
+                
+            ../__checkbox:checked + &
+                background-color #666
+                
+                &::after
+                    content '\00d7'
+        
+        &:hover
+            .ps-filter__item
+                &__ticks
+                    display block
+                
+                    

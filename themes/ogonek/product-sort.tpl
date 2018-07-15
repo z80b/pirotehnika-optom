@@ -50,7 +50,7 @@
             <div class="page-heading__wrapper content_sortPagiBar">
                 {include file="./product-sort-display-type.tpl"}
             </div>
-	{if false}
+	{if isset($manufacts)}
 	<form id="productsSortForm{if isset($paginationId)}_{$paginationId}{/if}" action="{$request|escape:'html':'UTF-8'}" class="{if $manufacts && count($manufacts) && true}productsManufForm{else}hidden{/if}">
 		<div class="select selector1">
 			<!-- <label for="selectProductSort{if isset($paginationId)}_{$paginationId}{/if}">{l s='Sort by'}</label> -->

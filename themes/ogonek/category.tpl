@@ -24,6 +24,7 @@
 *}
 
 {include file="$tpl_dir./errors.tpl"}
+{include file="$tpl_dir./products-filter.tpl"}
 {if isset($category)}
 	{if $category->id AND $category->active}
 		<h1 class="ps-category__title page-heading{if (isset($subcategories) && !$products) || (isset($subcategories) && $products) || !isset($subcategories) && $products} product-listing{/if}">
@@ -74,6 +75,7 @@
                             {/if}
                             </div>
  -->                        {/if}
+ <h1>!!!</h1>
                      </div>
                   {/if}
             </div>

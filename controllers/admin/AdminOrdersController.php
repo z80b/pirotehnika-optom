@@ -73,7 +73,7 @@ class AdminOrdersControllerCore extends AdminController
         $this->_select = '
 		a.id_currency,
 		a.id_order AS id_pdf,
-		a.order_number, a.blocker, 
+		a.order_number, a.blocker, a.comment, 
 		a.total_paid_real,';
 		if ($this->is_show_fio == true) {
 			$this->_select .= ' CONCAT(LEFT(c.`firstname`, 1), \'. \', c.`lastname`) AS `customer`,';
@@ -797,6 +797,15 @@ class AdminOrdersControllerCore extends AdminController
 						$order->update();
                         Tools::redirectAdmin(self::$currentIndex.'&id_order='.(int)$order->id.'&vieworder&token='.$this->token);
                     }
+            } else {
+                $this->errors[] = Tools::displayError('You do not have permission to edit this.');
+            }
+        }
+
+        elseif (Tools::isSubmit('submitComment') && isset($order)) {
+            if ($this->tabAccess['edit'] === '1') {
+				$order->comment = Tools::getValue('Comment');
+				$order->update();               
             } else {
                 $this->errors[] = Tools::displayError('You do not have permission to edit this.');
             }

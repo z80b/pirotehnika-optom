@@ -19,7 +19,7 @@
         </div>
         <div class="ps-product__cell">
             <h2 class="ps-product__name" href="{$product.link|escape:'html':'UTF-8'}">
-                {$product.name|escape:'html':'UTF-8'}
+                <a class="ps-product__link" href="{$product.link|escape:'html':'UTF-8'}">{$product.name|escape:'html':'UTF-8'}</a>
             </h2>
             <div class="ps-product__option ps-option">
                 <b class="ps-option__title">{l s='Артикул'}:</b>

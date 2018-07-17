@@ -10777,6 +10777,24 @@ input[type='number'] {
 .cart_product .ps-product__image-zoom:hover::after {
   opacity: 1;
 }
+.ps-category__title {
+  clear: both;
+  display: block;
+  width: 100%;
+}
+.ps-category__title::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.ps-category__name {
+  display: block;
+  float: left;
+}
+.ps-category__info {
+  display: block;
+  float: right;
+}
 .ps-footer__block {
   padding: 5px 0;
   float: left;

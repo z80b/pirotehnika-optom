@@ -1424,7 +1424,7 @@ function UpdatePriceInMenu(){//maxim.
                 Countln.innerHTML= _localStorage[CountCatId]+' ';
             var CategoryInfoElement = document.getElementById(CategoryInfo);
             if(CategoryInfoElement != null){
-                CategoryInfoElement.innerHTML=_localStorage[CountCatId] +' '+ plural(_localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - "+_localStorage[CatId]+" р ("+_localStorage[PercCatId]+"%)";
+                CategoryInfoElement.innerHTML=_localStorage[CountCatId] +' '+ plural(_localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - "+_localStorage[CatId]+" ("+_localStorage[PercCatId]+"%)";
                 CategoryInfoElement.setAttribute('title', _localStorage[PercCatId]+"% от суммы заказа");
             }
         }

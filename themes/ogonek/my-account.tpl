@@ -54,6 +54,12 @@
                 <li><a href="{$link->getPageLink('discount', true)|escape:'html':'UTF-8'}" title="{l s='Vouchers'}"><i class="icon-barcode"></i><span>{l s='My vouchers'}</span></a></li>
             {/if}
             {$HOOK_CUSTOMER_ACCOUNT}
+            <li>
+                <a href="{$link->getPageLink('products-import', true)|escape:'html':'UTF-8'}" title="{l s='Выгрузка товаров'}">
+                    <i class="icon-upload"></i>
+                    <span>{l s='Выгрузка товаров'}</span>
+                </a>
+            </li>
         </ul>
     </div>
 {/if}

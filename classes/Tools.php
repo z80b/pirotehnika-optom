@@ -777,6 +777,7 @@ class ToolsCore
                 $price /= $c_rate;
             }
         }
+        //die('<pre>'.print_r($price, true).'</pre>');
 
         return $price;
     }

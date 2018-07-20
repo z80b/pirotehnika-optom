@@ -1,8 +1,11 @@
 <?php
 
 class Tools extends ToolsCore {
+
     public static function displayPrice($price, $currency = null, $no_utf8 = false, Context $context = null)
     {
+        $no_c_char = false;
+
         if (!is_numeric($price)) {
             return $price;
         }
@@ -10,18 +13,19 @@ class Tools extends ToolsCore {
             $context = Context::getContext();
         }
         if ($currency === null) {
+            $no_c_char = true;
             $currency = $context->currency;
         } elseif (is_int($currency)) {
             $currency = Currency::getCurrencyInstance((int)$currency);
         }
 
         if (is_array($currency)) {
-            $c_char = $currency['sign'];
+            $c_char = $no_c_char ? '' : $currency['sign'];
             $c_format = $currency['format'];
             $c_decimals = (int)$currency['decimals'] * _PS_PRICE_DISPLAY_PRECISION_;
             $c_blank = $currency['blank'];
         } elseif (is_object($currency)) {
-            $c_char = $currency->sign;
+            $c_char = $no_c_char ? '' : $currency->sign;
             $c_format = $currency->format;
             $c_decimals = (int)$currency->decimals * _PS_PRICE_DISPLAY_PRECISION_;
             $c_blank = $currency->blank;

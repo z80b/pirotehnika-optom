@@ -1,3 +1,5 @@
+@import 'components/*.styl'
+
 $color-1 = #c4c4c4
 $color-2 = #999
 $color-3 = #fff
@@ -1283,3 +1285,73 @@ ul#text_fields
 
     .box-security
         filter none
+            
+
+
+
+.ps-product-page
+    &__quantity
+        position relative
+        display block
+        size auto 30px
+        padding 0
+        
+        &::after
+            content ''
+            display table
+            clear both
+            
+    .ps-quantity
+        &__button
+            @extends $form-button
+            absolute top 0 width 15px height 30px
+            font 800 12px/30px 'Open Sans', sans-serif
+            display block
+            transition .5s all ease
+            z-index 1
+            
+            &--dec, &--decbox
+                border-radius 5px 0 0 5px
+                left -2px
+                    
+            &--inc, &--incbox
+                border-radius 0 5px 5px 0
+                right -2px
+                
+        &:hover
+            .ps-quantity__button
+                &--dec, &--decbox
+                    left -15px
+                    
+                &--inc, &--incbox
+                    right -15px
+            
+        &__value
+            position relative
+            display block
+            font 800 18px/30px 'Open Sans', sans-serif
+            text-align center
+            size 100% 30px
+            margin 0
+            border solid 1px #f1b347
+            float left
+            z-index 2
+            
+        &__title
+            display block
+            text-align center
+            line-height 1
+            
+    &__button
+        @extends $form-button
+        font 12px/30px 'Open Sans', sans-serif
+        size 100% 30px
+        text-align center
+        text-transform uppercase
+        text-decoration none
+        clear both
+        margin 3px auto 0
+
+        &:hover
+            background-color #ed9d12
+            text-decoration none

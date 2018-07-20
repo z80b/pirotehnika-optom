@@ -60,8 +60,43 @@
         {/if}
 
         
-        <div class="ps-product__controls">
+        <div class="ps-product__controls ps-controls">
         {if $product.quantity > 0}
+            <div class="ps-controls__left">
+            <div class="ps-product__quantity ps-quantity">
+                <button
+                    class="ps-quantity__button ps-quantity__button--decbox"
+                    data-field-qty="boxqty">&lt;</button>
+                <input
+                    name="boxqty"
+                    class="ps-quantity__value ajax_box_input_prod_{$product.id_product} js-boxes-input"
+                    type="number"
+                    value="0"
+                    data-inbox="{$product.r3}"
+                    min="0"
+                    max="{$product.quantity / $product.r3}"/>
+                <button
+                    class="ps-quantity__button ps-quantity__button--incbox"
+                    data-field-qty="boxqty">&gt;</button>
+            </div>
+            <div class="ps-product__quantity ps-quantity">
+                <button
+                    class="ps-quantity__button ps-quantity__button--dec"
+                    data-field-qty="qty">-</button>
+                <input
+                    name="qty"
+                    class="ps-quantity__value ajax_input_prod_{$product.id_product} js-qty-input"
+                    type="number"
+                    value="0"
+                    data-prev-val="{if isset($productsCart.cart_quantity)}{$productsCart.cart_quantity}{else}0{/if}"
+                    data-inbox={$product.r3}
+                    min="0"
+                    max="{$product.quantity}"/>
+                <button
+                    class="ps-quantity__button ps-quantity__button--inc"
+                    data-field-qty="qty">+</button>
+            </div>
+            </div>
             <a class="ps-product__button ps-product__button--tocart"
                 id="btnid{$product.id_product}" 
                 btncatid="{$product.id_category_default}" 
@@ -70,23 +105,6 @@
                 title="{l s='Add to cart'}"
                 onClick="fancyChangeProductCountInCart(event, {$product.id_product}, 'ajax_input_prod_{$product.id_product}'); this.yaCounter46713966 && (yaCounter46713966.reachGoal('ADDCART')); return true;"
             ></a>
-            <div class="ps-product__quantity ps-quantity">
-                <button
-                    class="ps-quantity__button ps-quantity__button--dec"
-                    data-field-qty="qty">-</button>
-                <input
-                    id="quantity_wanted"
-                    name="qty"
-                    class="ps-quantity__value ajax_input_prod_{$product.id_product}"
-                    type="number"
-                    value="0"
-                    data-prev-val="{if isset($productsCart.cart_quantity)}{$productsCart.cart_quantity}{else}0{/if}"
-                    min="1"
-                    max="{$product.quantity}"/>
-                <button
-                    class="ps-quantity__button ps-quantity__button--inc"
-                    data-field-qty="qty">+</button>
-            </div>
             <a class="ps-product__button ps-product__button--compare js-product-compare" href="{$product.link|escape:'html':'UTF-8'}" data-id-product="{$product.id_product}" title="{l s='Add to Compare'}"></a>
         {/if}
         </div>

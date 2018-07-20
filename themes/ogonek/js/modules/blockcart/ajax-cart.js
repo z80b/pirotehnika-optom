@@ -1270,8 +1270,8 @@ function fancyChangeProductCountInCart(e, productId, inputEl, total){
   e.preventDefault();
 
     var $productImage = $(e.currentTarget)
-        .parents('.ps-products__item')
-        .find('.ps-product__image');
+        .parents('.ps-products__item, .ps-product-page')
+        .find('.ps-product__image, .ps-product-page__image');
     var $productImageOffset = $productImage.offset();
     var $productImageClone = $productImage.clone();
         $productImageClone.css({

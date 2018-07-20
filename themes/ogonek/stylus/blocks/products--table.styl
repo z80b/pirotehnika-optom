@@ -28,6 +28,9 @@
                 
                 .ps-product__table-cell
                     font-weight 800
+                    
+                    &.ps-product__controls
+                        width 70px
                 
             &-tbody
                 display table-row-group
@@ -93,38 +96,56 @@
                     text-decoration underline            
             
         &__quantity
-            display inline-block
-            size 54px 20px
-            
-            &:first-child
-                margin 10px auto 0
+            position relative
+            display block
+            size auto 20px
+            padding 0
             
             &::after
                 content ''
                 display table
                 clear both
-            
+                
         .ps-quantity
             &__button
                 @extends $form-button
+                absolute top 0 width 15px height 20px
                 font 800 12px/20px 'Open Sans', sans-serif
-                size 15px 20px
                 display block
-                float left
+                transition .5s all ease
+                z-index 1
                 
                 &--dec, &--decbox
                     border-radius 5px 0 0 5px
+                    left -2px
+                        
                 &--inc, &--incbox
                     border-radius 0 5px 5px 0
+                    right -2px
+                    
+            &:hover
+                .ps-quantity__button
+                    &--dec, &--decbox
+                        left -15px
+                        
+                    &--inc, &--incbox
+                        right -15px
                 
             &__value
+                position relative
                 display block
                 font 800 12px/20px 'Open Sans', sans-serif
                 text-align center
-                size 2em 20px
+                size 100% 20px
                 margin 0
                 border solid 1px #f1b347
                 float left
+                z-index 2
+                
+            &__title
+                display block
+                text-align center
+                line-height 1
                 
         &__button
             @extends $form-button

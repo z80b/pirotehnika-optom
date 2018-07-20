@@ -5,9 +5,9 @@
         <div class="ps-product__table-cell">Наименование</div>
         <div class="ps-product__table-cell">Ед</div>
         <div class="ps-product__table-cell">Цена</div>
-        <div class="ps-product__table-cell">В упаковке</div>
-        <div class="ps-product__table-cell">В блоке</div>
-        <div class="ps-product__table-cell">В коробке</div>
+        <div class="ps-product__table-cell">В уп.</div>
+        <div class="ps-product__table-cell">В бл.</div>
+        <div class="ps-product__table-cell">В кор.</div>
         <div class="ps-product__table-cell">Нал.</div>
         <div class="ps-product__table-cell">В заказе</div>
         <div class="ps-product__table-cell">Сумма</div>
@@ -36,11 +36,11 @@
         <div class="ps-product__table-cell">{Product::SGetProductUnity($product.sale_unity)}</div>
         <div class="ps-product__table-cell ps-product__price">
             <span class="ps-price__value">
-                {convertPrice price=$product.price}
+                {Tools::displayPrice($product.price)}
             </span>
             {if $product.specific_prices.reduction > 0}
                 <span class="ps-price__value ps-price__value--old">
-                    {convertPrice price=$product.price_without_reduction}
+                    {Tools::displayPrice($product.price_without_reduction)}
                 </span>
             {/if}
         </div>
@@ -69,6 +69,7 @@
                     class="ps-quantity__button ps-quantity__button--incbox"
                     data-field-qty="boxqty">&gt;</button>
             </div>
+            <span class="ps-quantity__title">кор.</span>
             <div class="ps-product__quantity ps-quantity">
                 <button
                     class="ps-quantity__button ps-quantity__button--dec"
@@ -86,6 +87,7 @@
                     class="ps-quantity__button ps-quantity__button--inc"
                     data-field-qty="qty">+</button>
             </div>
+            <span class="ps-quantity__title">ед.</span>
             <a class="ps-product__button ps-product__button--tocart"
                 id="btnid{$product.id_product}" 
                 btncatid="{$product.id_category_default}" 

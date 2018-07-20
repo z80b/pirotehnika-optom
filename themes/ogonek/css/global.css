@@ -11406,9 +11406,6 @@ input[type='number'] {
 .ps-products--table .ps-product__table-thead .ps-product__table-cell {
   font-weight: 800;
 }
-.ps-products--table .ps-product__table-thead .ps-product__table-cell.ps-product__controls {
-  width: 70px;
-}
 .ps-products--table .ps-product__table-tbody {
   display: table-row-group;
 }
@@ -11444,6 +11441,9 @@ input[type='number'] {
   text-align: center;
   vertical-align: middle;
   padding: 5px;
+}
+.ps-products--table .ps-product__table-cell.ps-product__controls {
+  width: 70px;
 }
 .ps-product__table-thead .ps-products--table .ps-product__table-cell {
   font-weight: 800;

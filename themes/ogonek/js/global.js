@@ -324,6 +324,15 @@ function bindGrid()
 		}
 
 		if ($productsBlock) $productsBlock.className = viewClasses[currentViewId || defaultViewId];
+
+		if (currentViewId == 'tab' || (defaultViewId == 'tab' && !event)) {
+			$('#left_column').css('display', 'none');
+			$('#center_column').css('width', '100%');
+		} else {
+			$('#left_column').css('display', 'block');
+			$('#center_column').removeAttr('style');
+		}
+
 	}
 
 	// var view = $.cookie('display') || 'list';

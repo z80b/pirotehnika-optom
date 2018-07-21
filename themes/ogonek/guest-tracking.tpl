@@ -116,6 +116,7 @@
                         	data-warning="Не верный формат почтового адреса."
                         	type="email"
                         	name="email"
+                        	placeholder="example@example.com"
                         	value="{if isset($smarty.get.email)}{$smarty.get.email|escape:'html':'UTF-8'}{else}{if isset($smarty.post.email)}{$smarty.post.email|escape:'html':'UTF-8'}{/if}{/if}" />
                         <span class="form-control-error"></span>
                     </div>

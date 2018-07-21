@@ -43,6 +43,7 @@
 				class="form-control"
 				type="email"
 				id="email"
+				placeholder="example@example.com"
 				name="email"
 				data-validate="isEmail"
 				data-warning="Не верный формат почтового адреса."

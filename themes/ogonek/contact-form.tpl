@@ -95,6 +95,7 @@
 								name="from"
 								value="{$customerThread.email|escape:'html':'UTF-8'}"
 								data-validate="isEmail"
+								placeholder="example@example.com"
 								data-warning="Не верный формат почтового адреса."
 								readonly="readonly" />
 							<span class="form-control-error"></span>
@@ -105,6 +106,7 @@
 								id="email"
 								name="from"
 								data-validate="isEmail"
+								placeholder="example@example.com"
 								data-warning="Не верный формат почтового адреса."
 								value="{$email|escape:'html':'UTF-8'}" />
 							<span class="form-control-error"></span>

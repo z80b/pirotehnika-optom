@@ -89,6 +89,7 @@
                         type="email"
                         name="email"
                         id="email"
+                        placeholder="example@example.com"
                         value="{$smarty.post.email}" />
                     <span class="form-control-error"></span>
                 </div>

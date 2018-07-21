@@ -16,6 +16,7 @@
 						class="form-control validate"
 						id="login_email"
 						name="email"
+						placeholder="example@example.com"
 						data-warning="Не верный формат почтового адреса."
 						data-validate="isEmail" />
 					<span class="form-control-error"></span>
@@ -73,6 +74,7 @@
 							class="text form-control validate"
 							id="email"
 							name="email"
+							placeholder="example@example.com"
 							data-validate="isEmail"
 							data-warning="Не верный формат почтового адреса."
 							value="{if isset($guestInformations) && isset($guestInformations.email) && $guestInformations.email}{$guestInformations.email}{/if}" />

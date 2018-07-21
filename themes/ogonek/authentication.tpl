@@ -65,6 +65,7 @@
 							data-warning="Не верный формат почтового адреса."
 							id="email_create"
 							name="email_create"
+							placeholder="example@example.com"
 							value="{if isset($smarty.post.email_create)}{$smarty.post.email_create|stripslashes}{/if}" />
 						<span class="form-control-error"></span>
 					</div>
@@ -92,6 +93,7 @@
 							data-validate="isEmail"
 							data-warning="Не верный формат почтового адреса."
 							type="email"
+							placeholder="example@example.com"
 							id="email"
 							name="email"
 							value="{if isset($smarty.post.email)}{$smarty.post.email|stripslashes}{/if}" />
@@ -135,7 +137,7 @@
 					<!-- Account -->
 					<div class="required form-group">
 						<label for="guest_email">{l s='Email address'} <sup>*</sup></label>
-						<input type="text" class="is_required validate form-control" data-validate="isEmail" id="guest_email" name="guest_email" value="{if isset($smarty.post.guest_email)}{$smarty.post.guest_email}{/if}" />
+						<input type="text" placeholder="example@example.com" class="is_required validate form-control" data-validate="isEmail" id="guest_email" name="guest_email" value="{if isset($smarty.post.guest_email)}{$smarty.post.guest_email}{/if}" />
 					</div>
 					<div class="cleafix gender-line">
 						<label>{l s='Title'}</label>
@@ -479,7 +481,7 @@
 			</div>
 			<div class="required form-group">
 				<label for="email">{l s='Email'} <sup>*</sup></label>
-				<input type="email" class="is_required validate form-control" data-validate="isEmail" id="email" name="email" value="{if isset($smarty.post.email)}{$smarty.post.email}{/if}" />
+				<input type="email" class="is_required validate form-control" placeholder="example@example.com" data-validate="isEmail" id="email" name="email" value="{if isset($smarty.post.email)}{$smarty.post.email}{/if}" />
 			</div>
 			<div class="required password form-group">
 				<label for="passwd">{l s='Password'} <sup>*</sup></label>

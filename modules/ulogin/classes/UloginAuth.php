@@ -9,7 +9,7 @@ class UloginAuth
 		if(Tools::getValue('token')){
 
 			$link = new Link();
-			$s    = file_get_contents('http://ulogin.ru/token.php?token=' . Tools::getValue('token') . '&host=' . $link->getPageLink('authentication.php'));
+			$s    = file_get_contents('https://ulogin.ru/token.php?token=' . Tools::getValue('token') . '&host=' . $link->getPageLink('authentication.php'));
 
 			$data = json_decode($s, true);
 			if(@$data ['error']) return FALSE;

@@ -122,10 +122,8 @@
 						</button>
 					</p>
 				</div>
+				<script src="//ulogin.ru/js/ulogin.js"></script><div id="uLogin_8afb1a08" data-uloginid="8afb1a08" style="padding: 10px 0"></div>
 			</form>
-			<div class="ps-social-auth">
-				{hook h="auth" mod="ulogin"}
-			</div>
 		</div>
 	</div>
 	{if isset($inOrderProcess) && $inOrderProcess && $PS_GUEST_CHECKOUT_ENABLED}

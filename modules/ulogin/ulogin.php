@@ -41,9 +41,9 @@ class ulogin extends Module
 		<legend><img src="../img/admin/email.gif" /> ' . $this->l('Information') . '</legend>
 		<div id="dev_div">
 		<span><b>' . $this->l('Version') . ':</b> ' . $this->version . '</span><br>
-		<span><b>' . $this->l('Developer') . ':</b> <a class="link" href="http://elcommerce.com.ua" target="_blank">savvato</a><br>
-		<span><b>' . $this->l('Описание') . ':</b> <a class="link" href="http://support.elcommerce.com.ua/kb/index.php" target="_blank">Наша база знаний</a><br><br>
-		<p style="text-align:center"><a href="http://elcommerce.com.ua/"><img src="http://elcommerce.com.ua/img/m/logo.png" alt="Электронный учет коммерческой деятельности" /></a>
+		<span><b>' . $this->l('Developer') . ':</b> <a class="link" href="https://elcommerce.com.ua" target="_blank">savvato</a><br>
+		<span><b>' . $this->l('Описание') . ':</b> <a class="link" href="https://support.elcommerce.com.ua/kb/index.php" target="_blank">Наша база знаний</a><br><br>
+		<p style="text-align:center"><a href="https://elcommerce.com.ua/"><img src="https://elcommerce.com.ua/img/m/logo.png" alt="Электронный учет коммерческой деятельности" /></a>
 
 		</div>
 		</fieldset>

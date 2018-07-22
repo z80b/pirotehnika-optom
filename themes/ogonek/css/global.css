@@ -7,6 +7,7 @@
   display: table;
   clear: both;
 }
+.ps-product-page .ps-product__button,
 .ps-products--list .ps-product .ps-quantity__button,
 .ps-products--list .ps-product__button,
 .ps-products--table .ps-product .ps-quantity__button,
@@ -31,6 +32,7 @@
   transition: 0.5s background-color ease;
   cursor: pointer;
 }
+.ps-product-page .ps-product__button:hover,
 .ps-products--list .ps-product .ps-quantity__button:hover,
 .ps-products--list .ps-product__button:hover,
 .ps-products--table .ps-product .ps-quantity__button:hover,
@@ -11143,6 +11145,30 @@ input[type='number'] {
   display: block;
   text-align: center;
   padding: 15px 0;
+}
+.ps-product-page .ps-product__button {
+  font: 14px/30px 'Open Sans', sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  clear: both;
+  margin: 10px auto;
+}
+.ps-product-page .ps-product__button:hover {
+  background-color: #ed9d12;
+  text-decoration: none;
+}
+.ps-product-page .ps-product__button--compare {
+  background-color: #86d2e9;
+}
+.ps-product-page .ps-product__button--compare.checked {
+  background-color: #47b347;
+}
+.ps-product-page .ps-product__button--compare:hover {
+  background-color: #48bbde;
+}
+.ps-product-page .ps-product__button--compare:hover.checked {
+  background-color: #47b347;
 }
 .ps-products--list {
   display: block;

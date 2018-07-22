@@ -428,6 +428,7 @@
                 name="Submit"
                 title="{l s='Add to cart'}"
                 onClick="fancyChangeProductCountInCart(event, {$product->id}, 'ajax_input_prod_{$product->id}'); this.yaCounter46713966 && (yaCounter46713966.reachGoal('ADDCART')); return true;">{l s="В заказ"}</a>
+                <a class="ps-product__button ps-product__button--compare js-product-compare" href="{$product->link|escape:'html':'UTF-8'}" data-id-product="{$product->id}" title="{l s='К сравнению'}">{l s='К сравнению'}</a>
             {/if}
         </div>
                         {if !$PS_CATALOG_MODE}

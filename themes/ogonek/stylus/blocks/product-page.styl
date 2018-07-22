@@ -50,5 +50,31 @@
         display block
         text-align center
         padding 15px 0
+        
+    .ps-product
+        &__button
+            @extends $form-button
+            font 14px/30px 'Open Sans', sans-serif
+            text-align center
+            text-transform uppercase
+            text-decoration none
+            clear both
+            margin 10px auto
+
+            &:hover
+                background-color #ed9d12
+                text-decoration none
+            
+            &--compare
+                background-color #86d2e9
+                
+                &.checked
+                    background-color #47b347
+                
+                &:hover
+                    background-color darken(#86d2e9, 20%)
+                    
+                    &.checked
+                        background-color #47b347
             
         

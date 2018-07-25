@@ -29,10 +29,10 @@
 	</h3>
 	<div style="width:21px; float:left;">
 		<div class="required checkbox">
-			<input type="checkbox" value="1" id="customer_privacy" name="customer_privacy" autocomplete="off"/>
+			<input type="checkbox" value="1" id="customer_privacy" name="customer_privacy" autocomplete="off" required/>
 		</div>
 	</div>
 	<div style="width: 92%; float: left; margin-top: 8px;">
-        <label for="customer_privacy" style="font-weight: normal;">{$privacy_message}</label>				
+        <label for="customer_privacy" style="font-weight: normal;">Согласен c <a href="/content/53-privacy-policy" target="_blank">политикой конфиденциальности</a>. Даю согласие на обработку персональных данных, передаваемых посредством настоящей формы, при условии, что эти персональные данные не будут переданы третьим лицам (кроме случаев, предусмотренных законодательством РФ).</label>				
 	</div>
 </fieldset>

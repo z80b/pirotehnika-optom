@@ -104,6 +104,7 @@ class AddressControllerCore extends FrontController
     public function postProcess()
     {
         if (Tools::isSubmit('submitAddress')) {
+            Hook::exec('actionBeforeSubmitAccount');
             $this->processSubmitAddress();
         } elseif (!Validate::isLoadedObject($this->_address) && Validate::isLoadedObject($this->context->customer)) {
             $_POST['firstname'] = $this->context->customer->firstname;
@@ -270,7 +271,9 @@ class AddressControllerCore extends FrontController
             'token' => Tools::getToken(false),
             'select_address' => (int)Tools::getValue('select_address'),
             'address' => $this->_address,
-            'id_address' => (Validate::isLoadedObject($this->_address)) ? $this->_address->id : 0
+            'id_address' => (Validate::isLoadedObject($this->_address)) ? $this->_address->id : 0,
+            'HOOK_CREATE_ACCOUNT_FORM' => Hook::exec('createAccountForm'),
+            'privacy_message' => Configuration::get('CUSTPRIV_MESSAGE', $this->context->language->id)
         ));
 
         if ($back = Tools::getValue('back')) {

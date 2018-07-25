@@ -132,6 +132,10 @@
                 clear both
             
         .ps-quantity
+            &__title
+                display block
+                text-align center
+                
             &__button
                 @extends $form-button
                 absolute top 0 width 15px height 30px
@@ -148,7 +152,7 @@
                     border-radius 0 5px 5px 0
                     right -2px
                     
-            &:hover, &:focus
+            &:hover, &--focus
                 .ps-quantity__button
                     &--dec, &--decbox
                         left -15px

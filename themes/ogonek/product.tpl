@@ -420,7 +420,7 @@
                     class="ps-quantity__button ps-quantity__button--inc"
                     data-field-qty="qty">+</button>
             </div>
-            <span class="ps-quantity__title">ед.</span>
+            <span class="ps-quantity__title">{Product::SGetProductUnity($product->sale_unity)}</span>
             <a class="ps-product-page__button ps-product__button--tocart"
                 id="btnid{$product->id_product}" 
                 btncatid="{$product->id_category_default}" 

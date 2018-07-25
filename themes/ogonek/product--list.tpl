@@ -90,6 +90,7 @@
                         class="ps-quantity__button ps-quantity__button--incbox"
                         data-field-qty="boxqty">&gt;</button>
                 </div>
+                <span class="ps-quantity__title">кор.</span>
                 <div class="ps-product__quantity ps-quantity">
                     <button
                         class="ps-quantity__button ps-quantity__button--dec"
@@ -107,6 +108,7 @@
                         class="ps-quantity__button ps-quantity__button--inc"
                         data-field-qty="qty">+</button>
                 </div>
+                <span class="ps-quantity__title">{Product::SGetProductUnity($product.sale_unity)}</span>
                 <a class="ps-product__button ps-product__button--tocart"
                     id="btnid{$product.id_product}" 
                     btncatid="{$product.id_category_default}" 

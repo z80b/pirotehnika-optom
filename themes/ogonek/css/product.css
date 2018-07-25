@@ -1297,11 +1297,15 @@ ul#text_fields {
   right: -2px;
 }
 .ps-product-page .ps-quantity:hover .ps-quantity__button--dec,
-.ps-product-page .ps-quantity:hover .ps-quantity__button--decbox {
+.ps-product-page .ps-quantity--focus .ps-quantity__button--dec,
+.ps-product-page .ps-quantity:hover .ps-quantity__button--decbox,
+.ps-product-page .ps-quantity--focus .ps-quantity__button--decbox {
   left: -15px;
 }
 .ps-product-page .ps-quantity:hover .ps-quantity__button--inc,
-.ps-product-page .ps-quantity:hover .ps-quantity__button--incbox {
+.ps-product-page .ps-quantity--focus .ps-quantity__button--inc,
+.ps-product-page .ps-quantity:hover .ps-quantity__button--incbox,
+.ps-product-page .ps-quantity--focus .ps-quantity__button--incbox {
   right: -15px;
 }
 .ps-product-page .ps-quantity__value {

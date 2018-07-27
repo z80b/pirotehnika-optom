@@ -120,12 +120,12 @@
 								{l s='Sign in'}
 							</span>
 						</button>
+						<div class="ps-social-auth">
+							{hook h="displayNav" mod="ulogin"}
+						</div>
 					</p>
 				</div>
 			</form>
-			<div class="ps-social-auth">
-				{hook h="auth" mod="ulogin"}
-			</div>
 		</div>
 	</div>
 	{if isset($inOrderProcess) && $inOrderProcess && $PS_GUEST_CHECKOUT_ENABLED}

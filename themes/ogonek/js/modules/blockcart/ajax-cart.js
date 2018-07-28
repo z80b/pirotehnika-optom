@@ -97,6 +97,12 @@ $(document).ready(function(){
                 ($boxes_input.val() > 0) && $boxes_input.val(parseInt($boxes_input.val() || 0) - 1);
             }
 
+        })
+        .on('focus', '.ps-quantity__value', function(event) {
+            $(this).parents('.ps-quantity').addClass('ps-quantity--focus');
+        })
+        .on('blur', '.ps-quantity__value', function(event) {
+            $(this).parents('.ps-quantity').removeClass('ps-quantity--focus');
         });
 
     ajaxCart.overrideButtonsInThePage();

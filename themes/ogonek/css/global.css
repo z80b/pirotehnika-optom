@@ -11301,6 +11301,10 @@ input[type='number'] {
   display: table;
   clear: both;
 }
+.ps-products--list .ps-product .ps-quantity__title {
+  display: block;
+  text-align: center;
+}
 .ps-products--list .ps-product .ps-quantity__button {
   position: absolute;
   top: 0;
@@ -11329,15 +11333,15 @@ input[type='number'] {
   right: -2px;
 }
 .ps-products--list .ps-product .ps-quantity:hover .ps-quantity__button--dec,
-.ps-products--list .ps-product .ps-quantity:focus .ps-quantity__button--dec,
+.ps-products--list .ps-product .ps-quantity--focus .ps-quantity__button--dec,
 .ps-products--list .ps-product .ps-quantity:hover .ps-quantity__button--decbox,
-.ps-products--list .ps-product .ps-quantity:focus .ps-quantity__button--decbox {
+.ps-products--list .ps-product .ps-quantity--focus .ps-quantity__button--decbox {
   left: -15px;
 }
 .ps-products--list .ps-product .ps-quantity:hover .ps-quantity__button--inc,
-.ps-products--list .ps-product .ps-quantity:focus .ps-quantity__button--inc,
+.ps-products--list .ps-product .ps-quantity--focus .ps-quantity__button--inc,
 .ps-products--list .ps-product .ps-quantity:hover .ps-quantity__button--incbox,
-.ps-products--list .ps-product .ps-quantity:focus .ps-quantity__button--incbox {
+.ps-products--list .ps-product .ps-quantity--focus .ps-quantity__button--incbox {
   right: -15px;
 }
 .ps-products--list .ps-product .ps-quantity__value {
@@ -11533,11 +11537,15 @@ input[type='number'] {
   right: -2px;
 }
 .ps-products--table .ps-product .ps-quantity:hover .ps-quantity__button--dec,
-.ps-products--table .ps-product .ps-quantity:hover .ps-quantity__button--decbox {
+.ps-products--table .ps-product .ps-quantity--focus .ps-quantity__button--dec,
+.ps-products--table .ps-product .ps-quantity:hover .ps-quantity__button--decbox,
+.ps-products--table .ps-product .ps-quantity--focus .ps-quantity__button--decbox {
   left: -15px;
 }
 .ps-products--table .ps-product .ps-quantity:hover .ps-quantity__button--inc,
-.ps-products--table .ps-product .ps-quantity:hover .ps-quantity__button--incbox {
+.ps-products--table .ps-product .ps-quantity--focus .ps-quantity__button--inc,
+.ps-products--table .ps-product .ps-quantity:hover .ps-quantity__button--incbox,
+.ps-products--table .ps-product .ps-quantity--focus .ps-quantity__button--incbox {
   right: -15px;
 }
 .ps-products--table .ps-product .ps-quantity__value {
@@ -11867,11 +11875,15 @@ input[type='number'] {
   right: -2px;
 }
 .ps-products--grid .ps-product .ps-quantity:hover .ps-quantity__button--dec,
-.ps-products--grid .ps-product .ps-quantity:hover .ps-quantity__button--decbox {
+.ps-products--grid .ps-product .ps-quantity--focus .ps-quantity__button--dec,
+.ps-products--grid .ps-product .ps-quantity:hover .ps-quantity__button--decbox,
+.ps-products--grid .ps-product .ps-quantity--focus .ps-quantity__button--decbox {
   left: -15px;
 }
 .ps-products--grid .ps-product .ps-quantity:hover .ps-quantity__button--inc,
-.ps-products--grid .ps-product .ps-quantity:hover .ps-quantity__button--incbox {
+.ps-products--grid .ps-product .ps-quantity--focus .ps-quantity__button--inc,
+.ps-products--grid .ps-product .ps-quantity:hover .ps-quantity__button--incbox,
+.ps-products--grid .ps-product .ps-quantity--focus .ps-quantity__button--incbox {
   right: -15px;
 }
 .ps-products--grid .ps-product .ps-quantity__value {

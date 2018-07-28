@@ -259,7 +259,7 @@
                     {/if}
                     <div class="form-group is_customer_param">
                         <label for="phone">{l s='Home phone'}</label>
-                        <input type="text" class="text form-control validate" name="phone" id="phone"  data-validate="isPhoneNumber" value="{if isset($guestInformations) && isset($guestInformations.phone) && $guestInformations.phone}{$guestInformations.phone}{/if}" />
+                        <input type="text" class="text form-control validate" name="phone" id="phone"  data-validate="isPhoneNumber" value="{if isset($guestInformations) && isset($guestInformations.phone) && $guestInformations.phone}{$guestInformations.phone}{/if}" placeholder="+7 (XXX) XXX-XX-XX"/>
                     </div>
                     <div class="{if isset($one_phone_at_least) && $one_phone_at_least}required {/if}form-group">
                         <label for="phone_mobile">{l s='Mobile phone'}{if isset($one_phone_at_least) && $one_phone_at_least} <sup>*</sup>{/if}</label>

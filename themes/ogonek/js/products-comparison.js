@@ -30,8 +30,9 @@ $(document).ready(function(){
 	})
 	.on('click', '.js-product-compare', function(e){
 		e.preventDefault();
+		console.log(e.currentTarget.getAttribute('data-id-product'));
 		if (typeof addToCompare != 'undefined')
-			addToCompare(parseInt($(this).data('id-product')));
+			addToCompare(parseInt(e.currentTarget.getAttribute('data-id-product')));
 	});
 
 	reloadProductComparison();

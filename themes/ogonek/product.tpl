@@ -65,6 +65,9 @@
             </p>
         {/if}
         <!-- left infos-->
+        <div class="ps-product__compare-block">
+            {include file="./product-compare.tpl" paginationId='top'}
+        </div>
         <div class="ps-product-page__block">
             <!-- product img-->
             <div id="image-block" class="clearfix">
@@ -382,7 +385,7 @@
                         {hook h="displayProductPriceBlock" product=$product type="after_price"}
                         <div class="clear"></div>
                     </div> <!-- end content_prices -->
-                    <div class="product_attributes text-center clearfix col-xs-5">
+                    <div class="product_attributes text-center clearfix">
                         <!-- quantity wanted -->
         <div class="ps-product__controls">
             {if $product->quantity > 0}
@@ -428,7 +431,10 @@
                 name="Submit"
                 title="{l s='Add to cart'}"
                 onClick="fancyChangeProductCountInCart(event, {$product->id}, 'ajax_input_prod_{$product->id}'); this.yaCounter46713966 && (yaCounter46713966.reachGoal('ADDCART')); return true;">{l s="В заказ"}</a>
-                <a class="ps-product__button ps-product__button--compare js-product-compare" href="{$product->link|escape:'html':'UTF-8'}" data-id-product="{$product->id}" title="{l s='К сравнению'}">{l s='К сравнению'}</a>
+            <a  class="ps-product__button ps-product__button--compare js-product-compare"
+                href="{$link->getProductLink($product)|escape:'html':'UTF-8'}"
+                data-id-product="{$product->id}"
+                title="{l s='К сравнению'}">{l s='К сравнению'}</a>
             {/if}
         </div>
                         {if !$PS_CATALOG_MODE}
@@ -666,6 +672,9 @@
   
     {if isset($HOOK_PRODUCT_TAB_CONTENT) && $HOOK_PRODUCT_TAB_CONTENT}{$HOOK_PRODUCT_TAB_CONTENT}{/if}
     </div>
+    <div class="ps-product__compare-block">
+        {include file="./product-compare.tpl" paginationId='footer'}
+    </div>
 </div>
 {/if}
 {if isset($packItems) && $packItems|@count > 0}
@@ -794,6 +803,10 @@
 </div> <!-- itemscope product wrapper -->
 
 {strip}
+{addJsDefL name=min_item}{l s='Please select at least one product' js=1}{/addJsDefL}
+{addJsDefL name=max_item}{l s='You cannot add more than %d product(s) to the product comparison' sprintf=$comparator_max_item js=1}{/addJsDefL}
+{addJsDef comparator_max_item=$comparator_max_item}
+{addJsDef comparedProductsIds=$compared_products}
 {if isset($smarty.get.ad) && $smarty.get.ad}
     {addJsDefL name=ad}{$base_dir|cat:$smarty.get.ad|escape:'html':'UTF-8'}{/addJsDefL}
 {/if}

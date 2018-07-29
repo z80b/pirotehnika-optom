@@ -590,6 +590,7 @@ span.view_scroll_spacer {
 }
 #product.content_only div.primary_block div.pb-right-column .product_attributes {
   padding-top: 0;
+  width: 150px;
 }
 #page .rte {
   padding: 0 0 20px;
@@ -666,6 +667,9 @@ span.view_scroll_spacer {
           box-shadow: inset 0 6px 6px rgba(0,0,0,0.05);
   padding: 10px 5px 5px;
   background: #ededed;
+}
+.product_attributes {
+  width: 150px;
 }
 .box-cart-bottom {
   padding: 0;
@@ -1338,4 +1342,7 @@ ul#text_fields {
 .ps-product-page__button:hover {
   background-color: #ed9d12;
   text-decoration: none;
+}
+.ps-product__compare-block {
+  text-align: right;
 }

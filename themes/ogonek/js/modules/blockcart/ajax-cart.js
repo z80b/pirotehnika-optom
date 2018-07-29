@@ -1334,7 +1334,7 @@ function fancyChangeProductCountInCart(e, productId, inputEl, total){
                     }
                 }
                 appAlert(errors)
-                cur = prev
+                //cur = prev
             }
             else{
                 ajaxCart.updateCart(jsonData);

@@ -16,8 +16,14 @@ $(document).ready(function(){
                 $boxes_input.val(Math.floor(_qty_value / _inbox));
             }
         })
-        .on('input', '.js-boxes-input', function(e) {
+        .on('keypress', '.js-boxes-input', function(e) {
+            if (e.keyCode == 44 || e.keyCode == 46) {
+                e.preventDefault();
+            }
+        })
+        .on('input', '.js-boxes-input', function(e, a, b) {
             e.preventDefault();
+            
             var
                 $controls    = $(this).parents('.ps-product__controls'),
                 $boxes_input = $controls.find('.js-boxes-input'),

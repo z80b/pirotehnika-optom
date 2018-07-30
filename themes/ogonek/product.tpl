@@ -400,7 +400,7 @@
                     value="0"
                     data-inbox="{$product->r3}"
                     min="0"
-                    max="{$product->quantity / $product->r3}"/>
+                    max="{ceil($product->quantity / $product->r3)}"/>
                 <button
                     class="ps-quantity__button ps-quantity__button--incbox"
                     data-field-qty="boxqty">&gt;</button>
@@ -417,7 +417,6 @@
                     value="0"
                     data-prev-val="{if isset($productsCart->cart_quantity)}{$productsCart->cart_quantity}{else}0{/if}"
                     data-inbox={$product->r3}
-                    min="0"
                     max="{$product->quantity}"/>
                 <button
                     class="ps-quantity__button ps-quantity__button--inc"

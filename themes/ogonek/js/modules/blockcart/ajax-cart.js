@@ -749,7 +749,7 @@ var ajaxCart = {
                     {
                         // Usual product
                         if (!this.is_gift)
-                            $('dt[data-id="cart_block_product_' + domIdProduct + '"] .price').html(jsonProduct.priceByLine);
+                            $('dt[data-id="cart_block_product_' + domIdProduct + '"] .price').html(jsonProduct.price_float);
                         else
                             $('dt[data-id="cart_block_product_' + domIdProduct + '"] .price').html(freeProductTranslation);
                         ajaxCart.updateProductQuantity(jsonProduct, jsonProduct.quantity);
@@ -949,7 +949,7 @@ var ajaxCart = {
 
         jsonData.products.forEach(function (item, i, items) {
             $('.ajax_block_cart_total_price_id_'+item.id).html(item.price);
-            $('.ajax_block_cart_total_price2_id_'+item.id).html(item.price.replace('руб', ''));
+            $('.ajax_block_cart_total_price2_id_'+item.id).html(item.price_float);
             
             if (parseFloat(item.price) > 0) {
                 $('.ajax_block_cart_total_price2_id_'+item.id).parents('.ps-products__item').addClass('ps-product--incard');

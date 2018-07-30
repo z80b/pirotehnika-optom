@@ -91,7 +91,7 @@
 														{displayWtPrice p="`$product.total_wt`"}
 													{/if} *}
                                                     <div class="hookDisplayProductPriceBlock-price">
-{*                                                         {hook h="displayProductPriceBlock" product=$product type="price" from="blockcart"} *}
+
                                                     </div>
 												{else}
 													{l s='Free!' mod='blockcart'}

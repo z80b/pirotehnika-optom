@@ -81,6 +81,7 @@
                     value="0"
                     data-prev-val="{if isset($productsCart.cart_quantity)}{$productsCart.cart_quantity}{else}0{/if}"
                     data-inbox={$product.r3}
+                    data-price="{$product.price}"
                     min="0"
                     max="{$product.quantity}"/>
                 <button

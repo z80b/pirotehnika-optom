@@ -16,6 +16,12 @@ $(document).ready(function(){
                 $boxes_input.val(Math.floor(_qty_value / _inbox));
             }
         })
+        .on('change', '.js-qty-input', function(e) {
+            var qty = $(this).val();
+            var price = $(this).attr('data-price');
+            var summ = qty * price;
+            $(this).parents('.ps-products__item').find('.js-product-summ').text(summ.toFixed(2));
+        })
         .on('keypress', '.js-boxes-input', function(e) {
             if (e.keyCode == 44 || e.keyCode == 46) {
                 e.preventDefault();
@@ -51,6 +57,7 @@ $(document).ready(function(){
                     _inbox = parseInt($qty_input.data('inbox'));
                 $boxes_input.val(Math.floor(_qty_value / _inbox));
             }
+            $qty_input.trigger('change');
         })
         .on('click', '.ps-quantity__button--incbox', function(e){
             e.preventDefault();
@@ -67,6 +74,7 @@ $(document).ready(function(){
                     _inbox = parseInt($qty_input.data('inbox'))
                 $qty_input.val(_qty_value + _inbox);
             }
+            $qty_input.trigger('change');
         })
         // The button to decrement the product value
         .on('click', '.ps-quantity__button--dec', function(e){
@@ -86,6 +94,7 @@ $(document).ready(function(){
                     _inbox = parseInt($qty_input.data('inbox'));
                 $boxes_input.val(Math.floor(_qty_value / _inbox));
             }
+            $qty_input.trigger('change');
         })
         .on('click', '.ps-quantity__button--decbox', function(e){
             e.preventDefault();
@@ -102,7 +111,7 @@ $(document).ready(function(){
             if ($boxes_input && $boxes_input.length) {
                 ($boxes_input.val() > 0) && $boxes_input.val(parseInt($boxes_input.val() || 0) - 1);
             }
-
+            $qty_input.trigger('change');
         })
         .on('focus', '.ps-quantity__value', function(event) {
             $(this).parents('.ps-quantity').addClass('ps-quantity--focus');

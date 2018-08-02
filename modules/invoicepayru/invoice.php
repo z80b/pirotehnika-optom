@@ -280,7 +280,7 @@ class SPDF extends MYPDF
 		if ($product_count > $first_page_line_limit) {
 			$first_page_line_count = $first_page_line_limit;
 		} elseif ($product_count > $first_page_line_count) {
-			$first_page_line_count = $product_count;
+//			$first_page_line_count = $product_count;
 		}
 		
 		$other_page_line_count = 55;

@@ -348,7 +348,8 @@ class MailCore extends ObjectModel
                 'id_lang' => (int)$id_lang
             ), null, true);
             $template_vars = array_merge($template_vars, $extra_template_vars);
-            $swift->registerPlugin(new Swift_Plugins_DecoratorPlugin(array($to_plugin => $template_vars)));
+            $decorator = new Swift_Plugins_DecoratorPlugin(array($to_plugin => $template_vars));
+            $swift->registerPlugin($decorator);
             if ($configuration['PS_MAIL_TYPE'] == Mail::TYPE_BOTH || $configuration['PS_MAIL_TYPE'] == Mail::TYPE_TEXT) {
                 $message->addPart($template_txt, 'text/plain', 'utf-8');
             }
@@ -369,7 +370,22 @@ class MailCore extends ObjectModel
             }
             /* Send mail */
             $message->setFrom(array($from => $from_name));
-            $send = $swift->send($message);
+            
+            $mail_body_text = str_replace(array_keys($template_vars), array_values($template_vars), $template_txt);
+            $mail_body_html = str_replace(array_keys($template_vars), array_values($template_vars), $template_html);
+
+            //$send = $swift->send($message);
+
+            $to_name = (($to_name == null || $to_name == $to) ? '' : self::mimeEncode($to_name));
+            $send = self::sendMailByCurl(
+                $to,
+                $to_name,
+                $from,
+                $from_name,
+                $subject,
+                $mail_body_text,
+                $mail_body_html
+            );
 
             ShopUrl::resetMainDomainCache();
 
@@ -447,37 +463,98 @@ class MailCore extends ObjectModel
     public static function sendMailTest($smtp_checked, $smtp_server, $content, $subject, $type, $to, $from, $smtp_login, $smtp_password, $smtp_port = 25, $smtp_encryption)
     {
         $result = false;
-        try {
-            if ($smtp_checked) {
-                if (Tools::strtolower($smtp_encryption) === 'off') {
-                    $smtp_encryption = false;
-                }
-                $smtp = Swift_SmtpTransport::newInstance($smtp_server, $smtp_port, $smtp_encryption)
-                    ->setUsername($smtp_login)
-                    ->setPassword($smtp_password);
-                $swift = Swift_Mailer::newInstance($smtp);
-            } else {
-                $swift = Swift_Mailer::newInstance(Swift_MailTransport::newInstance());
-            }
+        $sendgrid_apikey = _SENDGRID_APIKEY_;
+        $url = 'https://api.sendgrid.com/';
+        $pass = $sendgrid_apikey;
+        $template_id = _SENDGRID_TEMPLATE_ID_;
+        $js = array(
+          'sub' => array(':name' => array('Elmer')),
+          'filters' => array('templates' => array('settings' => array('enable' => 1, 'template_id' => $template_id)))
+        );
 
-            $message = Swift_Message::newInstance();
+        $params = array(
+            'to'        => $to,
+            'toname'    => $to,
+            'from'      => $from,
+            'fromname'  => $from,
+            'subject'   => $subject,
+            'text'      => $content,
+            'html'      => "<strong>{$content}</strong>",
+            'x-smtpapi' => json_encode($js),
+          );
 
-            $message
-                ->setFrom($from)
-                ->setTo($to)
-                ->setSubject($subject)
-                ->setBody($content);
+        $request =  $url.'api/mail.send.json';
 
-            if ($swift->send($message)) {
-                $result = true;
-            }
-        } catch (Swift_SwiftException $e) {
-            $result = $e->getMessage();
-        }
+        // Generate curl request
+        $session = curl_init($request);
+        // Tell PHP not to use SSLv3 (instead opting for TLS)
+        curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+        curl_setopt($session, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $sendgrid_apikey));
+        // Tell curl to use HTTP POST
+        curl_setopt ($session, CURLOPT_POST, true);
+        // Tell curl that this is the body of the POST
+        curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+        // Tell curl not to return headers, but do return the response
+        curl_setopt($session, CURLOPT_HEADER, false);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
-        return $result;
+        // obtain response
+        $response = json_decode(curl_exec($session));
+        curl_close($session);
+
+        if (isset($response->message) && strtolower($response->message) == 'success')
+            return true;
+        else
+            return false;
     }
 
+    public static function sendMailByCurl($to, $to_name = '', $from, $form_name = '', $subject = '', $content = '', $html_content = '')
+    {
+        $result = false;
+        $sendgrid_apikey = _SENDGRID_APIKEY_;
+        $url = 'https://api.sendgrid.com/';
+        $pass = $sendgrid_apikey;
+        $template_id = _SENDGRID_TEMPLATE_ID_;
+        $js = array(
+          'sub' => array(':name' => array('Elmer')),
+          'filters' => array('templates' => array('settings' => array('enable' => 1, 'template_id' => $template_id)))
+        );
+
+        $params = array(
+            'to'        => $to,
+            'toname'    => $to_name ? $to_name : $to,
+            'from'      => $from,
+            'fromname'  => $from_name ? $form_name : $from,
+            'subject'   => $subject,
+            'text'      => $content,
+            'html'      => $html_content ? $html_content : "<strong>{$content}</strong>",
+            'x-smtpapi' => json_encode($js),
+          );
+
+        $request =  $url.'api/mail.send.json';
+
+        // Generate curl request
+        $session = curl_init($request);
+        // Tell PHP not to use SSLv3 (instead opting for TLS)
+        curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+        curl_setopt($session, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $sendgrid_apikey));
+        // Tell curl to use HTTP POST
+        curl_setopt ($session, CURLOPT_POST, true);
+        // Tell curl that this is the body of the POST
+        curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+        // Tell curl not to return headers, but do return the response
+        curl_setopt($session, CURLOPT_HEADER, false);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+        // obtain response
+        $response = json_decode(curl_exec($session));
+        curl_close($session);
+
+        if (isset($response->message) && strtolower($response->message) == 'success')
+            return true;
+        else
+            return false;
+    }
     /**
      * This method is used to get the translation for email Object.
      * For an object is forbidden to use htmlentities,

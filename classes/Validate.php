@@ -595,7 +595,10 @@ class ValidateCore
      */
     public static function isOrderWay($way)
     {
-        return ($way === 'ASC' | $way === 'DESC' | $way === 'asc' | $way === 'desc');
+        if ($way === 'ASC' | $way === 'DESC' | $way === 'asc' | $way === 'desc') {
+            //$_SESSION['order_way'] = $way;
+            return true;
+        } else return false;
     }
 
     /**
@@ -607,7 +610,10 @@ class ValidateCore
      */
     public static function isOrderBy($order)
     {
-        return preg_match('/^[a-zA-Z0-9.!_-]+$/', $order);
+        if (preg_match('/^[a-zA-Z0-9.!_-]+$/', $order)) {
+            //$_SESSION['order_by'] = $order;
+            return true;
+        } else return false;
     }
 
     /**

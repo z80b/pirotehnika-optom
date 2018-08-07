@@ -11,7 +11,16 @@ function filterReset($link) {
     }
 }
 
-function initCategoriesFilter() {
+function setOrder($select) {
+    var valueParts = $($select).val().split(':');
+    if (valueParts && valueParts.length > 1) {
+        $.cookie('order_by', valueParts[0]);
+        $.cookie('order_dir', valueParts[1]);
+    }
+}
+
+function initCategoriesFilter(e,a,b) {
+    console.log(e,a,b);
     $('.js-products-filter')
         .on('change', '.ps-tick > [type=checkbox]', function(event) {
             var $parent = $(this).parents('.ps-filter__item');
@@ -98,5 +107,10 @@ function initCategoriesFilter() {
     $('.sf-menu').on('click', '.js-menu-subcategory', function(event) {
         event.preventDefault();
         filterReset(event.currentTarget.getAttribute('href'));
+    });
+
+    setOrder('#selectProductSort')
+    $('#selectProductSort').on('change', function() {
+        setOrder(this);
     });
 }

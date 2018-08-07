@@ -40,6 +40,12 @@
 <div itemscope itemtype="https://schema.org/Product">
     <meta itemprop="url" content="{$link->getProductLink($product)}">
     <div class="primary_block row ps-product-page">
+        {if isset($prevProduct)}
+        <a class="ps-product__linkbutton ps-product__linkbutton--prev" href="{$prevProduct|escape:'html':'UTF-8'}"></a>
+        {/if}
+        {if isset($nextProduct)}
+        <a class="ps-product__linkbutton ps-product__linkbutton--next" href="{$nextProduct|escape:'html':'UTF-8'}"></a>
+        {/if}
         <!-- {if !$content_only}
             <div class="container">
                 <div class="top-hr"></div>

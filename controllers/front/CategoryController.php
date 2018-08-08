@@ -63,7 +63,7 @@ class CategoryControllerCore extends FrontController
             $this->addJqueryPlugin(array('scrollTo', 'serialScroll'));
         }
 
-        $this->addJS(_THEME_JS_DIR_.'category.js');
+        //$this->addJS(_THEME_JS_DIR_.'category.js');
         $this->addJS(_THEME_JS_DIR_.'category-filter.js');
     }
 
@@ -104,7 +104,6 @@ class CategoryControllerCore extends FrontController
 
         // Instantiate category
         $this->category = new Category($id_category, $this->context->language->id);
-        $this->categories = $this->getCategories();
 
         parent::init();
 
@@ -140,18 +139,32 @@ class CategoryControllerCore extends FrontController
             $this->context->smarty->assign('compareProducts', CompareProduct::getCompareProducts((int)$this->context->cookie->id_compare));
         }
 
-        // Product sort must be called before assignProductList()
+        $this->categories = $this->getCategories();
+        $this->subcategories = Category::getSubcategoriesList($this->category->id_category, $this->context->language->id);
+
         $this->productSort();
+        $this->productsCount = Category::getProductsList($this->context->language->id, null, null, true);
+        
+        $this->pagination($this->productsCount);
+        //die('<pre>'.print_r($this->productsCount, true).'</pre>');
+        $this->products = Category::getProductsList($this->context->language->id, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
+
+        // Product sort must be called before assignProductList()
+        //$this->productSort();
 
         $this->assignScenes();
-        $this->assignSubcategories();
-        $this->assignProductList();
+        //$this->assignSubcategories();
+        //$this->assignProductList();
 
         $this->context->smarty->assign(array(
             'categories'           => $this->categories,
+            'subcategories'        => $this->subcategories,
             'category'             => $this->category,
+            'checked'              => Category::getCheckedCategories(),
             'description_short'    => Tools::truncateString($this->category->description, 350),
-            'products'             => (isset($this->cat_products) && $this->cat_products) ? $this->cat_products : null,
+            //'products'             => (isset($this->cat_products) && $this->cat_products) ? $this->cat_products : null,
+            'products'             => $this->products,
+            'nbProducts'           => $this->productsCount,
             'id_category'          => (int)$this->category->id,
             'id_category_parent'   => (int)$this->category->id_parent,
             'return_category_name' => Tools::safeOutput($this->category->name),

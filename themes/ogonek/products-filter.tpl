@@ -1,6 +1,6 @@
-{if isset($categories)}
+{if isset($subcategories)}
 <div class="ps-products__filter ps-filter js-products-filter">
-	{foreach from=$categories item=category}
+	{foreach from=$subcategories item=category}
     {if $category.active}
         {if isset($category.categories)}
         {assign var="button_class" value="ps-filter__item --haschildren"}
@@ -65,6 +65,7 @@
             type="checkbox"
             name="discount"
             value="1"
+            {if isset($checked['discount']) && $checked['discount']}checked="checked"{/if}
             id="filter-price-drop"/>
         <label
             class="ps-filter__item__button"
@@ -81,6 +82,7 @@
                         class="ps-tick__checkbox"
                         type="checkbox"
                         value="{$manufact.id_manufacturer}"
+                        {if isset($checked['manufact'][$manufact.id_manufacturer])}checked="checked"{/if}
                         name="manufact"
                         id="filter-manufact-{$manufact.id_manufacturer}"/>
                     <label

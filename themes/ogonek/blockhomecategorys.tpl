@@ -1,34 +1,21 @@
 {$messageSmarty}
-<h2>{l s='Полный каталог' mod='blockhomecategorys'}</h2>
-<div class="ps-products__header">
-	{include file="$tpl_dir./products-filter.tpl"}
-	<div class="content_sortPagiBar">
-    	<div class="sortPagiBar clearfix">
-			{include file="./product-sort.tpl"}
-			{include file="./nbr-product-page.tpl"}
-		</div>
-    	<div class="top-pagination-content clearfix">
-        	{include file="./product-compare.tpl"}
-            {include file="$tpl_dir./pagination.tpl" no_follow=1}
-        </div>
-	</div>
-</div>
-{if isset($products) && $products}
-<div class="ps-products ps-products--grid js-ps-products">
-    <div class="ps-product__grid">{include file="{$tpl_dir}/product--grid.tpl"}</div>
-    <div class="ps-product__list">{include file="{$tpl_dir}/product--list.tpl"}</div>
-    <div class="ps-product__table">{include file="{$tpl_dir}/product--table.tpl"}</div>
+{if isset($subcategories)}
+  <h2>{l s='Полный каталог' mod='blockhomecategorys'}</h2>
+<div id="subcategories">
+	<ul>
+		{foreach from=$subcategories item=subcategory}
+			<li>
+                <a href="{$link->getCategoryLink($subcategory.id_category, $subcategory.link_rewrite)|escape:'htmlall':'UTF-8'}" title="{$subcategory.name|escape:'htmlall':'UTF-8'}" class="img">
+                {if $subcategory.id_image}
+                	<img src="{$link->getCatImageLink($subcategory.link_rewrite, $subcategory.id_image, 'medium_default')}" alt="" width="{$mediumSize.width}" height="{$mediumSize.height}" />
+                {else}
+                	<img src="{$img_cat_dir}default-medium_default.jpg" alt="" width="{$mediumSize.width}" height="{$mediumSize.height}" />
+                {/if}
+                </a>
+                <a href="{$link->getCategoryLink($subcategory.id_category, $subcategory.link_rewrite)|escape:'htmlall':'UTF-8'}" class="cat_name">{$subcategory.name|escape:'htmlall':'UTF-8'}</a>
+			</li>
+		{/foreach}
+	</ul>
+	<div class="clearfix"></div>
 </div>
 {/if}
-<div class="content_sortPagiBar">
-	<div class="bottom-pagination-content clearfix">
-    	{include file="./product-compare.tpl"}
-    	{if !isset($instant_search) || (isset($instant_search) && !$instant_search)}
-            {include file="$tpl_dir./pagination.tpl" paginationId='bottom' no_follow=1}
-        {/if}
-    </div>
-</div>
-{addJsDefL name=min_item}{l s='Please select at least one product' js=1}{/addJsDefL}
-{addJsDefL name=max_item}{l s='You cannot add more than %d product(s) to the product comparison' sprintf=$comparator_max_item js=1}{/addJsDefL}
-{addJsDef comparator_max_item=$comparator_max_item}
-{addJsDef comparedProductsIds=$compared_products}

@@ -10,7 +10,7 @@
                     alt="{$product.name|escape:'html':'UTF-8'}"
                     title="{$product.name|escape:'html':'UTF-8'}"
                     src="{$link->getImageLink($product.link_rewrite, $product.id_image, 'home_default')|escape:'html':'UTF-8'}"/>
-                {if $product.specific_prices.reduction_type == 'percentage'}
+                {if $product.specific_prices.reduction_type == 'percentage' && $product.specific_prices.reduction > 0}
                 <span class="ps-product__discount">
                     -{$product.specific_prices.reduction * 100}%
                 </span>

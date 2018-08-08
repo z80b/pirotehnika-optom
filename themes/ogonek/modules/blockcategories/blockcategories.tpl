@@ -25,24 +25,17 @@
 {if $blockCategTree && $blockCategTree.children|@count}
 <!-- Block categories module -->
 <div id="categories_block_left" class="block">
-	<!-- <h2 class="title_block">
-		{if isset($currentCategory)}
-			{$currentCategory->name|escape}
-		{else}
-			{l s='Categories' mod='blockcategories'}
-		{/if}
-	</h2> -->
-	<div class="block_content">
-		<ul class="tree {if $isDhtml}dhtml_{/if} level1">
-			{foreach from=$blockCategTree.children item=child name=blockCategTree}
-				{if $smarty.foreach.blockCategTree.last}
-					{include file="$branche_tpl_path" node=$child last='true' level=2}
-				{else}
-					{include file="$branche_tpl_path" node=$child last='false' level=2}
-				{/if}
-			{/foreach}
-		</ul>
-	</div>
+    <div class="block_content">
+        <ul class="tree {if $isDhtml}dhtml_{/if} level1">
+            {foreach from=$blockCategTree.children item=child name=blockCategTree}
+                {if false && $smarty.foreach.blockCategTree.last}
+                    {include file="$branche_tpl_path" node=$child last='true' level=2}
+                {else}
+                    {include file="$branche_tpl_path" node=$child last='false' level=2}
+                {/if}
+            {/foreach}
+        </ul>
+    </div>
 </div>
 <!-- /Block categories module -->
 {/if}

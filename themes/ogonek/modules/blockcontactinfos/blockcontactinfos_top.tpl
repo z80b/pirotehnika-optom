@@ -26,7 +26,7 @@
 
 <!-- MODULE Block contact infos -->
 <section class="ps-head__contacts ps-contacts">
-    <div class="ps-contacts__info">пн-пт 10:00 - 17:00 Мск</div>
+    <div class="ps-contacts__info">пн-пт 09:00 - 18:00 Мск</div>
     <div class="ps-contacts__phone">
         {$blockcontactinfos_phone|escape:'html':'UTF-8'}
     </div>

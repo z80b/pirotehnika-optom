@@ -49,6 +49,20 @@ class Category extends CategoryCore {
 
         return Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
     }
+
+    public static function getGeneralCategories() {
+        $id_lang = Context::getContext()->cookie->id_lang;
+        $categories = Category::getCategories($id_lang);
+        $result = array();
+        foreach ($categories as $_category) {
+            foreach ($_category as $key => $item) {
+                $category = $item['infos'];
+                if ($category['level_depth'] == 2)
+                    $result[$category['id_category']] = $category;
+            }
+        }
+        return $result;
+    }
     
     public static function getCategoriesList($id_lang) {
         $arr = Category::getCategories($id_lang);

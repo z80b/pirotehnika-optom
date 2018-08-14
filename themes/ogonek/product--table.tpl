@@ -44,9 +44,9 @@
                 </span>
             {/if}
         </div>
-        <div class="ps-product__table-cell">{$product.r1}</div>
-        <div class="ps-product__table-cell">{$product.r2}</div>
-        <div class="ps-product__table-cell">{$product.r3}</div>
+        <div class="ps-product__table-cell">{if $product.r1 < 2}-{else}{$product.r1}<div>шт.</div>{/if}</div>
+        <div class="ps-product__table-cell">{if $product.r2 < 2}-{else}{$product.r2}<div>уп.</div>{/if}</div>
+        <div class="ps-product__table-cell">{if $product.r3 < 2}-{else}{$product.r3}<div>{Product::SGetProductUnity($product.sale_unity)}</div>{/if}</div>
         <div class="ps-product__table-cell">
             {$product.quantity}
             {Product::SGetProductUnity($product.sale_unity)}

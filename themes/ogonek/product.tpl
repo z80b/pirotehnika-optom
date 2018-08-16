@@ -424,7 +424,7 @@
             </div>
             <span class="ps-quantity__title">{Product::SGetProductUnity($product->sale_unity)}</span>
             <a class="ps-product-page__button ps-product__button--tocart"
-                id="btnid{$product->id_product}" 
+                id="btnid{$product->id}" 
                 btncatid="{$product->id_category_default}" 
                 type="submit"
                 name="Submit"

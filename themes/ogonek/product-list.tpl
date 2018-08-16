@@ -1,6 +1,5 @@
 {if isset($products) && $products}
 <div class="ps-products ps-products--grid js-ps-products">
-    <div class="ps-product__grid">{include file="{$tpl_dir}/product--grid.tpl"}</div>
     <div class="ps-product__list">{include file="{$tpl_dir}/product--list.tpl"}</div>
     <div class="ps-product__table">{include file="{$tpl_dir}/product--table.tpl"}</div>
 </div>

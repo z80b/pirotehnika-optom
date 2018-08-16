@@ -99,7 +99,7 @@
             >{l s="В заказ"}</a>
             {/if}
         </div>
-        <div class="ps-product__table-cell js-product-summ ajax_block_cart_total_price2_id_{$product.id_product}">0</div>
+        <div class="ps-product__table-cell js-product-summ ajax_block_cart_total_price2_id_{$product.id_product}">-</div>
     </div>
 {/foreach}
 </div>

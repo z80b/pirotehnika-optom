@@ -55,9 +55,11 @@
             <div class="ps-product__option">
                 <b class="ps-option__title">{l s='В заказе'}:</b>
                 <span class="ps-option__value">
+                    <span class="js-product-count-{$product.id_product}">
                     {if !empty($productsCart) }
                         {$productsCart.cart_quantity}
                     {else} 0 {/if}
+                    </span>
                     {Product::SGetProductUnity($product.sale_unity)}
                 </span>
             </div>
@@ -65,9 +67,9 @@
                 <b class="ps-option__title">{l s='На сумму'}:</b>
                 <span class="ps-option__value">
                     {if !empty($productsCart) }
-                        {convertPrice price=$productsCart.total}
+                        <span class="ajax_block_cart_total_price2_id_{$product.id_product}">{convertPrice price=$productsCart.total}</span> руб.
                     {else}
-                        {convertPrice price=0}
+                        <span class="ajax_block_cart_total_price2_id_{$product.id_product}">0</span> руб.
                     {/if}
                 </span>
             </div>

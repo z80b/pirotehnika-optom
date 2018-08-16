@@ -741,7 +741,7 @@ var ajaxCart = {
                         myPrice = this.priceByLine.replace(' руб', '');//maxim
                         myPrice = myPrice.replace(' ', '');//maxim
                         //console.log('price'+myPrice);
-                        content += '<span class="price" cartprice="'+(parseFloat(this.price_float) > 0 ? myPrice.replace(',', '.') : freeProductTranslation)+'" cartcatid="'+idcategorydefault+'" >' + (parseFloat(this.price_float) > 0 ? this.priceByLine : freeProductTranslation) + '</span></div>';//this.priceByLine.replace(',', '.') maxim
+                        content += '<span class="price" cartprice="'+(parseFloat(this.price_float) > 0 ? myPrice.replace(',', '.') : freeProductTranslation)+'" cartcatid="'+idcategorydefault+'" >' + (parseFloat(this.price_float) > 0 ? this.price_float : freeProductTranslation) + '</span></div>';//this.priceByLine.replace(',', '.') maxim
                     }
                     if (typeof(this.is_gift) == 'undefined' || this.is_gift == 0)
                         content += '<span class="remove_link"><a rel="nofollow" class="ajax_cart_block_remove_link" href="' + baseUri + '?controller=cart&amp;delete=1&amp;id_product=' + productId + '&amp;token=' + static_token + (this.hasAttributes ? '&amp;ipa=' + parseInt(this.idCombination) : '') + '" >&nbsp;x</a></span>';

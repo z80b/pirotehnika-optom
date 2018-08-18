@@ -36,6 +36,18 @@ class ChequeValidationModuleFrontController extends ModuleFrontController
 		if ($cart->id_customer == 0 || $cart->id_address_delivery == 0 || $cart->id_address_invoice == 0 || !$this->module->active)
 			Tools::redirect('index.php?controller=order&step=1');
 
+		// Исправление проверки количества товаров
+		$product = $this->context->cart->checkQuantities(true);
+
+        if ((int)$id_product = $this->context->cart->checkProductsAccess()) {
+			Tools::redirectLink(__PS_BASE_URI__.'order.php');        }
+
+        // If some products have disappear
+        if (is_array($product)) {
+			Tools::redirectLink(__PS_BASE_URI__.'order.php');
+        }
+		// Исправление проверки количества товаров
+
 		// Check that this payment option is still available in case the customer changed his address just before the end of the checkout process
 		$authorized = false;
 		foreach (Module::getPaymentModules() as $module)

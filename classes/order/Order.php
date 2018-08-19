@@ -689,6 +689,50 @@ class OrderCore extends ObjectModel
         return self::$_historyCache[$this->id.'_'.$id_order_state.'_'.$filters];
     }
 
+    /**
+     * Возвращает параметры текущего статуса заказа 
+     *
+     * @param int $id_lang Language id
+     * @param int $id_order_state Filter a specific order status
+     * @param int $no_hidden Filter no hidden status
+     * @param int $filters Flag to use specific field filter
+     *
+     * @return array History entries ordered by date DESC
+     */
+    public function getNowStatusState($id_lang, $id_order_state = false, $no_hidden = false, $filters = 0, $source = '')
+    {
+        if (!$id_order_state) {
+            $id_order_state = 0;
+        }
+
+		$field_name = '';
+        if ($filters > 0) {
+            if ($filters & OrderState::FLAG_NO_HIDDEN) {
+                $field_name = 'hidden';  /// Пока не понятно зачем
+            }
+            if ($filters & OrderState::FLAG_DELIVERY) {
+                $field_name = 'delivery';
+            }
+            if ($filters & OrderState::FLAG_LOGABLE) {
+                $field_name = 'logable';
+            }
+            if ($filters & OrderState::FLAG_PAID) {
+                $field_name = 'paid';
+            }
+            if ($filters & OrderState::FLAG_SHIPPED) {
+                $field_name = 'shipped';
+            }
+        }
+
+        $id_lang = $id_lang ? (int)$id_lang : 'o.`id_lang`';
+        $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
+            SELECT os.`'.$field_name.'`
+            FROM `'._DB_PREFIX_.'orders` o
+            LEFT JOIN `'._DB_PREFIX_.'order_state` os ON os.`id_order_state` = o.`current_state`
+            WHERE o.id_order = '.(int)$this->id);
+        return $result;
+    }
+
     public function getProductsDetail()
     {
         return Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS('
@@ -1004,6 +1048,11 @@ class OrderCore extends ObjectModel
     public function isInPreparation()
     {
         return count($this->getHistory((int)$this->id_lang, Configuration::get('PS_OS_PREPARATION'), false, 0, 'admin'));
+    }
+
+    public function isNowShipped()
+    {
+        return $this->getNowStatusState((int)$this->id_lang, false, false, OrderState::FLAG_SHIPPED, 'admin');
     }
 
     /**

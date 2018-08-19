@@ -1193,22 +1193,22 @@ $('document').ready(function(){
 
 					{if $can_edit}
 					<div class="row-margin-bottom row-margin-top order_action">
-						{if !$order->hasBeenShipped()}
+						{if !$order->isNowShipped()}
 							<button type="button" id="add_product" class="btn btn-default">
 								<i class="icon-plus-sign"></i>
 								{l s='Add a product'}
+							</button>
+						{/if}
+						{if !$order->isNowShipped()}
+							<button id="delete_all_products" class="btn btn-default" type="button" >
+								<i class="icon-trash"></i>
+								{l s='Удалить все товары'}
 							</button>
 						{/if}
 						<button id="add_voucher" class="btn btn-default" type="button" >
 							<i class="icon-ticket"></i>
 							{l s='Add a new discount'}
 						</button>
-						{if !$order->hasBeenDelivered()}
-							<button id="delete_all_products" class="btn btn-default" type="button" >
-								<i class="icon-trash"></i>
-								{l s='Удалить все товары'}
-							</button>
-						{/if}
 <!-- 						{if $my_view}
 							<button id="set_my_discount" class="btn btn-default" type="button" >
 								<i class="icon-ticket"></i>

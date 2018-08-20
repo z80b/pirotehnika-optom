@@ -10913,8 +10913,8 @@ input[type='number'] {
   width: 160px;
   height: 125px;
   background: 50% 50% no-repeat;
-  -moz-background-size: 152px auto;
-       background-size: 152px auto;
+  -moz-background-size: contain;
+       background-size: contain;
   -webkit-transition: 0.5s all ease;
   -o-transition: 0.5s all ease;
   -moz-transition: 0.5s all ease;
@@ -10924,8 +10924,8 @@ input[type='number'] {
   width: 160px;
 }
 .ps-head__logo:hover {
-  -moz-background-size: 160px auto;
-       background-size: 160px auto;
+  -moz-background-size: contain;
+       background-size: contain;
 }
 .ps-head--noindex .ps-head__logo {
   height: 64px;

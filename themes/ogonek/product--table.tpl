@@ -62,6 +62,7 @@
                     class="ps-quantity__value ajax_box_input_prod_{$product.id_product} js-boxes-input"
                     type="number"
                     value="0"
+                    placeholder="0"
                     data-inbox="{$product.r3}"
                     min="0"
                     max="{$product.quantity / $product.r3}"/>
@@ -79,6 +80,7 @@
                     class="ps-quantity__value ajax_input_prod_{$product.id_product} js-qty-input"
                     type="number"
                     value="0"
+                    placeholder="0"
                     data-prev-val="{if isset($productsCart.cart_quantity)}{$productsCart.cart_quantity}{else}0{/if}"
                     data-inbox={$product.r3}
                     data-price="{$product.price}"

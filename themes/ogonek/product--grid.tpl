@@ -53,7 +53,7 @@
             </div>
             {/if}
         </span>
-        {if $product.specific_prices.reduction_type == 'percentage'}
+        {if $product.specific_prices.reduction_type == 'percentage' && $product.specific_prices.reduction > 0}
         <span class="ps-product__discount">
             -{$product.specific_prices.reduction * 100}%
         </span>

@@ -144,21 +144,15 @@ class CategoryControllerCore extends FrontController
         $this->subcategories = Category::getSubcategoriesList($this->category->id_category, $this->context->language->id);
 
         $this->productSort();
+
         $this->productsCount = Category::getProductsList($this->context->language->id, $this->category->id_category, null, null, true);
         
         $this->pagination($this->productsCount);
-        //die('<pre>'.print_r($this->productsCount, true).'</pre>');
-        $this->products = Category::getProductsList($this->context->language->id, $this->category->id_category, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
 
-        // Product sort must be called before assignProductList()
-        //$this->productSort();
+        $this->products = Category::getProductsList($this->context->language->id, $this->category->id_category, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
 
         $this->productSort();
         $this->assignScenes();
-        //$this->assignSubcategories();
-        //$this->assignProductList();
-
-        //die('<pre>'.print_r($this->cat_products, true).'</pre>');
 
         $this->context->smarty->assign(array(
             'categories'           => $this->categories,
@@ -166,7 +160,6 @@ class CategoryControllerCore extends FrontController
             'category'             => $this->category,
             'checked'              => Category::getCheckedCategories(),
             'description_short'    => Tools::truncateString($this->category->description, 350),
-            //'products'             => (isset($this->cat_products) && $this->cat_products) ? $this->cat_products : null,
             'products'             => $this->products,
             'nbProducts'           => $this->productsCount,
             'id_category'          => (int)$this->category->id,

@@ -10,7 +10,6 @@ class Category extends CategoryCore {
                 $categories = array_merge($categories, preg_split("/[\|\,]/", $item));
             }
             $result['categories'] = array_flip($categories);
-            //die('<pre>'.print_r($categories, true).'</pre>');
         }
         if (isset($_COOKIE['manufact']) && $_COOKIE['manufact']) {
             $result['manufact'] = array_flip(explode(',', $_COOKIE['manufact']));   
@@ -31,7 +30,6 @@ class Category extends CategoryCore {
             }
         }
 
-        //die('<pre>'.print_r($categories, true).'</pre>');
         return $categories;
     }
 
@@ -158,7 +156,6 @@ class Category extends CategoryCore {
         $current_date = date('Y-m-d').' 00:00:00';
         $offset = $page_number * $nb_products;
         $limit = $nb_products;
-        //die('<pre>'.print_r($context->categories, true).'</pre>');
         $filter = Product::getProductsFilter($id_category);
         
         if ($count) return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("

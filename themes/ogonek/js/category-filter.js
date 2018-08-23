@@ -91,6 +91,7 @@ function initCategoriesFilter(e,a,b) {
         .on('click', '.js-filter-submit, .js-filter-reset-category', filterApply)
         .on('change', '.js-filter-item-buttoncheckbox', filterApply)
         .on('click', '.js-filter-reset', filterReset);
+
     $('.js-products-filter .ps-filter__item').each(function(ix, el) {
         var ticksCount = $(el).find('.ps-filter__item__ticks [type=checkbox]:checked').size();
         if (ticksCount) $(el).attr('data-ticks-count', ticksCount);

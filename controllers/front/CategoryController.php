@@ -139,7 +139,6 @@ class CategoryControllerCore extends FrontController
             $this->context->smarty->assign('compareProducts', CompareProduct::getCompareProducts((int)$this->context->cookie->id_compare));
         }
 
-
         $this->categories = $this->getCategories();
         $this->subcategories = Category::getSubcategoriesList($this->category->id, $this->context->language->id);
 

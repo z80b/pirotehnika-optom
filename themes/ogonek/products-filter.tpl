@@ -1,7 +1,6 @@
 {if isset($subcategories)}
 <div
-    class="ps-products__filter ps-filter js-products-filter"
-    data-category-id="{$id_category}">
+    class="ps-products__filter ps-filter js-products-filter" data-category-id="{$id_category}">
 	{foreach from=$subcategories item=category}
     {if $category.active}
         {if isset($category.categories)}

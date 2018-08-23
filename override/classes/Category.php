@@ -158,7 +158,6 @@ class Category extends CategoryCore {
         $current_date = date('Y-m-d').' 00:00:00';
         $offset = $page_number * $nb_products;
         $limit = $nb_products;
-        //die('<pre>'.print_r($context->categories, true).'</pre>');
         $filter = Product::getProductsFilter($id_category);
         
         if ($count) return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("

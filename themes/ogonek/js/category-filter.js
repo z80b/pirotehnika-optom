@@ -59,13 +59,16 @@ function initCategoriesFilter() {
             }
         })
         .on('click', '.js-filter-submit', function(event) {
+            var categories = [];
+            $('.js-products-filter .ps-filter__item').each(function(ix, el) {
+                if ($(el).find('input[name=category]:checked').size()) {
+                    categories.push($(el).find('input[name=category]:checked').get().map(function(input) { return input.value }).join(','));
+                }
+            });
+
             var filterData = '',
                 filterObj = {
-                    'categories': $(this)
-                        .parents('.js-products-filter')
-                        .find('input[name=category]:checked')
-                        .get()
-                        .map(function(input) { if (input.value) return input.value }),
+                    'categories': categories,
                     'discount': $(this)
                         .parents('.js-products-filter')
                         .find('input[name=discount]:checked').length ? 1 : 0,

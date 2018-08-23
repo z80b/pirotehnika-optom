@@ -108,5 +108,24 @@ class Product extends ProductCore
         return ($rq);
     }
 
+    public static function getProductsFilter() {
+        $filter = '';
+        if (isset($_COOKIE['categories']) && $_COOKIE['categories']) {
+            $categories_filter = array();
+            foreach (explode('|', $_COOKIE['categories']) as $key => $item) {
+                $categories_filter[] = "cp.id_category IN({$item})";
+            }
+            $filter = "AND ". implode(' OR ', $categories_filter);
+        }
+
+        if (isset($_COOKIE['discount']) && $_COOKIE['discount'] == '1') {
+            $filter .= ' AND sp.reduction > 0';
+        }
+
+        if (isset($_COOKIE['manufact']) && $_COOKIE['manufact']) {
+            $filter .= " AND p.id_manufacturer IN(" . $_COOKIE['manufact'] .")";
+        }
+        return $filter;
+    }
 
 }

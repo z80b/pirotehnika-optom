@@ -2652,14 +2652,23 @@ class ProductCore extends ObjectModel
 
         if ($count) {
             return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
-            SELECT COUNT(DISTINCT p.`id_product`)
-            FROM `'._DB_PREFIX_.'product` p
-            '.Shop::addSqlAssociation('product', 'p').'
-            WHERE product_shop.`active` = 1
-            AND product_shop.`show_price` = 1
-            '.($front ? ' AND product_shop.`visibility` IN ("both", "catalog")' : '').'
-            '.((!$beginning && !$ending) ? 'AND p.`id_product` IN('.((is_array($tab_id_product) && count($tab_id_product)) ? implode(', ', $tab_id_product) : 0).')' : '').'
-            '.$sql_groups);
+
+			SELECT COUNT(DISTINCT p.`id_product`)
+			FROM `'._DB_PREFIX_.'product` p
+			'.Shop::addSqlAssociation('product', 'p').'
+
+            LEFT JOIN '._DB_PREFIX_.'stock_available AS stock
+            ON stock.id_product = p.id_product
+                AND stock.id_product_attribute = 0
+                AND stock.id_shop = '.$context->shop->id.' 
+                AND stock.id_shop_group = 0
+
+			WHERE product_shop.`active` = 1
+			AND product_shop.`show_price` = 1
+            AND stock.quantity > 0
+			'.($front ? ' AND product_shop.`visibility` IN ("both", "catalog")' : '').'
+			'.((!$beginning && !$ending) ? 'AND p.`id_product` IN('.((is_array($tab_id_product) && count($tab_id_product)) ? implode(', ', $tab_id_product) : 0).')' : '').'
+			'.$sql_groups);
         }
 
         if (strpos($order_by, '.') > 0) {

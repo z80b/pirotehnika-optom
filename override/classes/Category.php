@@ -4,11 +4,19 @@ class Category extends CategoryCore {
 
     public static function getCheckedCategories() {
         $result = array();
+        $categories = array();
         if (isset($_COOKIE['categories']) && $_COOKIE['categories']) {
-            $result['categories'] = array_flip(explode(',', $_COOKIE['categories']));
+            foreach (explode(',', $_COOKIE['categories']) as $key => $item) {
+                $categories = array_merge($categories, explode(',', $item));
+            }
+            $result['categories'] = array_flip($categories);
+            //die('<pre>'.print_r($categories, true).'</pre>');
         }
         if (isset($_COOKIE['manufact']) && $_COOKIE['manufact']) {
             $result['manufact'] = array_flip(explode(',', $_COOKIE['manufact']));   
+        }
+        if (isset($_COOKIE['discount']) && $_COOKIE['discount']) {
+            $result['discount'] = 1;
         }
         return $result;
     }
@@ -145,18 +153,7 @@ class Category extends CategoryCore {
         $offset = $page_number * $nb_products;
         $limit = $nb_products;
 
-        $filter = '';
-        if (isset($_COOKIE['categories']) && $_COOKIE['categories']) {
-            $filter = "AND cp.id_category IN(" . $_COOKIE['categories'] .")";
-        }
-
-        if (isset($_COOKIE['discount']) && $_COOKIE['discount'] == '1') {
-            $filter .= ' AND sp.reduction > 0';
-        }
-
-        if (isset($_COOKIE['manufact']) && $_COOKIE['manufact']) {
-            $filter .= " AND p.id_manufacturer IN(" . $_COOKIE['manufact'] .")";
-        }
+        $filter = Product::getProductsFilter();
         
         if ($count) return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("
             SELECT COUNT(DISTINCT p.id_product)

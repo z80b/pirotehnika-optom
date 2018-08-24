@@ -275,7 +275,7 @@ class Category extends CategoryCore {
             );
             $result[$key]['price'] = isset($product['price_discount']) ? $product['price_discount'] : $product['price'];
             $result[$key]['price_without_reduction'] = $product['price'];
-            $result[$key]['features'] = array();
+            $result[$key]['features'] = Product::getFrontFeaturesStatic($id_lang, $product['id_product']);
             $result[$key]['link'] = $context->link->getProductLink(
                 $product['id_product'],
                 $product['link_rewrite'],

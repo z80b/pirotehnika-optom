@@ -152,7 +152,10 @@ class CategoryControllerCore extends FrontController
 
         $filter = Product::getProductsFilter($this->category->id);
 
+        $this->productSort();
         $this->assignScenes();
+
+        //die('<pre>'.print_r($this->cat_products, true).'</pre>');
 
         //die('<pre>'.print_r($this->cat_products, true).'</pre>');
 

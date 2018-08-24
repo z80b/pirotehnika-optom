@@ -1307,7 +1307,7 @@ function fancyChangeProductCountInCart(e, productId, inputEl, total){
 
     var $cardButtonOffset = $('#header .shopping_cart').offset();
     
-    var el = $(e.currentTarget).parent('.ps-product__controls').find('[name="qty"]');
+    var el = $(e.currentTarget).parents('.ps-product__controls').find('[name="qty"]');
     var isEl = el.length ? true : false;
 
     var customizationId = 0;

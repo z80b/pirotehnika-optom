@@ -11280,18 +11280,25 @@ input[type='number'] {
 .ps-products--list .ps-product__extended {
   display: none;
 }
+.ps-products--list .ps-product__row {
+  display: table;
+  width: 100%;
+}
 .ps-products--list .ps-product__cell {
-  display: block;
-  float: left;
-  width: 33%;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
+  display: table-cell;
+  vertical-align: top;
+}
+.ps-products--list .ps-product__cell--left {
+  padding: 0 20px 0 0;
+  width: 56%;
+}
+.ps-products--list .ps-product__cell--image {
+  width: 250px;
 }
 .ps-products--list .ps-product__link {
   display: block;
   position: relative;
+  color: #222;
 }
 .ps-products--list .ps-product__image {
   display: block;
@@ -11300,9 +11307,9 @@ input[type='number'] {
 }
 .ps-products--list .ps-product__name {
   margin: 0 0 10px;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 800;
-  color: #d34633;
+  color: #222;
 }
 .ps-products--list .ps-product__description {
   display: block;
@@ -11312,16 +11319,39 @@ input[type='number'] {
 }
 .ps-products--list .ps-product__separator {
   display: block;
-  border: none;
-  background: none;
+  background-color: #ccc;
+  -webkit-box-shadow: 0 3px 5px 0px rgba(0,0,0,0.4);
+     -moz-box-shadow: 0 3px 5px 0px rgba(0,0,0,0.4);
+          box-shadow: 0 3px 5px 0px rgba(0,0,0,0.4);
   padding: 0;
-  margin: 20px 0;
-  border-bottom: 2px dashed #f3aa38;
+  margin: 10px 0 30px;
+  height: 1px;
+  border: none;
 }
 .ps-products--list .ps-product__option {
   display: block;
   font-size: 13px;
   padding: 0 0 5px;
+}
+.ps-products--list .ps-product__option--checked {
+  position: relative;
+  padding: 0 0 0 1.5em;
+}
+.ps-products--list .ps-product__option--checked::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0.3em;
+  width: 1em;
+  height: 0.6em;
+  border: solid #2ecc40;
+  border-width: 0 0 2px 2px;
+  -webkit-transform: rotate(-45deg);
+     -moz-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+       -o-transform: rotate(-45deg);
+          transform: rotate(-45deg);
 }
 .ps-products--list .ps-product__option::after {
   content: '';
@@ -11329,57 +11359,78 @@ input[type='number'] {
   clear: both;
 }
 .ps-products--list .ps-product .ps-option__title {
-  font-weight: 300;
-  color: #777;
+  font-weight: 600;
+  color: #555;
 }
 .ps-products--list .ps-product .ps-option__value {
   font-weight: 800;
-  color: #f3aa38;
+  color: #222;
 }
 .ps-products--list .ps-product__cell--right .ps-option__value {
   float: right;
 }
 .ps-products--list .ps-product__price {
-  font-size: 16px;
+  font-size: 20px;
 }
 .ps-products--list .ps-product__price em {
-  font-size: 12px;
+  font-size: 16px;
 }
-.ps-products--list .ps-product .ps-price__title {
-  font-weight: 300;
-  color: #777;
+.ps-products--list .ps-product .ps-price {
+  white-space: nowrap;
+  padding: 0 0 10px;
 }
+.ps-products--list .ps-product .ps-price__descript {
+  font-weight: 600;
+  color: #555;
+}
+.ps-products--list .ps-product .ps-price__title,
 .ps-products--list .ps-product .ps-price__value {
   font-weight: 800;
-  color: #ec1818;
+  color: #222;
 }
 .ps-products--list .ps-product .ps-price__value--old {
+  display: inline-block;
+  position: relative;
   color: #888;
-  text-decoration: line-through;
   font-weight: 100;
 }
-.ps-products--list .ps-product__discount {
-  position: absolute;
-  bottom: 0;
-  right: -8px;
+.ps-products--list .ps-product .ps-price__value--old::before {
+  content: '';
   display: block;
-  font: 800 15px/40px 'Open Sans', sans-serif;
-  width: 45px;
-  height: 45px;
-  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
   background-color: #ec1818;
-  border: solid 3px #fff;
-  -webkit-border-radius: 50%;
-     -moz-border-radius: 50%;
-          border-radius: 50%;
-  -webkit-box-shadow: 0 0 1px 0 #ec1818;
-     -moz-box-shadow: 0 0 1px 0 #ec1818;
-          box-shadow: 0 0 1px 0 #ec1818;
+  -webkit-transform: rotate(-10deg);
+     -moz-transform: rotate(-10deg);
+      -ms-transform: rotate(-10deg);
+       -o-transform: rotate(-10deg);
+          transform: rotate(-10deg);
+}
+.ps-products--list .ps-product .ps-price__value--old::after {
+  content: '';
+  display: block;
+}
+.ps-products--list .ps-product__discount {
+  display: inline-block;
+  font: 800 20px/40px 'Open Sans', sans-serif;
+  color: #ec1818;
+}
+.ps-products--list .ps-product__controls {
+  background-color: #eee;
+  padding: 10px 20px;
+  margin: 30px 0 0;
+  white-space: nowrap;
+}
+.ps-products--list .ps-product__control:last-child {
+  padding: 2px 0 0;
 }
 .ps-products--list .ps-product__quantity {
+  display: inline-block;
   position: relative;
   width: 75px;
-  margin: 10px auto 0;
 }
 .ps-products--list .ps-product__quantity::after {
   content: '';
@@ -11387,15 +11438,15 @@ input[type='number'] {
   clear: both;
 }
 .ps-products--list .ps-product .ps-quantity__title {
-  display: block;
+  display: inline-block;
   text-align: center;
 }
 .ps-products--list .ps-product .ps-quantity__button {
   position: absolute;
   top: 0;
   width: 15px;
-  height: 30px;
-  font: 800 12px/30px 'Open Sans', sans-serif;
+  height: 20px;
+  font: 800 12px/20px 'Open Sans', sans-serif;
   display: block;
   -webkit-transition: 0.5s all ease;
   -o-transition: 0.5s all ease;
@@ -11432,22 +11483,32 @@ input[type='number'] {
 .ps-products--list .ps-product .ps-quantity__value {
   position: relative;
   display: block;
-  font: 800 14px/30px 'Open Sans', sans-serif;
+  font: 800 14px/20px 'Open Sans', sans-serif;
   text-align: center;
   width: 100%;
-  height: 30px;
+  height: 20px;
   margin: 0;
   border: solid 1px #f1b347;
   z-index: 2;
 }
+.ps-products--list .ps-product__compare {
+  display: inline-block;
+  font: 12px/1 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  padding: 20px 0;
+  color: #888;
+}
+.ps-products--list .ps-product__compare.checked {
+  color: #47b347;
+}
 .ps-products--list .ps-product__button {
   font: 14px/30px 'Open Sans', sans-serif;
-  width: 80%;
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
-  clear: both;
-  margin: 10px auto;
+  height: auto;
+  padding: 5px 20px;
+  margin: 0 0 0 10px;
 }
 .ps-products--list .ps-product__button:hover {
   background-color: #ed9d12;

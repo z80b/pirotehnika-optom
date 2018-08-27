@@ -70,14 +70,16 @@ function initCategoriesFilter(e,a,b) {
         .on('click', '.js-filter-submit', function(event) {
             var categories = [];
             $('.js-products-filter .ps-filter__item').each(function(ix, el) {
+                console.log('el:', el);
                 if ($(el).find('input[name=category]:checked').size()) {
                     categories.push($(el).find('input[name=category]:checked').get().map(function(input) { return input.value }).join(','));
                 }
             });
+            console.log(categories);
 
             var filterData = '',
                 filterObj = {
-                    'categories': categories,
+                    'categories': categories.join('|'),
                     'discount': $(this)
                         .parents('.js-products-filter')
                         .find('input[name=discount]:checked').length ? 1 : 0,

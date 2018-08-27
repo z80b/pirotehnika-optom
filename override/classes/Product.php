@@ -213,7 +213,6 @@ class Product extends ProductCore
         return ($rq);
     }
 
-
     public static function getProductsFilter($id_category = NULL) {
         if (isset($id_category)) {
             $filter = " AND cp.id_category = {$id_category}";

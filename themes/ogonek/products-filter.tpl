@@ -33,6 +33,7 @@
         			<label
                         class="ps-tick__label"
                         for="filter-category-{$subcategory.id_category}">{$subcategory.name}</label>
+                    <div class="ps-tick__products-count">{$subcategory.products_count}</div>
                     {if isset($subcategory.categories)}
                     <div class="ps-filter__subticks">
                         {foreach from=$subcategory.categories item=subcategory2}
@@ -47,6 +48,7 @@
                             <label
                                 class="ps-tick__label"
                                 for="filter-category-{$subcategory2.id_category}">{$subcategory2.name}</label>
+                            <div class="ps-tick__products-count">{$subcategory2.products_count}</div>
                         </div>
                         {/foreach}
                     </div>

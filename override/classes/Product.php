@@ -195,14 +195,14 @@ class Product extends ProductCore
                     ($only_active ? ' AND product_shop.`active` = 1' : '').'
                 ORDER BY '.(isset($order_by_prefix) ? pSQL($order_by_prefix).'.' : '').'`'.pSQL($order_by).'` '.pSQL($order_way).
                 ($limit > 0 ? ' LIMIT '.(int)$start.','.(int)$limit : '');
-                die('<pre>'.print_r($sql, true).'</pre>');
+                //die('<pre>'.print_r($sql, true).'</pre>');
         $rq = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
         if ($order_by == 'price') {
             Tools::orderbyPrice($rq, $order_way);
         }
 
         foreach ($rq as &$row) {
-            die('<pre>'.print_r($row, true).'</pre>');
+            //die('<pre>'.print_r($row, true).'</pre>');
             //$row.name .= '????';
             $row = Product::getTaxesInformations($row);
             $row['specific_prices'] = array('reduction' => 0);
@@ -213,14 +213,28 @@ class Product extends ProductCore
         return ($rq);
     }
 
-    public static function getProductsFilter() {
-        $filter = '';
+    public static function getProductsFilter($id_category = NULL) {
+        if (isset($id_category)) {
+            $filter = " AND cp.id_category = {$id_category}";
+        } else $filter = '';
+
         if (isset($_COOKIE['categories']) && $_COOKIE['categories']) {
             $categories_filter = array();
             foreach (explode('|', $_COOKIE['categories']) as $key => $item) {
-                $categories_filter[] = "cp.id_category IN({$item})";
+                $categories_filter[] = "(select cp.id_product from "._DB_PREFIX_."category_product cp where cp.id_category IN({$item}))";
             }
-            $filter = "AND ". implode(' OR ', $categories_filter);
+            $filter2 = " cp.id_product IN ". implode(' AND cp.id_product IN ', $categories_filter);
+            $sql = "
+                select distinct p.id_product from "._DB_PREFIX_."product p 
+                    left join "._DB_PREFIX_."category_product cp on cp.id_product = p.id_product
+                    where ".$filter2;
+            $result2 = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
+            $ff1 = '';
+            foreach ($result2 as $key => $product) {
+                $ff1 .= $product['id_product'].','; 
+            }
+            $ff1 .= '0';
+            $filter = " AND cp.id_product IN (".$ff1.")";
         }
 
         if (isset($_COOKIE['discount']) && $_COOKIE['discount'] == '1') {

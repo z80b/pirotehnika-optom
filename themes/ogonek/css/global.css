@@ -11824,12 +11824,22 @@ input[type='number'] {
 .ps-filter__item:hover .ps-filter__item__ticks {
   display: block;
 }
+.ps-tick {
+  position: relative;
+}
 .ps-tick__checkbox {
   display: none;
 }
+.ps-tick__products-count {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 2em;
+  line-height: 2em;
+}
 .ps-tick__label {
   position: relative;
-  padding: 0 0 0 27px;
+  padding: 0 27px;
   color: #333;
   cursor: pointer;
 }

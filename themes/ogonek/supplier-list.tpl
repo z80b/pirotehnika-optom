@@ -52,11 +52,6 @@
 					<li class="display-title">
 						{l s='View:'}
 					</li>
-					<li id="grid">
-						<a rel="nofollow" href="#" title="{l s='Grid'}">
-							<i class="icon-th-large"></i>{l s='Grid'}
-						</a>
-					</li>
 					<li id="list">
 						<a rel="nofollow" href="#" title="{l s='List'}">
 							<i class="icon-th-list"></i>{l s='List'}

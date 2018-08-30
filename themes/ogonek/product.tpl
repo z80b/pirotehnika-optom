@@ -156,6 +156,8 @@
             {/if}
             <h1 itemprop="name">{$product->name|escape:'html':'UTF-8'}</h1>
             <p id="product_reference"{if empty($product->reference) || !$product->reference} style="display: none;"{/if}>
+                <label>{l s='Manufacturer'}:</label>
+                <span class="prodSku">{$product_manufacturer->name}</span><br/>
                 <label>{l s='Артикул:'} </label>
                 <span class="editable prodSku" itemprop="sku"{if !empty($product->reference) && $product->reference} content="{$product->reference}"{/if}>{if !isset($groups)}{$product->reference|escape:'html':'UTF-8'}{/if}</span>
             </p>
@@ -424,7 +426,7 @@
             </div>
             <span class="ps-quantity__title">{Product::SGetProductUnity($product->sale_unity)}</span>
             <a class="ps-product-page__button ps-product__button--tocart"
-                id="btnid{$product->id_product}" 
+                id="btnid{$product->id}" 
                 btncatid="{$product->id_category_default}" 
                 type="submit"
                 name="Submit"

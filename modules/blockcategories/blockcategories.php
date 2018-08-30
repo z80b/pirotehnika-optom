@@ -286,8 +286,6 @@ class BlockCategories extends Module
 
 		}
 
-
-
 		return $this->display(__FILE__, 'blockcategories.tpl', $cacheId);
 	}
 

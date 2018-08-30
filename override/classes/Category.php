@@ -12,6 +12,54 @@ class Category extends CategoryCore {
         }
         return $result;
     }
+
+    public static function getSubcategoriesList($id_category, $id_lang) {
+
+        $categories = self::getCategoryChildren($id_category, $id_lang);
+
+        foreach ($categories as $index => $category) {
+            if ($subcategories = self::getCategoryChildren($category['id_category'], $id_lang)) {
+                $categories[$index]['categories'] = $subcategories;
+            }
+        }
+
+        //die('<pre>'.print_r($categories, true).'</pre>');
+        return $categories;
+    }
+
+    public static function getCategoryChildren($id_category, $id_lang) {
+
+        $db_prefix = _DB_PREFIX_;
+        $sql = "
+
+        SELECT * FROM {$db_prefix}category AS c
+
+        LEFT JOIN {$db_prefix}category_lang AS cl
+        ON c.id_category = cl.id_category
+            AND cl.id_lang = {$id_lang}
+
+        WHERE c.id_parent = {$id_category} AND c.active
+
+        GROUP BY c.id_category
+
+        ORDER BY cl.name";
+
+        return Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
+    }
+
+    public static function getGeneralCategories() {
+        $id_lang = Context::getContext()->cookie->id_lang;
+        $categories = Category::getCategories($id_lang);
+        $result = array();
+        foreach ($categories as $_category) {
+            foreach ($_category as $key => $item) {
+                $category = $item['infos'];
+                if ($category['level_depth'] == 2)
+                    $result[$category['id_category']] = $category;
+            }
+        }
+        return $result;
+    }
     
     public static function getCategoriesList($id_lang) {
         $arr = Category::getCategories($id_lang);

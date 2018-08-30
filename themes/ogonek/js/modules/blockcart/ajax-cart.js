@@ -20,7 +20,7 @@ $(document).ready(function(){
             var qty = $(this).val();
             var price = $(this).attr('data-price');
             var summ = qty * price;
-            $(this).parents('.ps-products__item').find('.js-product-summ').text(summ.toFixed(2));
+            $(this).parents('.ps-products__item').find('.js-product-summ').text(summ > 0 ? summ.toFixed(2) : '-');
         })
         .on('keypress', '.js-boxes-input', function(e) {
             if (e.keyCode == 44 || e.keyCode == 46) {
@@ -741,7 +741,7 @@ var ajaxCart = {
                         myPrice = this.priceByLine.replace(' руб', '');//maxim
                         myPrice = myPrice.replace(' ', '');//maxim
                         //console.log('price'+myPrice);
-                        content += '<span class="price" cartprice="'+(parseFloat(this.price_float) > 0 ? myPrice.replace(',', '.') : freeProductTranslation)+'" cartcatid="'+idcategorydefault+'" >' + (parseFloat(this.price_float) > 0 ? this.priceByLine : freeProductTranslation) + '</span></div>';//this.priceByLine.replace(',', '.') maxim
+                        content += '<span class="price" cartprice="'+(parseFloat(this.price_float) > 0 ? myPrice.replace(',', '.') : freeProductTranslation)+'" cartcatid="'+idcategorydefault+'" >' + (parseFloat(this.price_float) > 0 ? this.price_float : freeProductTranslation) + '</span></div>';//this.priceByLine.replace(',', '.') maxim
                     }
                     if (typeof(this.is_gift) == 'undefined' || this.is_gift == 0)
                         content += '<span class="remove_link"><a rel="nofollow" class="ajax_cart_block_remove_link" href="' + baseUri + '?controller=cart&amp;delete=1&amp;id_product=' + productId + '&amp;token=' + static_token + (this.hasAttributes ? '&amp;ipa=' + parseInt(this.idCombination) : '') + '" >&nbsp;x</a></span>';
@@ -964,7 +964,8 @@ var ajaxCart = {
 
         jsonData.products.forEach(function (item, i, items) {
             $('.ajax_block_cart_total_price_id_'+item.id).html(item.price);
-            $('.ajax_block_cart_total_price2_id_'+item.id).html(item.price_float);
+            $('.ajax_block_cart_total_price2_id_'+item.id).html(item.price_float || '-');
+            $('.js-product-count-' + item.id).text(item.quantity);
             
             if (parseFloat(item.price) > 0) {
                 $('.ajax_block_cart_total_price2_id_'+item.id).parents('.ps-products__item').addClass('ps-product--incard');

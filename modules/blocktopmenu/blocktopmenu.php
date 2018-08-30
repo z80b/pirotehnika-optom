@@ -573,10 +573,10 @@ class Blocktopmenu extends Module
                             $default_language = Configuration::get('PS_LANG_DEFAULT');
                             $link = MenuTopLinks::get($link[0]['id_linksmenutop'], $default_language, (int)Shop::getContextShopID());
                         }
-
                         $this->_menu .= sprintf(
                             '<li class="sf-menu__item">
                                 <a class="sf-menu__link%s" href="%s" title="%s">%s</a>
+                                '. (($link[0]['link'] == '/catalog') ? $this->getCategoriesList() : '') .'
                             </li>',
                             ($link[0]['link'] == $_SERVER['REQUEST_URI']) ? ' sf-menu__link--active': '',
                             Tools::HtmlEntitiesUTF8($link[0]['link']),
@@ -587,6 +587,19 @@ class Blocktopmenu extends Module
                     break;
             }
         }
+    }
+
+    protected function getCategoriesList() {
+        $categories = Category::getGeneralCategories();
+        $link = new Link;
+        $result = '<ul>';
+        foreach ($categories as $category) {
+            $result .= '<li>';
+            $result .= '<a class="js-menu-subcategory" href="'. $link->getCategoryLink($category['id_category'], $category['link_rewrite']) .'">'. $category['name'] .'</a>';
+            $result .= '</li>'; 
+        }
+        return $result . '</ul>';
+        die('<pre>'.print_r($categories, true).'</pre>');
     }
 
     protected function generateCategoriesOption($categories, $items_to_skip = null)

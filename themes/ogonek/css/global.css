@@ -8986,7 +8986,7 @@ span.navigation_page {
 .footer-container #footer #social_block {
   float: right;
   padding: 5px 0;
-  margin: 0;
+  margin: 0 80px 0 0;
 }
 .footer-container #footer #social_block ul {
   float: right;

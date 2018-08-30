@@ -44,9 +44,9 @@
                 </span>
             {/if}
         </div>
-        <div class="ps-product__table-cell">{$product.r1}</div>
-        <div class="ps-product__table-cell">{$product.r2}</div>
-        <div class="ps-product__table-cell">{$product.r3}</div>
+        <div class="ps-product__table-cell">{if $product.r1 < 2}-{else}{$product.r1}<div>шт.</div>{/if}</div>
+        <div class="ps-product__table-cell">{if $product.r2 < 2}-{else}{$product.r2}<div>уп.</div>{/if}</div>
+        <div class="ps-product__table-cell">{if $product.r3 < 2}-{else}{$product.r3}<div>{Product::SGetProductUnity($product.sale_unity)}</div>{/if}</div>
         <div class="ps-product__table-cell">
             {$product.quantity}
             {Product::SGetProductUnity($product.sale_unity)}
@@ -99,7 +99,7 @@
             >{l s="В заказ"}</a>
             {/if}
         </div>
-        <div class="ps-product__table-cell js-product-summ ajax_block_cart_total_price2_id_{$product.id_product}">0</div>
+        <div class="ps-product__table-cell js-product-summ ajax_block_cart_total_price2_id_{$product.id_product}">-</div>
     </div>
 {/foreach}
 </div>

@@ -12,12 +12,26 @@
         
     tr:hover td
         background-color #f7ce88
-
+        
+    &.ps-products--fixed-head
+        
+        .ps-product__table-thead
+            opacity 0
+            
+        .ps-product__table-thead--fixed
+            opacity 1
+            display table
+            
     .ps-product
         &--incard
             td, &:nth-child(odd) td
                 background-color #d4eff7
                 
+        &__fixed-thead
+            display none
+            position fixed
+            top 58px
+            
         &__table
             display table
             width 100%
@@ -25,6 +39,14 @@
             
             &-thead
                 display table-header-group
+                white-space nowrap
+                
+                &--fixed
+                    display none
+                    position fixed
+                    top 58px
+                    background-color #fff
+                    z-index 11
                 
                 .ps-product__table-cell
                     font-weight 800
@@ -35,10 +57,11 @@
             &-row
                 display table-row
                 margin 5px 0
+                background-color #fff
                 box-sizing border-box
                 box-shadow 0 1px 4px 0 rgba(#000, 0.4)
-                border-radius 5px
                 transition .5s box-shadow ease
+                overflow hidden
                 
                 &:hover
                     box-shadow 0 2px 8px rgba(#000, 0.6)
@@ -51,6 +74,7 @@
                 text-align center
                 vertical-align middle
                 padding 5px
+                background-color #fff
             
                 &.ps-product__controls
                     width 70px

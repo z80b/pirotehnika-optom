@@ -11425,9 +11425,21 @@ input[type='number'] {
 .ps-products--table tr:hover td {
   background-color: #f7ce88;
 }
+.ps-products--table.ps-products--fixed-head .ps-product__table-thead {
+  opacity: 0;
+}
+.ps-products--table.ps-products--fixed-head .ps-product__table-thead--fixed {
+  opacity: 1;
+  display: table;
+}
 .ps-products--table .ps-product--incard td,
 .ps-products--table .ps-product--incard:nth-child(odd) td {
   background-color: #d4eff7;
+}
+.ps-products--table .ps-product__fixed-thead {
+  display: none;
+  position: fixed;
+  top: 58px;
 }
 .ps-products--table .ps-product__table {
   display: table;
@@ -11436,6 +11448,14 @@ input[type='number'] {
 }
 .ps-products--table .ps-product__table-thead {
   display: table-header-group;
+  white-space: nowrap;
+}
+.ps-products--table .ps-product__table-thead--fixed {
+  display: none;
+  position: fixed;
+  top: 58px;
+  background-color: #fff;
+  z-index: 11;
 }
 .ps-products--table .ps-product__table-thead .ps-product__table-cell {
   font-weight: 800;
@@ -11446,21 +11466,20 @@ input[type='number'] {
 .ps-products--table .ps-product__table-row {
   display: table-row;
   margin: 5px 0;
+  background-color: #fff;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
      -moz-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
           box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
-  -webkit-border-radius: 5px;
-     -moz-border-radius: 5px;
-          border-radius: 5px;
   -webkit-transition: 0.5s -webkit-box-shadow ease;
   transition: 0.5s -webkit-box-shadow ease;
   -o-transition: 0.5s box-shadow ease;
   -moz-transition: 0.5s box-shadow ease, 0.5s -moz-box-shadow ease;
   transition: 0.5s box-shadow ease;
   transition: 0.5s box-shadow ease, 0.5s -webkit-box-shadow ease, 0.5s -moz-box-shadow ease;
+  overflow: hidden;
 }
 .ps-products--table .ps-product__table-row:hover {
   -webkit-box-shadow: 0 2px 8px rgba(0,0,0,0.6);
@@ -11475,6 +11494,7 @@ input[type='number'] {
   text-align: center;
   vertical-align: middle;
   padding: 5px;
+  background-color: #fff;
 }
 .ps-products--table .ps-product__table-cell.ps-product__controls {
   width: 70px;

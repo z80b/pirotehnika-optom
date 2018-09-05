@@ -1,4 +1,4 @@
-<div class="ps-product__table-thead">
+<div class="ps-product__table-thead js-product-table-head">
     <div class="ps-product__table-row">
         <div class="ps-product__table-cell">Артикул</div>
         <div class="ps-product__table-cell">Изобр.</div>

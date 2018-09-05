@@ -164,6 +164,7 @@
 									   min="1"
 									   name="qty"
 									   id="quantity_wanted"
+									   placeholder="0"
 									   data-prev-val="{if isset($productsCart.cart_quantity)}{$productsCart.cart_quantity}{else}0{/if}"
 									   class="appInputText ajax_input_prod_{$product->id} ajax_input_prod_to_null text"
 									   value="{if isset($productsCart.cart_quantity)}{$productsCart.cart_quantity}{else}0{/if}"

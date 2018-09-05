@@ -82,6 +82,14 @@
                                 </p>
                         {/if}
                         </div>
+                        <div class="ps-price__descript">
+                            {if isset($product.r3)}В коробке - {$product.r3}&nbsp;{Product::SGetProductUnity($product.sale_unity)}{/if}
+                        </div>
+                        <div class="ps-price__descript">
+                            {if isset($product.sale_unity_pack)}
+                                {$product.sale_unity_pack}
+                            {/if}
+                        </div>
                     </div>
                     <div class="ps-product__cell">
                         <div class="ps-product__option ps-product__option--checked">

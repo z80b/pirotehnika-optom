@@ -1,5 +1,39 @@
+.ps-product
+    &__linkbutton
+        absolute top 100px width 60px height 60px
+        background-color #f2a13994
+        border-radius 50%
+        box-shadow 1px 1px 10px 1px #888
+        opacity 1
+        transition .5s opacity ease
+        z-index 1
+        
+        &::after
+            content ''
+            border-right 2px solid #888
+            border-top 2px solid #888
+            display block
+            height 30px
+            width 30px
+            margin 15px auto
+        
+        &:hover
+            opacity .7
+            
+        &--prev
+            left 0
+            &::after
+                transform rotate(-135deg)
+                
+        &--next
+            right 0
+            &::after
+                transform rotate(45deg)
+        
 .ps-product-page
+    position relative
     text-align right
+    z-index 0
     
     @media(max-width 768px)
         text-align center

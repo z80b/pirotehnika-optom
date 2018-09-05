@@ -11,7 +11,16 @@ function filterReset($link) {
     }
 }
 
-function initCategoriesFilter() {
+function setOrder($select) {
+    var valueParts = $($select).val().split(':');
+    if (valueParts && valueParts.length > 1) {
+        $.cookie('order_by', valueParts[0]);
+        $.cookie('order_dir', valueParts[1]);
+    }
+}
+
+function initCategoriesFilter(e,a,b) {
+    console.log(e,a,b);
     $('.js-products-filter')
         .on('change', '.ps-tick > [type=checkbox]', function(event) {
             var $parent = $(this).parents('.ps-filter__item');
@@ -59,13 +68,18 @@ function initCategoriesFilter() {
             }
         })
         .on('click', '.js-filter-submit', function(event) {
+            var categories = [];
+            $('.js-products-filter .ps-filter__item').each(function(ix, el) {
+                console.log('el:', el);
+                if ($(el).find('input[name=category]:checked').size()) {
+                    categories.push($(el).find('input[name=category]:checked').get().map(function(input) { return input.value }).join(','));
+                }
+            });
+            console.log(categories);
+
             var filterData = '',
                 filterObj = {
-                    'categories': $(this)
-                        .parents('.js-products-filter')
-                        .find('input[name=category]:checked')
-                        .get()
-                        .map(function(input) { if (input.value) return input.value }),
+                    'categories': categories.join('|'),
                     'discount': $(this)
                         .parents('.js-products-filter')
                         .find('input[name=discount]:checked').length ? 1 : 0,
@@ -95,5 +109,10 @@ function initCategoriesFilter() {
     $('.sf-menu').on('click', '.js-menu-subcategory', function(event) {
         event.preventDefault();
         filterReset(event.currentTarget.getAttribute('href'));
+    });
+
+    setOrder('#selectProductSort')
+    $('#selectProductSort').on('change', function() {
+        setOrder(this);
     });
 }

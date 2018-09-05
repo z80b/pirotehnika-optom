@@ -4,11 +4,19 @@ class Category extends CategoryCore {
 
     public static function getCheckedCategories() {
         $result = array();
+        $categories = array();
         if (isset($_COOKIE['categories']) && $_COOKIE['categories']) {
-            $result['categories'] = array_flip(explode(',', $_COOKIE['categories']));
+            foreach (explode(',', $_COOKIE['categories']) as $key => $item) {
+                $categories = array_merge($categories, preg_split("/[\|\,]/", $item));
+            }
+            $result['categories'] = array_flip($categories);
+            //die('<pre>'.print_r($categories, true).'</pre>');
         }
         if (isset($_COOKIE['manufact']) && $_COOKIE['manufact']) {
             $result['manufact'] = array_flip(explode(',', $_COOKIE['manufact']));   
+        }
+        if (isset($_COOKIE['discount']) && $_COOKIE['discount']) {
+            $result['discount'] = 1;
         }
         return $result;
     }
@@ -27,22 +35,40 @@ class Category extends CategoryCore {
         return $categories;
     }
 
-    public static function getCategoryChildren($id_category, $id_lang) {
+    public static function getCategoryChildren($id_category = NULL, $id_lang) {
 
         $db_prefix = _DB_PREFIX_;
         $sql = "
 
-        SELECT * FROM {$db_prefix}category AS c
+        SELECT
+            *,
+            COUNT(DISTINCT cp.id_product) AS products_count
+
+        FROM {$db_prefix}category AS c
 
         LEFT JOIN {$db_prefix}category_lang AS cl
         ON c.id_category = cl.id_category
             AND cl.id_lang = {$id_lang}
 
-        WHERE c.id_parent = {$id_category} AND c.active
+        LEFT JOIN {$db_prefix}category_product AS cp
+        ON cp.id_category = c.id_category
+
+        INNER JOIN {$db_prefix}product_shop AS ps
+        ON  ps.id_product = cp.id_product
+
+        LEFT JOIN {$db_prefix}stock_available AS st
+        ON st.id_product = cp.id_product
+
+        WHERE c.id_parent = {$id_category}
+            AND c.active
+            AND st.id_shop = 1
+            AND ps.active = 1
+            AND ps.show_price = 1
+            AND st.quantity > 0
 
         GROUP BY c.id_category
 
-        ORDER BY cl.name";
+        ORDER BY c.position";
 
         return Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
     }
@@ -62,7 +88,7 @@ class Category extends CategoryCore {
     }
     
     public static function getCategoriesList($id_lang) {
-        $arr = Category::getCategories($id_lang);
+        $arr = Category::getCategories($id_lang, true, true, '', 'ORDER BY c.position ASC');
         $categories = array();
         $subcategories = array();
 
@@ -106,7 +132,7 @@ class Category extends CategoryCore {
         return $categories;
     }
 
-    public static function getProductsList($id_lang, $page_number = 0, $nb_products = 10, $count = false, $order_by = null, $order_way = null, $beginning = false, $ending = false, Context $context = null) {
+    public static function getProductsList($id_lang, $id_category, $page_number = 0, $nb_products = 10, $count = false, $order_by = null, $order_way = null, $beginning = false, $ending = false, Context $context = null) {
         if (!Validate::isBool($count)) {
             die(Tools::displayError());
         }
@@ -120,20 +146,8 @@ class Category extends CategoryCore {
         if ($nb_products < 1) {
             $nb_products = 10;
         }
-        if (empty($order_by) || $order_by == 'position') {
-            $order_by = 'price';
-        }
-        if (empty($order_way)) {
-            $order_way = 'DESC';
-        }
-        if ($order_by == 'id_product' || $order_by == 'price' || $order_by == 'date_add' || $order_by == 'date_upd') {
-            $order_by_prefix = 'ps';
-        } elseif ($order_by == 'name') {
-            $order_by_prefix = 'pl';
-        }
-        if ($order_by == 'quantity') $order_by_prefix = 'stock';
 
-        if ($order_by == 'reference') $order_by_prefix = 'p';
+        list($order_by, $order_way) = array_values(Product::getOrder($order_by, $order_way));
 
         if (!Validate::isOrderBy($order_by) || !Validate::isOrderWay($order_way)) {
             die(Tools::displayError());
@@ -144,19 +158,8 @@ class Category extends CategoryCore {
         $current_date = date('Y-m-d').' 00:00:00';
         $offset = $page_number * $nb_products;
         $limit = $nb_products;
-
-        $filter = '';
-        if (isset($_COOKIE['categories']) && $_COOKIE['categories']) {
-            $filter = "AND cp.id_category IN(" . $_COOKIE['categories'] .")";
-        }
-
-        if (isset($_COOKIE['discount']) && $_COOKIE['discount'] == '1') {
-            $filter .= ' AND sp.reduction > 0';
-        }
-
-        if (isset($_COOKIE['manufact']) && $_COOKIE['manufact']) {
-            $filter .= " AND p.id_manufacturer IN(" . $_COOKIE['manufact'] .")";
-        }
+        //die('<pre>'.print_r($context->categories, true).'</pre>');
+        $filter = Product::getProductsFilter($id_category);
         
         if ($count) return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("
             SELECT COUNT(DISTINCT p.id_product)
@@ -217,7 +220,7 @@ class Category extends CategoryCore {
             AND ps.id_shop = {$id_shop}
             AND ps.active = 1
             AND ps.show_price = 1
-        
+
         LEFT JOIN {$prefix}category_product AS cp
         ON p.id_product = cp.id_product
 
@@ -259,7 +262,7 @@ class Category extends CategoryCore {
 
         GROUP BY p.id_product
 
-        ORDER BY {$order_by_prefix}.{$order_by} {$order_way}
+        ORDER BY {$order_by}, p.id_product {$order_way}
 
         LIMIT {$offset}, {$limit}";
 

@@ -298,7 +298,7 @@ class ProductControllerCore extends FrontController
                 'display_discount_price' => Configuration::get('PS_DISPLAY_DISCOUNT_PRICE'),
             ));
         }
-        $this->setTemplate(_PS_THEME_DIR_.'product.tpl');
+        $this->setTemplate(_PS_THEME_DIR_.'blocks/product.tpl');
     }
 
     /**

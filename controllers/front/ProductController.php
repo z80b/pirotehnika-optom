@@ -260,16 +260,18 @@ class ProductControllerCore extends FrontController
             if ($this->product->customizable) {
                 $customization_datas = $this->context->cart->getProductCustomization($this->product->id, null, true);
             }
-
-            $this->context->smarty->assign(array(
+            $data = array(
                 'stock_management' => Configuration::get('PS_STOCK_MANAGEMENT'),
                 'customizationFields' => $customization_fields,
                 'id_customization' => empty($customization_datas) ? null : $customization_datas[0]['id_customization'],
                 'accessories' => $accessories,
+                'product_attachments' => Product::getProductAttachments($this->product->id),
                 'return_link' => $return_link,
                 'product' => $this->product,
                 'prevProduct' => $this->productSiblings['prev_product'],
                 'nextProduct' => $this->productSiblings['next_product'],
+                'product_images' => Product::getProductImages($this->product->id),
+                'video_id' => $this->product->getVideoId(),
                 'product_manufacturer' => new Manufacturer((int)$this->product->id_manufacturer, $this->context->language->id),
                 'token' => Tools::getToken(false),
                 'features' => $this->product->getFrontFeatures($this->context->language->id),
@@ -296,12 +298,14 @@ class ProductControllerCore extends FrontController
                     'category-'.(isset($this->category) ? $this->category->getFieldByLang('link_rewrite') : '')
                 ),
                 'display_discount_price' => Configuration::get('PS_DISPLAY_DISCOUNT_PRICE'),
-            ));
+            );            
         }
+        
         if (Tools::getValue('json') == 1) {
-
+            Tools::dieJson($data);
         } else {
-            $this->setTemplate(_PS_THEME_DIR_.'product.tpl');
+            $this->context->smarty->assign($data);
+            $this->setTemplate(_PS_THEME_DIR_.'blocks/product.tpl');
         }
     }
 

@@ -1,60 +1,46 @@
-.ps-content
-    &__title
-        @extends $clear-block
-        position relative
-        font 500 22px/1 'Open Sans', sans-serif
-        display block
-        width 100%
-        margin 0 0 2em
-        color #666
-            
-        &::before
-            content ''
-            absolute left 0 bottom 0 width 100%
-            border-bottom dotted 4px #666
-            z-index 0
+.ps-popup-content__ajax
+    .ps-popup-content
+        min-width 900px
         
-        &-left, &-right
+        &__title
+            @extends $clear-block
             position relative
-            display inline-block
-            white-space nowrap
-            vertical-align bottom
-            float left
-            background-color #fff
-            z-index 1
+            font 500 30px/1 'Open Sans', sans-serif
+            display block
+            width 100%
+            margin 0 0 20px
+            padding 0 2em
+            color #666
             
-        &-right
-            font 700 .8em/22px 'Open Sans', sans-serif
-            float right
+            &-left, &-right
+                position relative
+                display block
+                
+            &-right
+                font 700 .6em/22px 'Open Sans', sans-serif
+                
+        &__row
+            display table
+            width 100%
             
-    &__row
-        display table
-        width 100%
-        
-    &__cell
-        display table-cell
-        width 50%
+        &__cell
+            display table-cell
+            vertical-align top
+            padding 20px 30px
+            max-width 240px
             
-        &:last-of-type
-            padding 0 0 0 20px
+            &:last-of-type
+                border-left solid 1px #ccc
+                
+        &__buttons
+            text-align right
             
-        .ps-popup &
-            width 40%
-            padding 0 20px 0 0
-            
-            &:first-of-type
-                width 20%
-            
-    &__buttons
-        text-align right
-            
-.ps-content--product
+    .ps-product-page__image
+        max-width 240px
+        margin auto
+
+.ps-popup-content__ajax
     padding 20px 0
-    
-    .ps-white-block
-        padding 20px
-        border solid 1px #ccc
-        border-radius 10px
         
     .ps-features
         padding 0 0 20px
@@ -67,6 +53,8 @@
         display block
         position relative
         font-size 14px
+        margin 0 0 1em
+        white-space nowrap
         
         &::before
             content ''
@@ -87,9 +75,13 @@
             padding 0 0 0 10px
             
     .ps-price
+        padding 0 1em 0 0
         &__value
+            display inline-block
             font-size 36px
             font-weight 700
+            line-height 1
+            padding 0 0 .25em
             
             em
                 font-size .8em
@@ -97,7 +89,7 @@
             &--old
                 font-size 24px
                 font-weight 400
-                padding 0 1em
+                padding 0
                 position relative
                 color #888
 
@@ -112,10 +104,11 @@
             font-size 30px
             font-weight 700
             color red
+            padding 0 0 0 1em
             
         &__block
             padding 20px 0
-            white-space nowrap
+            white-space normal
         
         &__descripts
             padding 0 0 0 30px
@@ -141,16 +134,17 @@
                 width 250px
                 
         &__options
-            padding 20px 0 20px 30px
+            padding 20px 0
+            white-space nowrap
             
         &__option
             display block
-            font-size 14px
+            font-size 16px
             padding 0 0 5px
             
             &--checked
                 position relative
-                padding 0 0 0 1.5em
+                padding 0 0 1em 1.5em
                 
                 &::before
                     content ''
@@ -174,8 +168,7 @@
         &__control
             &:last-child
                 padding 2px 0 0
-                
-                
+                            
         &__quantity
             display inline-block
             position relative
@@ -214,7 +207,7 @@
             display inline-block
             font-weight 700
             color #555
-            width 40%
+            width 65%
         
         &__value
             font-weight 700

@@ -166,14 +166,7 @@ class ProductControllerCore extends FrontController
         }
     }
 
-    /**
-     * Assign template vars related to page content
-     * @see FrontController::initContent()
-     */
-    public function initContent()
-    {
-        parent::initContent();
-
+    public function prepareTemplate() {
         if (!$this->errors) {
             if (Pack::isPack((int)$this->product->id) && !Pack::isInStock((int)$this->product->id)) {
                 $this->product->quantity = 0;
@@ -298,7 +291,26 @@ class ProductControllerCore extends FrontController
                 'display_discount_price' => Configuration::get('PS_DISPLAY_DISCOUNT_PRICE'),
             ));
         }
+
+    }
+
+    /**
+     * Assign template vars related to page content
+     * @see FrontController::initContent()
+     */
+    public function initContent()
+    {
+        parent::initContent();
+
+        $this->prepareTemplate();
+
         $this->setTemplate(_PS_THEME_DIR_.'blocks/product.tpl');
+    }
+
+    public function displayAjax() {
+        $this->prepareTemplate();
+        header('Content-type: text/html');
+        $this->smartyOutputContent(_PS_THEME_DIR_.'blocks/product-ajax.tpl');
     }
 
     /**

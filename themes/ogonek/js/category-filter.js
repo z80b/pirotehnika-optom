@@ -12,7 +12,7 @@ function filterReset($link) {
 }
 
 function setOrder($select) {
-    var valueParts = $($select).val().split(':');
+    var valueParts = $($select).val() && $($select).val().split(':');
     if (valueParts && valueParts.length > 1) {
         $.cookie('order_by', valueParts[0]);
         $.cookie('order_dir', valueParts[1]);

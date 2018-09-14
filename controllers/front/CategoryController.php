@@ -141,24 +141,20 @@ class CategoryControllerCore extends FrontController
 
 
         $this->categories = $this->getCategories();
-        $this->subcategories = Category::getSubcategoriesList($this->category->id_category, $this->context->language->id);
+        $this->subcategories = Category::getSubcategoriesList($this->category->id, $this->context->language->id);
 
         $this->productSort();
-
         $this->productsCount = Category::getProductsList($this->context->language->id, $this->category->id_category, null, null, true);
-        
         $this->pagination($this->productsCount);
-
         $this->products = Category::getProductsList($this->context->language->id, $this->category->id_category, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
-
-        $this->productSort();
         $this->assignScenes();
 
         $this->context->smarty->assign(array(
             'categories'           => $this->categories,
+            'manufacturers'        => Manufacturer::getManufacturersList($this->category->id),
             'subcategories'        => $this->subcategories,
             'category'             => $this->category,
-            'checked'              => Category::getCheckedCategories(),
+            'checked'              => Category::getCheckedCategories($this->category->id),
             'description_short'    => Tools::truncateString($this->category->description, 350),
             'products'             => $this->products,
             'nbProducts'           => $this->productsCount,

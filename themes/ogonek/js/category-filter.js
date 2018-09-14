@@ -1,6 +1,7 @@
 $(document).ready(initCategoriesFilter);
 
 function filterReset($link) {
+    $.cookie('filter', '');
     $.cookie('categories', '');
     if ($link) {
         window.location.href = $link;
@@ -75,8 +76,8 @@ function initCategoriesFilter(e,a,b) {
                     categories.push($(el).find('input[name=category]:checked').get().map(function(input) { return input.value }).join(','));
                 }
             });
-            console.log(categories);
-
+            
+            var category_id = $(this).parents('.js-products-filter').data('category-id');
             var filterData = '',
                 filterObj = {
                     'categories': categories.join('|'),
@@ -90,6 +91,12 @@ function initCategoriesFilter(e,a,b) {
                         .map(function(input) { if (input.value) return input.value })
                         
                 };
+            console.log(filterObj);
+            var currentFilter = JSON.parse($.cookie('filter') || '{}');
+            currentFilter[category_id] = filterObj;
+            console.log(currentFilter);
+            $.cookie('filter', JSON.stringify(currentFilter));
+
             for (var key in filterObj) {
                 if (typeof(filterObj[key]) == 'array')
                     $.cookie(key, filterObj[key].join(','));

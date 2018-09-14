@@ -83,10 +83,10 @@ class ProductControllerCore extends FrontController
 
         if ($id_product = (int)Tools::getValue('id_product')) {
             $this->product = new Product($id_product, true, $this->context->language->id, $this->context->shop->id);
-            $this->productSiblings = Product::getProductSiblings($id_product);
+            $this->productSiblings = Product::getProductSiblings($id_product, $this->product->id_category_default);
         }
 
-        //die('<pre>'.print_r($this->productSiblings, true).'</pre>');
+        //die('<pre>'.print_r($this->product, true).'</pre>');
 
         if (!Validate::isLoadedObject($this->product)) {
             header('HTTP/1.1 404 Not Found');

@@ -2,22 +2,27 @@
 
 class Category extends CategoryCore {
 
-    public static function getCheckedCategories() {
+    public static function getCheckedCategories($id_category = NULL) {
+
         $result = array();
-        $categories = array();
-        if (isset($_COOKIE['categories']) && $_COOKIE['categories']) {
-            foreach (explode(',', $_COOKIE['categories']) as $key => $item) {
+        $filters = json_decode($_COOKIE['filter'], true);
+        $filter = $filters[$id_category];
+
+
+        if (isset($filter['categories']) && $filter['categories']) {
+            $categories = array();
+            foreach (explode(',', $filter['categories']) as $key => $item) {
                 $categories = array_merge($categories, preg_split("/[\|\,]/", $item));
             }
             $result['categories'] = array_flip($categories);
-            //die('<pre>'.print_r($categories, true).'</pre>');
         }
-        if (isset($_COOKIE['manufact']) && $_COOKIE['manufact']) {
-            $result['manufact'] = array_flip(explode(',', $_COOKIE['manufact']));   
+        if (isset($filter['manufact']) && $filter['manufact']) {
+            $result['manufact'] = array_flip($filter['manufact']);   
         }
-        if (isset($_COOKIE['discount']) && $_COOKIE['discount']) {
+        if (isset($filter['discount']) && $filter['discount']) {
             $result['discount'] = 1;
         }
+        //die('<pre>'.print_r($result, true).'</pre>');
         return $result;
     }
 
@@ -38,6 +43,7 @@ class Category extends CategoryCore {
     public static function getCategoryChildren($id_category = NULL, $id_lang) {
 
         $db_prefix = _DB_PREFIX_;
+        $filter = Product::getProductsFilter($id_category, false);
         $sql = "
 
         SELECT
@@ -53,13 +59,21 @@ class Category extends CategoryCore {
         LEFT JOIN {$db_prefix}category_product AS cp
         ON cp.id_category = c.id_category
 
+        LEFT JOIN {$db_prefix}product AS p
+        ON p.id_product = cp.id_product
+
         INNER JOIN {$db_prefix}product_shop AS ps
         ON  ps.id_product = cp.id_product
+
+        LEFT JOIN {$db_prefix}specific_price AS sp
+        ON p.id_product = sp.id_product
+            AND ps.id_shop = sp.id_shop
 
         LEFT JOIN {$db_prefix}stock_available AS st
         ON st.id_product = cp.id_product
 
         WHERE c.id_parent = {$id_category}
+            {$filter}
             AND c.active
             AND st.id_shop = 1
             AND ps.active = 1
@@ -160,7 +174,7 @@ class Category extends CategoryCore {
         $limit = $nb_products;
         //die('<pre>'.print_r($context->categories, true).'</pre>');
         $filter = Product::getProductsFilter($id_category);
-        
+        //die('<pre>'.print_r(array($filter, $id_category), true).'</pre>');
         if ($count) return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("
             SELECT COUNT(DISTINCT p.id_product)
             FROM {$prefix}product AS p

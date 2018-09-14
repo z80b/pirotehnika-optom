@@ -39,7 +39,7 @@ class Product extends ProductCore
         return new Product($id, $full);
     }
 
-    public static function getProductSiblings($id_product, $order_by = 'name', $order_way = 'asc') {
+    public static function getProductSiblings($id_product, $id_category, $order_by = 'name', $order_way = 'asc') {
 
         if (!isset($context)) {
             $context = Context::getContext();
@@ -52,7 +52,7 @@ class Product extends ProductCore
         $id_shop = $context->shop->id;
         $current_date = date('Y-m-d').' 00:00:00';
 
-        $filter = self::getProductsFilter();
+        $filter = self::getProductsFilter($id_category);
 
         $sql = "
         SELECT p.id_product
@@ -213,37 +213,56 @@ class Product extends ProductCore
         return ($rq);
     }
 
-    public static function getProductsFilter($id_category = NULL) {
-        if (isset($id_category)) {
+    public static function getProductsFilter($id_category = NULL, $id_category_use = true) {
+        if (isset($id_category) && $id_category_use) {
             $filter = " AND cp.id_category = {$id_category}";
         } else $filter = '';
 
-        if (isset($_COOKIE['categories']) && $_COOKIE['categories']) {
-            $categories_filter = array();
-            foreach (explode('|', $_COOKIE['categories']) as $key => $item) {
-                $categories_filter[] = "(select cp.id_product from "._DB_PREFIX_."category_product cp where cp.id_category IN({$item}))";
+        if (isset($_COOKIE['filter']) && isset($id_category)) {
+
+            $cookie = json_decode($_COOKIE['filter'], true);
+            $cookie_filter = isset($cookie[$id_category]) ? $cookie[$id_category] : array();
+
+            if (isset($cookie_filter['categories'])) {
+
+                $categories_filter = array();
+                foreach (explode('|', $cookie_filter['categories']) as $key => $item) {
+                    if ($item) {
+                        $categories_filter[] = "(select cp.id_product from "._DB_PREFIX_."category_product cp where cp.id_category IN({$item}))";
+                    }
+                }
+
+                if ($categories_filter && count($categories_filter)) {
+                    $subfilter = " cp.id_product IN ". implode(' AND cp.id_product IN ', $categories_filter);
+                    //$subfilter = " cp.id_product IN (". implode(',', $categories_filter). ")";
+                
+
+                    $sql = "
+                        select distinct p.id_product from "._DB_PREFIX_."product p 
+                            left join "._DB_PREFIX_."category_product cp on cp.id_product = p.id_product
+                            where ".$subfilter;
+
+                    $result2 = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
+
+                    $ff1 = array();
+                    foreach ($result2 as $key => $product) {
+                        $ff1[] = $product['id_product']; 
+                    }
+                    //$ff1 .= '0';
+                    $filter .= " AND cp.id_product IN (". implode(',', $ff1).")";
+                }
             }
-            $filter2 = " cp.id_product IN ". implode(' AND cp.id_product IN ', $categories_filter);
-            $sql = "
-                select distinct p.id_product from "._DB_PREFIX_."product p 
-                    left join "._DB_PREFIX_."category_product cp on cp.id_product = p.id_product
-                    where ".$filter2;
-            $result2 = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
-            $ff1 = '';
-            foreach ($result2 as $key => $product) {
-                $ff1 .= $product['id_product'].','; 
+
+            if (isset($cookie_filter['discount']) && $cookie_filter['discount'] == '1') {
+                $filter .= ' AND sp.reduction > 0';
             }
-            $ff1 .= '0';
-            $filter = " AND cp.id_product IN (".$ff1.")";
+
+            if (isset($cookie_filter['manufact']) && $cookie_filter['manufact']) {
+                $filter .= " AND p.id_manufacturer IN(" . implode(',', $cookie_filter['manufact']) .")";
+            }
+
         }
 
-        if (isset($_COOKIE['discount']) && $_COOKIE['discount'] == '1') {
-            $filter .= ' AND sp.reduction > 0';
-        }
-
-        if (isset($_COOKIE['manufact']) && $_COOKIE['manufact']) {
-            $filter .= " AND p.id_manufacturer IN(" . $_COOKIE['manufact'] .")";
-        }
         return $filter;
     }
 

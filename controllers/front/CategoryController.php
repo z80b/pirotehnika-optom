@@ -144,7 +144,7 @@ class CategoryControllerCore extends FrontController
         $this->subcategories = Category::getSubcategoriesList($this->category->id, $this->context->language->id);
 
         $this->productSort();
-        $this->productsCount = Category::getProductsList($this->context->language->id, $this->category->id_category, null, null, true);
+        $this->productsCount = Category::getProductsList($this->context->language->id, $this->category->id, null, null, true);
         $this->pagination($this->productsCount);
         $this->products = Category::getProductsList($this->context->language->id, $this->category->id, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
 

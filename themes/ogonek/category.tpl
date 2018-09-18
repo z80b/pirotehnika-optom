@@ -124,7 +124,6 @@
 			<div class="content_sortPagiBar">
 				<div class="bottom-pagination-content clearfix">
                     {include file="./pagination.tpl" paginationId='bottom'}
-                    {include file="./pagination.tpl" no_follow=1 paginationId='bottom'}
                     {include file="./product-compare.tpl" paginationId='bottom'}
 				</div>
 			</div>

@@ -56,11 +56,11 @@
     var hours = String(date.getHours());
 
     if (minutes.length < 2) {
-      minutes = '0'+minutes;
+      minutes += '0';
     }
 
     if (hours.length < 2) {
-      hours = '0'+hours;
+      hours += '0';
     }
 
     date = date.getDate() + ' ' + MONTHS[date.getMonth()] + ' ' + date.getFullYear() + ' в ' + hours + ':' + minutes;

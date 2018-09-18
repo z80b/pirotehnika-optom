@@ -83,7 +83,10 @@ class ProductControllerCore extends FrontController
 
         if ($id_product = (int)Tools::getValue('id_product')) {
             $this->product = new Product($id_product, true, $this->context->language->id, $this->context->shop->id);
+            $this->productSiblings = Product::getProductSiblings($id_product);
         }
+
+        //die('<pre>'.print_r($this->productSiblings, true).'</pre>');
 
         if (!Validate::isLoadedObject($this->product)) {
             header('HTTP/1.1 404 Not Found');
@@ -265,6 +268,8 @@ class ProductControllerCore extends FrontController
                 'accessories' => $accessories,
                 'return_link' => $return_link,
                 'product' => $this->product,
+                'prevProduct' => $this->productSiblings['prev_product'],
+                'nextProduct' => $this->productSiblings['next_product'],
                 'product_manufacturer' => new Manufacturer((int)$this->product->id_manufacturer, $this->context->language->id),
                 'token' => Tools::getToken(false),
                 'features' => $this->product->getFrontFeatures($this->context->language->id),

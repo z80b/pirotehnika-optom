@@ -156,7 +156,7 @@
             {/if}
             <h1 itemprop="name">{$product->name|escape:'html':'UTF-8'}</h1>
             <p id="product_reference"{if empty($product->reference) || !$product->reference} style="display: none;"{/if}>
-                <label>{l s='Manufacturer'}:</label>
+                <label>{l s='Производитель'}:</label>
                 <span class="prodSku">{$product_manufacturer->name}</span><br/>
                 <label>{l s='Артикул:'} </label>
                 <span class="editable prodSku" itemprop="sku"{if !empty($product->reference) && $product->reference} content="{$product->reference}"{/if}>{if !isset($groups)}{$product->reference|escape:'html':'UTF-8'}{/if}</span>
@@ -213,9 +213,9 @@
                                                 Цена:&nbsp;
                                             {/if}
                                         </span>
-                                        <{if $isShowPriceDisc == true && $productPrice <> $productPriceDisc && $isShowPriceWoDisc == true}strike{else}span{/if} id="our_price_display" class="price" 
+                                        <{if $isShowPriceDisc == true && $productPrice <> $productPriceDisc && $isShowPriceWoDisc == true}strike{else}span{/if} id="our_price_display" class="price"
                                             itemprop="price{if $isShowPriceDisc == true && $productPrice <> $productPriceDisc && $isShowPriceWoDisc == true}Disc{/if}" content="{$productPrice}">{if $isShowPriceDisc == true && $productPrice <> $productPriceDisc && $isShowPriceWoDisc == true}{convertPrice price=$productPrice|floatval}{else}{convertPrice price=$productPriceDisc|floatval}{/if}
-                                        </{if $isShowPriceDisc == true && $productPrice <> $productPriceDisc && $isShowPriceWoDisc == true}                                                        
+                                        </{if $isShowPriceDisc == true && $productPrice <> $productPriceDisc && $isShowPriceWoDisc == true}
                                                 strike
                                           {else}
                                                 span
@@ -324,7 +324,7 @@
                     <div class="content_prices clearfix">
                         {if $product->show_price && !isset($restricted_country_mode) && !$PS_CATALOG_MODE}
                         {assign var="productsCart" value=$product->getProductCartInfo()}
-                            
+
 
                         <!--    Товара на сумму
                         <span class="ajax_block_products_total">
@@ -362,9 +362,9 @@
                             {/if}
                         </span>
                         </p>
-                        
-                        
-                        
+
+
+
 
 
                             {if $packItems|@count && $productPrice < $product->getNoPackPrice()}
@@ -426,8 +426,8 @@
             </div>
             <span class="ps-quantity__title">{Product::SGetProductUnity($product->sale_unity)}</span>
             <a class="ps-product-page__button ps-product__button--tocart"
-                id="btnid{$product->id}" 
-                btncatid="{$product->id_category_default}" 
+                id="btnid{$product->id}"
+                btncatid="{$product->id_category_default}"
                 type="submit"
                 name="Submit"
                 title="{l s='Add to cart'}"
@@ -439,7 +439,7 @@
             {/if}
         </div>
                         {if !$PS_CATALOG_MODE}
-                        
+
 
                         {if isset($groups)}
                             <!-- attributes -->
@@ -569,7 +569,7 @@
 {if (isset($product) && $product->description) || (isset($features) && $features) || (isset($accessories) && $accessories) || (isset($HOOK_PRODUCT_TAB) && $HOOK_PRODUCT_TAB) || (isset($attachments) && $attachments) || isset($product) && $product->customizable}
 <div id="more_info_block" class="clear shops_tabs">
     <ul id="more_info_tabs" class="idTabs idTabsShort clearfix tabs">
-        
+
         {if $product->description}<li><a id="more_info_tab_more_info" href="#idTab1">{l s='ОПИСАНИЕ'}</a></li>{/if}
         {if $features}<li><a id="more_info_tab_data_sheet" href="#idTab2">{l s='ХАРАКТЕРИСТИКИ'}</a></li>{/if}
         {if $attachments}<li><a id="more_info_tab_attachments" href="#idTab9">{l s='Download'}</a></li>{/if}
@@ -607,7 +607,7 @@
      <!-- accessories -->
      <!-- 539 -->
       <!-- accessories -->
-  
+
     <!-- Customizable products -->
     {if isset($product) && $product->customizable}
         <div id="idTab10" class="bullet customization_block">
@@ -670,7 +670,7 @@
             <p class="clear required"><sup>*</sup> {l s='required fields'}</p>
         </div>
     {/if}
-  
+
     {if isset($HOOK_PRODUCT_TAB_CONTENT) && $HOOK_PRODUCT_TAB_CONTENT}{$HOOK_PRODUCT_TAB_CONTENT}{/if}
     </div>
     <div class="ps-product__compare-block">
@@ -684,7 +684,7 @@
         {include file="$tpl_dir./product-list.tpl" products=$packItems}
     </div>
 {/if}
- 
+
 
 
 

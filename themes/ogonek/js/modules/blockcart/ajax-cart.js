@@ -8,6 +8,7 @@ $(document).ready(function(){
                 $controls    = $(this).parents('.ps-product__controls'),
                 $boxes_input = $controls.find('.js-boxes-input'),
                 $qty_input   = $controls.find('.js-qty-input');
+                $(this).val(parseInt($(this).val()));
 
             if ($boxes_input && $boxes_input.length) {
                 var _qty_value = parseInt($qty_input.val() || 0)
@@ -29,7 +30,7 @@ $(document).ready(function(){
         })
         .on('input', '.js-boxes-input', function(e, a, b) {
             e.preventDefault();
-            
+            $(this).val(parseInt($(this).val()));
             var
                 $controls    = $(this).parents('.ps-product__controls'),
                 $boxes_input = $controls.find('.js-boxes-input'),

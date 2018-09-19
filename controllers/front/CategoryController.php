@@ -146,7 +146,10 @@ class CategoryControllerCore extends FrontController
         $this->productSort();
         $this->productsCount = Category::getProductsList($this->context->language->id, $this->category->id_category, null, null, true);
         $this->pagination($this->productsCount);
-        $this->products = Category::getProductsList($this->context->language->id, $this->category->id_category, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
+        $this->products = Category::getProductsList($this->context->language->id, $this->category->id, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
+
+        $filter = Product::getProductsFilter($this->category->id);
+
         $this->assignScenes();
 
         $this->context->smarty->assign(array(
@@ -157,6 +160,8 @@ class CategoryControllerCore extends FrontController
             'checked'              => Category::getCheckedCategories($this->category->id),
             'description_short'    => Tools::truncateString($this->category->description, 350),
             'products'             => $this->products,
+            'products_count'       => Category::getProductsCount($this->category->id, $filter),
+            'discounts'            => Product::getDescountsCount($filter),
             'nbProducts'           => $this->productsCount,
             'id_category'          => (int)$this->category->id,
             'id_category_parent'   => (int)$this->category->id_parent,

@@ -10,16 +10,18 @@
         {assign var="button_class" value="ps-filter__item"}
         {/if}
         <div class="{$button_class}">
+            {if !isset($category.categories)}
             <input
-                class="ps-filter__item__checkbox"
+                class="ps-filter__item__checkbox{if !isset($category.categories)} js-filter-item-buttoncheckbox{/if}"
                 type="checkbox"
                 name="category"
                 value="{$category.id_category}"
                 {if isset($checked['categories'][$category.id_category])}checked="checked"{/if}
                 id="filter-category-{$category.id_category}"/>
+            {/if}
             <label
                 class="ps-filter__item__button"
-                for="filter-category-{$category.id_category}">{$category.name}</label>
+                for="filter-category-{$category.id_category}">{$category.name}{if $category.products_count} | <b>{$category.products_count}</b>{/if}</label>
             {if isset($category.categories)}
     		<div class="ps-filter__item__ticks">
                 <div class="ps-filter__item__scroll">
@@ -35,7 +37,9 @@
         			<label
                         class="ps-tick__label"
                         for="filter-category-{$subcategory.id_category}">{$subcategory.name}</label>
+                    {if $subcategory.products_count}
                     <div class="ps-tick__products-count">{$subcategory.products_count}</div>
+                    {/if}
                     {if isset($subcategory.categories)}
                     <div class="ps-filter__subticks">
                         {foreach from=$subcategory.categories item=subcategory2}
@@ -50,7 +54,9 @@
                             <label
                                 class="ps-tick__label"
                                 for="filter-category-{$subcategory2.id_category}">{$subcategory2.name}</label>
+                            {if $subcategory2.products_count}
                             <div class="ps-tick__products-count">{$subcategory2.products_count}</div>
+                            {/if}
                         </div>
                         {/foreach}
                     </div>
@@ -58,14 +64,19 @@
                 </div>
                 {/foreach}
                 </div>
+                <div class="ps-filter__item-controls">
+                    <button class="ps-filter__submit js-filter-submit">Применить</button>
+                    <button class="ps-filter__reset js-filter-reset-category">Сбросить</button>
+                </div>
             </div>
             {/if}
         </div>
     {/if}
     {/foreach}
+    {if $discounts > 0}
     <div class="ps-filter__item">
         <input
-            class="ps-filter__item__checkbox"
+            class="ps-filter__item__checkbox js-filter-item-buttoncheckbox"
             type="checkbox"
             name="discount"
             value="1"
@@ -73,37 +84,41 @@
             id="filter-price-drop"/>
         <label
             class="ps-filter__item__button"
-            for="filter-price-drop">Со скидками</label>
+            for="filter-price-drop">Со скидками | <b>{$discounts}</b></label>
     </div>
+    {/if}
     {if isset($manufacturers)}
     <div class="ps-filter__item --haschildren">
         <span class="ps-filter__item__button">Производитель</span>
         <div class="ps-filter__item__ticks">
             <div class="ps-filter__item__scroll">
             {foreach from=$manufacturers item=manufact}
-                {if $manufact.products_count > 0}
                 <div class="ps-filter__tick ps-tick">
                     <input
                         class="ps-tick__checkbox"
                         type="checkbox"
                         value="{$manufact.id_manufacturer}"
-                        {if isset($checked['manufact'])}checked="checked"{/if}
+                        {if isset($checked['manufact'][$manufact.id_manufacturer])}checked="checked"{/if}
                         name="manufact"
                         id="filter-manufact-{$manufact.id_manufacturer}"/>
                     <label
                         class="ps-tick__label"
                         for="filter-manufact-{$manufact.id_manufacturer}">{$manufact.name}</label>
+                    {if $manufact.products_count}    
                     <div class="ps-tick__products-count">{$manufact.products_count}</div>
+                    {/if}
                 </div>
-                {/if}
             {/foreach}
+            </div>
+            <div class="ps-filter__item-controls">
+                <button class="ps-filter__submit js-filter-submit">Применить</button>
+                <button class="ps-filter__reset js-filter-reset-category">Сбросить</button>
             </div>
         </div>
     </div>
     {/if}
-    <div class="ps-filter__controls">
-        <button class="ps-filter__submit js-filter-submit">Применить</button>
-        <button class="ps-filter__reset js-filter-reset">Сбросить</button>
-    </div>
+    {if isset($checked) && $checked}
+    <button class="ps-filter__reset js-filter-reset">Сбросить</button>
+    {/if}
 </div>
 {/if}

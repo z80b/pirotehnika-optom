@@ -153,6 +153,8 @@ class CategoryControllerCore extends FrontController
         // Product sort must be called before assignProductList()
         //$this->productSort();
 
+        $filter = Product::getProductsFilter($this->category->id);
+
         $this->assignScenes();
         //$this->assignSubcategories();
         //$this->assignProductList();
@@ -168,6 +170,8 @@ class CategoryControllerCore extends FrontController
             'description_short'    => Tools::truncateString($this->category->description, 350),
             //'products'             => (isset($this->cat_products) && $this->cat_products) ? $this->cat_products : null,
             'products'             => $this->products,
+            'products_count'       => Category::getProductsCount($this->category->id, $filter),
+            'discounts'            => Product::getDescountsCount($filter),
             'nbProducts'           => $this->productsCount,
             'id_category'          => (int)$this->category->id,
             'id_category_parent'   => (int)$this->category->id_parent,

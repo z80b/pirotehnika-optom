@@ -6,37 +6,39 @@ class Category extends CategoryCore {
 
         $result = array();
         $filters = json_decode($_COOKIE['filter'], true);
-        $filter = $filters[$id_category];
+        $filter = isset($filters[$id_category]) ? $filters[$id_category] : '';
 
-
-        if (isset($filter['categories']) && $filter['categories']) {
-            $categories = array();
-            foreach (explode(',', $filter['categories']) as $key => $item) {
-                $categories = array_merge($categories, preg_split("/[\|\,]/", $item));
+        if ($filter) {
+            if (isset($filter['categories']) && $filter['categories']) {
+                $categories = array();
+                foreach (explode(',', $filter['categories']) as $key => $item) {
+                    $categories = array_merge($categories, preg_split("/[\|\,]/", $item));
+                }
+                $result['categories'] = array_flip($categories);
             }
-            $result['categories'] = array_flip($categories);
-        }
-        if (isset($filter['manufact']) && $filter['manufact']) {
-            $result['manufact'] = array_flip($filter['manufact']);   
-        }
-        if (isset($filter['discount']) && $filter['discount']) {
-            $result['discount'] = 1;
-        }
-        //die('<pre>'.print_r($result, true).'</pre>');
+            if (isset($filter['manufact']) && $filter['manufact']) {
+                $result['manufact'] = array_flip($filter['manufact']);   
+            }
+            if (isset($filter['discount']) && $filter['discount']) {
+                $result['discount'] = 1;
+            }
+        }   
+
         return $result;
     }
 
     public static function getSubcategoriesList($id_category, $id_lang) {
 
         $categories = self::getCategoryChildren($id_category, $id_lang);
+        $filter = Product::getProductsFilter($id_category, false);
 
         foreach ($categories as $index => $category) {
             if ($subcategories = self::getCategoryChildren($category['id_category'], $id_lang)) {
+                $categories[$index]['products_count'] = Category::getProductsCount($category['id_category'], $filter);
                 $categories[$index]['categories'] = $subcategories;
             }
         }
 
-        //die('<pre>'.print_r($categories, true).'</pre>');
         return $categories;
     }
 
@@ -46,11 +48,7 @@ class Category extends CategoryCore {
         $filter = Product::getProductsFilter($id_category, false);
         $sql = "
 
-        SELECT
-            *,
-            COUNT(DISTINCT cp.id_product) AS products_count
-
-        FROM {$db_prefix}category AS c
+        SELECT * FROM {$db_prefix}category AS c
 
         LEFT JOIN {$db_prefix}category_lang AS cl
         ON c.id_category = cl.id_category
@@ -84,7 +82,13 @@ class Category extends CategoryCore {
 
         ORDER BY c.position";
 
-        return Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
+        $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
+
+        foreach ($result as $key => $category) {
+            $result[$key]['products_count'] = self::getProductsCount($category['id_category'], $filter);
+        }
+
+        return $result;
     }
 
     public static function getGeneralCategories() {
@@ -173,7 +177,7 @@ class Category extends CategoryCore {
         $offset = $page_number * $nb_products;
         $limit = $nb_products;
         $filter = Product::getProductsFilter($id_category);
-        //die('<pre>'.print_r(array($filter, $id_category), true).'</pre>');
+
         if ($count) return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("
             SELECT COUNT(DISTINCT p.id_product)
             FROM {$prefix}product AS p
@@ -241,6 +245,7 @@ class Category extends CategoryCore {
         ON p.id_product = sp.id_product
             AND ps.id_shop = sp.id_shop
 
+
         LEFT JOIN {$prefix}product_attribute_shop AS product_attribute_shop
         ON  p.id_product = product_attribute_shop.id_product
             AND product_attribute_shop.default_on = 1
@@ -296,6 +301,37 @@ class Category extends CategoryCore {
                 $product['ean13']);
         }
         return $result;
+    }
+
+    public static function getProductsCount($id_category, $filter) {
+        $prefix  = _DB_PREFIX_;
+
+        return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("
+            SELECT COUNT(DISTINCT p.id_product)
+            FROM {$prefix}product AS p
+
+            INNER JOIN {$prefix}product_shop AS ps
+            ON ps.id_product = p.id_product AND ps.id_shop = 1
+
+            LEFT JOIN {$prefix}category_product AS cp
+            ON p.id_product = cp.id_product
+
+            LEFT JOIN {$prefix}stock_available AS stock
+            ON stock.id_product = p.id_product
+                AND stock.id_product_attribute = 0
+                AND stock.id_shop = 1
+                AND stock.id_shop_group = 0
+
+            LEFT JOIN {$prefix}specific_price AS sp
+            ON p.id_product = sp.id_product
+                AND ps.id_shop = sp.id_shop
+
+            WHERE
+                ps.active = 1
+            AND stock.quantity > 0
+            AND ps.show_price = 1
+            AND cp.id_category = {$id_category} {$filter}
+        ");
     }
 
 }

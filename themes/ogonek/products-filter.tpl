@@ -19,7 +19,7 @@
                 id="filter-category-{$category.id_category}"/>
             <label
                 class="ps-filter__item__button"
-                for="filter-category-{$category.id_category}">{$category.name}</label>
+                for="filter-category-{$category.id_category}">{$category.name} | <b>{$category.products_count}</b></label>
             {if isset($category.categories)}
     		<div class="ps-filter__item__ticks">
                 <div class="ps-filter__item__scroll">
@@ -63,6 +63,7 @@
         </div>
     {/if}
     {/foreach}
+    {if $discounts > 0}
     <div class="ps-filter__item">
         <input
             class="ps-filter__item__checkbox"
@@ -73,8 +74,9 @@
             id="filter-price-drop"/>
         <label
             class="ps-filter__item__button"
-            for="filter-price-drop">Со скидками</label>
+            for="filter-price-drop">Со скидками | <b>{$discounts}</b></label>
     </div>
+    {/if}
     {if isset($manufacturers)}
     <div class="ps-filter__item --haschildren">
         <span class="ps-filter__item__button">Производитель</span>

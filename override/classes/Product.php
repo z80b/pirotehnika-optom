@@ -110,16 +110,12 @@ class Product extends ProductCore
 
         $result = array_map(function($item) { return $item['id_product']; }, Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql, true));
 
-       //die('<pre>'.print_r($result, true).'</pre>');
-
         $position = array_search($id_product, $result, false);
 
         return array (
             'prev_product' => isset($result[$position - 1]) ? $context->link->getProductLink($result[$position - 1]) : NULL,
             'next_product' => isset($result[$position + 1]) ? $context->link->getProductLink($result[$position + 1]) : NULL,
         );
-
-        //die('<pre>'.print_r(array($position, $sss, $filter, $order_by, $order_way, $result), true).'</pre>');
     }
 
     public static function getOrder($order_by = 'name', $order_way = 'asc') {
@@ -195,15 +191,13 @@ class Product extends ProductCore
                     ($only_active ? ' AND product_shop.`active` = 1' : '').'
                 ORDER BY '.(isset($order_by_prefix) ? pSQL($order_by_prefix).'.' : '').'`'.pSQL($order_by).'` '.pSQL($order_way).
                 ($limit > 0 ? ' LIMIT '.(int)$start.','.(int)$limit : '');
-                //die('<pre>'.print_r($sql, true).'</pre>');
+
         $rq = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
         if ($order_by == 'price') {
             Tools::orderbyPrice($rq, $order_way);
         }
 
         foreach ($rq as &$row) {
-            //die('<pre>'.print_r($row, true).'</pre>');
-            //$row.name .= '????';
             $row = Product::getTaxesInformations($row);
             $row['specific_prices'] = array('reduction' => 0);
             $row['reduction'] = 0;
@@ -215,7 +209,7 @@ class Product extends ProductCore
 
     public static function getProductsFilter($id_category = NULL, $id_category_use = true) {
         if (isset($id_category) && $id_category_use) {
-            $filter = " AND cp.id_category = {$id_category}";
+            $filter = "AND cp.id_category = {$id_category}";
         } else $filter = '';
 
         if (isset($_COOKIE['filter']) && isset($id_category)) {
@@ -234,8 +228,6 @@ class Product extends ProductCore
 
                 if ($categories_filter && count($categories_filter)) {
                     $subfilter = " cp.id_product IN ". implode(' AND cp.id_product IN ', $categories_filter);
-                    //$subfilter = " cp.id_product IN (". implode(',', $categories_filter). ")";
-                
 
                     $sql = "
                         select distinct p.id_product from "._DB_PREFIX_."product p 
@@ -245,11 +237,13 @@ class Product extends ProductCore
                     $result2 = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
 
                     $ff1 = array();
+
                     foreach ($result2 as $key => $product) {
                         $ff1[] = $product['id_product']; 
                     }
-                    //$ff1 .= '0';
-                    $filter .= " AND cp.id_product IN (". implode(',', $ff1).")";
+
+                    if ($ids = implode(',', $ff1))
+                        $filter .= " AND cp.id_product IN (". implode(',', $ff1).")";
                 }
             }
 
@@ -264,6 +258,38 @@ class Product extends ProductCore
         }
 
         return $filter;
+    }
+
+    public static function getDescountsCount($filter) {
+        $prefix  = _DB_PREFIX_;
+
+        return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("
+            SELECT COUNT(DISTINCT (p.price - p.price * sp.reduction)) AS product_count
+
+            FROM {$prefix}product AS p
+
+            INNER JOIN {$prefix}product_shop AS ps
+            ON ps.id_product = p.id_product AND ps.id_shop = 1
+
+            LEFT JOIN {$prefix}category_product AS cp
+            ON p.id_product = cp.id_product
+
+            LEFT JOIN {$prefix}stock_available AS stock
+            ON stock.id_product = p.id_product
+                AND stock.id_product_attribute = 0
+                AND stock.id_shop = 1
+                AND stock.id_shop_group = 0
+
+            LEFT JOIN {$prefix}specific_price AS sp
+            ON p.id_product = sp.id_product
+                AND ps.id_shop = sp.id_shop
+
+            WHERE
+                ps.active = 1
+            AND stock.quantity > 0
+            AND ps.show_price = 1
+            {$filter}
+        ");
     }
 
 }

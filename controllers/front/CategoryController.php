@@ -146,10 +146,13 @@ class CategoryControllerCore extends FrontController
         $this->productSort();
         $this->productsCount = Category::getProductsList($this->context->language->id, $this->category->id_category, null, null, true);
         $this->pagination($this->productsCount);
-        $this->products = Category::getProductsList($this->context->language->id, $this->category->id_category, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
+        $this->products = Category::getProductsList($this->context->language->id, $this->category->id, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
+
+        $filter = Product::getProductsFilter($this->category->id);
+
         $this->assignScenes();
 
-        $this->context->smarty->assign(array(
+        $templateData = array(
             'categories'           => $this->categories,
             'manufacturers'        => Manufacturer::getManufacturersList($this->category->id),
             'subcategories'        => $this->subcategories,
@@ -157,6 +160,8 @@ class CategoryControllerCore extends FrontController
             'checked'              => Category::getCheckedCategories($this->category->id),
             'description_short'    => Tools::truncateString($this->category->description, 350),
             'products'             => $this->products,
+            'products_count'       => Category::getProductsCount($this->category->id, $filter),
+            'discounts'            => Product::getDescountsCount($filter),
             'nbProducts'           => $this->productsCount,
             'id_category'          => (int)$this->category->id,
             'id_category_parent'   => (int)$this->category->id_parent,
@@ -171,7 +176,15 @@ class CategoryControllerCore extends FrontController
             'comparator_max_item'  => (int)Configuration::get('PS_COMPARATOR_MAX_ITEM'),
             'suppliers'            => Supplier::getSuppliers(),
             'body_classes'         => array($this->php_self.'-'.$this->category->id, $this->php_self.'-'.$this->category->link_rewrite)
-        ));
+        );
+
+        if (Tools::getValue('json') == 1) {
+            header('Content-Type: application/json; charset=UTF-8');
+            die(Tools::jsonEncode($templateData));
+        } else {
+            $this->context->smarty->assign($templateData);
+            $this->setTemplate(_PS_THEME_DIR_.'category.tpl');
+        }
     }
 
     /**

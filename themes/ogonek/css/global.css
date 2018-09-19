@@ -1,7 +1,9 @@
+.ps-filter__item-controls,
 .ps-products--grid .ps-product__controls {
   display: block;
   clear: both;
 }
+.ps-filter__item-controls::after,
 .ps-products--grid .ps-product__controls::after {
   content: '';
   display: table;
@@ -11790,7 +11792,7 @@ input[type='number'] {
   position: absolute;
   top: 100%;
   right: 0;
-  padding: 10px 0;
+  padding: 10px 0 0;
   border: 1px solid #f3aa38;
   background-color: #fff;
   -webkit-border-radius: 5px 0 5px 5px;
@@ -11799,6 +11801,7 @@ input[type='number'] {
   -webkit-box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.3);
      -moz-box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.3);
           box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.3);
+  overflow: hidden;
   z-index: 10;
 }
 .ps-filter__item__button {
@@ -11836,13 +11839,19 @@ input[type='number'] {
   background-color: #666;
 }
 .ps-filter__item__checkbox:checked + .ps-filter__item__button {
-  background-color: #666;
+  background-color: #aaa;
 }
 .ps-filter__item__checkbox:checked + .ps-filter__item__button::after {
   content: '\00d7';
 }
 .ps-filter__item:hover .ps-filter__item__ticks {
   display: block;
+}
+.ps-filter__item-controls {
+  padding: 10px 14px;
+  width: 100%;
+  min-width: 230px;
+  background-color: #eee;
 }
 .ps-tick {
   position: relative;

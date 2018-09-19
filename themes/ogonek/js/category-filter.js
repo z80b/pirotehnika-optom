@@ -20,6 +20,43 @@ function setOrder($select) {
     }
 }
 
+function filterApply() {
+    var categories = [];
+    $('.js-products-filter .ps-filter__item').each(function(ix, el) {
+        if ($(el).find('input[name=category]:checked').size()) {
+            categories.push($(el).find('input[name=category]:checked').get().map(function(input) { return input.value }).join(','));
+        }
+    });
+    
+    var category_id = $(this).parents('.js-products-filter').data('category-id');
+    var filterData = '',
+        filterObj = {
+            'categories': categories.join('|'),
+            'discount': $(this)
+                .parents('.js-products-filter')
+                .find('input[name=discount]:checked').length ? 1 : 0,
+            'manufact': $(this)
+                .parents('.js-products-filter')
+                .find('input[name=manufact]:checked')
+                .get()
+                .map(function(input) { if (input.value) return input.value })
+                
+        };
+    console.log(filterObj);
+    var currentFilter = JSON.parse($.cookie('filter') || '{}');
+    currentFilter[category_id] = filterObj;
+
+    $.cookie('filter', JSON.stringify(currentFilter));
+
+    for (var key in filterObj) {
+        if (typeof(filterObj[key]) == 'array')
+            $.cookie(key, filterObj[key].join(','));
+        else
+            $.cookie(key, filterObj[key]);
+    }
+    window.location.reload();    
+}
+
 function initCategoriesFilter(e,a,b) {
     console.log(e,a,b);
     $('.js-products-filter')
@@ -68,43 +105,46 @@ function initCategoriesFilter(e,a,b) {
                     .removeAttr('disabled');
             }
         })
-        .on('click', '.js-filter-submit', function(event) {
-            var categories = [];
-            $('.js-products-filter .ps-filter__item').each(function(ix, el) {
-                console.log('el:', el);
-                if ($(el).find('input[name=category]:checked').size()) {
-                    categories.push($(el).find('input[name=category]:checked').get().map(function(input) { return input.value }).join(','));
-                }
-            });
-            
-            var category_id = $(this).parents('.js-products-filter').data('category-id');
-            var filterData = '',
-                filterObj = {
-                    'categories': categories.join('|'),
-                    'discount': $(this)
-                        .parents('.js-products-filter')
-                        .find('input[name=discount]:checked').length ? 1 : 0,
-                    'manufact': $(this)
-                        .parents('.js-products-filter')
-                        .find('input[name=manufact]:checked')
-                        .get()
-                        .map(function(input) { if (input.value) return input.value })
-                        
-                };
-            console.log(filterObj);
-            var currentFilter = JSON.parse($.cookie('filter') || '{}');
-            currentFilter[category_id] = filterObj;
-            console.log(currentFilter);
-            $.cookie('filter', JSON.stringify(currentFilter));
+        .on('click', '.js-filter-submit', filterApply)
+        .on('change', '.js-filter-item-buttoncheckbox', filterApply)
+        //.on('click', '.js-filter-submit', function(event) {
 
-            for (var key in filterObj) {
-                if (typeof(filterObj[key]) == 'array')
-                    $.cookie(key, filterObj[key].join(','));
-                else
-                    $.cookie(key, filterObj[key]);
-            }
-            window.location.reload();
-        })
+            // var categories = [];
+            // $('.js-products-filter .ps-filter__item').each(function(ix, el) {
+            //     console.log('el:', el);
+            //     if ($(el).find('input[name=category]:checked').size()) {
+            //         categories.push($(el).find('input[name=category]:checked').get().map(function(input) { return input.value }).join(','));
+            //     }
+            // });
+            
+            // var category_id = $(this).parents('.js-products-filter').data('category-id');
+            // var filterData = '',
+            //     filterObj = {
+            //         'categories': categories.join('|'),
+            //         'discount': $(this)
+            //             .parents('.js-products-filter')
+            //             .find('input[name=discount]:checked').length ? 1 : 0,
+            //         'manufact': $(this)
+            //             .parents('.js-products-filter')
+            //             .find('input[name=manufact]:checked')
+            //             .get()
+            //             .map(function(input) { if (input.value) return input.value })
+                        
+            //     };
+            // console.log(filterObj);
+            // var currentFilter = JSON.parse($.cookie('filter') || '{}');
+            // currentFilter[category_id] = filterObj;
+            // console.log(currentFilter);
+            // $.cookie('filter', JSON.stringify(currentFilter));
+
+            // for (var key in filterObj) {
+            //     if (typeof(filterObj[key]) == 'array')
+            //         $.cookie(key, filterObj[key].join(','));
+            //     else
+            //         $.cookie(key, filterObj[key]);
+            // }
+            // window.location.reload();
+        //})
         .on('click', '.js-filter-reset', function() {
             filterReset();
         });

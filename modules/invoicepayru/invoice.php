@@ -262,8 +262,8 @@ class SPDF extends MYPDF
 		$page_number = 1;
 		$line_number = 1;
 		$product_count = 0;
-		$first_page_line_limit = 40;
-		$other_page_line_limit = 60;
+		$first_page_line_limit = 42;
+		$other_page_line_limit = 65;
 		$first_page_line_limit++;
 		$other_page_line_limit++;
 		if ($with_image == 1) {
@@ -275,7 +275,9 @@ class SPDF extends MYPDF
 		$product_count = 0;
 		foreach($products AS $product)
 		{
-			$product_count++;
+			if ($product['product_quantity'] > 0) {
+				$product_count++;
+			}	
 		}
 		if ($product_count > $first_page_line_limit) {
 			$first_page_line_count = $first_page_line_limit;
@@ -283,7 +285,14 @@ class SPDF extends MYPDF
 //			$first_page_line_count = $product_count;
 		}
 		
-		$other_page_line_count = 55;
+		$other_page_line_count = 53;
+		if ($with_image == 1) {
+			$other_page_line_count = 53;
+		} else {
+			$other_page_line_count = 64;
+		}
+		$other_page_line_count_tek = $other_page_line_count+1;
+		$other_page_line_count = $other_page_line_count_tek;
 //		$first_page_otstup = 109;
 		$first_page_otstup = 99;
 		$other_page_otstup = 22;
@@ -294,12 +303,12 @@ class SPDF extends MYPDF
 				$pdf->AddPage();
 				$page_number++;
 				$line_number = 1;
-				$product_count -= ($page_number == 2 ? $first_page_line_count : $other_page_line_count);
-				$other_page_line_count = 55;
+				$product_count -= ($page_number == 2 ? $first_page_line_count-1 : $other_page_line_count-1);
+				$other_page_line_count = $other_page_line_count_tek;
 				if ($product_count > $other_page_line_limit) {
 					$other_page_line_count = $other_page_line_limit;
 				} elseif ($product_count > $other_page_line_count) {
-					$other_page_line_count = $product_count;
+//					$other_page_line_count = $product_count;
 				}
 				$pdf->Ln(10);
 				
@@ -311,8 +320,8 @@ class SPDF extends MYPDF
 				$pdf->Ln(3);
 			}
 			if ($product['product_quantity'] > 0) {
-				$line_number++;	
-				$pdf->MultiCell(80, $pdf->lasth, $product['reference'].' '.substr($product['product_name'],0,50), 1, 'L', 0, 0, 24, $pdf->GetY(), false, 0, false, true, $pdf->lasth, 'M', 1);
+//				$pdf->MultiCell(80, $pdf->lasth, $product_count.' '.$line_number.' '.$product['reference'].' '.substr($product['product_name'],0,50), 1, 'L', 0, 0, 24, $pdf->GetY(), false, 0, false, true, $pdf->lasth, 'M', 1);
+				$pdf->MultiCell(80, $pdf->lasth, $product['reference'].' '.trim(substr($product['product_name'],0,80)), 1, 'L', 0, 0, 24, $pdf->GetY(), false, 0, false, true, $pdf->lasth, 'M', 1);
 				$pdf->MultiCell(9, $pdf->lasth, $i++, 1, 'C', 0, 0, 15, $pdf->GetY(), false, 0, false, true, $pdf->lasth, 'M', 1);
 
 	//			$pdf->MultiCell(18, $pdf->lasth, 'шт.', 1, 'C', 0, 0, 104, $pdf->GetY(), false, 0, false, true, $pdf->lasth, 'M', 1);
@@ -320,6 +329,7 @@ class SPDF extends MYPDF
 				$pdf->MultiCell(18, $pdf->lasth, (int)($product['product_quantity']), 1, 'R', 0, 0, '', '', false, 0, false, true, $pdf->lasth, 'M', 1);
 				$pdf->MultiCell(25, $pdf->lasth, number_format($product['product_price_wt'], 2, '.', ''), 1, 'R', 0, 0, '', '', false, 0, false, true, $pdf->lasth, 'M', 1);
 				$pdf->MultiCell(25, $pdf->lasth, number_format(($product['product_price_wt'] * $product['product_quantity']), 2, '.', ''), 1, 'R', 0, 1, '', '', false, 0, false, true, $pdf->lasth, 'M', 1);
+				$line_number++;	
 			}
 			if (Configuration::get('INVOICEPAYRU_CALLNDS'))
 			{

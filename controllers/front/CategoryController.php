@@ -150,6 +150,8 @@ class CategoryControllerCore extends FrontController
 
         $filter = Product::getProductsFilter($this->category->id);
 
+        $filter = Product::getProductsFilter($this->category->id);
+
         $this->assignScenes();
 
         $templateData = array(

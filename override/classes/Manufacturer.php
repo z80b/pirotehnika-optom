@@ -58,7 +58,6 @@ class Manufacturer extends ManufacturerCore {
             return false;
         }
 
-
         $filter = Product::getProductsFilter($id_category);
 
         foreach ($manufacturers as $key => $manufacturer) {

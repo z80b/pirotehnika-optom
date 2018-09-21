@@ -167,6 +167,43 @@
 		</div>
 	</div>
 
+		<!--правки для наименования
+	-->
+	<div class="form-group">
+		<div class="col-lg-1"><span class="pull-right">{include file="controllers/products/multishop/checkbox.tpl" field="price_name" type="text" multilang="true"}</span></div>
+		<label class="control-label col-lg-2" for="price_name_{$id_lang}">
+			<span class="label-tooltip" data-toggle="tooltip" title="{l s='The public price_name for this product.'} {l s='Invalid characters:'} &lt;&gt;;=#{}">
+				{l s='Наименование по прайсу'} 
+			</span>
+		</label>
+		<div class="col-lg-5">
+			{include file="controllers/products/input_text_lang.tpl"
+				languages=$languages
+				
+
+				input_value=$product->price_name
+				input_name="price_name"
+				required=false
+			}
+		</div>
+	</div>
+
+	
+	
+	<div class="form-group">
+		<label class="control-label col-lg-3" for="rname">
+			<span class="label-tooltip" data-toggle="tooltip"
+				title="Розничное наименование">
+				{$bullet_common_field} Розничное наименование
+			</span>
+		</label>
+		<div class="col-lg-3">
+			<input maxlength="17" type="text" id="rname" name="rname" value="{$product->rname|htmlentitiesUTF8}" />
+		</div>
+	</div>
+
+	
+	
 	<div class="form-group">
 		<label class="control-label col-lg-3" for="reference">
 			<span class="label-tooltip" data-toggle="tooltip"

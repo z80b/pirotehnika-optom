@@ -174,6 +174,8 @@ class ProductCore extends ObjectModel
     public $action;
 
     public $rname;
+	//правка для наименования
+	public $price_name;
 
     public $rtor;
 
@@ -419,6 +421,8 @@ class ProductCore extends ObjectModel
                     'modifier' => 'modifierWsLinkRewrite'
                 )
             ),
+			//правка для наименования
+			'price_name' =>                array('type' => self::TYPE_STRING, 'lang'=>true, 'validate' => 'isString', 'required' => false),
             'name' =>                        array('type' => self::TYPE_STRING, 'lang' => true, 'validate' => 'isCatalogName', 'required' => true, 'size' => 128),
             'description' =>                array('type' => self::TYPE_HTML, 'lang' => true, 'validate' => 'isCleanHtml'),
             'description_short' =>            array('type' => self::TYPE_HTML, 'lang' => true, 'validate' => 'isCleanHtml'),
@@ -1361,8 +1365,8 @@ class ProductCore extends ObjectModel
         if (!in_array($context->controller->controller_type, array('front', 'modulefront'))) {
             $front = false;
         }
-
-        $sql = 'SELECT p.`id_product`, pl.`name`
+//правка для наименования
+        $sql = 'SELECT p.`id_product`, pl.`name`, pl.`price_name`
                 FROM `'._DB_PREFIX_.'product` p
                 '.Shop::addSqlAssociation('product', 'p').'
                 LEFT JOIN `'._DB_PREFIX_.'product_lang` pl ON (p.`id_product` = pl.`id_product` '.Shop::addSqlRestrictionOnLang('pl').')
@@ -2415,11 +2419,11 @@ class ProductCore extends ObjectModel
                     '.$sql_groups;
             return (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($sql);
         }
-
+//правка для наименования
         $sql = new DbQuery();
         $sql->select(
             'p.*, product_shop.*, stock.out_of_stock, IFNULL(stock.quantity, 0) as quantity, pl.`description`, pl.`description_short`, pl.`link_rewrite`, pl.`meta_description`,
-            pl.`meta_keywords`, pl.`meta_title`, pl.`name`, pl.`available_now`, pl.`available_later`, image_shop.`id_image` id_image, il.`legend`, m.`name` AS manufacturer_name,
+            pl.`meta_keywords`, pl.`meta_title`, pl.`name`, pl.`price_name`, pl.`available_now`, pl.`available_later`, image_shop.`id_image` id_image, il.`legend`, m.`name` AS manufacturer_name,
             product_shop.`date_add` > "'.date('Y-m-d', strtotime('-'.(Configuration::get('PS_NB_DAYS_NEW_PRODUCT') ? (int)Configuration::get('PS_NB_DAYS_NEW_PRODUCT') : 20).' DAY')).'" as new'
         );
 
@@ -2554,10 +2558,10 @@ class ProductCore extends ObjectModel
             if (!$id_product = $result['id_product']) {
                 return false;
             }
-
+//правка для наименования
             // no group by needed : there's only one attribute with cover=1 for a given id_product + shop
             $sql = 'SELECT p.*, product_shop.*, stock.`out_of_stock` out_of_stock, pl.`description`, pl.`description_short`,
-                        pl.`link_rewrite`, pl.`meta_description`, pl.`meta_keywords`, pl.`meta_title`, pl.`name`, pl.`available_now`, pl.`available_later`,
+                        pl.`link_rewrite`, pl.`meta_description`, pl.`meta_keywords`, pl.`meta_title`, pl.`name`, pl.`price_name`, pl.`available_now`, pl.`available_later`,
                         p.`ean13`, p.`upc`, image_shop.`id_image` id_image, il.`legend`,
                         DATEDIFF(product_shop.`date_add`, DATE_SUB("'.date('Y-m-d').' 00:00:00",
                         INTERVAL '.(Validate::isUnsignedInt(Configuration::get('PS_NB_DAYS_NEW_PRODUCT')) ? Configuration::get('PS_NB_DAYS_NEW_PRODUCT') : 20).'
@@ -2681,7 +2685,7 @@ class ProductCore extends ObjectModel
             p.*, p.price as price_discount, product_shop.*, stock.out_of_stock, IFNULL(stock.quantity, 0) as quantity, pl.`description`, pl.`description_short`, pl.`available_now`, pl.`available_later`,
             IFNULL(product_attribute_shop.id_product_attribute, 0) id_product_attribute,
             pl.`link_rewrite`, pl.`meta_description`, pl.`meta_keywords`, pl.`meta_title`,
-            pl.`name`, image_shop.`id_image` id_image, il.`legend`, m.`name` AS manufacturer_name,
+            pl.`name`, pl.`price_name`, image_shop.`id_image` id_image, il.`legend`, m.`name` AS manufacturer_name,
             DATEDIFF(
                 p.`date_add`,
                 DATE_SUB(
@@ -3735,10 +3739,11 @@ class ProductCore extends ObjectModel
      * @param int $id_product Product id
      * @return array Product accessories
      */
+	 //правка для наименования
     public static function getAccessoriesLight($id_lang, $id_product)
     {
         return Db::getInstance()->executeS('
-            SELECT p.`id_product`, p.`reference`, pl.`name`
+            SELECT p.`id_product`, p.`reference`, pl.`name`, pl.`price_name`
             FROM `'._DB_PREFIX_.'accessory`
             LEFT JOIN `'._DB_PREFIX_.'product` p ON (p.`id_product`= `id_product_2`)
             '.Shop::addSqlAssociation('product', 'p').'
@@ -3756,10 +3761,11 @@ class ProductCore extends ObjectModel
      * @param int $id_lang Language id
      * @return array Product accessories
      */
+	 //правка для наименования
     public function getAccessories($id_lang, $active = true)
     {
         $sql = 'SELECT p.*, product_shop.*, stock.out_of_stock, IFNULL(stock.quantity, 0) as quantity, pl.`description`, pl.`description_short`, pl.`link_rewrite`,
-                    pl.`meta_description`, pl.`meta_keywords`, pl.`meta_title`, pl.`name`, pl.`available_now`, pl.`available_later`,
+                    pl.`meta_description`, pl.`meta_keywords`, pl.`meta_title`, pl.`name`, pl.`price_name`, pl.`available_now`, pl.`available_later`,
                     image_shop.`id_image` id_image, il.`legend`, m.`name` as manufacturer_name, cl.`name` AS category_default, IFNULL(product_attribute_shop.id_product_attribute, 0) id_product_attribute,
                     DATEDIFF(
                         p.`date_add`,
@@ -3959,7 +3965,7 @@ class ProductCore extends ObjectModel
         }
 
         $sql = new DbQuery();
-        $sql->select('p.`id_product`, pl.`name`, p.`ean13`, p.`upc`, p.`active`, p.`reference`, m.`name` AS manufacturer_name, stock.`quantity`, product_shop.advanced_stock_management, p.`customizable`');
+        $sql->select('p.`id_product`, pl.`name`, pl.`price_name`, p.`ean13`, p.`upc`, p.`active`, p.`reference`, m.`name` AS manufacturer_name, stock.`quantity`, product_shop.advanced_stock_management, p.`customizable`');
         $sql->from('product', 'p');
         $sql->join(Shop::addSqlAssociation('product', 'p'));
         $sql->leftJoin('product_lang', 'pl', '

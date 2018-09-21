@@ -8,9 +8,9 @@
 !/admin100/themes/default/css/*
 !/admin100/themes/default/css/**
 
-!/admin100/themes/default/src/css
-!/admin100/themes/default/src/css/*
-!/admin100/themes/default/src/css/**
+!/admin100/themes/default/src
+!/admin100/themes/default/src/*
+!/admin100/themes/default/src/**
 
 !/admin100/themes/default/template
 !/admin100/themes/default/template/*

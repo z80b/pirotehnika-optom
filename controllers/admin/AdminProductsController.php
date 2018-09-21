@@ -383,6 +383,8 @@ class AdminProductsControllerCore extends AdminController
 		$object->gtd = Tools::getValue('gtd');
 		$object->sg = Tools::getValue('sg');
 		$object->sgt = Tools::getValue('sgt');
+		//правки для наименования
+		$object->rname = Tools::getValue('rname');
 		$object->max_discount = Tools::getValue('max_discount');
 		$object->sale_unity = Tools::getValue('sale_unity');
 		$object->parent_sale_unity = Tools::getValue('parent_sale_unity');
@@ -662,6 +664,24 @@ class AdminProductsControllerCore extends AdminController
                 }
             }
 
+			
+			//правка для наименования
+			 foreach ($attachment_pricename as $lang => $price_name) {
+                $language = Language::getLanguage((int)$lang);
+
+                if (Tools::strlen($price_name) > 0) {
+                    $is_attachment_name_valid = true;
+                }
+
+                if (!Validate::isGenericName($price_name)) {
+                    $_FILES['attachment_file']['error'][] = sprintf(Tools::displayError('Invalid price_name for %s language'), $language['price_name']);
+                } elseif (Tools::strlen($price_name) > 32) {
+                    $_FILES['attachment_file']['error'][] = sprintf(Tools::displayError('The price_name for %1s language is too long (%2d chars max).'), $language['price_name'], 32);
+                }
+            }
+			
+			
+			
             foreach ($attachment_descriptions as $lang => $description) {
                 $language = Language::getLanguage((int)$lang);
 
@@ -705,7 +725,10 @@ class AdminProductsControllerCore extends AdminController
                     foreach ($attachment_descriptions as $lang => $description) {
                         $attachment->description[(int)$lang] = $description;
                     }
-
+					//правка для наименования
+					foreach ($attachment_pricename as $lang => $price_name) {
+                        $attachment->price_name[(int)$lang] = $price_name;
+                    }
                     $attachment->file = $uniqid;
                     $attachment->mime = $_FILES['attachment_file']['type'];
                     $attachment->file_name = $_FILES['attachment_file']['name'];
@@ -2886,6 +2909,8 @@ class AdminProductsControllerCore extends AdminController
 		$this->tpl_form_vars['gtd'] = $this->object->gtd;
 		$this->tpl_form_vars['sg'] = $this->object->sg;
 		$this->tpl_form_vars['sgt'] = $this->object->sgt;
+		//правки для наименования
+		$this->tpl_form_vars['rname'] = $this->object->rname;
 		$this->tpl_form_vars['max_discount'] = $this->object->max_discount;
 		$this->tpl_form_vars['parent_sale_unity'] = $this->object->parent_sale_unity;
 		$this->tpl_form_vars['sale_unit_price_ratio'] = $this->object->sale_unit_price_ratio;
@@ -4035,9 +4060,10 @@ class AdminProductsControllerCore extends AdminController
 
         $product_props = array();
         // global informations
+		//правки для наименования
         array_push($product_props, 'reference', 'ean13', 'ean13_2', 'ean13_3', 'upc',
         'available_for_order', 'show_price', 'online_only',
-        'id_manufacturer', 'country_prois', 'sert', 'sert_full','is_checked', 'gtd', 'sg', 'sgt', 'max_discount'
+        'id_manufacturer', 'country_prois', 'sert', 'rname', 'sert_full','is_checked', 'gtd', 'sg', 'sgt', 'max_discount'
         );
 
         // specific / detailled information

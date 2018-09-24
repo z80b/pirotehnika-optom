@@ -286,15 +286,16 @@ class Category extends CategoryCore {
 
         $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
 
-        foreach ($result as $key => $product) {
+        foreach ($result as $key => &$product) {
             $result[$key]['specific_prices'] = array(
                 'reduction' => $product['reduction'],
                 'reduction_type' => 'percentage'
             );
-            $result[$key]['price'] = isset($product['price_discount']) ? $product['price_discount'] : $product['price'];
-            $result[$key]['price_without_reduction'] = $product['price'];
-            $result[$key]['features'] = Product::getFrontFeaturesStatic($id_lang, $product['id_product']);
-            $result[$key]['link'] = $context->link->getProductLink(
+            $product['price'] = isset($product['price_discount']) ? $product['price_discount'] : $product['price'];
+            $product['price_without_reduction'] = $product['price'];
+            $product['box_quantity'] = floor($product['quantity'] / $product['r3']);
+            $product['features'] = Product::getFrontFeaturesStatic($id_lang, $product['id_product']);
+            $product['link'] = $context->link->getProductLink(
                 $product['id_product'],
                 $product['link_rewrite'],
                 $product['id_category_default'],

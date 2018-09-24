@@ -44,12 +44,18 @@
                 </span>
             {/if}
         </div>
-        <div class="ps-product__table-cell">{if $product.r1 < 2}-{else}{$product.r1}<div>шт.</div>{/if}</div>
-        <div class="ps-product__table-cell">{if $product.r2 < 2}-{else}{$product.r2}<div>уп.</div>{/if}</div>
-        <div class="ps-product__table-cell">{if $product.r3 < 2}-{else}{$product.r3}<div>{Product::SGetProductUnity($product.sale_unity)}</div>{/if}</div>
-        <div class="ps-product__table-cell">
-            {$product.quantity}
-            {Product::SGetProductUnity($product.sale_unity)}
+        <div class="ps-product__table-cell">{if $product.r1 == 1}-{else}{$product.r1}<div>шт.</div>{/if}</div>
+        <div class="ps-product__table-cell">{if $product.r2 == 1}-{else}{$product.r2}<div>уп.</div>{/if}</div>
+        <div class="ps-product__table-cell">{if $product.r3 == 1}-{else}{$product.r3}<div>{Product::SGetProductUnity($product.sale_unity)}</div>{/if}</div>
+        <div class="ps-product__table-cell ps-product__table-cell--quantity">
+            <div class="ps-product__quantity-cell">
+                {if $product.box_quantity}
+                {$product.box_quantity} кор.
+                {else}{/if}
+            </div>
+            <div class="ps-product__quantity-cell">
+                {$product.quantity} {Product::SGetProductUnity($product.sale_unity)}
+            </div>
         </div>
         <div class="ps-product__table-cell ps-product__controls">
             {if $product.quantity > 0}

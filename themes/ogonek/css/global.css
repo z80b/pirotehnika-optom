@@ -11443,6 +11443,7 @@ input[type='number'] {
 }
 .ps-products--table .ps-product__quantity-cell {
   white-space: normal;
+  line-height: 17px;
 }
 .ps-products--table .ps-product__table {
   display: table;
@@ -11504,6 +11505,9 @@ input[type='number'] {
 }
 .ps-product__table-thead .ps-products--table .ps-product__table-cell {
   font-weight: 800;
+}
+.ps-products--table .ps-product__table-cell--quantity {
+  vertical-align: top;
 }
 .ps-products--table .ps-product__grid,
 .ps-products--table .ps-product__list,

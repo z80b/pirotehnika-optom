@@ -144,9 +144,10 @@ class CategoryControllerCore extends FrontController
 
         $this->productsCount = Category::getProductsList($this->context->language->id, $this->category->id_category, null, null, true);
         $this->pagination($this->productsCount);
-        $this->products = Category::getProductsList($this->context->language->id, $this->category->id_category, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
+        $this->products = Category::getProductsList($this->context->language->id, $this->category->id, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
 
-        $this->productSort();
+        $filter = Product::getProductsFilter($this->category->id);
+
         $this->assignScenes();
 
         $templateData = array(
@@ -174,7 +175,7 @@ class CategoryControllerCore extends FrontController
             'suppliers'            => Supplier::getSuppliers(),
             'body_classes'         => array($this->php_self.'-'.$this->category->id, $this->php_self.'-'.$this->category->link_rewrite)
         );
-        
+
         if (Tools::getValue('json') == 1) {
             header('Content-Type: application/json; charset=UTF-8');
             die(Tools::jsonEncode($templateData));

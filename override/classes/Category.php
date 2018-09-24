@@ -76,7 +76,7 @@ class Category extends CategoryCore {
             AND st.id_shop = 1
             AND ps.active = 1
             AND ps.show_price = 1
-            AND st.quantity > 0
+
 
         GROUP BY c.id_category
 

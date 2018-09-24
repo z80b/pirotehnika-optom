@@ -13,7 +13,7 @@ class Manufacturer extends ManufacturerCore {
         }
 
         $prefix  = _DB_PREFIX_;
-        $filter = Product::getProductsFilter($id_category);
+        $filter = Product::getProductsFilter($id_category, true, false);
         $sql = "
         SELECT
             m.*,
@@ -45,7 +45,6 @@ class Manufacturer extends ManufacturerCore {
         WHERE m.active = 1
             AND ps.active = 1
             AND ps.show_price = 1
-            AND st.quantity > 0
 
         {$filter}
 
@@ -58,6 +57,8 @@ class Manufacturer extends ManufacturerCore {
         if ($manufacturers === false) {
             return false;
         }
+
+        $filter = Product::getProductsFilter($id_category);
 
         foreach ($manufacturers as $key => $manufacturer) {
             $manufacturers[$key]['products_count'] = self::getProductsCount($manufacturer['id_manufacturer'], $filter);

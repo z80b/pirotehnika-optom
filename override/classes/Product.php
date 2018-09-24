@@ -207,7 +207,7 @@ class Product extends ProductCore
         return ($rq);
     }
 
-    public static function getProductsFilter($id_category = NULL, $id_category_use = true) {
+    public static function getProductsFilter($id_category = NULL, $id_category_use = true, $id_manufacturer_use = true) {
         if (isset($id_category) && $id_category_use) {
             $filter = "AND cp.id_category = {$id_category}";
         } else $filter = '';
@@ -251,7 +251,7 @@ class Product extends ProductCore
                 $filter .= ' AND sp.reduction > 0';
             }
 
-            if (isset($cookie_filter['manufact']) && $cookie_filter['manufact']) {
+            if (isset($cookie_filter['manufact']) && $cookie_filter['manufact'] && $id_manufacturer_use) {
                 $filter .= " AND p.id_manufacturer IN(" . implode(',', $cookie_filter['manufact']) .")";
             }
 

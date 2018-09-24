@@ -129,8 +129,6 @@ class CategoryControllerCore extends FrontController
     {
         parent::initContent();
 
-        $this->setTemplate(_PS_THEME_DIR_.'category.tpl');
-
         if (!$this->customer_access) {
             return;
         }
@@ -139,34 +137,23 @@ class CategoryControllerCore extends FrontController
             $this->context->smarty->assign('compareProducts', CompareProduct::getCompareProducts((int)$this->context->cookie->id_compare));
         }
 
-
         $this->categories = $this->getCategories();
         $this->subcategories = Category::getSubcategoriesList($this->category->id_category, $this->context->language->id);
 
         $this->productSort();
         $this->productsCount = Category::getProductsList($this->context->language->id, $this->category->id_category, null, null, true);
-        
         $this->pagination($this->productsCount);
-        //die('<pre>'.print_r($this->productsCount, true).'</pre>');
         $this->products = Category::getProductsList($this->context->language->id, $this->category->id_category, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
-
-        // Product sort must be called before assignProductList()
-        //$this->productSort();
 
         $this->productSort();
         $this->assignScenes();
-        //$this->assignSubcategories();
-        //$this->assignProductList();
 
-        //die('<pre>'.print_r($this->cat_products, true).'</pre>');
-
-        $this->context->smarty->assign(array(
+        $templateData = array(
             'categories'           => $this->categories,
             'subcategories'        => $this->subcategories,
             'category'             => $this->category,
             'checked'              => Category::getCheckedCategories(),
             'description_short'    => Tools::truncateString($this->category->description, 350),
-            //'products'             => (isset($this->cat_products) && $this->cat_products) ? $this->cat_products : null,
             'products'             => $this->products,
             'nbProducts'           => $this->productsCount,
             'id_category'          => (int)$this->category->id,
@@ -182,7 +169,15 @@ class CategoryControllerCore extends FrontController
             'comparator_max_item'  => (int)Configuration::get('PS_COMPARATOR_MAX_ITEM'),
             'suppliers'            => Supplier::getSuppliers(),
             'body_classes'         => array($this->php_self.'-'.$this->category->id, $this->php_self.'-'.$this->category->link_rewrite)
-        ));
+        );
+        
+        if (Tools::getValue('json') == 1) {
+            header('Content-Type: application/json; charset=UTF-8');
+            die(Tools::jsonEncode($templateData));
+        } else {
+            $this->context->smarty->assign($templateData);
+            $this->setTemplate(_PS_THEME_DIR_.'category.tpl');
+        }
     }
 
     /**

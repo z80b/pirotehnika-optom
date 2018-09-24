@@ -11441,6 +11441,9 @@ input[type='number'] {
   position: fixed;
   top: 58px;
 }
+.ps-products--table .ps-product__quantity-cell {
+  white-space: normal;
+}
 .ps-products--table .ps-product__table {
   display: table;
   width: 100%;

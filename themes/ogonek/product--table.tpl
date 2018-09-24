@@ -51,7 +51,7 @@
             <div class="ps-product__quantity-cell">
                 {if $product.box_quantity}
                 {$product.box_quantity} кор.
-                {else}{/if}
+                {else}-<br/><br/>{/if}
             </div>
             <div class="ps-product__quantity-cell">
                 {$product.quantity} {Product::SGetProductUnity($product.sale_unity)}

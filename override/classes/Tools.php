@@ -84,4 +84,9 @@ class Tools extends ToolsCore {
         }
         return $ret;
     }
+
+    public static function dieJson($json) {
+        header('Content-Type: application/json; charset=UTF-8');
+        die(Tools::jsonEncode($json));
+    }
 }

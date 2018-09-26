@@ -14,6 +14,7 @@ class Manufacturer extends ManufacturerCore {
 
         $prefix  = _DB_PREFIX_;
         $filter = Product::getProductsFilter($id_category, true, false);
+
         $sql = "
         SELECT
             m.*,
@@ -45,8 +46,7 @@ class Manufacturer extends ManufacturerCore {
         WHERE m.active = 1
             AND ps.active = 1
             AND ps.show_price = 1
-
-        {$filter}
+            {$filter}
 
         GROUP BY m.id_manufacturer
 

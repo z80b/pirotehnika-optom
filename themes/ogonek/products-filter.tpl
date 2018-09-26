@@ -1,7 +1,5 @@
 {if isset($subcategories)}
-<div
-    class="ps-products__filter ps-filter js-products-filter"
-    data-category-id="{$id_category}">
+<div class="ps-products__filter ps-filter js-products-filter" data-category-id="{$id_category}">
 	{foreach from=$subcategories item=category}
     {if $category.active}
         {if isset($category.categories)}
@@ -98,7 +96,7 @@
                         class="ps-tick__checkbox"
                         type="checkbox"
                         value="{$manufact.id_manufacturer}"
-                        {if isset($checked['manufact'][$manufact.id_manufacturer])}checked="checked"{/if}
+                        {if isset($checked['manufact'])}checked="checked"{/if}
                         name="manufact"
                         id="filter-manufact-{$manufact.id_manufacturer}"/>
                     <label

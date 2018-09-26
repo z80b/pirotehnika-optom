@@ -156,11 +156,12 @@
         </div> <!-- end pb-left-column -->
         <!-- end left infos-->
         <!-- center infos -->
+        <h1 itemprop="name">{$product->name|escape:'html':'UTF-8'}</h1>
         <div class="ps-product-page__block">
             {if $product->online_only}
                 <p class="online_only">{l s='Online only'}</p>
             {/if}
-            <h1 itemprop="name">{$product->name|escape:'html':'UTF-8'}</h1>
+            
             <p id="product_reference"{if empty($product->reference) || !$product->reference} style="display: none;"{/if}>
                 <label>{l s='Manufacturer'}:</label>
                 <span class="prodSku">{$product_manufacturer->name}</span><br/>

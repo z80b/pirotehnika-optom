@@ -148,6 +148,12 @@ $(document).ready(function()
 
 	$('#thumbs_list').trigger('goto', 0);
 
+	$('.ps-product__attachments').fancybox({
+		openEffect: 'elastic',
+		prevEffect: 'fade',
+		nextEffect: 'fade'
+	});
+
 	//set jqZoom parameters if needed
 	if (typeof(jqZoomEnabled) !== 'undefined' && jqZoomEnabled)
 	{

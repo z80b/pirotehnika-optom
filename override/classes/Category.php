@@ -23,7 +23,6 @@ class Category extends CategoryCore {
                 $result['discount'] = 1;
             }
         }   
-
         return $result;
     }
 

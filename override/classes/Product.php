@@ -39,6 +39,56 @@ class Product extends ProductCore
         return new Product($id, $full);
     }
 
+    public function getVideoId() {
+        if (preg_match("/youtube.com\/embed\/([\w|\d]+)/i", $this->description, $url)) {
+            return $url[1];
+        }
+        return '';
+    }
+
+    public static function getProductImages($id_product, $type = 'small') {
+        $images = array();
+        $prefix  = _DB_PREFIX_;
+        $theme = Context::getContext()->shop->id_theme;
+        $result = Db::getInstance()->executeS("
+            SELECT id_image FROM {$prefix}image AS i
+            WHERE i.id_product = {$id_product}
+        ");
+
+        foreach ($result as $key => $image) {
+            $images[$key] = array (
+                'id'   => $image['id_image'],
+                'src'  => _THEME_PROD_DIR_.Image::getImgFolderStatic($image['id_image']).$image['id_image'].'-'.$type.'_'.$theme.'.jpg',
+                'type' => $type,
+            );
+        }
+        return $images;
+    }
+
+    public static function getProductAttachments($id_product) {
+        $attachments = array();
+        $prefix  = _DB_PREFIX_;
+
+        $result = Db::getInstance()->executeS("
+            SELECT at.* FROM {$prefix}product_attachment AS pa
+            JOIN {$prefix}attachment AS at ON at.id_attachment = pa.id_attachment
+            WHERE pa.id_product = {$id_product}
+        ");
+
+        foreach ($result as $key => $attachment) {
+            // $src = Context::getContext()->language->iso_code.'-default';
+            // if (file_exists(_PS_MANU_IMG_DIR_.$attachment['id_manufacturer'].'-'.ImageType::getFormatedName('medium').'.jpg'))
+            //                 $attachment['image'] = $attachment['id_manufacturer'];
+            $attachments[$key] = array (
+                'id' => $attachment['id_attachment'],
+                //'src' => $attachment['file_name'],
+                'src' => Context::getContext()->link->getPageLink('attachment', true, NULL, "id_attachment={$attachment['id_attachment']}&asimage=1")
+            );
+        }
+
+        return $attachments;
+    }
+
     public static function getProductSiblings($id_product, $id_category, $order_by = 'name', $order_way = 'asc') {
 
         if (!isset($context)) {
@@ -250,6 +300,7 @@ class Product extends ProductCore
             if (isset($cookie_filter['discount']) && $cookie_filter['discount'] == '1') {
                 $filter .= ' AND sp.reduction > 0';
             }
+
 
             if (isset($cookie_filter['manufact']) && $cookie_filter['manufact'] && $id_manufacturer_use) {
                 $filter .= " AND p.id_manufacturer IN(" . implode(',', $cookie_filter['manufact']) .")";

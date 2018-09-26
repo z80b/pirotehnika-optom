@@ -82,7 +82,7 @@ class Product extends ProductCore
             $attachments[$key] = array (
                 'id' => $attachment['id_attachment'],
                 //'src' => $attachment['file_name'],
-                'src' => Context::getContext()->link->getPageLink('attachment', true, NULL, "id_attachment={$attachment['id_attachment']}")
+                'src' => Context::getContext()->link->getPageLink('attachment', true, NULL, "id_attachment={$attachment['id_attachment']}&asimage=1")
             );
         }
 

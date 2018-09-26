@@ -11432,6 +11432,12 @@ input[type='number'] {
 .ps-content--product .ps-product__control:last-child {
   padding: 2px 0 0;
 }
+.ps-content--product .ps-product__attachments {
+  color: #222;
+}
+.ps-content--product .ps-product__attachment {
+  display: none;
+}
 .ps-content--product .ps-product__quantity {
   display: inline-block;
   position: relative;

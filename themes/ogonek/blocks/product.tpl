@@ -166,6 +166,17 @@
                             {$product->sale_unity_pack}
                         {/if}
                     </div>
+                    {if isset($product_attachments)}
+                    <div class="ps-price__descript">
+                        <a  href="{$product_attachments[0]['src']}"
+                            class="ps-product__attachments"
+                            data-fancybox-group="attachements-group"
+                            data-fancybox-type="image"><span><b>EAC</b> сертифицировано</span></a>
+                        {if isset($product_attachments[1]['src'])}
+                        <a href="$product_attachments[1]['src']" class="ps-product__attachments" data-fancybox-group="attachements-group" data-fancybox-type="image"></a>
+                        {/if}
+                    </div>
+                    {/if}
                 </div>
                 <div class="ps-product__options">
                     <div class="ps-product__option ps-product__option--checked">

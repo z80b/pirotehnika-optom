@@ -106,7 +106,6 @@
                     <div class="ps-tick__products-count">{$manufact.products_count}</div>
                     {/if}
                 </div>
-                {/if}
             {/foreach}
             </div>
             <div class="ps-filter__item-controls">

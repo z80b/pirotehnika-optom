@@ -11821,6 +11821,9 @@ input[type='number'] {
 .ps-filter__tick__label {
   display: inline-block;
 }
+.ps-filter__tick .ps-subtick {
+  position: relative;
+}
 .ps-filter__item {
   float: left;
   position: relative;

@@ -10,6 +10,7 @@
         {assign var="button_class" value="ps-filter__item"}
         {/if}
         <div class="{$button_class}">
+            {if !isset($category.categories)}
             <input
                 class="ps-filter__item__checkbox{if !isset($category.categories)} js-filter-item-buttoncheckbox{/if}"
                 type="checkbox"
@@ -17,6 +18,7 @@
                 value="{$category.id_category}"
                 {if isset($checked['categories'][$category.id_category])}checked="checked"{/if}
                 id="filter-category-{$category.id_category}"/>
+            {/if}
             <label
                 class="ps-filter__item__button"
                 for="filter-category-{$category.id_category}">{$category.name}{if $category.products_count} | <b>{$category.products_count}</b>{/if}</label>
@@ -64,7 +66,7 @@
                 </div>
                 <div class="ps-filter__item-controls">
                     <button class="ps-filter__submit js-filter-submit">Применить</button>
-                    <button class="ps-filter__reset js-filter-reset">Сбросить</button>
+                    <button class="ps-filter__reset js-filter-reset-category">Сбросить</button>
                 </div>
             </div>
             {/if}
@@ -110,14 +112,13 @@
             </div>
             <div class="ps-filter__item-controls">
                 <button class="ps-filter__submit js-filter-submit">Применить</button>
-                <button class="ps-filter__reset js-filter-reset">Сбросить</button>
+                <button class="ps-filter__reset js-filter-reset-category">Сбросить</button>
             </div>
         </div>
     </div>
     {/if}
-    {*<div class="ps-filter__controls">
-        <button class="ps-filter__submit js-filter-submit">Применить</button>
-        <button class="ps-filter__reset js-filter-reset">Сбросить</button>
-    </div>*}
+    {if isset($checked) && $checked}
+    <button class="ps-filter__reset js-filter-reset">Сбросить</button>
+    {/if}
 </div>
 {/if}

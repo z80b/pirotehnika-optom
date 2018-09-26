@@ -3,7 +3,7 @@
 class Category extends CategoryCore {
 
     public static function getCheckedCategories($id_category = NULL) {
-
+        if (!isset($_COOKIE['filter'])) return false;
         $result = array();
         $filters = json_decode($_COOKIE['filter'], true);
         $filter = isset($filters[$id_category]) ? $filters[$id_category] : '';
@@ -34,6 +34,12 @@ class Category extends CategoryCore {
 
         foreach ($categories as $index => $category) {
             if ($subcategories = self::getCategoryChildren($category['id_category'], $id_lang)) {
+                foreach ($subcategories as &$subcategory) {
+                    if ($subcategories2 = self::getCategoryChildren($subcategory['id_category'], $id_lang)) {
+                        $subcategory['products_count'] = Category::getProductsCount($subcategory['id_category'], $filter);
+                        $subcategory['categories'] = $subcategories2;
+                    }
+                }
                 $categories[$index]['products_count'] = Category::getProductsCount($category['id_category'], $filter);
                 $categories[$index]['categories'] = $subcategories;
             }

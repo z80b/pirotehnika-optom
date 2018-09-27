@@ -53,6 +53,10 @@ class AdminCmsControllerCore extends AdminController
                 'icon' => 'icon-trash'
             )
         );
+		$this->fieldImageSettings = array(
+            'name' => 'image',
+            'dir' => 'cmsc'
+        );
         $this->fields_list = array(
             'id_cms' => array('title' => $this->l('ID'), 'align' => 'center', 'class' => 'fixed-width-xs'),
             'link_rewrite' => array('title' => $this->l('URL')),
@@ -113,6 +117,36 @@ class AdminCmsControllerCore extends AdminController
         $categories = CMSCategory::getCategories($this->context->language->id, false);
         $html_categories = CMSCategory::recurseCMSCategory($categories, $categories[0][1], 1, $this->getFieldValue($this->object, 'id_cms_category'), 1);
 
+		 $image = _PS_CMS_IMG_DIR_.$obj->id.'.'.$this->imageType;
+        $image_url = ImageManager::thumbnail($image, $this->table.'_'.(int)$obj->id.'.'.$this->imageType, 350, $this->imageType, true, true);
+
+        $image_size = file_exists($image) ? filesize($image) / 1000 : false;
+        $images_types = ImageType::getImagesTypes('cmsci');
+        $format = array();
+        $thumb = $thumb_url = '';
+        $formated_category= ImageType::getFormatedName('cmcc');
+        $formated_medium = ImageType::getFormatedName('medium');
+        foreach ($images_types as $k => $image_type) {
+            if ($formated_category == $image_type['name']) {
+                $format['cmcc'] = $image_type;
+            } elseif ($formated_medium == $image_type['name']) {
+                $format['medium'] = $image_type;
+                $thumb = _PS_CMS_IMG_DIR_.$obj->id.'-'.$image_type['name'].'.'.$this->imageType;
+                if (is_file($thumb)) {
+                    $thumb_url = ImageManager::thumbnail($thumb, $this->table.'_'.(int)$obj->id.'-thumb.'.$this->imageType, (int)$image_type['width'], $this->imageType, true, true);
+                }
+            }
+        }
+
+        if (!is_file($thumb)) {
+            $thumb = $image;
+            $thumb_url = ImageManager::thumbnail($image, $this->table.'_'.(int)$obj->id.'-thumb.'.$this->imageType, 125, $this->imageType, true, true);
+            ImageManager::resize(_PS_TMP_IMG_DIR_.$this->table.'_'.(int)$obj->id.'-thumb.'.$this->imageType, _PS_TMP_IMG_DIR_.$this->table.'_'.(int)$obj->id.'-thumb.'.$this->imageType, (int)$image_type['width'], (int)$image_type['height']);
+        }
+
+        $thumb_size = file_exists($thumb) ? filesize($thumb) / 1000 : false;
+		echo '<script>console.log('.$this->getFieldValue($this->object, "id_cms_category").');</script>';
+		if ($this->getFieldValue($this->object, "id_cms_category")==9){
         $this->fields_form = array(
             'tinymce' => true,
             'legend' => array(
@@ -121,6 +155,140 @@ class AdminCmsControllerCore extends AdminController
             ),
             'input' => array(
                 // custom template
+				
+                array(
+                    'type' => 'select_category',
+                    'label' => $this->l('CMS Category'),
+                    'name' => 'id_cms_category',
+                    'options' => array(
+                        'html' => $html_categories,
+                    ),
+                ),
+                array(
+                    'type' => 'text',
+                    'label' => $this->l('Meta title'),
+                    'name' => 'meta_title',
+                    'id' => 'name', // for copyMeta2friendlyURL compatibility
+                    'lang' => true,
+					'maxlength' => '60',
+                    'required' => true,
+                    'class' => 'copyMeta2friendlyURL',
+                    'hint' => $this->l('Invalid characters:').' &lt;&gt;;=#{}'
+                ),
+                array(
+                    'type' => 'text',
+					
+                    'label' => $this->l('Meta description'),
+                    'name' => 'meta_description',
+                    'lang' => true,
+                    'hint' => $this->l('Invalid characters:').' &lt;&gt;;=#{}'
+                ),
+				
+				array(
+                    'type' => 'file',
+                    'label' => $this->l('Превью страницы'),
+                    'name' => 'image',
+					
+                    'display_image' => true,
+                    'image' => $image_url ? $image_url : false,
+                    'size' => $image_size,
+                    'delete_url' => self::$currentIndex.'&'.$this->identifier.'='.$this->_category->id.'&token='.$this->token.'&deleteImage=1',
+                   'hint' => $this->l('This is the main image for your category, displayed in the category page. The category description will overlap this image and appear in its top-left corner.'),
+                   'format' => $format['cmscc']
+                ),
+               
+                array(
+                    'type' => 'tags',
+                    'label' => $this->l('Meta keywords'),
+                    'name' => 'meta_keywords',
+                    'lang' => true,
+                    'hint' => array(
+                        $this->l('To add "tags" click in the field, write something, and then press "Enter."'),
+                        $this->l('Invalid characters:').' &lt;&gt;;=#{}'
+                    )
+                ),
+                array(
+                    'type' => 'text',
+                    'label' => $this->l('Friendly URL'),
+                    'name' => 'link_rewrite',
+                    'required' => true,
+                    'lang' => true,
+                    'hint' => $this->l('Only letters and the hyphen (-) character are allowed.')
+                ),
+                array(
+                    'type' => 'textarea',
+                    'label' => $this->l('Page content'),
+                    'name' => 'content',
+                    'autoload_rte' => true,
+                    'lang' => true,
+                    'rows' => 5,
+                    'cols' => 40,
+                    'hint' => $this->l('Invalid characters:').' <>;=#{}'
+                ),
+                array(
+                    'type' => 'switch',
+                    'label' => $this->l('Indexation by search engines'),
+                    'name' => 'indexation',
+                    'required' => false,
+                    'class' => 't',
+                    'is_bool' => true,
+                    'values' => array(
+                        array(
+                            'id' => 'indexation_on',
+                            'value' => 1,
+                            'label' => $this->l('Enabled')
+                        ),
+                        array(
+                            'id' => 'indexation_off',
+                            'value' => 0,
+                            'label' => $this->l('Disabled')
+                        )
+                    ),
+                ),
+                array(
+                    'type' => 'switch',
+                    'label' => $this->l('Displayed'),
+                    'name' => 'active',
+                    'required' => false,
+                    'is_bool' => true,
+                    'values' => array(
+                        array(
+                            'id' => 'active_on',
+                            'value' => 1,
+                            'label' => $this->l('Enabled')
+                        ),
+                        array(
+                            'id' => 'active_off',
+                            'value' => 0,
+                            'label' => $this->l('Disabled')
+                        )
+                    ),
+                ),
+            ),
+            'submit' => array(
+                'title' => $this->l('Save'),
+            ),
+            'buttons' => array(
+                'save_and_preview' => array(
+                    'name' => 'viewcms',
+                    'type' => 'submit',
+                    'title' => $this->l('Save and preview'),
+                    'class' => 'btn btn-default pull-right',
+                    'icon' => 'process-icon-preview'
+                )
+            )
+        );}
+		else {
+			echo '<script>console.log('.(int)$id_cms.');</script>';
+			$this->fields_form = array(
+            'tinymce' => true,
+            'legend' => array(
+                'title' => $this->l('CMS Page'),
+                'icon' => 'icon-folder-close'
+            ),
+            'input' => array(
+                // custom template
+				
                 array(
                     'type' => 'select_category',
                     'label' => $this->l('CMS Category'),
@@ -141,11 +309,15 @@ class AdminCmsControllerCore extends AdminController
                 ),
                 array(
                     'type' => 'text',
+					
                     'label' => $this->l('Meta description'),
                     'name' => 'meta_description',
                     'lang' => true,
                     'hint' => $this->l('Invalid characters:').' &lt;&gt;;=#{}'
                 ),
+				
+				
+               
                 array(
                     'type' => 'tags',
                     'label' => $this->l('Meta keywords'),
@@ -227,6 +399,8 @@ class AdminCmsControllerCore extends AdminController
                 )
             )
         );
+			
+		}
 
         if (Shop::isFeatureActive()) {
             $this->fields_form['input'][] = array(
@@ -240,6 +414,20 @@ class AdminCmsControllerCore extends AdminController
             $this->context->smarty->assign('url_prev', $this->getPreviewUrl($this->object));
         }
 
+		
+		if (!($obj = $this->loadObject(true))) {
+            return;
+        }
+
+        $image = ImageManager::thumbnail(_PS_CMS_IMG_DIR_.'/'.$obj->id.'.'.$this->imageType, $this->table.'_'.(int)$obj->id.'.'.$this->imageType, 350, $this->imageType, true);
+
+        $this->fields_value = array(
+            'image' => $image ? $image : false,
+            'size' => $image ? filesize(_PS_CMS_IMG_DIR_.'/'.$obj->id.'.'.$this->imageType) / 1000 : false
+        );
+		
+		
+		
         $this->tpl_form_vars = array(
             'active' => $this->object->active,
             'PS_ALLOW_ACCENTED_CHARS_URL', (int)Configuration::get('PS_ALLOW_ACCENTED_CHARS_URL')
@@ -247,6 +435,17 @@ class AdminCmsControllerCore extends AdminController
         return parent::renderForm();
     }
 
+	
+	
+	
+
+   
+	
+	
+	
+	
+	
+	
     public function renderList()
     {
         $this->_group = 'GROUP BY a.`id_cms`';
@@ -411,5 +610,64 @@ class AdminCmsControllerCore extends AdminController
         }
 
         return $preview_url;
+    }
+	 protected function postImage($id)
+    {
+        $ret = parent::postImage($id);
+        if (($id_cms = (int)Tools::getValue('id_cms')) && isset($_FILES) && count($_FILES)) {
+            $name = 'image';
+            if ($_FILES[$name]['name'] != null && file_exists(_PS_CMS_IMG_DIR_.$id_cms.'.'.$this->imageType)) {
+                $images_types = ImageType::getImagesTypes('categories');
+                foreach ($images_types as $k => $image_type) {
+                    if (!ImageManager::resize(
+                        _PS_CMS_IMG_DIR_.$id_cms.'.'.$this->imageType,
+                        _PS_CMS_IMG_DIR_.$id_cms.'-'.stripslashes($image_type['name']).'.'.$this->imageType,
+                        (int)$image_type['width'],
+                        (int)$image_type['height']
+                    )) {
+                        $this->errors = Tools::displayError('An error occurred while uploading category image.');
+                    }
+                }
+            }
+
+            $name = 'thumb';
+            if ($_FILES[$name]['name'] != null) {
+                if (!isset($images_types)) {
+                    $images_types = ImageType::getImagesTypes('categories');
+                }
+                $formated_medium = ImageType::getFormatedName('medium');
+                foreach ($images_types as $k => $image_type) {
+                    if ($formated_medium == $image_type['name']) {
+                        if ($error = ImageManager::validateUpload($_FILES[$name], Tools::getMaxUploadSize())) {
+                            $this->errors[] = $error;
+                        } elseif (!($tmpName = tempnam(_PS_TMP_IMG_DIR_, 'PS')) || !move_uploaded_file($_FILES[$name]['tmp_name'], $tmpName)) {
+                            $ret = false;
+                        } else {
+                            if (!ImageManager::resize(
+                                $tmpName,
+                                _PS_CMS_IMG_DIR_.$id_category.'-'.stripslashes($image_type['name']).'.'.$this->imageType,
+                                (int)$image_type['width'],
+                                (int)$image_type['height']
+                            )) {
+                                $this->errors = Tools::displayError('An error occurred while uploading thumbnail image.');
+                            } elseif (($infos = getimagesize($tmpName)) && is_array($infos)) {
+                                ImageManager::resize(
+                                    $tmpName,
+                                    _PS_CMS_IMG_DIR_.$id_category.'_'.$name.'.'.$this->imageType,
+                                    (int)$infos[0],
+                                    (int)$infos[1]
+                                );
+                            }
+                            if (count($this->errors)) {
+                                $ret = false;
+                            }
+                            unlink($tmpName);
+                            $ret = true;
+                        }
+                    }
+                }
+            }
+        }
+        return $ret;
     }
 }

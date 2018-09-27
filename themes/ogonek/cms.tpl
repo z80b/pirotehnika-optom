@@ -75,7 +75,7 @@
 				<div class="statstat col-xs-3">
 				
 				
-                <a style="background-image:url(https://gitpir2/img/cmsc/{$cmspages.id_cms}.jpg); background-size: cover;" class="stat ps-tabs__button" href="{$link->getCMSLink($cmspages.id_cms, $cmspages.link_rewrite)|escape:'html':'UTF-8'}">
+                <a style="background-image:url(https://pirotehnika-optom.ru/img/cmsc/{$cmspages.id_cms}.jpg); background-size: cover;" class="stat ps-tabs__button" href="{$link->getCMSLink($cmspages.id_cms, $cmspages.link_rewrite)|escape:'html':'UTF-8'}">
                     <span class="st ps-tabs__text">{$cmspages.meta_title|escape:'html':'UTF-8'}</span>
                 </a></div>
                 {/foreach}

@@ -51,7 +51,7 @@
             </div>
             {if isset($images) && count($images) > 0}
                 <!-- thumbnails -->
-                <div id="views_block" class="clearfix {if isset($images) && count($images) < 2}hidden{/if}">
+                <div id="views_block" class="clearfix {if isset($images) && count($images) < 2 && (!isset($video_id) || !$video_id)}hidden{/if}">
                     {if isset($images) && count($images) > 2}
                         <span class="view_scroll_spacer">
                             <a id="view_scroll_left" class="" title="{l s='Other views'}" href="javascript:{ldelim}{rdelim}">

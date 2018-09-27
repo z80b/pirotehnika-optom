@@ -76,12 +76,9 @@ class Product extends ProductCore
         ");
 
         foreach ($result as $key => $attachment) {
-            // $src = Context::getContext()->language->iso_code.'-default';
-            // if (file_exists(_PS_MANU_IMG_DIR_.$attachment['id_manufacturer'].'-'.ImageType::getFormatedName('medium').'.jpg'))
-            //                 $attachment['image'] = $attachment['id_manufacturer'];
             $attachments[$key] = array (
                 'id' => $attachment['id_attachment'],
-                //'src' => $attachment['file_name'],
+                'file_name' => $attachment['file_name'],
                 'src' => Context::getContext()->link->getPageLink('attachment', true, NULL, "id_attachment={$attachment['id_attachment']}&asimage=1")
             );
         }
@@ -301,11 +298,9 @@ class Product extends ProductCore
                 $filter .= ' AND sp.reduction > 0';
             }
 
-
             if (isset($cookie_filter['manufact']) && $cookie_filter['manufact'] && $id_manufacturer_use) {
                 $filter .= " AND p.id_manufacturer IN(" . implode(',', $cookie_filter['manufact']) .")";
             }
-
         }
 
         return $filter;

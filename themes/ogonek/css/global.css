@@ -10755,6 +10755,25 @@ input[type='number'] {
 #app_header_logo >a {
   display: inline-block;
 }
+.statstat {
+  width: 390px;
+  height: 245px;
+  margin-top: 30px;
+  margin-right: auto;
+  margin-bottom: 115px;
+  margin-left: auto;
+}
+.stat {
+  padding-top: 203px !important;
+  height: 245px !important;
+  width: 345px;
+}
+.st {
+  color: #696767;
+  margin-top: 43px;
+  word-wrap: break-word;
+  width: 230px;
+}
 .cart_product .ps-product__image {
   height: 100px;
 }

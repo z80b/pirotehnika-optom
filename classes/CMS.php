@@ -31,6 +31,7 @@ class CMSCore extends ObjectModel
     public $meta_description;
     public $meta_keywords;
     public $content;
+
     public $link_rewrite;
     public $id_cms_category;
     public $position;
@@ -71,6 +72,7 @@ class CMSCore extends ObjectModel
         return parent::add($autodate, true);
     }
 
+	
     public function update($null_values = false)
     {
         if (parent::update($null_values)) {

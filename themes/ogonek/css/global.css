@@ -12347,3 +12347,23 @@ input[type='number'] {
             transform: rotate(359deg);
   }
 }
+.statstat{
+      width: 390px;
+        height: 245px;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-bottom: 115px;
+    margin-left: auto;
+}
+.stat{
+    padding-top: 203px;
+       height: 245px;
+    width: 345px;
+}
+.st{
+	    color: rgb(105, 103, 103);
+    margin-top: 43px;
+    /* height: 75px; */
+    word-wrap: break-word;
+    width: 230px;
+}

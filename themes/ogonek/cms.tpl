@@ -39,13 +39,13 @@
     <div class="rte{if $content_only} content_only{/if}">
         {$cms->content}
     </div>
-{elseif isset($cms_category)}
+{elseif isset($cms_category) }
     <div class="block-cms">
         <h1><a href="{if $cms_category->id eq 1}{$base_dir}{else}{$link->getCMSCategoryLink($cms_category->id, $cms_category->link_rewrite)}{/if}">{$cms_category->name|escape:'html':'UTF-8'}</a></h1>
-        {if $cms_category->description}
+        {if $cms_category->description }
             <p>{$cms_category->description|escape:'html':'UTF-8'}</p>
         {/if}
-        {if isset($sub_category) && !empty($sub_category)}  
+        {if isset($sub_category) && !empty($sub_category) && !($cms_category->id_cms_category == 9)}  
 <!--            <p class="title_block">{l s='List of sub categories in %s:' sprintf=$cms_category->name}</p>
  -->            
                 <ul class="bullet list-group">
@@ -56,7 +56,7 @@
                 {/foreach}
             </ul>
         {/if}
-        {if isset($cms_pages) && !empty($cms_pages)}
+        {if isset($cms_pages) && !empty($cms_pages) && !($cms_category->id_cms_category == 9)}
 <!--        <p class="title_block">{l s='List of pages in %s:' sprintf=$cms_category->name}</p>
  -->            
             <div class="ps-tabs">
@@ -67,6 +67,20 @@
                 {/foreach}
             </div>
         {/if}
+		
+		{if $cms_category->id_cms_category == 9}
+  <!-- <div class="col-xs-3">-->
+                {foreach from=$cms_pages item=cmspages}
+				
+				<div class="statstat col-xs-3">
+				
+				
+                <a style="background-image:url(https://gitpir2/img/cmsc/{$cmspages.id_cms}.jpg); background-size: cover;" class="stat ps-tabs__button" href="{$link->getCMSLink($cmspages.id_cms, $cmspages.link_rewrite)|escape:'html':'UTF-8'}">
+                    <span class="st ps-tabs__text">{$cmspages.meta_title|escape:'html':'UTF-8'}</span>
+                </a></div>
+                {/foreach}
+            
+{/if}
     </div>
 {else}
     <div class="alert alert-danger">
@@ -75,7 +89,7 @@
 {/if}
 <br />
 {strip}
-{if isset($smarty.get.ad) && $smarty.get.ad}
+{if isset($smarty.get.ad) && $smarty.get.ad }
 {addJsDefL name=ad}{$base_dir|cat:$smarty.get.ad|escape:'html':'UTF-8'}{/addJsDefL}
 {/if}
 {if isset($smarty.get.adtoken) && $smarty.get.adtoken}

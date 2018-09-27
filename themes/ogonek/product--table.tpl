@@ -21,8 +21,8 @@
     <div class="ps-product__table-row ps-products__item ps-product" data-product-id="{$product.id_product}">
         <div class="ps-product__table-cell ps-product__articule">{$product.reference}</div>
         <div class="ps-product__table-cell">
-            <a  class="ps-product__image-zoom fancyImg"
-                href="{$link->getImageLink($product.link_rewrite, $product.id_image, 'large_default')|escape:'html':'UTF-8'}">
+            <a  class="ps-product__image-link"
+                href="{$product.link|escape:'html':'UTF-8'}">
                 <img
                     class="ps-product__image"
                     alt="{$product.name|escape:'html':'UTF-8'}"

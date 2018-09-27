@@ -40,7 +40,7 @@ class Product extends ProductCore
     }
 
     public function getVideoId() {
-        if (preg_match("/youtube.com\/embed\/([\w|\d]+)/i", $this->description, $url)) {
+        if (preg_match("/youtube.com\/embed\/([\w|\d|\_|\-]+)/i", $this->description, $url)) {
             return $url[1];
         }
         return '';

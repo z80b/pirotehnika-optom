@@ -61,11 +61,16 @@
                     {/if}
                     <div id="thumbs_list">
                         <ul id="thumbs_list_frame">
-                            <li class="ps-thumbs__video" id="thumbnail_video">
-                                <a class="ps-thumbs__video-link" href="">
-                                    <img class="ps-thumbs__video-image" src=""/>
+                        {if isset($video_id)}
+                            <li class="ps-thumbs__video">
+                                <a  class="ps-thumbs__video-link"
+                                    data-rel="media"
+                                    href="https://www.youtube.com/v/{$video_id}"
+                                    style="background-image: url('https://img.youtube.com/vi/{$video_id}/1.jpg') !important">
+                                    <img class="img-responsive ps-thumbs__video-image" src="https://img.youtube.com/vi/{$video_id}/1.jpg"/>
                                 </a>
                             </li>
+                        {/if}
                         {if isset($images)}
                             {foreach from=$images item=image name=thumbnails}
                                 {assign var=imageIds value="`$product->id`-`$image.id_image`"}

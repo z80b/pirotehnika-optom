@@ -11328,6 +11328,20 @@ input[type='number'] {
   float: right;
   padding: 0 0 0 10px;
 }
+.ps-content--product .ps-thumbs__video-image {
+  opacity: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.ps-content--product .ps-thumbs__video-link {
+  background: 50% 50% no-repeat !important;
+  -moz-background-size: contain !important;
+       background-size: contain !important;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
 .ps-content--product .ps-price__value {
   font-size: 36px;
   font-weight: 700;

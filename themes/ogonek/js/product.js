@@ -150,8 +150,28 @@ $(document).ready(function()
 
 	$('.ps-product__attachments').fancybox({
 		openEffect: 'elastic',
+		closeEffect : 'elastic',
 		prevEffect: 'fade',
 		nextEffect: 'fade'
+	});
+
+	$('.ps-thumbs__video-link').on('click', function(event) {
+		event.preventDefault();
+		$.fancybox({
+			'padding'		: 0,
+			'autoScale'		: false,
+			'transitionIn'	: 'none',
+			'transitionOut'	: 'none',
+			'title'			: this.title,
+			'width'  		: 680,
+			'height'		: 495,
+			'href'			: this.href,
+			'type'			: 'swf',
+			'swf'			: {
+			   	 'wmode'		: 'transparent',
+				'allowfullscreen'	: 'true'
+			}
+		});
 	});
 
 	//set jqZoom parameters if needed

@@ -104,4 +104,9 @@ function initCategoriesFilter(e,a,b) {
     $('#selectProductSort').on('change', function() {
         setOrder(this);
     });
+
+    setOrder('#selectProductSort')
+    $('#selectProductSort').on('change', function() {
+        setOrder(this);
+    });
 }

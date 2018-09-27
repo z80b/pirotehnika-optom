@@ -11095,7 +11095,7 @@ input[type='number'] {
 }
 .ps-product__linkbutton {
   position: absolute;
-  top: 100px;
+  top: -10px;
   width: 60px;
   height: 60px;
   background-color: rgba(242,161,57,0.58);
@@ -11242,7 +11242,7 @@ input[type='number'] {
   font: 500 22px/1 'Open Sans', sans-serif;
   display: block;
   width: 100%;
-  margin: 0 0 20px;
+  margin: 0 0 2em;
   color: #666;
 }
 .ps-content__title::before {
@@ -11274,13 +11274,17 @@ input[type='number'] {
 }
 .ps-content__cell {
   display: table-cell;
-}
-.ps-content__cell:first-of-type {
-  width: 45%;
+  width: 50%;
 }
 .ps-content__cell:last-of-type {
-  width: 55%;
   padding: 0 0 0 20px;
+}
+.ps-popup .ps-content__cell {
+  width: 40%;
+  padding: 0 20px 0 0;
+}
+.ps-popup .ps-content__cell:first-of-type {
+  width: 20%;
 }
 .ps-content__buttons {
   text-align: right;
@@ -11327,6 +11331,40 @@ input[type='number'] {
 .ps-content--product .ps-feature__value {
   float: right;
   padding: 0 0 0 10px;
+}
+.ps-content--product .ps-thumbs__video-image {
+  opacity: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.ps-content--product .ps-thumbs__video-link {
+  position: relative;
+  background: 50% 50% no-repeat !important;
+  -moz-background-size: contain !important;
+       background-size: contain !important;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.ps-content--product .ps-thumbs__video-link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMjQgNEMxMi45NSA0IDQgMTIuOTUgNCAyNHM4Ljk1IDIwIDIwIDIwIDIwLTguOTUgMjAtMjBTMzUuMDUgNCAyNCA0em0tNCAyOVYxNWwxMiA5LTEyIDl6Ii8+PC9zdmc+") 50% 50% no-repeat;
+  -moz-background-size: 60%;
+       background-size: 60%;
+  -webkit-transition: 0.5s opacity ease;
+  -o-transition: 0.5s opacity ease;
+  -moz-transition: 0.5s opacity ease;
+  transition: 0.5s opacity ease;
+  opacity: 0.8;
+}
+.ps-content--product .ps-thumbs__video-link:hover::after {
+  opacity: 1;
 }
 .ps-content--product .ps-price__value {
   font-size: 36px;
@@ -11425,7 +11463,7 @@ input[type='number'] {
 }
 .ps-content--product .ps-product__controls {
   background-color: #eee;
-  padding: 20px 50px;
+  padding: 20px;
   margin: 30px 0 0;
   white-space: nowrap;
 }

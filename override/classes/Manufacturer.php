@@ -14,7 +14,6 @@ class Manufacturer extends ManufacturerCore {
 
         $prefix  = _DB_PREFIX_;
         $filter = Product::getProductsFilter($id_category, true, false);
-
         $sql = "
         SELECT
             m.*,

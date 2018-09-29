@@ -14,7 +14,9 @@
 *
 * DISCLAIMER
 *
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* Do not 
+
+ or add to this file if you wish to upgrade PrestaShop to newer
 * versions in the future. If you wish to customize PrestaShop for your
 * needs please refer to http://www.prestashop.com for more information.
 *
@@ -61,7 +63,7 @@ class ProductCore extends ObjectModel
 
     /** @var string Name */
     public $name;
-
+public $ppp;
     /** @var string Long description */
     public $description;
 
@@ -168,7 +170,9 @@ class ProductCore extends ObjectModel
     public $sgt;
 
     public $sg;
+public $sgt1;
 
+    public $sg1;
     public $tip;
 
     public $action;
@@ -429,6 +433,8 @@ class ProductCore extends ObjectModel
             'available_now' =>                array('type' => self::TYPE_STRING, 'lang' => true, 'validate' => 'isGenericName', 'size' => 255),
             'available_later' =>            array('type' => self::TYPE_STRING, 'lang' => true, 'validate' => 'IsGenericName', 'size' => 255),
         ),
+		'sg1' =>            					array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
+            'sgt1' =>                array('type' => self::TYPE_STRING, 'validate' => 'isString'),
         'associations' => array(
             'manufacturer' =>                array('type' => self::HAS_ONE),
             'supplier' =>                    array('type' => self::HAS_ONE),
@@ -612,6 +618,47 @@ class ProductCore extends ObjectModel
      * @see ObjectModel::getFieldsShop()
      * @return array
      */
+	
+	 
+	 public function gg1 () {
+		$r = Tools::getValue('ggg');
+		
+		return Db::getInstance()->execute(
+            'DELETE FROM `'._DB_PREFIX_.'stock_sg`
+			WHERE `id_stock_sg` = '.(int)$r
+			
+        );
+	}
+
+ public function gg()
+    {
+			$sql = 'SELECT * FROM `'._DB_PREFIX_.'stock_sg` where id_product='.(int)$this->id;
+                     if ($results = Db::getInstance()->ExecuteS($sql)){
+						 echo '<table class="table" border="1">';
+					 echo '
+					 <tr>
+   <th>Количество товара</th>
+   <th>Срок годности товара</th>
+   <th>Срок годности товара до</th>
+					 </tr>';}
+						foreach ($results as $row) :
+					if ($row['id_product'] = (int)$this->id){
+					
+							echo '<tr><td id="ggg1" class="'.$row['id_stock_sg'].'">'.$row['quantity'].'</td><td>'.$row['sg'].'</td><td>'.$row['sgt'].'</td></tr>';
+					} endforeach;
+					echo '</table>';
+				$ppp1 =( Db::getInstance()->executeS('
+                SELECT `id_stock_sg`
+                FROM `'._DB_PREFIX_.'stock_sg`
+                WHERE `id_product` = '.(int)$this->id.'
+                
+            '));
+		
+	}
+	 
+	 
+	 
+	 
     public function getFieldsShop()
     {
         $fields = parent::getFieldsShop();
@@ -653,9 +700,34 @@ class ProductCore extends ObjectModel
     {
         if (Context::getContext()->employee->id_profile != 1) {
             $this->is_checked = 0;
+			
         }
         $return = parent::update($null_values);
         $this->setGroupReduction();
+		
+		
+		
+		
+		$id_product = (int)$this->id;
+$sg1 = Tools::getValue('sg1');
+$sgt1 = Tools::getValue('sgt1');
+$type1 = Tools::getValue('type1');
+$quantity = Tools::getValue('quantity1');
+if (($sgt1 !='') and ($quantity !=0))	{
+Db::getInstance()->autoExecute('ps_stock_sg', array(
+	'id_product' =>    (int)$id_product,
+	'sg' =>    pSQL($sg1),
+	'sgt' =>    pSQL($sgt1),
+	'type' =>    pSQL($type1),
+	'quantity' =>    pSQL($quantity),
+	), 'INSERT');
+	
+	
+	}
+		
+		
+		
+		
 
         // Sync stock Reference, EAN13 and UPC
         if (Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT') && StockAvailable::dependsOnStock($this->id, Context::getContext()->shop->id)) {

@@ -276,6 +276,26 @@ calcEd(2);
 				<input maxlength="12" name="max_discount" id="max_discount" type="text" value="{$product->max_discount}"  />
 			</div>
 	</div>
+	
+	
+	
+	<script>function collapsElement(id) {
+    if ( document.getElementById(id).style.display != "none" ) {
+        document.getElementById(id).style.display = 'none';
+    }
+    else {
+        document.getElementById(id).style.display = 'block';
+    }
+}</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <!-- Максимальная скидка ^ -->	
 <!-- Единица измерения поставщика невидимо -->	
 	<div id="sale_unity" class="form-group" style="display:none;">
@@ -443,6 +463,95 @@ calcEd(2);
 	</div>
 </div>
 {if isset($specificPriceModificationForm)}
+
+
+<div class="panel">
+		<div class='block' id="blockglav" >
+		
+	<p class='zagolovok'>Партионный учет</p>
+	<div class="form-group">
+		<div class="col-lg-1"><span class="pull-right">{include file="controllers/products/multishop/checkbox.tpl" field="id_tax_rules_group" type="default"}</span></div>
+		<label class="control-label col-lg-2"> <!--for="priceTE"-->
+				<span class="label-tooltip">Всего товара</span>
+		</label>
+			<div class="input-group">
+				<input maxlength="12" name="vsego" id="vsego" type="text"  readonly='true' value="{$product->quantity}"/> <!-- value="{$product->max_discount}"-->
+			</div>
+	</div>
+	
+	
+	<!--<table class='table' border="1">
+   <caption>Партионный учет</caption>
+   <tr><th>Количество товара</th>
+   <th>Срок годности товара</th>
+   <th>Срок годности товара до</th>
+   </tr>
+   style="display:none;"
+<tr>
+<td>{$ppp1['sg1']}</td><td>{$pppp['sgt1']}</td><td>{$row->quantity}</td>
+</tr>
+
+   
+</table>-->
+
+<div>{$product->gg()}</div>
+
+<a id="dob" href="#blockglav"  onclick="collapsElement('block')"> Добавить партию</a>
+<div id="block" style='display:none;'>
+
+
+<div id="ggg1"></div>
+<div class="form-group">
+		<div class="col-lg-1"><span class="pull-right">{include file="controllers/products/multishop/checkbox.tpl" field="quantity1" type="default"}</span></div>
+		<label class="control-label col-lg-2"> <!--for="priceTE"-->
+				<span class="label-tooltip">Количество товара</span>
+		</label>
+			<div class="input-group">
+			
+				<input maxlength="12" name="quantity1" id="quantity1" type="text" value="{$product->quantity1}"/> <!-- value="{$product->max_discount}"-->
+			</div>
+	</div>
+		<div class="form-group">
+		<div class="col-lg-1"><span class="pull-right">{include file="controllers/products/multishop/checkbox.tpl" field="sg1" type="default"}</span></div>
+		<label class="control-label col-lg-2"> <!--for="priceTE"-->
+				<span class="label-tooltip">Срок годности</span>
+		</label>
+			<div class="input-group">
+			
+				<input maxlength="12" name="sg1" id="sg1" type="text" value="{$product->sg1}"/> <!-- value="{$product->max_discount}"-->
+			</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-1"><span class="pull-right">{include file="controllers/products/multishop/checkbox.tpl" field="sgt1" type="default"}</span></div>
+		<label class="control-label col-lg-2"> <!--for="priceTE"-->
+				<span class="label-tooltip">Срок годности до</span>
+		</label>
+			<div class="input-group">
+				<input maxlength="12" name="sgt1" id="sgt1" type="text" value="{$product->sgt1}" /> <!-- value="{$product->max_discount}"-->
+			</div>
+	</div>
+	<div id="rad">
+	  <input type="radio" id="type1"
+     name="type1" value="0">
+    <label for="type1">Просрочен</label><br>
+
+    <input type="radio" id="type2"
+     name="type1" value="1" checked>
+    <label for="type2">Продается</label><br>
+		</div>
+		
+		
+		
+	<!--<button onclick="" type="submit" name="submitAddpart" class="btn btn-default">Добавить партию</button>-->
+	
+	</div></div>
+	<div class="panel-footer">
+		<a href="{$link->getAdminLink('AdminProducts')|escape:'html':'UTF-8'}{if isset($smarty.request.page) && $smarty.request.page > 1}&amp;submitFilterproduct={$smarty.request.page|intval}{/if}" class="btn btn-default"><i class="process-icon-cancel"></i> {l s='Cancel'}</a>
+		<button onclick='chng(); chngprc()' type="submit" name="submitAddproduct" class="btn btn-default pull-right" disabled="disabled"><i class="process-icon-loading"></i> {l s='Save'}</button>
+		<button onclick='chng(); chngprc()' type="submit" name="submitAddproductAndStay" class="btn btn-default pull-right" disabled="disabled"><i class="process-icon-loading"></i> {l s='Save and stay'}</button>
+	</div>
+	</div>
+
 <div class="panel">
 	<h3>{l s='Specific prices'}</h3>
 	<div class="alert alert-info">

@@ -119,6 +119,10 @@ $(document).ready(function(){
         })
         .on('blur', '.ps-quantity__value', function(event) {
             $(this).parents('.ps-quantity').removeClass('ps-quantity--focus');
+        })
+        .on('click', '.ps-popup__close', function(event) {
+            event.preventDefault();
+            $(event.currentTarget).parents('.js-product-popup').addClass('hidden').find('.ps-popup__body').empty();
         });
 
     ajaxCart.overrideButtonsInThePage();
@@ -1293,8 +1297,8 @@ function fancyChangeProductCountInCart(e, productId, inputEl, total){
   e.preventDefault();
 
     var $productImage = $(e.currentTarget)
-        .parents('.ps-products__item, .ps-content--product')
-        .find('.ps-product__image, .ps-product-page__image');
+        .parents('.ps-products__item, .ps-content--product, .ps-popup-content__ajax')
+        .find('.ps-product__image, .ps-product-page__image, .b-image-block__bigimage');
     var $productImageOffset = $productImage.offset();
     var $productImageClone = $productImage.clone();
         $productImageClone.css({

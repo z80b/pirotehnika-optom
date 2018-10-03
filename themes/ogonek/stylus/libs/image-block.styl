@@ -1,0 +1,125 @@
+$imageBlock
+    display block
+    
+    &::after
+        content ''
+        display table
+        clear both
+        
+    &__preview, &__bigimage
+        display block
+        width 100%
+        
+    &__preview
+        padding 2px
+        box-sizing border-box
+        margin 0 0 10px
+        
+    &__bigimage-link
+        position relative
+        display block
+        width 100%
+        box-shadow 2px 2px 10px 0 #ccc
+        font 45px/1 "FontAwesome"
+        
+        &::after
+            content "\f00e"
+            display block
+            box-sizing border-box
+            absolute top 0 left 0 width 100% height 100%
+            padding 50% 0
+            font-size 1em
+            text-align center
+            line-height 0
+            background-color rgba(#000, .2)
+            color #fff
+            transition .5s opacity ease
+            opacity 0
+            
+        &:hover::after
+            opacity 1
+        
+    &__slider
+        position relative
+        width 100%
+        text-align center
+        
+        .slick-track
+            margin 0 auto
+        
+        &-inner
+            overflow hidden
+            white-space nowrap
+            visibility hidden
+            
+            &.slick-initialized
+                visibility visible
+        
+        &-button
+            absolute top 0 width 27px height 100%
+            background 50% 50% no-repeat
+            background-size contein
+            padding 0
+            border none
+            outline none
+            cursor pointer
+            transition .5s all ease
+            
+            &.slick-hidden
+                display none
+            
+            &--prev
+                background-image inline-image('../imgs/left-arrow.svg')
+                left -15px
+                &:hover
+                    left -17px
+            &--next
+                background-image inline-image('../imgs/right-arrow.svg')
+                right -15px
+                &:hover
+                    right -17px
+                
+            &:hover
+                opacity .8
+    
+    &__slide
+        position relative
+        display inline-block
+        box-sizing border-box
+        vertical-align middle
+        font-size 0
+        margin 0 2px
+        border solid 1px #ccc
+        overflow hidden
+        background 50% 50% no-repeat
+        background-size 85% auto        
+        
+        &::after
+            content "\f00e"
+            display block
+            box-sizing border-box
+            absolute top 0 left 0 width 100% height 100%
+            padding 50% 0
+            font 30px/0 "FontAwesome"
+            text-align center
+            background rgba(#000, .2) 50% 50% no-repeat
+            color #fff
+            transition .5s opacity ease
+            opacity 0
+            
+        &--video::after
+            content ''
+            background-image url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMjQgNEMxMi45NSA0IDQgMTIuOTUgNCAyNHM4Ljk1IDIwIDIwIDIwIDIwLTguOTUgMjAtMjBTMzUuMDUgNCAyNCA0em0tNCAyOVYxNWwxMiA5LTEyIDl6Ii8+PC9zdmc+')
+            background-size 60%
+            padding 0
+            
+        &:hover::after
+            opacity 1
+                        
+        &-image
+            display block
+            width 100%
+            border solid 1px #ccc
+            visibility hidden
+            
+        

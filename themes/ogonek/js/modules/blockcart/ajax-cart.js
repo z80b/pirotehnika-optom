@@ -736,7 +736,7 @@ var ajaxCart = {
                     var name = $.trim($('<span />').html(this.name).text());
                     name = (name.length > 12 ? name.substring(0, 10) + '...' : name);
                     content += '<a class="cart-images" href="' + this.link + '" title="' + name + '"><img  src="' + this.image_cart + '" alt="' + this.name +'"></a>';
-                    content += '<div class="cart-info"><div class="product-name">' + '<span class="quantity-formated"><span class="quantity">' + this.quantity + '</span>&nbsp;x&nbsp;</span><a href="' + this.link + '" title="' + this.name + '" class="cart_block_product_name">' + name + '</a></div>';
+                    content += '<div class="cart-info"><div class="product-name">' + '<span class="quantity-formated"><span class="quantity">' + this.quantity + '</span>&nbsp;шт.&nbsp;</span><a href="' + this.link + '" title="' + this.name + '" class="cart_block_product_name">' + name + '</a></div>';
                     if (this.hasAttributes)
                           content += '<div class="product-atributes"><a href="' + this.link + '" title="' + this.name + '">' + this.attributes + '</a></div>';
                     if (typeof(freeProductTranslation) != 'undefined'){
@@ -746,7 +746,7 @@ var ajaxCart = {
                         myPrice = this.priceByLine.replace(' руб', '');//maxim
                         myPrice = myPrice.replace(' ', '');//maxim
                         //console.log('price'+myPrice);
-                        content += '<span class="price" cartprice="'+(parseFloat(this.price_float) > 0 ? myPrice.replace(',', '.') : freeProductTranslation)+'" cartcatid="'+idcategorydefault+'" >' + (parseFloat(this.price_float) > 0 ? this.price_float : freeProductTranslation) + '</span></div>';//this.priceByLine.replace(',', '.') maxim
+                        content += '<span class="price" cartprice="'+(parseFloat(this.price_float) > 0 ? myPrice.replace(',', '.') : freeProductTranslation)+'" cartcatid="'+idcategorydefault+'" >' + (parseFloat(this.price_float) > 0 ? this.price : freeProductTranslation) + '</span></div>';//this.priceByLine.replace(',', '.') maxim
                     }
                     if (typeof(this.is_gift) == 'undefined' || this.is_gift == 0)
                         content += '<span class="remove_link"><a rel="nofollow" class="ajax_cart_block_remove_link" href="' + baseUri + '?controller=cart&amp;delete=1&amp;id_product=' + productId + '&amp;token=' + static_token + (this.hasAttributes ? '&amp;ipa=' + parseInt(this.idCombination) : '') + '" >&nbsp;x</a></span>';
@@ -769,7 +769,7 @@ var ajaxCart = {
                     {
                         // Usual product
                         if (!this.is_gift)
-                            $('dt[data-id="cart_block_product_' + domIdProduct + '"] .price').html(jsonProduct.price_float);
+                            $('dt[data-id="cart_block_product_' + domIdProduct + '"] .price').html(jsonProduct.price);
                         else
                             $('dt[data-id="cart_block_product_' + domIdProduct + '"] .price').html(freeProductTranslation);
                         ajaxCart.updateProductQuantity(jsonProduct, jsonProduct.quantity);

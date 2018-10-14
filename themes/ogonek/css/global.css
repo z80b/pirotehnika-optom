@@ -12601,8 +12601,9 @@ a.ps-more-info__feature-value {
   top: 58px;
 }
 .ps-products--table .ps-product__quantity-cell {
-  white-space: normal;
+  white-space: nowrap;
   line-height: 17px;
+  padding: 0 0 17px;
 }
 .ps-products--table .ps-product__table {
   display: table;

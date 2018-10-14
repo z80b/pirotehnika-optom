@@ -1,9 +1,32 @@
+function renderProductInfo(id_product, data) {
+    console.log('renderProductInfo:', data);
+}
+
+function updateProductInfo(id_product) {
+    $.ajax({
+        type: 'POST',
+        headers: { "cache-control": "no-cache" },
+        url: baseUri + '?rand=' + new Date().getTime(),
+        async: true,
+        cache: false,
+        dataType: 'json',
+        data: {
+            controller: 'cart',
+            ajax: true,
+            token: static_token            
+        }
+    }).done(function(jsonData) {
+        //renderProductInfo(id_product, data);
+        ajaxCart.updateCart(jsonData);
+    });
+}
 $(document).ready(function() {
     $('.js-ps-products')
         .on('click', '.ps-product__image-link', function(event) {
             event.preventDefault();
             $.get(event.currentTarget.getAttribute('href') + '?ajax=1', function(response) {
                 $('.js-product-popup .ps-popup__body').html(response);
+                updateProductInfo(event.currentTarget.getAttribute('data-product-id'));
                 $('.js-product-popup').removeClass('hidden');
 
                 var imagesDef = $('.js-product-popup .b-image-block__slide-image').map(function(ix, el) {

@@ -22,7 +22,8 @@
         <div class="ps-product__table-cell ps-product__articule">{$product.reference}</div>
         <div class="ps-product__table-cell">
             <a  class="ps-product__image-link"
-                href="{$product.link|escape:'html':'UTF-8'}">
+                href="{$product.link|escape:'html':'UTF-8'}"
+                data-product-id="{$product.id_product}">
                 <img
                     class="ps-product__image"
                     alt="{$product.name|escape:'html':'UTF-8'}"
@@ -31,7 +32,7 @@
             </a>
         </div>
         <div class="ps-product__table-cell ps-product__name">
-            <a class="ps-product__link" href="{$product.link|escape:'html':'UTF-8'}">{$product.name|escape:'html':'UTF-8'}</a>
+            <a class="ps-product__link" href="{$product.link|escape:'html':'UTF-8'}">{$product.price_name|escape:'html':'UTF-8'}</a>
         </div>
         <div class="ps-product__table-cell">{Product::SGetProductUnity($product.sale_unity)}</div>
         <div class="ps-product__table-cell ps-product__price">
@@ -40,7 +41,7 @@
             </span>
             {if $product.specific_prices.reduction > 0}
                 <span class="ps-price__value ps-price__value--old">
-                    {Tools::displayPrice($product.price_without_reduction)}
+                    {Tools::displayPrice($product.old_price)}
                 </span>
             {/if}
         </div>
@@ -49,7 +50,7 @@
         <div class="ps-product__table-cell">{if $product.r3 == 1}-{else}{$product.r3}<div>{Product::SGetProductUnity($product.sale_unity)}</div>{/if}</div>
         <div class="ps-product__table-cell ps-product__table-cell--quantity">
             <div class="ps-product__quantity-cell">
-                {if $product.box_quantity}
+                {if isset($product.box_quantity)}
                 {$product.box_quantity} кор.
                 {else}-<br/><br/>{/if}
             </div>

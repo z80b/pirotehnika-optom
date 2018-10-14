@@ -48,7 +48,7 @@
                         <div class="ps-product__price ps-price">
                             {if $product.specific_prices.reduction > 0}
                                 <span class="ps-price__value ps-price__value--old">
-                                    {convertPrice price=$product.price_without_reduction}
+                                    {convertPrice price=$product.old_price}
                                 </span>
                                 <span class="ps-product__discount">
                                     -{$product.specific_prices.reduction * 100}%
@@ -81,14 +81,6 @@
                                     <span id="unit_price_display">{convertPrice price=$unit_price}</span> 
                                 </p>
                         {/if}
-                        </div>
-                        <div class="ps-price__descript">
-                            {if isset($product.r3)}В коробке - {$product.r3}&nbsp;{Product::SGetProductUnity($product.sale_unity)}{/if}
-                        </div>
-                        <div class="ps-price__descript">
-                            {if isset($product.sale_unity_pack)}
-                                {$product.sale_unity_pack}
-                            {/if}
                         </div>
                     </div>
                     <div class="ps-product__cell">

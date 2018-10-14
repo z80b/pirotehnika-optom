@@ -131,11 +131,7 @@
                     </span> 
                     {if $product->specificPrice.reduction > 0}
                         <span class="ps-price__value ps-price__value--old">
-                            {if $isShowPriceDisc == true && $productPrice <> $productPriceDisc && $isShowPriceWoDisc == true}
-                                {convertPrice price=$productPrice|floatval}
-                            {else}
-                                {convertPrice price=$productPriceDisc|floatval}
-                            {/if}
+                            {convertPrice price=$product->base_price}
                         </span>
                         <span class="ps-price__discount">
                             -{$product->specificPrice.reduction * 100}%
@@ -162,14 +158,6 @@
                                 <span id="unit_price_display">{convertPrice price=$unit_price}</span> 
                             </p>
                     {/if}
-                    </div>
-                    <div class="ps-price__descript">
-                        {if isset($product->r3)}В коробке - {$product->r3}&nbsp;{Product::SGetProductUnity($product->sale_unity)}{/if}
-                    </div>
-                    <div class="ps-price__descript">
-                        {if isset($product->sale_unity_pack)}
-                            {$product->sale_unity_pack}
-                        {/if}
                     </div>
                     {if isset($product_attachments) && isset($product_attachments[0])}
                     <div class="ps-price__descript">
@@ -279,128 +267,7 @@
         </div>
     </div>
 </div>
-
-{if (isset($product) && $product->description) || (isset($features) && $features) || (isset($accessories) && $accessories) || (isset($HOOK_PRODUCT_TAB) && $HOOK_PRODUCT_TAB) || (isset($attachments) && $attachments) || isset($product) && $product->customizable}
-<div id="more_info_block" class="clear shops_tabs">
-    <ul id="more_info_tabs" class="idTabs idTabsShort clearfix tabs">
-        
-        {if $product->description}<li><a id="more_info_tab_more_info" href="#idTab1">{l s='ОПИСАНИЕ'}</a></li>{/if}
-        {if $features}<li><a id="more_info_tab_data_sheet" href="#idTab2">{l s='ХАРАКТЕРИСТИКИ'}</a></li>{/if}
-        {if $attachments}<li><a id="more_info_tab_attachments" href="#idTab9">{l s='Download'}</a></li>{/if}
-        <!-- {if isset($accessories) AND $accessories}<li><a href="#idTab4">{l s='Accessories'}</a></li>{/if} -->
-        {if isset($product) && $product->customizable}<li><a href="#idTab10">{l s='Product customization'}</a></li>{/if}
-        {$HOOK_PRODUCT_TAB}
-    </ul>
-    <div id="more_info_sheets" class="sheets align_justify">
-    {if isset($product) && $product->description}
-        <!-- full description -->
-        <div id="idTab1" class="rte">{$product->description}</div>
-    {/if}
-    {if isset($features) && $features}
-        <!-- product's features -->
-        <table id="idTab2" class="bullet">
-        {foreach from=$features item=feature}
-            {if isset($feature.value)}
-                <tr>
-                    <td>{$feature.name|escape:'htmlall':'UTF-8'}</td>
-                    <td>{$feature.value|escape:'htmlall':'UTF-8'}</td>
-                </tr>
-            {/if}
-        {/foreach}
-        </table>
-    {/if}
-    {if isset($attachments) && $attachments}
-        <ul id="idTab9" class="bullet">
-        {foreach from=$attachments item=attachment}
-            <li><a href="{$link->getPageLink('attachment', true, NULL, "id_attachment={$attachment.id_attachment}")|escape:'html'}">{$attachment.name|escape:'htmlall':'UTF-8'}</a><br />{$attachment.description|escape:'htmlall':'UTF-8'}</li>
-        {/foreach}
-        </ul>
-    {/if}
-
-
-     <!-- accessories -->
-     <!-- 539 -->
-      <!-- accessories -->
-  
-    <!-- Customizable products -->
-    {if isset($product) && $product->customizable}
-        <div id="idTab10" class="bullet customization_block">
-            <form method="post" action="{$customizationFormTarget}" enctype="multipart/form-data" id="customizationForm" class="clearfix">
-                <p class="infoCustomizable">
-                    {l s='After saving your customized product, remember to add it to your cart.'}
-                    {if $product->uploadable_files}<br />{l s='Allowed file formats are: GIF, JPG, PNG'}{/if}
-                </p>
-                {if $product->uploadable_files|intval}
-                <div class="customizableProductsFile">
-                    <h3>{l s='Pictures'}</h3>
-                    <ul id="uploadable_files" class="clearfix">
-                        {counter start=0 assign='customizationField'}
-                        {foreach from=$customizationFields item='field' name='customizationFields'}
-                            {if $field.type == 0}
-                                <li class="customizationUploadLine{if $field.required} required{/if}">{assign var='key' value='pictures_'|cat:$product->id|cat:'_'|cat:$field.id_customization_field}
-                                    {if isset($pictures.$key)}
-                                    <div class="customizationUploadBrowse">
-                                        <img src="{$pic_dir}{$pictures.$key}_small" alt="" />
-                                        <a href="{$link->getProductDeletePictureLink($product, $field.id_customization_field)|escape:'html'}" title="{l s='Delete'}" >
-                                            <img src="{$img_dir}icon/delete.gif" alt="{l s='Delete'}" class="customization_delete_icon" width="11" height="13" />
-                                        </a>
-                                    </div>
-                                    {/if}
-                                    <div class="customizationUploadBrowse">
-                                        <label class="customizationUploadBrowseDescription">{if !empty($field.name)}{$field.name}{else}{l s='Please select an image file from your computer'}{/if}{if $field.required}<sup>*</sup>{/if}</label>
-                                        <input type="file" name="file{$field.id_customization_field}" id="img{$customizationField}" class="customization_block_input {if isset($pictures.$key)}filled{/if}" />
-                                    </div>
-                                </li>
-                                {counter}
-                            {/if}
-                        {/foreach}
-                    </ul>
-                </div>
-                {/if}
-                {if $product->text_fields|intval}
-                <div class="customizableProductsText">
-                    <h3>{l s='Text'}</h3>
-                    <ul id="text_fields">
-                    {counter start=0 assign='customizationField'}
-                    {foreach from=$customizationFields item='field' name='customizationFields'}
-                        {if $field.type == 1}
-                        <li class="customizationUploadLine{if $field.required} required{/if}">
-                            <label for ="textField{$customizationField}">{assign var='key' value='textFields_'|cat:$product->id|cat:'_'|cat:$field.id_customization_field} {if !empty($field.name)}{$field.name}{/if}{if $field.required}<sup>*</sup>{/if}</label>
-                            <textarea name="textField{$field.id_customization_field}" id="textField{$customizationField}" rows="1" cols="40" class="customization_block_input">{if isset($textFields.$key)}{$textFields.$key|stripslashes}{/if}</textarea>
-                        </li>
-                        {counter}
-                        {/if}
-                    {/foreach}
-                    </ul>
-                </div>
-                {/if}
-                <p id="customizedDatas">
-                    <input type="hidden" name="quantityBackup" id="quantityBackup" value="" />
-                    <input type="hidden" name="submitCustomizedDatas" value="1" />
-                    <input type="button" class="button" value="{l s='Save'}" onclick="javascript:saveCustomization()" />
-                    <span id="ajax-loader" style="display:none"><img src="{$img_ps_dir}loader.gif" alt="loader" /></span>
-                </p>
-            </form>
-            <p class="clear required"><sup>*</sup> {l s='required fields'}</p>
-        </div>
-    {/if}
-  
-    {if isset($HOOK_PRODUCT_TAB_CONTENT) && $HOOK_PRODUCT_TAB_CONTENT}{$HOOK_PRODUCT_TAB_CONTENT}{/if}
-    </div>
-    <div class="ps-product__compare-block">
-        {include file="$tpl_dir./product-compare.tpl" paginationId='footer'}
-    </div>
-</div>
-{/if}
-{if isset($packItems) && $packItems|@count > 0}
-    <div id="blockpack">
-        <h2>{l s='Pack content'}</h2>
-        {include file="$tpl_dir./product-list.tpl" products=$packItems}
-    </div>
-{/if}
- 
-
-
+{include file="$tpl_dir/blocks/more-product-info.tpl"}
 
 {if isset($HOOK_PRODUCT_FOOTER) && $HOOK_PRODUCT_FOOTER}{$HOOK_PRODUCT_FOOTER}{/if}
         <!-- description & features -->

@@ -1,5 +1,6 @@
 .ps-popup-content__ajax .ps-popup-content__title,
 .ps-popup-content__ajax .ps-feature,
+.ps-more-info__tabs,
 .ps-content__title,
 .ps-content--product .ps-feature,
 .ps-filter__item-controls,
@@ -9,6 +10,7 @@
 }
 .ps-popup-content__ajax .ps-popup-content__title::after,
 .ps-popup-content__ajax .ps-feature::after,
+.ps-more-info__tabs::after,
 .ps-content__title::after,
 .ps-content--product .ps-feature::after,
 .ps-filter__item-controls::after,
@@ -11614,7 +11616,7 @@ input[type='number'] {
   display: inline-block;
   font-weight: 700;
   color: #555;
-  width: 65%;
+  width: 50%;
 }
 .ps-popup-content__ajax .ps-option__value {
   font-weight: 700;
@@ -11673,6 +11675,77 @@ input[type='number'] {
   margin: 0;
   border: solid 1px #f1b347;
   z-index: 2;
+}
+.ps-more-info {
+  display: block;
+  padding: 30px 0;
+}
+.ps-more-info__tabs {
+  padding: 0;
+}
+.ps-more-info__tab {
+  display: block;
+  padding: 10px;
+  border-top: solid 2px transparent;
+  float: left;
+  font-size: 20px;
+  cursor: pointer;
+}
+.ps-more-info__tab:focus,
+.ps-more-info__tab:active,
+.ps-more-info__tab:hover {
+  border-top: solid 2px #f1b347;
+}
+.ps-more-info__switcher {
+  display: none;
+}
+.ps-more-info__content {
+  display: none;
+}
+.ps-more-info__switcher:checked + .ps-more-info__content {
+  display: block;
+}
+.ps-more-info__features,
+.ps-more-info__description {
+  font-size: 16px;
+  color: #555;
+}
+.ps-more-info__features p,
+.ps-more-info__description p {
+  padding: 0;
+  line-height: 2;
+}
+.ps-more-info__feature {
+  position: relative;
+  margin: 0 0 1em;
+}
+.ps-more-info__feature::before {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  width: 100%;
+  border-bottom: dotted 4px #555;
+  z-index: 0;
+}
+.ps-more-info__feature-name,
+.ps-more-info__feature-value {
+  display: inline-block;
+  position: relative;
+  background-color: #fff;
+  z-index: 1;
+}
+.ps-more-info__feature-name {
+  padding: 0 1em 0 0;
+}
+.ps-more-info__feature-value {
+  position: absolute;
+  right: 0;
+  padding: 0 0 0 1em;
+  color: #555;
+}
+a.ps-more-info__feature-value {
+  text-decoration: underline;
 }
 .ps-product__linkbutton {
   position: absolute;

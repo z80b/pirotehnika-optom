@@ -91,12 +91,17 @@
         <div class="ps-filter__item__ticks">
             <div class="ps-filter__item__scroll">
             {foreach from=$manufacturers item=manufact}
+                {if isset($checked['manufact'][$manufact.id_manufacturer])}
+                    {assign var="checked" value='checked="checked"'}
+                {else}
+                    {assign var="checked" value=""}
+                {/if}
                 <div class="ps-filter__tick ps-tick">
                     <input
                         class="ps-tick__checkbox"
                         type="checkbox"
                         value="{$manufact.id_manufacturer}"
-                        {if isset($checked['manufact'])}checked="checked"{/if}
+                        {$checked}
                         name="manufact"
                         id="filter-manufact-{$manufact.id_manufacturer}"/>
                     <label
@@ -115,7 +120,7 @@
         </div>
     </div>
     {/if}
-    {if isset($checked) && $checked}
+    {if isset($checked) && count($checked)}
     <button class="ps-filter__reset js-filter-reset">Сбросить</button>
     {/if}
 </div>

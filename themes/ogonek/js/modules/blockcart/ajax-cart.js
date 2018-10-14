@@ -950,7 +950,7 @@ var ajaxCart = {
         $('.ajax_total_price_wt').text(jsonData.total_price_wt);
         $('.ajax_cart_prod_num').text(jsonData.products.length);
         //$('.ajax_cart_prod_IdCat').text(jsonData.products.length);
-        console.log(jsonData);
+        console.log('updateCart:', jsonData);
         //console.log(jsonData.products[0].id);
         //console.log(jsonData->$products);
         //_localStorage["jsonData"] ='';

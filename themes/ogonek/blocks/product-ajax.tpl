@@ -28,16 +28,20 @@
         <div class="ps-popup-content__cell">
             {include file="$tpl_dir/blocks/image-block.tpl"}
         </div>
-        {if isset($features) && $features}
+        
         <div class="ps-popup-content__cell">
             <div class="ps-features">
                 <ul class="ps-features__list">
-                    {foreach from=$features item=feature}
-                    <li class="ps-features__item ps-feature">
-                        <span class="ps-feature__title">{$feature.name|escape:'htmlall':'UTF-8'}</span>
-                        <span class="ps-feature__value">{$feature.value|escape:'htmlall':'UTF-8'}</span>
-                    </li>
-                    {/foreach}
+                    {if isset($features) && $features}
+                        {foreach from=$features item=feature}
+                        {if $feature.value != ''}
+                        <li class="ps-features__item ps-feature">
+                            <span class="ps-feature__title">{$feature.name|escape:'htmlall':'UTF-8'}</span>
+                            <span class="ps-feature__value">{$feature.value|escape:'htmlall':'UTF-8'}</span>
+                        </li>
+                        {/if}
+                        {/foreach}
+                    {/if}
                     <li class="ps-features__item ps-feature">
                         <span class="ps-feature__title">{l s='Manufacturer'}</span>
                         <span class="ps-feature__value">{$product_manufacturer->name}</span>
@@ -65,7 +69,6 @@
                 </ul>
             </div>
         </div>
-        {/if}
         <div class="ps-popup-content__cell">
             <div class="ps-white-block">
                 <div class="ps-price__block">
@@ -78,11 +81,7 @@
                     </span> 
                     {if $product->specificPrice.reduction > 0}
                         <span class="ps-price__value ps-price__value--old">
-                            {if $isShowPriceDisc == true && $productPrice <> $productPriceDisc && $isShowPriceWoDisc == true}
-                                {convertPrice price=$productPrice|floatval}
-                            {else}
-                                {convertPrice price=$productPriceDisc|floatval}
-                            {/if}
+                            {convertPrice price=$product->base_price}
                         </span>
                         <span class="ps-price__discount">
                             -{$product->specificPrice.reduction * 100}%
@@ -110,21 +109,13 @@
                             </p>
                     {/if}
                     </div>
-                    <div class="ps-price__descript">
-                        {if isset($product->r3)}В коробке - {$product->r3}&nbsp;{Product::SGetProductUnity($product->sale_unity)}{/if}
-                    </div>
-                    <div class="ps-price__descript">
-                        {if isset($product->sale_unity_pack)}
-                            {$product->sale_unity_pack}
-                        {/if}
-                    </div>
                 </div>
                 <div class="ps-product__options">
                     <div class="ps-product__option ps-product__option--checked">
                         {if $product->quantity > 0}
                         <b class="ps-option__title">{l s='В наличии'}:</b>
                         <span class="ps-option__value">
-                            {$product->quantity}
+                            <span class="js-popup-product-quantity">{$product->quantity}</span>
                             {Product::SGetProductUnity($product->sale_unity)}
                         </span>
                         {else}

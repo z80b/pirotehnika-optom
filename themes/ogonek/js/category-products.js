@@ -22,7 +22,7 @@ function updateProductInfo(id_product) {
 }
 $(document).ready(function() {
     $('.js-ps-products')
-        .on('click', '.ps-product__image-link', function(event) {
+        .on('click', '.ps-product__quickview', function(event) {
             event.preventDefault();
             $.get(event.currentTarget.getAttribute('href') + '?ajax=1', function(response) {
                 $('.js-product-popup .ps-popup__body').html(response);

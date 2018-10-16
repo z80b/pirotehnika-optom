@@ -1,5 +1,5 @@
 .ps-popup-content__ajax
-    width 920px
+    width 1206px
     .ps-popup-content
         min-width 900px
         
@@ -14,11 +14,9 @@
             color #666
             
             &-left, &-right
+                font 700 .6em/22px 'Open Sans', sans-serif
                 position relative
                 display block
-                
-            &-right
-                font 700 .6em/22px 'Open Sans', sans-serif
                 
         &__row
             display table
@@ -27,8 +25,11 @@
         &__cell
             display table-cell
             vertical-align top
-            padding 20px 30px
+            padding 20px
             max-width 240px
+            
+            &:first-child
+                width 320px
             
             &:last-of-type
                 border-left solid 1px #ccc
@@ -177,7 +178,7 @@
         &__quantity
             display inline-block
             position relative
-            width 75%
+            width 6em
             
             &::after
                 content ''

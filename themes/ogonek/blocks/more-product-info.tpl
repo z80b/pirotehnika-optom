@@ -1,15 +1,27 @@
 <div class="ps-product__more-info ps-more-info">
+    <input
+        class="ps-more-info__switcher ps-more-info__switcher--0"
+        type="radio" name="more-info-tab"
+        id="more-info-tab-0"
+        checked="checked" />
+    <input
+        class="ps-more-info__switcher ps-more-info__switcher--1"
+        type="radio"
+        name="more-info-tab"
+        id="more-info-tab-1"/>
     <div class="ps-more-info__tabs">
-        <label class="ps-more-info__tab" for="more-info-tab-0">{l s='ОПИСАНИЕ'}</label>
-        <label class="ps-more-info__tab" for="more-info-tab-1">{l s='ХАРАКТЕРИСТИКИ'}</label>
+        <label
+            class="ps-more-info__tab ps-more-info__tab--0"
+            for="more-info-tab-0">{l s='ОПИСАНИЕ'}</label>
+        <label
+            class="ps-more-info__tab ps-more-info__tab--1"
+            for="more-info-tab-1">{l s='ХАРАКТЕРИСТИКИ'}</label>
     </div>
     <div class="ps-more-info__contents">
-        <input class="ps-more-info__switcher" type="radio" name="more-info-tab" id="more-info-tab-0" checked="checked" />
-        <div class="ps-more-info__content  ps-more-info__description">
+        <div class="ps-more-info__content ps-more-info__content--0 ps-more-info__description">
             {$product->description}
         </div>
-        <input class="ps-more-info__switcher" type="radio" name="more-info-tab" id="more-info-tab-1"/>
-        <div class="ps-more-info__content ps-more-info__features">
+        <div class="ps-more-info__content ps-more-info__content--1 ps-more-info__features">
         {foreach from=$features item=feature}
         <div class="ps-more-info__feature">
             <span class="ps-more-info__feature-name">{$feature.name|escape:'htmlall':'UTF-8'}</span>

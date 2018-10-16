@@ -2,30 +2,57 @@
     display block
     padding 30px 0
     
+    iframe[src*=youtube]
+        display none
+    
     &__tabs
         @extends $clear-block
         padding 0
         
     &__tab
         display block
-        padding 10px 
-        border-top solid 2px transparent
+        padding 10px 20px
         float left
         font-size 20px
         cursor pointer
+        border-style solid
+        border-width 2px 0 1px
+        border-color transparent transparent #f1b347
         
-        &:focus, &:active, &:hover
-            border-top solid 2px #f1b347
+        color #777
+        
+        &--0
+            ~/__switcher--0:checked ~ .ps-more-info__tabs &
+                border-width 3px 1px 0
+                border-color #f1b347 #f1b347 transparent
+                color #555
+                
+        &--1
+            ~/__switcher--1:checked ~ .ps-more-info__tabs &
+                border-width 3px 1px 0
+                border-color #f1b347 #f1b347 transparent
+                color #555
+        
+        &:hover
+            color #555
             
     &__switcher
         display none
         
     &__content
         display none
+        width 480px
+        padding 20px 0 0
         
-        ~/__switcher:checked + &
-            display block
-            
+        &--0
+            ~/__switcher--0:checked ~ .ps-more-info__contents &
+                display block
+                
+        &--1
+            ~/__switcher--1:checked ~ .ps-more-info__contents &
+                display block
+
+                    
     &__features, &__description
         font-size 16px
         color #555

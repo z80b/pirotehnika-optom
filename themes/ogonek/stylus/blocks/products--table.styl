@@ -37,6 +37,14 @@
             line-height 17px
             padding 0 0 17px
             
+        &__quickview
+            display block
+            color #777
+            text-decoration underline
+            
+            &:hover
+                color #555
+            
         &__table
             display table
             width 100%
@@ -104,7 +112,7 @@
                 &::after
                     content "\f00e"
                     display block
-                    absolute top 0 left 0 width 65px height 100%
+                    absolute top 0 left 0 width 100% height 100%
                     font 32px/65px "FontAwesome"
                     text-align center
                     background-color rgba(#000, .2)
@@ -121,11 +129,11 @@
             
             .ps-product__link
                 font 800 14px/1 'Open Sans', sans-serif
-                color #d34633
+                color #777
                 text-decoration none
             
                 &:hover
-                    color #d34633
+                    color #333
                     text-decoration underline            
             
         &__quantity
@@ -196,7 +204,7 @@
                 
         &__price
             font 800 12px/1 'Open Sans', sans-serif
-            color #ec1818
+            color #333
             padding .5em 0
             height 3.4em
             

@@ -21,8 +21,8 @@
     <div class="ps-product__table-row ps-products__item ps-product" data-product-id="{$product.id_product}">
         <div class="ps-product__table-cell ps-product__articule">{$product.reference}</div>
         <div class="ps-product__table-cell">
-            <a  class="ps-product__image-link"
-                href="{$product.link|escape:'html':'UTF-8'}"
+            <a  class="ps-product__image-zoom fancyImg"
+                href="{$link->getImageLink($product.link_rewrite, $product.id_image, 'large_default')|escape:'html':'UTF-8'}"
                 data-product-id="{$product.id_product}">
                 <img
                     class="ps-product__image"
@@ -33,6 +33,7 @@
         </div>
         <div class="ps-product__table-cell ps-product__name">
             <a class="ps-product__link" href="{$product.link|escape:'html':'UTF-8'}">{$product.price_name|escape:'html':'UTF-8'}</a>
+            <a class="ps-product__quickview" href="{$product.link|escape:'html':'UTF-8'}"><i class="fa fa-eye"></i> Быстрый просмотр</a>
         </div>
         <div class="ps-product__table-cell">{Product::SGetProductUnity($product.sale_unity)}</div>
         <div class="ps-product__table-cell ps-product__price">
@@ -47,7 +48,7 @@
         </div>
         <div class="ps-product__table-cell">{if $product.r1 == 1}-{else}{$product.r1}<div>шт.</div>{/if}</div>
         <div class="ps-product__table-cell">{if $product.r2 == 1}-{else}{$product.r2}<div>уп.</div>{/if}</div>
-        <div class="ps-product__table-cell">{if $product.r3 == 1}-{else}{$product.r3}<div>{Product::SGetProductUnity($product.sale_unity)}</div>{/if}</div>
+        <div class="ps-product__table-cell">{if $product.r3 == 1}1{else}{$product.r3}<div>{Product::SGetProductUnity($product.sale_unity)}</div>{/if}</div>
         <div class="ps-product__table-cell ps-product__table-cell--quantity">
             <div class="ps-product__quantity-cell">
                 {if isset($product.box_quantity)}

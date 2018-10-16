@@ -66,8 +66,8 @@
                                 <a  class="ps-thumbs__video-link"
                                     data-rel="media"
                                     href="https://www.youtube.com/v/{$video_id}"
-                                    style="background-image: url('https://img.youtube.com/vi/{$video_id}/1.jpg') !important">
-                                    <img class="img-responsive ps-thumbs__video-image" src="https://img.youtube.com/vi/{$video_id}/1.jpg"/>
+                                    style="background-image: url('/themes/ogonek/img/youtube_icon_small.png') !important">
+                                    <img class="img-responsive ps-thumbs__video-image" src="/themes/ogonek/img/youtube_icon_small.png"/>
                                 </a>
                             </li>
                         {/if}

@@ -15,8 +15,8 @@
             <a  class="b-image-block__slide b-image-block__slide--video js-product-video-link"
                 data-rel="media"
                 href="https://www.youtube.com/v/{$video_id}"
-                style="background-image: url('https://img.youtube.com/vi/{$video_id}/1.jpg') !important">
-                <img class="b-image-block__slide-image b-image-block__slide-image--video" src="https://img.youtube.com/vi/{$video_id}/1.jpg"/>
+                style="background-image: url('/themes/ogonek/img/youtube_icon_small.png') !important">
+                <img class="b-image-block__slide-image b-image-block__slide-image--video" src="/themes/ogonek/img/youtube_icon_small.png"/>
             </a>
         {/if}
         {if isset($images) && count($images) > 0}

@@ -22,30 +22,17 @@ class Manufacturer extends ManufacturerCore {
 
         FROM {$prefix}manufacturer AS m
 
-        INNER JOIN {$prefix}manufacturer_lang AS ml
+        LEFT JOIN {$prefix}manufacturer_lang AS ml
         ON m.id_manufacturer = ml.id_manufacturer
             AND ml.id_lang = '{$id_lang}'
 
         LEFT JOIN {$prefix}product AS p
-        ON m.id_manufacturer = p.id_manufacturer
+        ON p.id_manufacturer = m.id_manufacturer
 
         LEFT JOIN {$prefix}category_product AS cp
-        ON p.id_product = cp.id_product
+        ON cp.id_product = p.id_product
 
-        INNER JOIN {$prefix}product_shop AS ps
-        ON  ps.id_product = cp.id_product
-
-        LEFT JOIN {$prefix}specific_price AS sp
-        ON p.id_product = sp.id_product
-            AND ps.id_shop = sp.id_shop
-
-        LEFT JOIN {$prefix}stock_available AS st
-        ON st.id_product = cp.id_product
-
-        WHERE m.active = 1
-            AND ps.active = 1
-            AND ps.show_price = 1
-            {$filter}
+        WHERE cp.id_category = {$id_category}
 
         GROUP BY m.id_manufacturer
 
@@ -66,10 +53,15 @@ class Manufacturer extends ManufacturerCore {
         return $manufacturers;
     }
 
-    public static function getProductsCount($id_manufacturer, $filter) {
+
+    public static function getProductsCount($id_manufacturer = NULL, $filter) {
         $prefix  = _DB_PREFIX_;
 
-        return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("
+        if ($id_manufacturer) {
+            $manufacturer_filter = "AND p.id_manufacturer = {$id_manufacturer}";
+        } else $manufacturer_filter = '';
+
+        $sql = "
             SELECT COUNT(DISTINCT p.id_product)
             FROM {$prefix}product AS p
 
@@ -93,8 +85,10 @@ class Manufacturer extends ManufacturerCore {
                 ps.active = 1
             AND stock.quantity > 0
             AND ps.show_price = 1
-            AND p.id_manufacturer = {$id_manufacturer} {$filter}
-        ");
+            {$manufacturer_filter} {$filter}
+        ";
+
+        return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($sql);
     }
 
 }

@@ -87,23 +87,27 @@
     {/if}
     {if isset($manufacturers)}
     <div class="ps-filter__item --haschildren">
-        <span class="ps-filter__item__button">Производитель</span>
+        <span class="ps-filter__item__button">Производитель | <b>{$manufacturers_products_count}</b></span>
         <div class="ps-filter__item__ticks">
             <div class="ps-filter__item__scroll">
             {foreach from=$manufacturers item=manufact}
-                {if isset($checked['manufact'][$manufact.id_manufacturer])}
-                    {assign var="checked" value='checked="checked"'}
-                {else}
-                    {assign var="checked" value=""}
-                {/if}
                 <div class="ps-filter__tick ps-tick">
+                    {if isset($checked['manufact'][$manufact.id_manufacturer])}
                     <input
                         class="ps-tick__checkbox"
                         type="checkbox"
                         value="{$manufact.id_manufacturer}"
-                        {$checked}
+                        checked="checked"
                         name="manufact"
                         id="filter-manufact-{$manufact.id_manufacturer}"/>
+                    {else}
+                    <input
+                        class="ps-tick__checkbox"
+                        type="checkbox"
+                        value="{$manufact.id_manufacturer}"
+                        name="manufact"
+                        id="filter-manufact-{$manufact.id_manufacturer}"/>
+                    {/if}
                     <label
                         class="ps-tick__label"
                         for="filter-manufact-{$manufact.id_manufacturer}">{$manufact.name}</label>

@@ -154,6 +154,7 @@ class CategoryControllerCore extends FrontController
         $templateData = array(
             'categories'           => $this->categories,
             'manufacturers'        => Manufacturer::getManufacturersList($this->category->id),
+            'manufacturers_products_count' => Manufacturer::getProductsCount(NULL, $filter),
             'subcategories'        => $this->subcategories,
             'category'             => $this->category,
             'checked'              => Category::getCheckedCategories($this->category->id),

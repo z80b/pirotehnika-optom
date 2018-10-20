@@ -58,7 +58,7 @@
                   {/if}
             </div>
 		{/if}
-        {include file="$tpl_dir./products-filter.tpl"}
+        {include file="$tpl_dir./blocks/products-filter.tpl"}
 		{if $products}
 			<hr/>
 			<div class="content_sortPagiBar clearfix">

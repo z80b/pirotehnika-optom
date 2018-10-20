@@ -50,7 +50,7 @@ class Category extends CategoryCore {
     public static function getCategoryChildren($id_category = NULL, $id_lang) {
 
         $db_prefix = _DB_PREFIX_;
-        $filter = Product::getProductsFilter($id_category, false);
+        $filter = Product::getProductsFilter($id_category, false, true);
         $sql = "
 
         SELECT * FROM {$db_prefix}category AS c
@@ -94,6 +94,58 @@ class Category extends CategoryCore {
         }
 
         return $result;
+    }
+
+    public static function getProductsFilter($id_category = NULL, $id_parent = NULL) {
+        if (isset($id_category)) {
+            $filter = "AND cp.id_category = {$id_category}";
+        } else $filter = '';
+
+        if (isset($_COOKIE['filter']) && isset($id_category)) {
+
+            $cookie = json_decode($_COOKIE['filter'], true);
+            $cookie_filter = isset($cookie[$id_parent]) ? $cookie[$id_parent] : array();
+
+            if (isset($cookie_filter['categories'])) {
+
+                $categories_filter = array();
+                foreach (explode('|', $cookie_filter['categories']) as $key => $item) {
+                    if ($item) {
+                        $categories_filter[] = "(select cp.id_product from "._DB_PREFIX_."category_product cp where cp.id_category IN({$item}))";
+                    }
+                }
+
+                if ($categories_filter && count($categories_filter)) {
+                    $subfilter = " cp.id_product IN ". implode(' AND cp.id_product IN ', $categories_filter);
+
+                    $sql = "
+                        select distinct p.id_product from "._DB_PREFIX_."product p 
+                            left join "._DB_PREFIX_."category_product cp on cp.id_product = p.id_product
+                            where ".$subfilter;
+
+                    $result2 = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
+
+                    $ff1 = array();
+
+                    foreach ($result2 as $key => $product) {
+                        $ff1[] = $product['id_product']; 
+                    }
+
+                    if ($ids = implode(',', $ff1))
+                        $filter .= " AND cp.id_product IN (". implode(',', $ff1).")";
+                }
+            }
+
+            if (isset($cookie_filter['discount']) && $cookie_filter['discount']) {
+                $filter .= ' AND sp.reduction > 0';
+            }
+
+            if (isset($cookie_filter['manufact']) && $cookie_filter['manufact']) {
+                $filter .= " AND p.id_manufacturer IN(" . implode(',', $cookie_filter['manufact']) .")";
+            }
+        }
+
+        return $filter;
     }
 
     public static function getGeneralCategories() {
@@ -314,7 +366,9 @@ class Category extends CategoryCore {
     public static function getProductsCount($id_category, $filter) {
         $prefix  = _DB_PREFIX_;
 
-        return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("
+        $category_filter = self::getProductsFilter($id_category, $_REQUEST['id_category']);
+
+        $sql = "
             SELECT COUNT(DISTINCT p.id_product)
             FROM {$prefix}product AS p
 
@@ -338,8 +392,16 @@ class Category extends CategoryCore {
                 ps.active = 1
             AND stock.quantity > 0
             AND ps.show_price = 1
-            AND cp.id_category = {$id_category} {$filter}
-        ");
+            {$category_filter}
+        ";
+
+        if ($id_category == 11219) {
+            die("<pre>
+                {$sql},
+                ".print_r($_REQUEST, true)."</pre>");
+        } 
+
+        return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($sql);
     }
 
 }

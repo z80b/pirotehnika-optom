@@ -43,13 +43,15 @@
         <div class="ps-more-info__feature">
             <span class="ps-more-info__feature-name">{l s='Certificate'}</span>
             {if isset($product_attachments) && isset($product_attachments[0])}
-            <a  class="ps-more-info__feature-value js-product-certificates-divnk"
-                href="{$product_attachments[0]['src']}"
-                data-fancybox-group="attachements-group"
-                data-fancybox-type="image">{$product->sert}</a>
-            <a href="{$product_attachments[1]['src']}" class="ps-product__attachments js-product-certificates-divnk" data-fancybox-group="attachements-group" data-fancybox-type="image"></a>
+                <a  class="ps-more-info__feature-value js-product-certificates-divnk"
+                    href="{$product_attachments[0]['src']}"
+                    data-fancybox-group="attachements-group"
+                    data-fancybox-type="image">{$product->sert}</a>
+                {if isset($product_attachments[1])}
+                    <a href="{$product_attachments[1]['src']}" class="ps-product__attachments js-product-certificates-divnk" data-fancybox-group="attachements-group" data-fancybox-type="image"></a>
+                {/if}
             {else}
-            <span class="ps-more-info__feature-value">{$product->sert}</span>
+                <span class="ps-more-info__feature-value">{$product->sert}</span>
             {/if}
         </div>
         </div>

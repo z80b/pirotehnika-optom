@@ -38,11 +38,11 @@
         <div class="ps-product__table-cell">{Product::SGetProductUnity($product.sale_unity)}</div>
         <div class="ps-product__table-cell ps-product__price">
             <span class="ps-price__value">
-                {Tools::displayPrice($product.price)}
+                {Tools::displayOgonekPrice($product.price)}
             </span>
             {if $product.specific_prices.reduction > 0}
                 <span class="ps-price__value ps-price__value--old">
-                    {Tools::displayPrice($product.old_price)}
+                    {Tools::displayOgonekPrice($product.old_price)}
                 </span>
             {/if}
         </div>

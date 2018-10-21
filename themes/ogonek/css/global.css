@@ -13013,6 +13013,9 @@ a.ps-more-info__feature-value {
   height: 2em;
   line-height: 2em;
 }
+.ps-tick__category-products-count {
+  color: #249dc2;
+}
 .ps-tick__label {
   position: relative;
   padding: 0 27px;

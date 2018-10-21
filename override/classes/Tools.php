@@ -2,7 +2,7 @@
 
 class Tools extends ToolsCore {
 
-    public static function displayPrice($price, $currency = null, $no_utf8 = false, Context $context = null)
+    public static function displayOgonekPrice($price, $currency = null, $no_utf8 = false, Context $context = null)
     {
         $no_c_char = false;
 

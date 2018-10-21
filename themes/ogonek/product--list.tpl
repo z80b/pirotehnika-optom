@@ -48,7 +48,7 @@
                         <div class="ps-product__price ps-price">
                             {if $product.specific_prices.reduction > 0}
                                 <span class="ps-price__value ps-price__value--old">
-                                    {convertPrice price=$product.old_price}
+                                    {Tools::displayOgonekPrice($product.old_price, 1)}
                                 </span>
                                 <span class="ps-product__discount">
                                     -{$product.specific_prices.reduction * 100}%
@@ -58,7 +58,7 @@
                             <span class="ps-price">
                                 <span class="ps-price__title">{l s="Цена"}:</span>
                                 <span class="ps-price__value">
-                                    {convertPrice price=$product.price}
+                                    {Tools::displayOgonekPrice($product.price, 1)}
                                 </span>
                             </span>
                         </div>
@@ -89,7 +89,7 @@
                             <b class="ps-option__title">{l s='В наличии'}:</b>
                             <span class="ps-option__value">
                                 {$product.quantity}
-                                {Product::SGetProductUnity($product.sale_unity)}
+                                {Product::SGetProductUnity($product.sale_unity)} / {round($product.quantity / $product.r3)} кор.
                             </span>
                             {else}
                             <b class="ps-option__title">{l s='Отсутствует'}</b>
@@ -103,7 +103,7 @@
                                     {$productsCart.cart_quantity}
                                 {else} 0 {/if}
                                 </span>
-                                {Product::SGetProductUnity($product.sale_unity)}
+                                {Product::SGetProductUnity($product.sale_unity)}  / <span class="js-boxes-count-{$product.id_product}" data-inbox="{$product.r3}">0</span> кор.
                             </span>
                         </div>
                         <div class="ps-product__option ps-product__option--checked">

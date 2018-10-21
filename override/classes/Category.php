@@ -91,6 +91,7 @@ class Category extends CategoryCore {
 
         foreach ($result as $key => $category) {
             $result[$key]['products_count'] = self::getProductsCount($category['id_category'], $filter);
+            $result[$key]['category_products_count'] = self::getCategoryProductsCount($category['id_category'], $filter);
         }
 
         return $result;
@@ -365,8 +366,51 @@ class Category extends CategoryCore {
 
     public static function getProductsCount($id_category, $filter) {
         $prefix  = _DB_PREFIX_;
+        //die('<pre>'.print_r($_GET, true).'</pre>');
 
-        $category_filter = self::getProductsFilter($id_category, $_REQUEST['id_category']);
+        $category_filter = self::getProductsFilter($id_category, Tools::getValue('id_category', ''));
+
+        $sql = "
+            SELECT COUNT(DISTINCT p.id_product)
+            FROM {$prefix}product AS p
+
+            INNER JOIN {$prefix}product_shop AS ps
+            ON ps.id_product = p.id_product AND ps.id_shop = 1
+
+            LEFT JOIN {$prefix}category_product AS cp
+            ON p.id_product = cp.id_product
+
+            LEFT JOIN {$prefix}stock_available AS stock
+            ON stock.id_product = p.id_product
+                AND stock.id_product_attribute = 0
+                AND stock.id_shop = 1
+                AND stock.id_shop_group = 0
+
+            LEFT JOIN {$prefix}specific_price AS sp
+            ON p.id_product = sp.id_product
+                AND ps.id_shop = sp.id_shop
+
+            WHERE
+                ps.active = 1
+            AND stock.quantity > 0
+            AND ps.show_price = 1
+            {$category_filter}
+        ";
+
+        if ($id_category == 11219) {
+            die("<pre>
+                {$sql},
+                ".print_r($_REQUEST, true)."</pre>");
+        } 
+
+        return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($sql);
+    }
+
+    public static function getCategoryProductsCount($id_category, $filter) {
+        $prefix  = _DB_PREFIX_;
+        //die('<pre>'.print_r($_GET, true).'</pre>');
+
+        $category_filter = Product::getProductsFilter($id_category);
 
         $sql = "
             SELECT COUNT(DISTINCT p.id_product)

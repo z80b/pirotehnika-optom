@@ -745,7 +745,7 @@ var ajaxCart = {
                         myPrice = this.priceByLine.replace(' руб', '');//maxim
                         myPrice = myPrice.replace(' ', '');//maxim
                         //console.log('price'+myPrice);
-                        content += '<span class="price" cartprice="'+(parseFloat(this.price_float) > 0 ? myPrice.replace(',', '.') : freeProductTranslation)+'" cartcatid="'+idcategorydefault+'" >' + (parseFloat(this.price_float) > 0 ? this.price : freeProductTranslation) + '</span></div>';//this.priceByLine.replace(',', '.') maxim
+                        content += '<span class="price" cartprice="'+(parseFloat(this.price_float) > 0 ? toOgonekCurrency(myPrice).replace(',', '.') : freeProductTranslation)+'" cartcatid="'+idcategorydefault+'" >' + (parseFloat(this.price_float) > 0 ? toOgonekCurrency(this.price) : freeProductTranslation) + '</span></div>';//this.priceByLine.replace(',', '.') maxim
                     }
                     if (typeof(this.is_gift) == 'undefined' || this.is_gift == 0)
                         content += '<span class="remove_link"><a rel="nofollow" class="ajax_cart_block_remove_link" href="' + baseUri + '?controller=cart&amp;delete=1&amp;id_product=' + productId + '&amp;token=' + static_token + (this.hasAttributes ? '&amp;ipa=' + parseInt(this.idCombination) : '') + '" >&nbsp;x</a></span>';
@@ -768,7 +768,7 @@ var ajaxCart = {
                     {
                         // Usual product
                         if (!this.is_gift)
-                            $('dt[data-id="cart_block_product_' + domIdProduct + '"] .price').html(jsonProduct.price);
+                            $('dt[data-id="cart_block_product_' + domIdProduct + '"] .price').html(toOgonekCurrency(jsonProduct.price));
                         else
                             $('dt[data-id="cart_block_product_' + domIdProduct + '"] .price').html(freeProductTranslation);
                         ajaxCart.updateProductQuantity(jsonProduct, jsonProduct.quantity);
@@ -869,7 +869,7 @@ var ajaxCart = {
         $('#layer_cart_product_attributes').text('');
         if (product.hasAttributes && product.hasAttributes == true)
             $('#layer_cart_product_attributes').html(product.attributes);
-        $('#layer_cart_product_price').text(product.price);
+        $('#layer_cart_product_price').text(toOgonekCurrency(product.price));
         $('#layer_cart_product_quantity').text(product.quantity);
         $('.layer_cart_img').html('<img class="layer_cart_img img-responsive" src="' + product.image + '" alt="' + product.name + '" title="' + product.name + '" />');
 
@@ -967,9 +967,10 @@ var ajaxCart = {
         $('.ajax_table_tr_bg_null').removeClass('isInCart');
 
         jsonData.products.forEach(function (item, i, items) {
-            $('.ajax_block_cart_total_price_id_'+item.id).html(item.price);
-            $('.ajax_block_cart_total_price2_id_'+item.id).html(item.price_float || '-');
+            $('.ajax_block_cart_total_price_id_'+item.id).html(toOgonekCurrency(item.price));
+            $('.ajax_block_cart_total_price2_id_'+item.id).html(toOgonekCurrency(item.price_float) || '-');
             $('.js-product-count-' + item.id).text(item.quantity);
+            $('.js-boxes-count-' + item.id).text(Math.round(item.quantity / $('.js-boxes-count-' + item.id).data('inbox')));
             
             if (parseFloat(item.price) > 0) {
                 $('.ajax_block_cart_total_price2_id_'+item.id).parents('.ps-products__item').addClass('ps-product--incard');

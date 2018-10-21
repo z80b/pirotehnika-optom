@@ -75,13 +75,13 @@
                     <span class="ps-product__price ps-price">
                         <span class="ps-price">
                             <span class="ps-price__value">
-                                {convertPrice price=$product->price}
+                                {Tools::displayOgonekPrice($product->price, 1)}
                             </span>
                         </span>
                     </span> 
                     {if $product->specificPrice.reduction > 0}
                         <span class="ps-price__value ps-price__value--old">
-                            {convertPrice price=$product->base_price}
+                            {Tools::displayOgonekPrice($product->base_price, 1)}
                         </span>
                         <span class="ps-price__discount">
                             -{$product->specificPrice.reduction * 100}%
@@ -116,7 +116,7 @@
                         <b class="ps-option__title">{l s='В наличии'}:</b>
                         <span class="ps-option__value">
                             <span class="js-popup-product-quantity">{$product->quantity}</span>
-                            {Product::SGetProductUnity($product->sale_unity)}
+                            {Product::SGetProductUnity($product->sale_unity)} / {round($product->quantity / $product->r3)} кор.
                         </span>
                         {else}
                         <b class="ps-option__title">{l s='Отсутствует'}</b>
@@ -130,7 +130,7 @@
                                 {$productsCart.cart_quantity}
                             {else} 0 {/if}
                             </span>
-                            {Product::SGetProductUnity($product->sale_unity)}
+                            {Product::SGetProductUnity($product->sale_unity)} / <span class="js-boxes-count-{$product->id}" data-inbox="{$product->r3}">0</span> кор.
                         </span>
                     </div>
                     <div class="ps-product__option ps-product__option--checked">

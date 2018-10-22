@@ -2768,7 +2768,7 @@ Db::getInstance()->autoExecute('ps_stock_sg', array(
         if ($order_by == 'price') {
             Tools::orderbyPrice($result, $order_way);
         }
-
+//
 //        return Product::getProductsProperties($id_lang, $result);
         $result222 = Product::getProductsProperties($id_lang, $result);
         if (Configuration::get('PS_IS_SHOW_DISCOUNT',null,null,(int)$context->shop->id) && $context->customer->show_skid) {

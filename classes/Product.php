@@ -2752,7 +2752,7 @@ Db::getInstance()->autoExecute('ps_stock_sg', array(
         LEFT JOIN `'._DB_PREFIX_.'image_lang` il ON (image_shop.`id_image` = il.`id_image` AND il.`id_lang` = '.(int)$id_lang.')
         LEFT JOIN `'._DB_PREFIX_.'manufacturer` m ON (m.`id_manufacturer` = p.`id_manufacturer`)
         WHERE product_shop.`active` = 1
-        AND product_shop.`show_price` = 1
+        AND product_shop.`show_price` = 1 AND stock.quantity > 0
         '.($front ? ' AND p.`visibility` IN ("both", "catalog")' : '').'
         '.((!$beginning && !$ending) ? ' AND p.`id_product` IN ('.((is_array($tab_id_product) && count($tab_id_product)) ? implode(', ', $tab_id_product) : 0).')' : '').'
         '.$sql_groups.'
@@ -2768,7 +2768,7 @@ Db::getInstance()->autoExecute('ps_stock_sg', array(
         if ($order_by == 'price') {
             Tools::orderbyPrice($result, $order_way);
         }
-
+//
 //        return Product::getProductsProperties($id_lang, $result);
         $result222 = Product::getProductsProperties($id_lang, $result);
         if (Configuration::get('PS_IS_SHOW_DISCOUNT',null,null,(int)$context->shop->id) && $context->customer->show_skid) {

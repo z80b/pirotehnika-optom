@@ -116,7 +116,7 @@
                         <b class="ps-option__title">{l s='В наличии'}:</b>
                         <span class="ps-option__value">
                             <span class="js-popup-product-quantity">{$product->quantity}</span>
-                            {Product::SGetProductUnity($product->sale_unity)} / {round($product->quantity / $product->r3)} кор.
+                            {Product::SGetProductUnity($product->sale_unity)} / {floor($product->quantity / $product->r3)} кор.
                         </span>
                         {else}
                         <b class="ps-option__title">{l s='Отсутствует'}</b>

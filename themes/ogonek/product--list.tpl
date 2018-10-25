@@ -83,13 +83,13 @@
                         {/if}
                         </div>
                     </div>
-                    <div class="ps-product__cell">
+                    <div class="ps-product__cell ps-product__cell--counts">
                         <div class="ps-product__option ps-product__option--checked">
                             {if $product.quantity > 0}
                             <b class="ps-option__title">{l s='В наличии'}:</b>
                             <span class="ps-option__value">
                                 {$product.quantity}
-                                {Product::SGetProductUnity($product.sale_unity)} / {round($product.quantity / $product.r3)} кор.
+                                {Product::SGetProductUnity($product.sale_unity)} / {floor($product.quantity / $product.r3)} кор.
                             </span>
                             {else}
                             <b class="ps-option__title">{l s='Отсутствует'}</b>

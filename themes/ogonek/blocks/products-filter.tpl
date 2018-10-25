@@ -36,9 +36,9 @@
                         class="ps-tick__label"
                         for="filter-category-{$subcategory.id_category}">{$subcategory.name}</label>
                     {if $subcategory.products_count}
-                        <div class="ps-tick__products-count">{$subcategory.products_count} <span class="ps-tick__category-products-count">({$subcategory.category_products_count})</span></div>
+                        <div class="ps-tick__products-count">{$subcategory.products_count} из <span class="ps-tick__category-products-count">{$subcategory.category_products_count}</span></div>
                     {else}
-                        <div class="ps-tick__products-count"><span class="ps-tick__category-products-count">({$subcategory.category_products_count})</span></div>
+                        <div class="ps-tick__products-count"><span class="ps-tick__category-products-count">{$subcategory.category_products_count}</span></div>
                     {/if}
                     {if isset($subcategory.categories)}
                     <div class="ps-filter__subticks">
@@ -55,9 +55,9 @@
                                 class="ps-tick__label"
                                 for="filter-category-{$subcategory2.id_category}">{$subcategory2.name}</label>
                             {if $subcategory2.products_count}
-                                <div class="ps-tick__products-count">{$subcategory2.products_count} <span class="ps-tick__category-products-count">({$subcategory2.category_products_count})</span></div>
+                                <div class="ps-tick__products-count">{$subcategory2.products_count} из <span class="ps-tick__category-products-count">{$subcategory2.category_products_count}</span></div>
                             {else}
-                                <div class="ps-tick__products-count"><span class="ps-tick__category-products-count">({$subcategory2.category_products_count})</span></div>
+                                <div class="ps-tick__products-count"><span class="ps-tick__category-products-count">{$subcategory2.category_products_count}</span></div>
                             {/if}
                         </div>
                         {/foreach}
@@ -116,9 +116,9 @@
                         class="ps-tick__label"
                         for="filter-manufact-{$manufact.id_manufacturer}">{$manufact.name}</label>
                     {if $manufact.products_count}    
-                        <div class="ps-tick__products-count">{$manufact.products_count} <span class="ps-tick__category-products-count">({$manufact.manufacturer_products_count})</span></div>
+                        <div class="ps-tick__products-count">{$manufact.products_count} из <span class="ps-tick__category-products-count">{$manufact.manufacturer_products_count}</span></div>
                     {else}
-                        <div class="ps-tick__products-count"><span class="ps-tick__category-products-count">({$manufact.manufacturer_products_count})</span></div>
+                        <div class="ps-tick__products-count"><span class="ps-tick__category-products-count">{$manufact.manufacturer_products_count}</span></div>
                     {/if}
                 </div>
             {/foreach}

@@ -970,7 +970,7 @@ var ajaxCart = {
             $('.ajax_block_cart_total_price_id_'+item.id).html(toOgonekCurrency(item.price));
             $('.ajax_block_cart_total_price2_id_'+item.id).html(toOgonekCurrency(item.price_float) || '-');
             $('.js-product-count-' + item.id).text(item.quantity);
-            $('.js-boxes-count-' + item.id).text(Math.round(item.quantity / $('.js-boxes-count-' + item.id).data('inbox')));
+            $('.js-boxes-count-' + item.id).text(Math.floor(item.quantity / $('.js-boxes-count-' + item.id).data('inbox')));
             
             if (parseFloat(item.price) > 0) {
                 $('.ajax_block_cart_total_price2_id_'+item.id).parents('.ps-products__item').addClass('ps-product--incard');

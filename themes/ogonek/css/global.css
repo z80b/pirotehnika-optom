@@ -12433,6 +12433,10 @@ a.ps-more-info__feature-value {
   font-weight: 800;
   color: #222;
 }
+.ps-products--list .ps-product__cell--counts .ps-option__title {
+  display: inline-block;
+  width: 80px;
+}
 .ps-products--list .ps-product__cell--right .ps-option__value {
   float: right;
 }
@@ -13018,7 +13022,7 @@ a.ps-more-info__feature-value {
 }
 .ps-tick__label {
   position: relative;
-  padding: 0 27px;
+  padding: 0 60px 0 30px;
   color: #333;
   cursor: pointer;
 }

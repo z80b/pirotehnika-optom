@@ -22,11 +22,21 @@
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
+      <script type="text/javascript">
+function Test(a,s){
+ if (a.parentNode.parentNode.id =='table-product'){
+ console.log(s);
+
+window.open('https://pirotehnika-optom.ru/exim/toex.php?do=5&prid='+s,  'hello', 'width=1000px,height=700px');
+}
+}
+</script>
+
 {capture name='tr_count'}{counter name='tr_count'}{/capture}
 <tbody>
 {if count($list)}
 {foreach $list AS $index => $tr}
-	<tr{if $position_identifier} id="tr_{$position_group_identifier}_{$tr.$identifier}_{if isset($tr.position['position'])}{$tr.position['position']}{else}0{/if}"{/if} class="{if isset($tr.class)}{$tr.class}{/if} {if $tr@iteration is odd by 1}odd{/if}"{if isset($tr.color) && $color_on_bg} style="background-color: {$tr.color}"{/if} >
+	<tr{if $position_identifier} oncontextmenu="Test(this, {(int)$tr.$identifier})" id="tr_{$position_group_identifier}_{$tr.$identifier}_{if isset($tr.position['position'])}{$tr.position['position']}{else}0{/if}"{/if} class="{if isset($tr.class)}{$tr.class}{/if} {if $tr@iteration is odd by 1}odd{/if}"{if isset($tr.color) && $color_on_bg} style="background-color: {$tr.color}"{/if} >
 		{if $bulk_actions && $has_bulk_actions}
 			<td class="row-selector text-center">
 				{if isset($list_skip_actions.delete)}

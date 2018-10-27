@@ -163,7 +163,7 @@ gulp.task('deploy', function() {
         var conn = ftp.create(ftpConf);
         var files = stdout.split("\n");
         return gulp.src( files, { base: '.', buffer: true } )
-            .pipe(conn.dest('/pirotehnika-optom.ru/public_html'));
+            .pipe(conn.dest(ftpConf.path));
 
     });
 });

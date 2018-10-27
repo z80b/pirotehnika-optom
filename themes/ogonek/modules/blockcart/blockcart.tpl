@@ -83,7 +83,7 @@
 													<a href="{$link->getProductLink($product, $product.link_rewrite, $product.category, null, null, $product.id_shop, $product.id_product_attribute)|escape:'html':'UTF-8'}" title="{l s='Product detail' mod='blockcart'}">{$product.attributes_small}</a>
 												</div>
 											{/if} -->
-											<span class="price" CartPrice="{$product.total_wt}" CartCatId="{$product.id_category_default}">
+											<span class="price" CartPrice="{$product.total_wt}" CartCatId="{$product.id_category_default}" lalala="1">
 												{if !isset($product.is_gift) || !$product.is_gift}
 {* 													{if $priceDisplay == $smarty.const.PS_TAX_EXC}
 														{displayWtPrice p="`$product.total`"}

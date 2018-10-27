@@ -36,7 +36,7 @@
 		"image_cart": {$link->getImageLink($product.link_rewrite, $product.id_image, 'cart_default')|json_encode},
 		"priceByLine": {if $priceDisplay == $smarty.const.PS_TAX_EXC}{displayWtPrice|json_encode p=$product.total}{else}{displayWtPrice|json_encode p=$product.total_wt}{/if},
 		"name": {$product.name|trim|html_entity_decode:2:'UTF-8'|json_encode},
-		"price": {if $priceDisplay == $smarty.const.PS_TAX_EXC}{displayWtPrice|json_encode p=$product.total}{else}{displayWtPrice|json_encode p=$product.total_wt}{/if},
+		"price": {displayWtPrice|json_encode p=$product.total},
 		"price_float": {$product.total|floatval|json_encode},
 		"idCombination": {if isset($product.attributes_small)}{$productAttributeId|intval}{else}0{/if},
 		"idAddressDelivery": {if isset($product.id_address_delivery)}{$product.id_address_delivery|intval}{else}0{/if},

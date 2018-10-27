@@ -1,3 +1,6 @@
+.ps-popup
+    $popup(1206px)
+    
 .ps-products--list
     display block
     clear both
@@ -32,17 +35,24 @@
         
         &__grid, &__table, &__extended
             display none
+                        
+        &__row
+            display table
+            width 100%
         
         &__cell
-            display block
-            float left
-            width 33%
-            box-sizing border-box
-            padding 10px
+            display table-cell
+            vertical-align top
+            &--left
+                padding 0 20px 0 0
+                width 56%
+            &--image
+                width 250px
             
         &__link
             display block
             position relative
+            color #222
             
         &__image
             display block
@@ -52,9 +62,9 @@
             
         &__name
             margin 0 0 10px
-            font-size 15px
+            font-size 20px
             font-weight 800
-            color #d34633
+            color #222
             
         &__description
             display block
@@ -64,16 +74,29 @@
             
         &__separator
             display block
-            border none
-            background none
+            background-color #ccc
+            box-shadow 0 3px 5px 0px rgba(0,0,0,0.4)
             padding 0
-            margin 20px 0
-            border-bottom 2px dashed #f3aa38
+            margin 10px 0 30px
+            height 1px
+            border none
             
         &__option
             display block
             font-size 13px
             padding 0 0 5px
+            
+            &--checked
+                position relative
+                padding 0 0 0 1.5em
+                
+                &::before
+                    content ''
+                    display block
+                    absolute left 0 top .3em width 1em height .6em
+                    border solid green
+                    border-width 0 0 2px 2px 
+                    transform rotate(-45deg)
             
             &::after
                 content ''
@@ -82,49 +105,76 @@
             
         .ps-option
             &__title
-                font-weight 300
-                color #777
-            
+                font-weight 600
+                color #555
+                            
             &__value
                 font-weight 800
-                color #f3aa38
+                color #222
                 
+        &__cell--counts
+            .ps-option__title
+                display inline-block
+                width 80px
+        
+        
         &__cell--right
             .ps-option__value
                 float right
                 
         &__price
-            font-size 16px
+            font-size 20px
             em
-                font-size 12px
+                font-size 16px
         .ps-price
-            &__title
-                font-weight 300
-                color #777
-            &__value
+            white-space nowrap
+            padding 0 0 10px
+            
+            &__descript
+                font-weight 600
+                color #555
+            
+            &__title, &__value
                 font-weight 800
-                color #ec1818
-                
+                color #222
+            &__value
                 &--old
+                    display inline-block
+                    position relative
                     color #888
-                    text-decoration line-through
+                    //text-decoration line-through
                     font-weight 100
+                    &::before
+                        content ''
+                        display block
+                        absolute top 50% left 0 width 100% height 2px
+                        background-color #ec1818
+                        transform rotate(-10deg)
+                    &::after
+                        content ''
+                        display block
+                    
                     
         &__discount
-            absolute bottom 0 right -8px
-            display block
-            font 800 15px/40px 'Open Sans', sans-serif
-            size 45px 45px
-            color #fff
-            background-color #ec1818
-            border solid 3px #fff
-            border-radius 50%
-            box-shadow 0 0 1px 0 #ec1818
+            display inline-block
+            font 800 20px/40px 'Open Sans', sans-serif
+            color #ec1818
+            
+        &__controls
+            background-color #eee
+            padding 10px 20px
+            margin 30px 0 0
+            white-space nowrap
+            
+        &__control
+            &:last-child
+                padding 2px 0 0
+                
                 
         &__quantity
+            display inline-block
             position relative
             width 75px
-            margin 10px auto 0
             
             &::after
                 content ''
@@ -133,13 +183,13 @@
             
         .ps-quantity
             &__title
-                display block
+                display inline-block
                 text-align center
                 
             &__button
                 @extends $form-button
-                absolute top 0 width 15px height 30px
-                font 800 12px/30px 'Open Sans', sans-serif
+                absolute top 0 width 15px height 20px
+                font 800 12px/20px 'Open Sans', sans-serif
                 display block
                 transition .5s all ease
                 z-index 1
@@ -163,22 +213,32 @@
             &__value
                 position relative
                 display block
-                font 800 14px/30px 'Open Sans', sans-serif
+                font 800 14px/20px 'Open Sans', sans-serif
                 text-align center
-                size 100% 30px
+                size 100% 20px
                 margin 0
                 border solid 1px #f1b347
                 z-index 2
                 
+        &__compare
+            display inline-block
+            font 12px/1 'Open Sans', sans-serif
+            text-transform uppercase
+            padding 20px 0
+            color #888
+            
+            &.checked
+                color #47b347
+                
         &__button
             @extends $form-button
             font 14px/30px 'Open Sans', sans-serif
-            width 80%
             text-align center
             text-transform uppercase
             text-decoration none
-            clear both
-            margin 10px auto
+            height auto
+            padding 5px 20px
+            margin 0 0 0 10px
 
             &:hover
                 background-color #ed9d12

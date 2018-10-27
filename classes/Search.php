@@ -311,7 +311,7 @@ class SearchCore
         } elseif (in_array($order_by, array('date_upd', 'date_add'))) {
             $alias = 'p.';
         }
-        $sql = 'SELECT p.*, p.price as price_discount, product_shop.*, stock.out_of_stock, IFNULL(stock.quantity, 0) as quantity,
+        $sql = 'SELECT p.*, pl.price_name, p.price as price_discount, p.price as old_price, (p.price - p.price * sp.reduction) as price, product_shop.*, stock.out_of_stock, IFNULL(stock.quantity, 0) as quantity,
 				pl.`description_short`, pl.`available_now`, pl.`available_later`, pl.`link_rewrite`, pl.`name`,
 			 image_shop.`id_image` id_image, il.`legend`, m.`name` manufacturer_name '.$score.',
 				DATEDIFF(
@@ -331,6 +331,11 @@ class SearchCore
 				ON (p.`id_product` = product_attribute_shop.`id_product` AND product_attribute_shop.`default_on` = 1 AND product_attribute_shop.id_shop='.(int)$context->shop->id.')':'').'
 				'.Product::sqlStock('p', 0).'
 				LEFT JOIN `'._DB_PREFIX_.'manufacturer` m ON m.`id_manufacturer` = p.`id_manufacturer`
+
+                LEFT JOIN '._DB_PREFIX_.'specific_price AS sp
+                ON p.id_product = sp.id_product
+                    AND sp.id_shop = 1
+
 				LEFT JOIN `'._DB_PREFIX_.'image_shop` image_shop
 					ON (image_shop.`id_product` = p.`id_product` AND image_shop.cover=1 AND image_shop.id_shop='.(int)$context->shop->id.')
 				LEFT JOIN `'._DB_PREFIX_.'image_lang` il ON (image_shop.`id_image` = il.`id_image` AND il.`id_lang` = '.(int)$id_lang.')

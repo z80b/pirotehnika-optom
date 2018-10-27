@@ -39,7 +39,54 @@ class Product extends ProductCore
         return new Product($id, $full);
     }
 
-    public static function getProductSiblings($id_product, $order_by = 'name', $order_way = 'asc') {
+    public function getVideoId() {
+        if (preg_match("/youtube.com\/embed\/([\w|\d|\_|\-]+)/i", $this->description, $url)) {
+            return $url[1];
+        }
+        return '';
+    }
+
+    public static function getProductImages($id_product, $type = 'small') {
+        $images = array();
+        $prefix  = _DB_PREFIX_;
+        $theme = Context::getContext()->shop->id_theme;
+        $result = Db::getInstance()->executeS("
+            SELECT id_image FROM {$prefix}image AS i
+            WHERE i.id_product = {$id_product}
+        ");
+
+        foreach ($result as $key => $image) {
+            $images[$key] = array (
+                'id'   => $image['id_image'],
+                'src'  => _THEME_PROD_DIR_.Image::getImgFolderStatic($image['id_image']).$image['id_image'].'-'.$type.'_'.$theme.'.jpg',
+                'type' => $type,
+            );
+        }
+        return $images;
+    }
+
+    public static function getProductAttachments($id_product) {
+        $attachments = array();
+        $prefix  = _DB_PREFIX_;
+
+        $result = Db::getInstance()->executeS("
+            SELECT at.* FROM {$prefix}product_attachment AS pa
+            JOIN {$prefix}attachment AS at ON at.id_attachment = pa.id_attachment
+            WHERE pa.id_product = {$id_product}
+        ");
+
+        foreach ($result as $key => $attachment) {
+            $attachments[$key] = array (
+                'id' => $attachment['id_attachment'],
+                'file_name' => $attachment['file_name'],
+                'src' => Context::getContext()->link->getPageLink('attachment', true, NULL, "id_attachment={$attachment['id_attachment']}&asimage=1")
+            );
+        }
+
+        return $attachments;
+    }
+
+    public static function getProductSiblings($id_product, $id_category, $order_by = 'name', $order_way = 'asc') {
 
         if (!isset($context)) {
             $context = Context::getContext();
@@ -52,7 +99,7 @@ class Product extends ProductCore
         $id_shop = $context->shop->id;
         $current_date = date('Y-m-d').' 00:00:00';
 
-        $filter = self::getProductsFilter();
+        $filter = self::getProductsFilter($id_category);
 
         $sql = "
         SELECT p.id_product
@@ -110,16 +157,12 @@ class Product extends ProductCore
 
         $result = array_map(function($item) { return $item['id_product']; }, Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql, true));
 
-       //die('<pre>'.print_r($result, true).'</pre>');
-
         $position = array_search($id_product, $result, false);
 
         return array (
             'prev_product' => isset($result[$position - 1]) ? $context->link->getProductLink($result[$position - 1]) : NULL,
             'next_product' => isset($result[$position + 1]) ? $context->link->getProductLink($result[$position + 1]) : NULL,
         );
-
-        //die('<pre>'.print_r(array($position, $sss, $filter, $order_by, $order_way, $result), true).'</pre>');
     }
 
     public static function getOrder($order_by = 'name', $order_way = 'asc') {
@@ -195,15 +238,13 @@ class Product extends ProductCore
                     ($only_active ? ' AND product_shop.`active` = 1' : '').'
                 ORDER BY '.(isset($order_by_prefix) ? pSQL($order_by_prefix).'.' : '').'`'.pSQL($order_by).'` '.pSQL($order_way).
                 ($limit > 0 ? ' LIMIT '.(int)$start.','.(int)$limit : '');
-                //die('<pre>'.print_r($sql, true).'</pre>');
+
         $rq = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
         if ($order_by == 'price') {
             Tools::orderbyPrice($rq, $order_way);
         }
 
         foreach ($rq as &$row) {
-            //die('<pre>'.print_r($row, true).'</pre>');
-            //$row.name .= '????';
             $row = Product::getTaxesInformations($row);
             $row['specific_prices'] = array('reduction' => 0);
             $row['reduction'] = 0;
@@ -213,38 +254,88 @@ class Product extends ProductCore
         return ($rq);
     }
 
-    public static function getProductsFilter($id_category = NULL) {
-        if (isset($id_category)) {
-            $filter = " AND cp.id_category = {$id_category}";
+    public static function getProductsFilter($id_category = NULL, $id_category_use = true, $id_manufacturer_use = true) {
+        if (isset($id_category) && $id_category_use) {
+            $filter = "AND cp.id_category = {$id_category}";
         } else $filter = '';
 
-        if (isset($_COOKIE['categories']) && $_COOKIE['categories']) {
-            $categories_filter = array();
-            foreach (explode('|', $_COOKIE['categories']) as $key => $item) {
-                $categories_filter[] = "(select cp.id_product from "._DB_PREFIX_."category_product cp where cp.id_category IN({$item}))";
+        if (isset($_COOKIE['filter']) && isset($id_category)) {
+
+            $cookie = json_decode($_COOKIE['filter'], true);
+            $cookie_filter = isset($cookie[$id_category]) ? $cookie[$id_category] : array();
+
+            if (isset($cookie_filter['categories'])) {
+
+                $categories_filter = array();
+                foreach (explode('|', $cookie_filter['categories']) as $key => $item) {
+                    if ($item) {
+                        $categories_filter[] = "(select cp.id_product from "._DB_PREFIX_."category_product cp where cp.id_category IN({$item}))";
+                    }
+                }
+
+                if ($categories_filter && count($categories_filter)) {
+                    $subfilter = " cp.id_product IN ". implode(' AND cp.id_product IN ', $categories_filter);
+
+                    $sql = "
+                        select distinct p.id_product from "._DB_PREFIX_."product p 
+                            left join "._DB_PREFIX_."category_product cp on cp.id_product = p.id_product
+                            where ".$subfilter;
+
+                    $result2 = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
+
+                    $ff1 = array();
+
+                    foreach ($result2 as $key => $product) {
+                        $ff1[] = $product['id_product']; 
+                    }
+
+                    if ($ids = implode(',', $ff1))
+                        $filter .= " AND cp.id_product IN (". implode(',', $ff1).")";
+                }
             }
-            $filter2 = " cp.id_product IN ". implode(' AND cp.id_product IN ', $categories_filter);
-            $sql = "
-                select distinct p.id_product from "._DB_PREFIX_."product p 
-                    left join "._DB_PREFIX_."category_product cp on cp.id_product = p.id_product
-                    where ".$filter2;
-            $result2 = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
-            $ff1 = '';
-            foreach ($result2 as $key => $product) {
-                $ff1 .= $product['id_product'].','; 
+
+            if (isset($cookie_filter['discount']) && $cookie_filter['discount'] == '1') {
+                $filter .= ' AND sp.reduction > 0';
             }
-            $ff1 .= '0';
-            $filter = " AND cp.id_product IN (".$ff1.")";
+
+            if (isset($cookie_filter['manufact']) && $cookie_filter['manufact'] && $id_manufacturer_use) {
+                $filter .= " AND p.id_manufacturer IN(" . implode(',', $cookie_filter['manufact']) .")";
+            }
         }
 
-        if (isset($_COOKIE['discount']) && $_COOKIE['discount'] == '1') {
-            $filter .= ' AND sp.reduction > 0';
-        }
-
-        if (isset($_COOKIE['manufact']) && $_COOKIE['manufact']) {
-            $filter .= " AND p.id_manufacturer IN(" . $_COOKIE['manufact'] .")";
-        }
         return $filter;
+    }
+
+    public static function getDescountsCount($filter) {
+        $prefix  = _DB_PREFIX_;
+
+        return Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue("
+            SELECT COUNT(DISTINCT (p.price - p.price * sp.reduction)) AS product_count
+
+            FROM {$prefix}product AS p
+
+            INNER JOIN {$prefix}product_shop AS ps
+            ON ps.id_product = p.id_product AND ps.id_shop = 1
+
+            LEFT JOIN {$prefix}category_product AS cp
+            ON p.id_product = cp.id_product
+
+            LEFT JOIN {$prefix}stock_available AS stock
+            ON stock.id_product = p.id_product
+                AND stock.id_product_attribute = 0
+                AND stock.id_shop = 1
+                AND stock.id_shop_group = 0
+
+            LEFT JOIN {$prefix}specific_price AS sp
+            ON p.id_product = sp.id_product
+                AND ps.id_shop = sp.id_shop
+
+            WHERE
+                ps.active = 1
+            AND stock.quantity > 0
+            AND ps.show_price = 1
+            {$filter}
+        ");
     }
 
 }

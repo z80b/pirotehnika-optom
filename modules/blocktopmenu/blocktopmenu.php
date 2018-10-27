@@ -599,7 +599,7 @@ class Blocktopmenu extends Module
             $result .= '</li>'; 
         }
         return $result . '</ul>';
-        die('<pre>'.print_r($categories, true).'</pre>');
+        //die('<pre>'.print_r($categories, true).'</pre>');
     }
 
     protected function generateCategoriesOption($categories, $items_to_skip = null)

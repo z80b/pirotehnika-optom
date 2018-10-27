@@ -227,7 +227,7 @@ class Ulogin extends Module {
 			$x_ulogin_params = '';
 			foreach($ul_options as $key => $value)
 				$x_ulogin_params .= $key . '=' . $value . ';';
-			if($ul_options['display'] != 'window')
+			if(isset($ul_options['display']) && $ul_options['display'] != 'window')
 				$panel .= ' data-ulogin="' . $x_ulogin_params . '"></div>'; else
 				$panel .= ' data-ulogin="' . $x_ulogin_params . '" href="#"><img src="https://ulogin.ru/img/button.png" width=187 height=30 alt="МультиВход"/></div>';
 		} else

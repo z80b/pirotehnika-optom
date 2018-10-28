@@ -36,7 +36,7 @@
 <tr class="product-line-row">
 	<td>{if isset($product.image) && $product.image->id}{$product.image_tag}{/if}</td>
 	<td>
-		<a href="{$link->getAdminLink('AdminProducts')|escape:'html':'UTF-8'}&amp;id_product={$product['product_id']|intval}&amp;updateproduct&amp;token={getAdminToken tab='AdminProducts'}">
+		<a oncontextmenu="window.open('https://pirotehnika-optom.ru/exim/toex.php?do=5&prid={(int)$product.product_id}',  'hello', 'width=1000px,height=700px')"  href="{$link->getAdminLink('AdminProducts')|escape:'html':'UTF-8'}&amp;id_product={$product['product_id']|intval}&amp;updateproduct&amp;token={getAdminToken tab='AdminProducts'}">
 			{if $product.product_reference} {$product.product_reference}<br />{/if}
 			<span class="productName">{$product['product_name']}</span><br />
 <!-- 			{if $product.product_supplier_reference}{l s='Supplier reference:'} {$product.product_supplier_reference}{/if}
@@ -158,7 +158,7 @@
 			{/if}
 		</td>
 	{/if}
-	{if $stock_management}<td class="productQuantity product_stock text-center" id="edit_product_product_stock">{$product['current_stock']}</td>{/if}
+	{if $stock_management}<td oncontextmenu="window.open('https://pirotehnika-optom.ru/exim/toex.php?do=5&prid={(int)$product.product_id}',  'hello', 'width=1000px,height=700px')"  class="productQuantity product_stock text-center" id="edit_product_product_stock">{$product['current_stock']}</td>{/if}
 	<td class="total_product">
 		{displayPrice price=(Tools::ps_round($product_price, 2) * ($product['product_quantity'] - $product['customizationQuantityTotal'])) currency=$currency->id}
 	</td>

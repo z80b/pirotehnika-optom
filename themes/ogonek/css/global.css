@@ -13466,6 +13466,9 @@ a.ps-more-info__feature-value {
 .nav .ps-profile__block {
   float: right;
 }
+#left_column .ps-profile__block {
+  display: none;
+}
 .ps-profile__menu {
   position: absolute;
   top: 100%;

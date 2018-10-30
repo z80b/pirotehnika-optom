@@ -1,0 +1,92 @@
+.ps-more-info
+    display block
+    padding 30px 0
+    
+    iframe[src*=youtube]
+        display none
+    
+    &__tabs
+        @extends $clear-block
+        padding 0
+        
+    &__tab
+        display block
+        padding 10px 20px
+        float left
+        font-size 20px
+        cursor pointer
+        border-style solid
+        border-width 2px 0 1px
+        border-color transparent transparent #f1b347
+        
+        color #777
+        
+        &--0
+            ~/__switcher--0:checked ~ .ps-more-info__tabs &
+                border-width 3px 1px 0
+                border-color #f1b347 #f1b347 transparent
+                color #555
+                
+        &--1
+            ~/__switcher--1:checked ~ .ps-more-info__tabs &
+                border-width 3px 1px 0
+                border-color #f1b347 #f1b347 transparent
+                color #555
+        
+        &:hover
+            color #555
+            
+    &__switcher
+        display none
+        
+    &__content
+        display none
+        width 480px
+        padding 20px 0 0
+        
+        &--0
+            ~/__switcher--0:checked ~ .ps-more-info__contents &
+                display block
+                
+        &--1
+            ~/__switcher--1:checked ~ .ps-more-info__contents &
+                display block
+
+                    
+    &__features, &__description
+        font-size 16px
+        color #555
+        
+        p
+            padding 0
+            line-height 2
+        
+    &__feature
+        position relative
+        margin 0 0 1em
+        
+        &::before
+            content ''
+            absolute bottom 3px left 0 width 100%
+            border-bottom dotted 4px #555
+            z-index 0
+            
+        &-name, &-value
+            display inline-block
+            position relative
+            background-color #fff
+            z-index 1
+            
+        &-name
+            padding 0 1em 0 0
+            
+        &-value
+            position absolute
+            right 0
+            padding 0 0 0 1em
+            color #555
+            
+            a&
+                text-decoration underline
+            
+        

@@ -46,6 +46,9 @@
         
         .checker, &__checkbox, &__label
             display inline-block
+            
+        .ps-subtick
+            position relative
         
     &__item
         float left
@@ -77,11 +80,12 @@
         &__ticks
             display none
             absolute top 100% right 0
-            padding 10px 0
+            padding 10px 0 0
             border 1px solid #f3aa38
             background-color #fff
             border-radius 5px 0 5px 5px
             box-shadow 3px 3px 5px 0 rgba(#000, .3)
+            overflow hidden
             z-index 10
             
         &__button
@@ -112,7 +116,7 @@
                 background-color #666
                 
             ../__checkbox:checked + &
-                background-color #666
+                background-color #aaa
                 
                 &::after
                     content '\00d7'
@@ -121,14 +125,31 @@
             .ps-filter__item
                 &__ticks
                     display block
+                    
+        &-controls
+            @extends $clear-block
+            padding 10px 14px
+            width 100%
+            min-width 230px
+            background-color #eee
+            
                 
 .ps-tick
+    position relative
+    
     &__checkbox
         display none
         
+    &__products-count
+        absolute right 0 top 0 height 2em
+        line-height 2em
+        
+    &__category-products-count
+        color #249dc2
+                
     &__label
         position relative
-        padding 0 0 0 27px
+        padding 0 60px 0 30px
         color #333
         cursor pointer
         

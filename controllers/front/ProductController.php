@@ -83,10 +83,10 @@ class ProductControllerCore extends FrontController
 
         if ($id_product = (int)Tools::getValue('id_product')) {
             $this->product = new Product($id_product, true, $this->context->language->id, $this->context->shop->id);
-            $this->productSiblings = Product::getProductSiblings($id_product);
+            $this->productSiblings = Product::getProductSiblings($id_product, $this->product->id_category_default);
         }
 
-        //die('<pre>'.print_r($this->productSiblings, true).'</pre>');
+        //die('<pre>'.print_r($this->product, true).'</pre>');
 
         if (!Validate::isLoadedObject($this->product)) {
             header('HTTP/1.1 404 Not Found');
@@ -166,14 +166,7 @@ class ProductControllerCore extends FrontController
         }
     }
 
-    /**
-     * Assign template vars related to page content
-     * @see FrontController::initContent()
-     */
-    public function initContent()
-    {
-        parent::initContent();
-
+    public function prepareTemplate() {
         if (!$this->errors) {
             if (Pack::isPack((int)$this->product->id) && !Pack::isInStock((int)$this->product->id)) {
                 $this->product->quantity = 0;
@@ -260,16 +253,18 @@ class ProductControllerCore extends FrontController
             if ($this->product->customizable) {
                 $customization_datas = $this->context->cart->getProductCustomization($this->product->id, null, true);
             }
-
-            $this->context->smarty->assign(array(
+            $data = array(
                 'stock_management' => Configuration::get('PS_STOCK_MANAGEMENT'),
                 'customizationFields' => $customization_fields,
                 'id_customization' => empty($customization_datas) ? null : $customization_datas[0]['id_customization'],
                 'accessories' => $accessories,
+                'product_attachments' => Product::getProductAttachments($this->product->id),
                 'return_link' => $return_link,
                 'product' => $this->product,
                 'prevProduct' => $this->productSiblings['prev_product'],
                 'nextProduct' => $this->productSiblings['next_product'],
+                'product_images' => Product::getProductImages($this->product->id),
+                'video_id' => $this->product->getVideoId(),
                 'product_manufacturer' => new Manufacturer((int)$this->product->id_manufacturer, $this->context->language->id),
                 'token' => Tools::getToken(false),
                 'features' => $this->product->getFrontFeatures($this->context->language->id),
@@ -296,9 +291,31 @@ class ProductControllerCore extends FrontController
                     'category-'.(isset($this->category) ? $this->category->getFieldByLang('link_rewrite') : '')
                 ),
                 'display_discount_price' => Configuration::get('PS_DISPLAY_DISCOUNT_PRICE'),
-            ));
+            );            
         }
-        $this->setTemplate(_PS_THEME_DIR_.'product.tpl');
+        
+        if (Tools::getValue('json') == 1) {
+            Tools::dieJson($data);
+        } else {
+            $this->context->smarty->assign($data);
+            $this->setTemplate(_PS_THEME_DIR_.'blocks/product.tpl');
+        }
+    }
+
+    /**
+     * Assign template vars related to page content
+     * @see FrontController::initContent()
+     */
+    public function initContent() {
+        parent::initContent();
+        $this->prepareTemplate();
+        $this->setTemplate(_PS_THEME_DIR_.'blocks/product.tpl');
+    }
+
+    public function displayAjax() {
+        $this->prepareTemplate();
+        header('Content-type: text/html');
+        $this->smartyOutputContent(_PS_THEME_DIR_.'blocks/product-ajax.tpl');
     }
 
     /**

@@ -1,0 +1,292 @@
+.ps-content
+    &__title
+        @extends $clear-block
+        position relative
+        font 500 22px/1 'Open Sans', sans-serif
+        display block
+        width 100%
+        margin 0 0 2em
+        color #666
+            
+        &::before
+            content ''
+            absolute left 0 bottom 0 width 100%
+            border-bottom dotted 4px #666
+            z-index 0
+        
+        &-left, &-right
+            position relative
+            display inline-block
+            white-space nowrap
+            vertical-align bottom
+            float left
+            background-color #fff
+            z-index 1
+            
+        &-right
+            font 700 .8em/22px 'Open Sans', sans-serif
+            float right
+            
+    &__row
+        display table
+        width 100%
+        
+    &__cell
+        display table-cell
+        width 50%
+            
+        &:last-of-type
+            padding 0 0 0 20px
+            
+        .ps-popup &
+            width 40%
+            padding 0 20px 0 0
+            
+            &:first-of-type
+                width 20%
+            
+    &__buttons
+        text-align right
+            
+.ps-content--product
+    padding 20px 0
+    
+    .ps-white-block
+        padding 20px
+        border solid 1px #ccc
+        border-radius 10px
+        
+    .ps-features
+        padding 0 0 20px
+        
+        &__title
+            font-size 22px
+            
+    .ps-feature
+        @extends $clear-block
+        display block
+        position relative
+        font-size 14px
+        
+        &::before
+            content ''
+            absolute left 0 bottom 4px width 100%
+            border-bottom dotted 2px #666
+            z-index 0
+        
+        &__title, &__value
+            display inline-block
+            position relative
+            float left
+            background-color #fff
+            padding 0 10px 0 0
+            z-index 1
+            
+        &__value
+            float right
+            padding 0 0 0 10px
+            
+    .ps-thumbs
+        &__video
+            &-image
+                opacity 0
+                display block
+                size 100% auto
+                
+            &-link
+                position relative
+                background 50% 50% no-repeat !important
+                background-size contain !important
+                size 100% 100%
+                cursor pointer
+                
+                &::after
+                    content ''
+                    absolute top 0 left 0 width 100% height 100%
+                    background url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMjQgNEMxMi45NSA0IDQgMTIuOTUgNCAyNHM4Ljk1IDIwIDIwIDIwIDIwLTguOTUgMjAtMjBTMzUuMDUgNCAyNCA0em0tNCAyOVYxNWwxMiA5LTEyIDl6Ii8+PC9zdmc+') 50% 50% no-repeat
+                    background-size 60%
+                    transition .5s opacity ease
+                    opacity .8
+                    
+                &:hover::after
+                    opacity .5
+                
+            
+    .ps-price
+        &__value
+            font-size 36px
+            font-weight 700
+            
+            em
+                font-size .8em
+
+            &--old
+                font-size 24px
+                font-weight 400
+                padding 0 1em
+                position relative
+                color #888
+
+                &::before
+                    content ''
+                    display block
+                    absolute top 50% left 0 width 100% height 2px
+                    background-color #ec1818
+                    transform rotate(-10deg)
+
+        &__discount
+            font-size 30px
+            font-weight 700
+            color red
+            
+        &__block
+            padding 20px 0
+            white-space nowrap
+        
+        &__descripts
+            padding 0 0 0 30px
+            
+        &__descript
+            font-size 14px
+            
+            &:first-of-type
+                font-weight 700
+            
+    .ps-product
+        &__row
+            display table
+            width 100%
+        
+        &__cell
+            display table-cell
+            vertical-align top
+            &--left
+                padding 0 20px 0 0
+                width 56%
+            &--image
+                width 250px
+                
+        &__options
+            padding 20px 0 20px 30px
+            
+        &__option
+            display block
+            font-size 14px
+            padding 0 0 5px
+            
+            &--checked
+                position relative
+                padding 0 0 0 1.5em
+                
+                &::before
+                    content ''
+                    display block
+                    absolute left 0 top .3em width 1em height .6em
+                    border solid green
+                    border-width 0 0 2px 2px 
+                    transform rotate(-45deg)
+            
+            &::after
+                content ''
+                display table
+                clear both
+                
+        &__controls
+            background-color #eee
+            padding 20px
+            margin 30px 0 0
+            white-space nowrap
+            
+        &__control
+            &:last-child
+                padding 2px 0 0
+                
+        &__attachments
+            color #222
+            
+        &__attachment
+            display none
+                
+        &__quantity
+            display inline-block
+            position relative
+            width 6em
+            
+            &::after
+                content ''
+                display table
+                clear both
+                
+        &__compare
+            display inline-block
+            font 14px/1 'Open Sans', sans-serif
+            text-transform uppercase
+            color #888
+            
+            &.checked
+                color #47b347
+                
+        &__button
+            @extends $form-button
+            font 14px/30px 'Open Sans', sans-serif
+            text-align center
+            text-transform uppercase
+            text-decoration none
+            height auto
+            padding 5px 20px
+            margin 0 0 0 10px
+
+            &:hover
+                background-color #ed9d12
+                text-decoration none
+            
+    .ps-option
+        &__title
+            display inline-block
+            font-weight 700
+            color #555
+            width 40%
+        
+        &__value
+            font-weight 700
+            color #222
+        
+    .ps-quantity
+        &__title
+            display inline-block
+            text-align center
+            padding 0 0 0 1em
+            
+        &__button
+            @extends $form-button
+            absolute top 0 width 15px height 20px
+            font 800 12px/20px 'Open Sans', sans-serif
+            display block
+            transition .5s all ease
+            z-index 1
+            
+            &--dec, &--decbox
+                border-radius 5px 0 0 5px
+                left -2px
+                    
+            &--inc, &--incbox
+                border-radius 0 5px 5px 0
+                right -2px
+                
+        &:hover, &--focus
+            .ps-quantity__button
+                &--dec, &--decbox
+                    left -15px
+                    
+                &--inc, &--incbox
+                    right -15px
+            
+        &__value
+            position relative
+            display block
+            font 800 14px/20px 'Open Sans', sans-serif
+            text-align center
+            size 100% 20px
+            margin 0
+            border solid 1px #f1b347
+            z-index 2

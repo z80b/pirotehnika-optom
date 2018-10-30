@@ -76,15 +76,15 @@ class BlockCart extends Module
 			else
 				$base_shipping = $base_shipping_without_tax;
 		}
-		$shipping_cost = Tools::displayPrice($base_shipping, $currency);
-		$shipping_cost_float = Tools::convertPrice($base_shipping, $currency);
+		$shipping_cost = Tools::displayOgonekPrice($base_shipping, $currency);
+		$shipping_cost_float = Tools::displayOgonekPrice($base_shipping, $currency);
 		$wrappingCost = (float)($params['cart']->getOrderTotal($useTax, Cart::ONLY_WRAPPING));
 		$totalToPay = $params['cart']->getOrderTotal($useTax);
 
 		if ($useTax && Configuration::get('PS_TAX_DISPLAY') == 1)
 		{
 			$totalToPayWithoutTaxes = $params['cart']->getOrderTotal(false);
-			$this->smarty->assign('tax_cost', Tools::displayPrice($totalToPay - $totalToPayWithoutTaxes, $currency));
+			$this->smarty->assign('tax_cost', Tools::displayOgonekPrice($totalToPay - $totalToPayWithoutTaxes, $currency));
 		}
 
 		// The cart content is altered for display
@@ -92,10 +92,10 @@ class BlockCart extends Module
 		{
 			if ($cart_rule['free_shipping'])
 			{
-				$shipping_cost = Tools::displayPrice(0, $currency);
+				$shipping_cost = Tools::displayOgonekPrice(0, $currency);
 				$shipping_cost_float = 0;
-				$cart_rule['value_real'] -= Tools::convertPrice($base_shipping_with_tax, $currency);
-				$cart_rule['value_tax_exc'] = Tools::convertPrice($base_shipping_without_tax, $currency);
+				$cart_rule['value_real'] -= Tools::displayOgonekPrice($base_shipping_with_tax, $currency);
+				$cart_rule['value_tax_exc'] = Tools::displayOgonekPrice($base_shipping_without_tax, $currency);
 			}
 			if ($cart_rule['gift_product'])
 			{
@@ -147,9 +147,9 @@ class BlockCart extends Module
 			'shipping_cost_float' => $shipping_cost_float,
 			'show_wrapping' => $wrappingCost > 0 ? true : false,
 			'show_tax' => (int)(Configuration::get('PS_TAX_DISPLAY') == 1 && (int)Configuration::get('PS_TAX')),
-			'wrapping_cost' => Tools::displayPrice($wrappingCost, $currency),
-			'product_total' => Tools::displayPrice($params['cart']->getOrderTotal($useTax, Cart::BOTH_WITHOUT_SHIPPING), $currency),
-			'total' => Tools::displayPrice($totalToPay, $currency),
+			'wrapping_cost' => Tools::displayOgonekPrice($wrappingCost, $currency),
+			'product_total' => Tools::displayOgonekPrice($params['cart']->getOrderTotal($useTax, Cart::BOTH_WITHOUT_SHIPPING), $currency),
+			'total' => Tools::displayOgonekPrice($totalToPay, $currency),
 			'order_process' => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
 			'ajax_allowed' => (int)(Configuration::get('PS_BLOCK_CART_AJAX')) == 1 ? true : false,
 			'static_token' => Tools::getToken(false),

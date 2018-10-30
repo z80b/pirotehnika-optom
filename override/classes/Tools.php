@@ -2,7 +2,7 @@
 
 class Tools extends ToolsCore {
 
-    public static function displayPrice($price, $currency = null, $no_utf8 = false, Context $context = null)
+    public static function displayOgonekPrice($price, $currency = null, $no_utf8 = false, Context $context = null)
     {
         $no_c_char = false;
 
@@ -83,5 +83,10 @@ class Tools extends ToolsCore {
             return str_replace('€', chr(128), $ret);
         }
         return $ret;
+    }
+
+    public static function dieJson($json) {
+        header('Content-Type: application/json; charset=UTF-8');
+        die(Tools::jsonEncode($json));
     }
 }

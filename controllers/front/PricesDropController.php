@@ -51,6 +51,12 @@ class PricesDropControllerCore extends FrontController
         $products = Product::getPricesDrop($this->context->language->id, (int)$this->p - 1, (int)$this->n, false, $this->orderBy, $this->orderWay);
         $this->addColorsToProductList($products);
 
+        foreach ($products as &$product) {
+
+            $product['old_price'] = $product['price_discount'];
+            //$product['price'] = $product['price_discount'];
+        }
+
         $this->context->smarty->assign(array(
             'categories'          => $this->categories,
             'products'            => $products,

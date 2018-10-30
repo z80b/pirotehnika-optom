@@ -54,59 +54,11 @@
                     </div>
 				{else}
                     <!-- Category image -->
-                    <div class="content_scene_cat_bg"{if $category->id_image} style="background:url({$link->getCatImageLink($category->link_rewrite, $category->id_image, 'category_default')|escape:'html':'UTF-8'}) right center no-repeat; background-size:cover; min-height:{$categorySize.height}px;"{/if}>
-                        {if $category->description}
-<!--                             <div class="cat_desc">
-                            <span class="category-name">
-                                {strip}
-                                    {$category->name|escape:'html':'UTF-8'}
-                                    {if isset($categoryNameComplement)}
-                                        {$categoryNameComplement|escape:'html':'UTF-8'}
-                                    {/if}
-                                {/strip}
-                            </span>
-                            {if Tools::strlen($category->description) > 350}
-                                <div id="category_description_short" class="rte">{$description_short}</div>
-                                <div id="category_description_full" class="unvisible rte">{$category->description}</div>
-                                <a href="{$link->getCategoryLink($category->id_category, $category->link_rewrite)|escape:'html':'UTF-8'}" class="lnk_more">{l s='More'}</a>
-                            {else}
-                                <div class="rte">{$category->description}</div>
-                            {/if}
-                            </div>
- -->                        {/if}
-                     </div>
+                    <div class="content_scene_cat_bg"{if $category->id_image} style="background:url({$link->getCatImageLink($category->link_rewrite, $category->id_image, 'category_default')|escape:'html':'UTF-8'}) right center no-repeat; background-size:cover; min-height:{$categorySize.height}px;"{/if}></div>
                   {/if}
             </div>
 		{/if}
-
-
-
-
-
-
-		{if isset($subcategories)}
-        {if (isset($display_subcategories) && $display_subcategories eq 1) || !isset($display_subcategories) }
-
-
-			<!-- Subcategories -->
-
-		<div id="subcategories-box"> {* Не изменять Id - используется в пагинации для отображения места на странице*}
-		
-			<ul class="catlistb">
-			{foreach from=$subcategories item=subcategory}
-				<li>
-                	
-					<a class="subcategory-name" href="{$link->getCategoryLink($subcategory.id_category, $subcategory.link_rewrite)|escape:'html':'UTF-8'}">{$subcategory.name|truncate:25:'...'|escape:'html':'UTF-8'}</a>
-					{if $subcategory.description}
-						<div class="cat_desc">{$subcategory.description}</div>
-					{/if}
-				</li>
-			{/foreach}
-			</ul>
-			<div class="clear"></div>
-		</div>
-        {/if}
-		{/if}
+        {include file="$tpl_dir./blocks/products-filter.tpl"}
 		{if $products}
 			<hr/>
 			<div class="content_sortPagiBar clearfix">

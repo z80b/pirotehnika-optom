@@ -39,7 +39,7 @@
 	<span style="float:right;font-size: 70%;">&nbsp;</span>
 	<span menucatid="CountCatId{$node.id}" id="CountCatId{$node.id}"  style="float:right;font-size: 70%;color: #ff0000;"></span>
 	</a>
-	{if $node.children|@count > 0}
+	{if false && $node.children|@count > 0}
 		<ul class="left_category level{$level} ">
 			{foreach from=$node.children item=child name=categoryTreeBranch}
 

@@ -22,7 +22,8 @@
         <div class="ps-product__table-cell ps-product__articule">{$product.reference}</div>
         <div class="ps-product__table-cell">
             <a  class="ps-product__image-zoom fancyImg"
-                href="{$link->getImageLink($product.link_rewrite, $product.id_image, 'large_default')|escape:'html':'UTF-8'}">
+                href="{$link->getImageLink($product.link_rewrite, $product.id_image, 'large_default')|escape:'html':'UTF-8'}"
+                data-product-id="{$product.id_product}">
                 <img
                     class="ps-product__image"
                     alt="{$product.name|escape:'html':'UTF-8'}"
@@ -31,25 +32,32 @@
             </a>
         </div>
         <div class="ps-product__table-cell ps-product__name">
-            <a class="ps-product__link" href="{$product.link|escape:'html':'UTF-8'}">{$product.name|escape:'html':'UTF-8'}</a>
+            <a class="ps-product__link" href="{$product.link|escape:'html':'UTF-8'}">{$product.price_name|escape:'html':'UTF-8'}</a>
+            <a class="ps-product__quickview" href="{$product.link|escape:'html':'UTF-8'}"><i class="fa fa-eye"></i> Быстрый просмотр</a>
         </div>
         <div class="ps-product__table-cell">{Product::SGetProductUnity($product.sale_unity)}</div>
         <div class="ps-product__table-cell ps-product__price">
             <span class="ps-price__value">
-                {Tools::displayPrice($product.price)}
+                {Tools::displayOgonekPrice($product.price)}
             </span>
             {if $product.specific_prices.reduction > 0}
                 <span class="ps-price__value ps-price__value--old">
-                    {Tools::displayPrice($product.price_without_reduction)}
+                    {Tools::displayOgonekPrice($product.old_price)}
                 </span>
             {/if}
         </div>
-        <div class="ps-product__table-cell">{if $product.r1 < 2}-{else}{$product.r1}<div>шт.</div>{/if}</div>
-        <div class="ps-product__table-cell">{if $product.r2 < 2}-{else}{$product.r2}<div>уп.</div>{/if}</div>
-        <div class="ps-product__table-cell">{if $product.r3 < 2}-{else}{$product.r3}<div>{Product::SGetProductUnity($product.sale_unity)}</div>{/if}</div>
-        <div class="ps-product__table-cell">
-            {$product.quantity}
-            {Product::SGetProductUnity($product.sale_unity)}
+        <div class="ps-product__table-cell">{if $product.r1 == 1}-{else}{$product.r1}<div>шт.</div>{/if}</div>
+        <div class="ps-product__table-cell">{if $product.r2 == 1}-{else}{$product.r2}<div>уп.</div>{/if}</div>
+        <div class="ps-product__table-cell">{if $product.r3 == 1}1{else}{$product.r3}<div>{Product::SGetProductUnity($product.sale_unity)}</div>{/if}</div>
+        <div class="ps-product__table-cell ps-product__table-cell--quantity">
+            <div class="ps-product__quantity-cell">
+                {if isset($product.box_quantity)}
+                {$product.box_quantity} кор.
+                {else}-<br/><br/>{/if}
+            </div>
+            <div class="ps-product__quantity-cell">
+                {$product.quantity} {Product::SGetProductUnity($product.sale_unity)}
+            </div>
         </div>
         <div class="ps-product__table-cell ps-product__controls">
             {if $product.quantity > 0}

@@ -38,7 +38,7 @@ class MyCatalogControllerCore extends FrontController
 
     public function initContent() {
         parent::initContent();
-
+        
         $this->categories = Category::getCategoriesList($this->context->language->id);
         
         $categoryRoot = new Category(Configuration::get('PS_HOME_CATEGORY'),$this->context->language->id,$this->context->shop->id);

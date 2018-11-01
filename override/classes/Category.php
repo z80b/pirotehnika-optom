@@ -280,7 +280,7 @@ class Category extends CategoryCore {
             pl.available_now,
             pl.available_later,
             IFNULL (product_attribute_shop.id_product_attribute, 0) AS id_product_attribute,
-            pl.price_name,
+            pl.name,
             pl.link_rewrite,
             pl.meta_description,
             pl.meta_keywords,
@@ -344,23 +344,23 @@ class Category extends CategoryCore {
         LIMIT {$offset}, {$limit}";
 
         $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
-
-        foreach ($result as $key => &$product) {
-            $result[$key]['specific_prices'] = array(
-                'reduction' => $product['reduction'],
-                'reduction_type' => 'percentage'
-            );
-            $product['old_price'] = $product['price'];
-            $product['price'] = isset($product['price_discount']) ? $product['price_discount'] : $product['price'];
-            $product['price_without_reduction'] = $product['price'];
-            $product['box_quantity'] = floor($product['quantity'] / $product['r3']);
-            $product['features'] = Product::getFrontFeaturesStatic($id_lang, $product['id_product']);
-            $product['link'] = $context->link->getProductLink(
-                $product['id_product'],
-                $product['link_rewrite'],
-                $product['id_category_default'],
-                $product['ean13']);
-        }
+        if ($result)
+            foreach ($result as $key => &$product) {
+                $result[$key]['specific_prices'] = array(
+                    'reduction' => $product['reduction'],
+                    'reduction_type' => 'percentage'
+                );
+                $product['old_price'] = $product['price'];
+                $product['price'] = isset($product['price_discount']) ? $product['price_discount'] : $product['price'];
+                $product['price_without_reduction'] = $product['price'];
+                $product['box_quantity'] = floor($product['quantity'] / $product['r3']);
+                $product['features'] = Product::getFrontFeaturesStatic($id_lang, $product['id_product']);
+                $product['link'] = $context->link->getProductLink(
+                    $product['id_product'],
+                    $product['link_rewrite'],
+                    $product['id_category_default'],
+                    $product['ean13']);
+            }
         return $result;
     }
 

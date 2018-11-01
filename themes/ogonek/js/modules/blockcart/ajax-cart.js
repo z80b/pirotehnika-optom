@@ -1441,14 +1441,16 @@ function UpdatePriceInMenu(){//maxim.
             _localStorage[CatId] = summ.toFixed(2)+" р";
             _localStorage[CountCatId] = parseInt(_localStorage[CountCatId])+parseInt(1);
             var ln = document.getElementById(CatId);
-                ln.innerHTML = _localStorage[CatId];
+                if (ln) ln.innerHTML = _localStorage[CatId];
             var Textln = document.getElementById(TextCatId);
-                Textln.innerHTML = plural(_localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - ";
+                if (Textln) Textln.innerHTML = plural(_localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - ";
             var Percln = document.getElementById(PercCatId);
-                Percln.innerHTML = "("+_localStorage[PercCatId]+" %)";
-                Percln.setAttribute('title', _localStorage[PercCatId]+"% от суммы заказа");
+                if (Percln) {
+                    Percln.innerHTML = "("+_localStorage[PercCatId]+" %)";
+                    Percln.setAttribute('title', _localStorage[PercCatId]+"% от суммы заказа");
+                }
             var Countln = document.getElementById(CountCatId);
-                Countln.innerHTML= _localStorage[CountCatId]+' ';
+                if (Countln) Countln.innerHTML= _localStorage[CountCatId]+' ';
             var CategoryInfoElement = document.getElementById(CategoryInfo);
             if(CategoryInfoElement != null){
                 CategoryInfoElement.innerHTML=_localStorage[CountCatId] +' '+ plural(_localStorage[CountCatId], ['товар', 'товара', 'товаров']) + " на сумму - "+_localStorage[CatId]+" ("+_localStorage[PercCatId]+"%)";

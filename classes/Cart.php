@@ -1026,11 +1026,15 @@ class CartCore extends ObjectModel
                         }
                     }
                 } elseif ($operator == 'down') {
-                    $qty = '- '.(int)$quantity;
-                    $new_qty = (int)$result['quantity'] - (int)$quantity;
-                    if ($new_qty < $minimal_quantity && $minimal_quantity > 1) {
-                        return -1;
-                    }
+                    // $qty = '- '.(int)$quantity;
+                    // $new_qty = (int)$result['quantity'] - (int)$quantity;
+                    
+                    $qty = (int)$quantity;
+                    $new_qty = (int)$quantity;
+                    
+                    // if ($new_qty < $minimal_quantity && $minimal_quantity > 1) {
+                    //     return -1;
+                    // }
                 } else {
                     return false;
                 }
@@ -1038,8 +1042,8 @@ class CartCore extends ObjectModel
                 /* Delete product from cart */
                 if ($new_qty <= 0) {
                     return $this->deleteProduct((int)$id_product, (int)$id_product_attribute, (int)$id_customization, 0, $auto_add_cart_rule);
-                } elseif ($new_qty < $minimal_quantity) {
-                    return -1;
+                // } elseif ($new_qty < $minimal_quantity) {
+                //     return -1;
                 } else {
                     Db::getInstance()->execute('
 						UPDATE `'._DB_PREFIX_.'cart_product`

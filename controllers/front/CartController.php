@@ -237,8 +237,11 @@ class CartControllerCore extends FrontController
             return;
         }
 
+
         $qty_to_check = $this->qty;
         $cart_products = $this->context->cart->getProducts();
+
+        //die('<pre>'.print_r(array($qty_to_check, $product), true).'</pre>');
 
         if (is_array($cart_products)) {
             foreach ($cart_products as $cart_product) {
@@ -258,6 +261,7 @@ class CartControllerCore extends FrontController
         }
 
         // Check product quantity availability
+        
         if ($this->id_product_attribute) {
             if (!Product::isAvailableWhenOutOfStock($product->out_of_stock) && !Attribute::checkAttributeQty($this->id_product_attribute, $qty_to_check)) {
                 $this->errors[] = Tools::displayError('There isn\'t enough product in stock.', !Tools::getValue('ajax'));
@@ -376,6 +380,7 @@ class CartControllerCore extends FrontController
      */
     public function displayAjax()
     {
+
         if ($this->errors) {
             $this->ajaxDie(Tools::jsonEncode(array('hasError' => true, 'errors' => $this->errors)));
         }

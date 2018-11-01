@@ -26,12 +26,16 @@
 $(document).ready(function(){
 	$('.cart_quantity_up').off('click').on('click', function(e){
 		e.preventDefault();
-		upQuantity($(this).attr('id').replace('cart_quantity_up_', ''));
+		var id = $(this).attr('id').replace('cart_quantity_up_', '');
+		var qty = $('[name=quantity_'+ id +'_hidden]').val();
+		upQuantity(id, qty);
 		$('#' + $(this).attr('id').replace('_up_', '_down_')).removeClass('disabled');
 	});
 	$('.cart_quantity_down').off('click').on('click', function(e){
 		e.preventDefault();
-		downQuantity($(this).attr('id').replace('cart_quantity_down_', ''));
+		var id = $(this).attr('id').replace('cart_quantity_down_', '');
+		var qty = $('[name=quantity_'+ id +'_hidden]').val();
+		downQuantity(id, qty);
 	});
 	$('.cart_quantity_delete' ).off('click').on('click', function(e){
 		e.preventDefault();
@@ -577,8 +581,10 @@ function refreshOddRow()
 
 function upQuantity(id, qty)
 {
+	console.log('upQuantity', id, qty);
 	if (typeof(qty) == 'undefined' || !qty)
 		qty = 1;
+	else qty++;
 	var customizationId = 0;
 	var productId = 0;
 	var productAttributeId = 0;
@@ -684,8 +690,7 @@ function downQuantity(id, qty)
 		qty = 1;
 		newVal = val - 1;
 	}
-	else if (qty < 0)
-		qty = -qty;
+	else if (qty > 0) qty--;
 
 	var customizationId = 0;
 	var productId = 0;

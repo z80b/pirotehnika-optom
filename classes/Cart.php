@@ -692,6 +692,7 @@ class CartCore extends ObjectModel
                 $cart_shop_context
             );
 		if (Configuration::get('PS_IS_SHOW_DISCOUNT',null,null,(int)$this->id_shop) && $context->customer->show_skid) {
+			if ($context->customer->glob_skid == false){
 			if ($row['country_prois'] == 1) {
 				$row['price_with_reduction'] = round($row['price_with_reduction'] * (100 - MIN($context->customer->skid_1, $row['max_discount'])) / 100, 2);
 			} elseif ($row['country_prois'] == 2) {
@@ -699,6 +700,10 @@ class CartCore extends ObjectModel
 			} elseif ($row['country_prois'] == 3) {
 				$row['price_with_reduction'] = round($row['price_with_reduction'] * (100 - MIN($context->customer->skid_3, $row['max_discount'])) / 100, 2);
 			} 
+			}else{
+				
+				$row['price_with_reduction'] = round($row['price_with_reduction'] * (100 - MIN(Product::getPriceDiscByManufact((int)$product->id, $context->customer->skid_g), $row['max_discount'])) / 100, 2);
+			}
 		}
 
             $row['price'] = $row['price_with_reduction_without_tax'] = Product::getPriceStatic(
@@ -1586,6 +1591,8 @@ class CartCore extends ObjectModel
 			$retail_price = Product::getPriceRetail((int)$product['id_product']);
 			
 		if (Configuration::get('PS_IS_SHOW_DISCOUNT',null,null,(int)$virtual_context->shop->id) && $virtual_context->customer->show_skid) {
+			if ($virtual_context->customer->glob_skid == false){
+			
 			if ($product['country_prois'] == 1) {
 				$price = round($price * (100 - MIN($virtual_context->customer->skid_1, $product['max_discount'])) / 100, 2);
 			} elseif ($product['country_prois'] == 2) {
@@ -1593,6 +1600,9 @@ class CartCore extends ObjectModel
 			} elseif ($product['country_prois'] == 3) {
 				$price = round($price * (100 - MIN($virtual_context->customer->skid_3, $product['max_discount'])) / 100, 2);
 			} 
+			}else{
+				$price = round($price * (100 - MIN(Product::getPriceDiscByManufact((int)$product->id, $virtual_context->customer->skid_g), $product['max_discount'])) / 100, 2);
+			}
 		}
 		@$this->categ_sum[$product['category']] += $price;
             $address = $address_factory->findOrCreate($id_address, true);

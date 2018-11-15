@@ -2090,6 +2090,7 @@ class AdminOrdersControllerCore extends AdminController
             'carrier' => new Carrier($order->id_carrier),
             'history' => $history,
             'my_view' => $this->is_show_discount,
+			
             'states' => OrderState::getOrderStates($this->context->language->id, $order->id_shop, $order->getCurrentOrderState()->id),
             'warehouse_list' => $warehouse_list,
             'sources' => ConnectionsSource::getOrderSources($order->id),
@@ -2666,6 +2667,22 @@ class AdminOrdersControllerCore extends AdminController
 		}
 	}
 
+	
+	public function ajaxProcessSetCustomerDiscountGlob() {
+
+		$my_customer = new Customer(Tools::getValue('id_customer'));
+		if (!Validate::isLoadedObject($my_customer)) {
+			die(Tools::jsonEncode(array('result' => false)));
+		}
+		
+		$my_customer->skid_g = Tools::getValue('customer_skid_glob');
+		if (!$my_customer->update()) {
+			$this->errors[] = Tools::displayError('An error occurred while updating customer information.');
+		}
+	}
+	
+	
+	
 	// Сохраняет все скидки в заказе
 	public function ajaxProcessSetOrderDiscountAll() {
 
@@ -2682,6 +2699,7 @@ class AdminOrdersControllerCore extends AdminController
 		$my_order->skid_1 = Tools::getValue('order_skid_kit');
 		$my_order->skid_2 = Tools::getValue('order_skid_ros');
 		$my_order->skid_3 = Tools::getValue('order_skid_pol');
+		$my_order->skid_g = Tools::getValue('order_skid_glob');
 
 /*         $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->ExecuteS('
 		SELECT DISTINCT od.`id_order_detail`, od.`product_id`
@@ -2710,6 +2728,14 @@ class AdminOrdersControllerCore extends AdminController
 				$my_product_max_discount = $my_product->max_discount;
 				// Страна происхождения из карточки товара
 				$my_product_country = $my_product->country_prois;
+				
+				
+				if ($my_customer->glob_skid == true){
+						$my_product_price_discount = Product::getPriceDiscByManufact((int)$my_product->id, $my_order->skid_g); 
+							$my_product_new_discount = $my_product_price_discount; 
+							
+					}else{
+				
 				switch($my_product_country) {
 					case 1: //  Скидка из карточки покупателя если Китай
 							$my_product_price_discount = $my_customer->skid_1; 
@@ -2719,13 +2745,18 @@ class AdminOrdersControllerCore extends AdminController
 					case 2: $my_product_price_discount = $my_customer->skid_2; 
 							$my_product_new_discount = $my_order->skid_2; 
 							break;
-					case 3: $my_product_price_discount = $my_customer->skid_3; 
+					case 3:$my_product_price_discount = $my_customer->skid_3; 
 							$my_product_new_discount = $my_order->skid_3; 
 							break;
 					default:$my_product_price_discount = 0; 
 							$my_product_new_discount = 0; 
 							break;
-					} 
+					} }
+					/* if ($my_customer->glob_skid == true){
+						$my_product_price_discount = $my_customer->skid_g; 
+							$my_product_new_discount = $my_order->skid_g; 
+							break;
+					} */
 				//  Скидка для расчета по Скидке из введенной менеджером	
 //				$my_product_rab_discount = min($my_product_new_discount, $my_product_max_discount);
 				$my_product_rab_discount = max(min($my_product_new_discount, $my_product_max_discount),$row['reduction'] * 100);

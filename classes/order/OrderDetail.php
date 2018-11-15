@@ -575,6 +575,7 @@ class OrderDetailCore extends ObjectModel
         $this->total_price_tax_incl = (float)$product['total_wt'];
         $this->total_price_tax_excl = (float)$product['total'];
 		$this->my_real_discount = 100 - $this->unit_price_tax_incl / $this->original_product_price *100;
+		if ($this->context->customer->glob_skid == false){
 				if ($product['country_prois'] == 1) {
 					$this->my_price_discount = MIN($this->context->customer->skid_1, $product['max_discount']);
 				} elseif ($product['country_prois'] == 2) {
@@ -584,6 +585,9 @@ class OrderDetailCore extends ObjectModel
 				} else {
 					$this->my_price_discount = 0;
 				}
+		}else{
+			$this->my_price_discount = MIN($this->context->customer->skid_g, $product['max_discount']);
+		}
 //		$this->my_price_discount = $this->context->customer->skid_1;
         $this->purchase_supplier_price = (float)$product['wholesale_price'];
         if ($product['id_supplier'] > 0 && ($supplier_price = ProductSupplier::getProductPrice((int)$product['id_supplier'], $product['id_product'], $product['id_product_attribute'], true)) > 0) {

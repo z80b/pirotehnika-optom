@@ -386,6 +386,7 @@ class AdminCustomersControllerCore extends AdminController
         if (!($obj = $this->loadObject(true))) {
             return;
         }
+echo '<script>console.log('.$obj->id.')</script>';
 
         $genders = Gender::getGenders();
         $list_genders = array();
@@ -433,11 +434,58 @@ class AdminCustomersControllerCore extends AdminController
 			$my_discount_arrayk = '';
 			$my_discount_arrayr = '';
 			$my_discount_arrayp = '';
+			$my_discount_arrayg = '';
+		
+			
+						
+						
+					
 		} else {
+			if ($obj->glob_skid == true){
 			$my_discount_arrayk = array(
 						'type' => 'text',
 						'label' => 'Скидка на Китай',
 						'name' => 'skid_1',
+						
+						'disabled' => 'disabled',
+						'required' => false,
+						'col' => '4',
+						'hint' => ''
+					);
+			$my_discount_arrayr = array(
+						'type' => 'text',
+						'label' => 'Скидка на Россию',
+						'name' => 'skid_2',
+						'disabled' => 'disabled',
+						'required' => false,
+						'col' => '4',
+						'hint' => ''
+					);
+			$my_discount_arrayp = array(
+						'type' => 'text',
+						'label' => 'Скидка на Польшу',
+						'name' => 'skid_3',
+						'disabled' => 'disabled',
+						'required' => false,
+						'col' => '4',
+						'hint' => ''
+			); 
+			$my_discount_arrayg = array(
+						'type' => 'text',
+						'label' => 'Скидка',
+						'name' => 'skid_g',
+						'required' => false,
+						'col' => '4',
+						
+						'hint' => ''
+			);
+			}elseif ($obj->glob_skid == false){
+				$my_discount_arrayk = array(
+						'type' => 'text',
+						'label' => 'Скидка на Китай',
+						'name' => 'skid_1',
+						
+						
 						'required' => false,
 						'col' => '4',
 						'hint' => ''
@@ -457,11 +505,25 @@ class AdminCustomersControllerCore extends AdminController
 						'required' => false,
 						'col' => '4',
 						'hint' => ''
-					);
+			); 
+			$my_discount_arrayg = array(
+						'type' => 'text',
+						'label' => 'Скидка',
+						'name' => 'skid_g',
+						'required' => false,
+						'col' => '4',
+						'disabled' => 'disabled',
+						'hint' => ''
+			);
+			}
+						
+						
+					
 		}
 		if ($this->is_show_show_skid == false) {
 			$my_show_skid_array = '';
 			$my_show_skid_array2 = '';
+			$my_show_skid_arrayglob = '';
 		} else {
 			$my_show_skid_array = array(
                     'type' => 'switch',
@@ -483,6 +545,30 @@ class AdminCustomersControllerCore extends AdminController
                         )
                     ),
                     'hint' => $this->l('Разрешить / запретить показ цен со скидками этому покупателю.')
+                );
+				$my_show_skid_arrayglob = array(
+                    'type' => 'switch',
+                    'label' => $this->l('Использовать новую систему скидок'),
+                    'name' => 'glob_skid',
+                    'required' => false,
+                    'class' => 't',
+					
+                    'is_bool' => true,
+                    'values' => array(
+                        array(
+							'onclick' => '{$customers->skidki();}',
+                            'id' => 'active_on',
+                            'value' => 1,
+                            'label' => $this->l('Enabled')
+                        ),
+                        array( 
+						'onclick' => '{$customers->skidki();}',
+                            'id' => 'active_off',
+                            'value' => 0,
+                            'label' => $this->l('Disabled')
+                        )
+                    ),
+                    'hint' => $this->l('Переводит покупателя на новую глобальную скидку')
                 );
 			$my_show_skid_array2 = array(
                     'type' => 'switch',
@@ -614,11 +700,14 @@ class AdminCustomersControllerCore extends AdminController
                         'years' => $years
                     )
                 ),
+				
 				$my_discount_arrayk,
 				$my_discount_arrayr,
 				$my_discount_arrayp,
+				$my_discount_arrayg,
 				$my_show_skid_array,
 				$my_show_skid_array2,
+				$my_show_skid_arrayglob,
 				$own_folder_array,
                 array(
                     'type' => 'switch',
@@ -630,6 +719,7 @@ class AdminCustomersControllerCore extends AdminController
                     'values' => array(
                         array(
                             'id' => 'active_on',
+							
                             'value' => 1,
                             'label' => $this->l('Enabled')
                         ),
@@ -830,7 +920,7 @@ class AdminCustomersControllerCore extends AdminController
             $this->fields_value['groupBox_'.$group['id_group']] =
                 Tools::getValue('groupBox_'.$group['id_group'], in_array($group['id_group'], $customer_groups_ids));
         }
-
+//echo '<script>function skkk() {console.log(document.getElementById("skid_1").value);}</script>';
         return parent::renderForm();
     }
 
@@ -1408,4 +1498,6 @@ return;
             die('ok');
         }
     }
+	
+	
 }

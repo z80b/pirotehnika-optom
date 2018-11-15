@@ -2772,6 +2772,9 @@ Db::getInstance()->autoExecute('ps_stock_sg', array(
 //        return Product::getProductsProperties($id_lang, $result);
         $result222 = Product::getProductsProperties($id_lang, $result);
         if (Configuration::get('PS_IS_SHOW_DISCOUNT',null,null,(int)$context->shop->id) && $context->customer->show_skid) {
+			
+			
+			if ($context->customer->glob_skid == false){
             foreach($result222 as &$e){
                 if ($e['country_prois'] == 1) {
                     $e['price_discount'] =  round($e['price'] * (100 - MIN($context->customer->skid_1, $e['max_discount'])) / 100, 2);
@@ -2783,9 +2786,18 @@ Db::getInstance()->autoExecute('ps_stock_sg', array(
                     $e['price_discount'] = $e['price'];
                 }
                 
-            }
+            }}else{
+				foreach($result222 as &$e){
+				 $e['price_discount'] =  round($e['price'] * (100 - MIN(Product::getPriceDiscByManufact((int)$product->id, $context->customer->skid_g), $e['max_discount'])) / 100, 2);
+			}}
             unset($e);
-        }
+        
+		
+		
+		
+		
+		
+		}
         return $result222;
     }
 
@@ -2948,10 +2960,41 @@ Db::getInstance()->autoExecute('ps_stock_sg', array(
 //      return false;
     }
     
+	
+	 public static function getPriceDiscByManufact($id_product = 0,$skid_gbm) {
+		$sql = 'SELECT `id_manufacturer`
+                FROM `'._DB_PREFIX_.'product`
+                WHERE `id_product` = '.(int)$id_product;
+               
+        $id_manufact = (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($sql);
+		
+		$sql = 'SELECT `discount_rate`
+                FROM `'._DB_PREFIX_.'manufacturer`
+                WHERE `id_manufacturer` = '.(int)$id_manufact;
+               
+        $disc_rate = (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($sql);
+		
+		//только рф временно 
+		$sql = 'SELECT `discount_rate`
+                FROM `'._DB_PREFIX_.'manufacturer`
+                WHERE `id_manufacturer` = 1';
+               
+        $disc_rate_rf = (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($sql);
+				
+		if ($disc_rate_rf != 0){	
+			return round(($disc_rate * $skid_gbm)/ $disc_rate_rf , 2);
+		} else {
+			return 0;
+		}
+    }
+	
+	
     public static function getPriceDisc($id_product = 0) {
         $context = Context::getContext();
         $product = new Product($id_product);
         if (Configuration::get('PS_IS_SHOW_DISCOUNT',null,null,(int)$context->shop->id) && $context->customer->show_skid) {
+			
+			if ($context->customer->glob_skid == false){
             if ($product->country_prois == 1) {
                 return  round(Product::getPriceStatic((int)$product->id, true, null, 6, null, false, true, 1) * (100 - MIN($context->customer->skid_1, $product->max_discount)) / 100, 2);
             } elseif ($product->country_prois == 2) {
@@ -2961,8 +3004,13 @@ Db::getInstance()->autoExecute('ps_stock_sg', array(
             } else {
                 return Product::getPriceStatic((int)$product->id, true, null, 6, null, false, true, 1);
             }
-                
-        } else {    
+			}else {
+				return  round(Product::getPriceStatic((int)$product->id, true, null, 6, null, false, true, 1) * (100 - MIN(Product::getPriceDiscByManufact((int)$product->id, $context->customer->skid_g) , $product->max_discount)) / 100, 2);
+
+			}
+        
+		
+		} else {    
             return Product::getPriceStatic((int)$product->id, true, null, 6, null, false, true, 1);
         }
     }

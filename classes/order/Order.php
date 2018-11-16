@@ -110,7 +110,7 @@ class OrderCore extends ObjectModel
 
     /** @var float Discounts РџРѕР»СЊС€Р° */
     public $skid_3;
-
+	public $skid_g;
     /** @var float Discounts total */
     public $total_discounts;
 
@@ -237,6 +237,7 @@ class OrderCore extends ObjectModel
             'skid_2' =>    array('type' => self::TYPE_FLOAT, 'validate' => 'isFloat'),
             'skid_1' =>    array('type' => self::TYPE_FLOAT, 'validate' => 'isFloat'),
             'skid_3' =>    array('type' => self::TYPE_FLOAT, 'validate' => 'isFloat'),
+			'skid_g' =>    array('type' => self::TYPE_FLOAT, 'validate' => 'isFloat'),
             'total_discounts' =>            array('type' => self::TYPE_FLOAT, 'validate' => 'isPrice'),
             'total_discounts_tax_incl' =>    array('type' => self::TYPE_FLOAT, 'validate' => 'isPrice'),
             'total_discounts_tax_excl' =>    array('type' => self::TYPE_FLOAT, 'validate' => 'isPrice'),

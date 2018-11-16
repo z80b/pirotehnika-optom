@@ -805,6 +805,7 @@ class CategoryCore extends ObjectModel
         /** Modify SQL result */
 		$result222 = Product::getProductsProperties($id_lang, $result);
 		if (Configuration::get('PS_IS_SHOW_DISCOUNT',null,null,(int)$context->shop->id) && $context->customer->show_skid) {
+			if ($context->customer->glob_skid == false){
 			foreach($result222 as &$e){
 				if ($e['country_prois'] == 1) {
 					$disc_rate = $context->customer->skid_1;
@@ -818,7 +819,11 @@ class CategoryCore extends ObjectModel
 				$e['price_discount'] = round($e['price'] * (100 - MAX(MIN($disc_rate, $e['max_discount']),$e['reduction'])) / 100, 2);
 //				$e['price_discount'] = 100;
 			}
-			unset($e);
+			
+		}else {foreach($result222 as &$e){
+			$e['price_discount'] = round($e['price'] * (100 - MAX(MIN(Product::getPriceDiscByManufact((int)$product->id, $context->customer->skid_g), $e['max_discount']),$e['reduction'])) / 100, 2);
+		}}
+		unset($e);
 		}
         return $result222;
     }

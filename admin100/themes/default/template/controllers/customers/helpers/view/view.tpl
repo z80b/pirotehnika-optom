@@ -176,8 +176,34 @@
 							<p class="form-control-static">{$last_update}</p>
 						</div>
 					</div>
-					{if $is_show_discount}
+					{if $is_show_discount} {if ($customer->glob_skid == true)}
+						<!-- <div class="row">
+							<label class="control-label col-lg-3">Скидка Китай</label>
+							<div class="col-lg-9">
+								<p class="form-control-static">{$customer->skid_1}&nbsp;%</p>
+							</div>
+						</div>
 						<div class="row">
+							<label class="control-label col-lg-3">Скидка Россия</label>
+							<div class="col-lg-9">
+								<p class="form-control-static">{$customer->skid_2}&nbsp;%</p>
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-lg-3">Скидка Польша</label>
+							<div class="col-lg-9">
+								<p class="form-control-static">{$customer->skid_3}&nbsp;%</p>
+							</div>
+						</div> -->
+						<div class="row">
+							<label class="control-label col-lg-3">Скидка</label>
+							<div class="col-lg-9">
+								<p class="form-control-static">{$customer->skid_g}&nbsp;%</p>
+							</div>
+						</div>
+					{/if}{/if}{if ($customer->glob_skid == false)}
+					
+					<div class="row">
 							<label class="control-label col-lg-3">Скидка Китай</label>
 							<div class="col-lg-9">
 								<p class="form-control-static">{$customer->skid_1}&nbsp;%</p>

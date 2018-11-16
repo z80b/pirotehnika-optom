@@ -1239,6 +1239,8 @@ $('document').ready(function(){
 								</tr>
 							</thead>
 							<tbody>
+							
+							{if $customer->glob_skid == false}
 								<!-- Китай --> 
 								<tr>
 									<td></td>
@@ -1317,6 +1319,38 @@ $('document').ready(function(){
 										<input type="text" name="order_skid_pol" class="edit_order_skid_pol" value="{number_format($order->skid_3, 3, '.', '' )}"/>
 									</td>
 								</tr>
+								
+								{/if}
+								{if $customer->glob_skid == true}
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td><span class="title_box ">Скидка</span></td>
+									<td class="actions">
+										<button id="but_SetCartGlob" class="btn btn-primary" type="submit" name="submitCartGlob">
+											Сохранить в карточке - >
+										</button>
+									</td>
+									<td class="unit_price_tax_excl">
+										<input type="text" name="customer_skid_glob" class="edit_customer_skid_glob" value="{number_format($customer->skid_g, 3, '.', '' )}"/>
+									</td>
+									<td><span class="title_box ">Скидка</span></td>
+									<td class="actions">
+										<button id="but_SetSkidGlobNull" class="btn btn-primary" type="submit" name="submitSetSkidGlobNull">
+											Обнулить - >
+										</button>
+									</td>
+									<td>
+										<input type="text" name="order_skid_glob" class="edit_order_skid_glob" value="{number_format($order->skid_g, 3, '.', '' )}"/>
+									</td>
+								</tr>
+								
+								{/if}
+								
+								
 								<!-- Кнопки --> 
 								<tr>
 									<td></td>

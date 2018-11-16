@@ -55,7 +55,8 @@ class CustomerCore extends ObjectModel
 
     /** @var float Discount РџРѕР»СЊС€Р° */
     public $skid_3;
-
+public $skid_g;
+public $glob_skid;
 	/** Разрешить клиенту видеть цены со скидкой */
     public $show_skid;
 
@@ -235,6 +236,8 @@ class CustomerCore extends ObjectModel
             'skid_2' =>    array('type' => self::TYPE_FLOAT, 'validate' => 'isFloat'),
             'skid_1' =>    array('type' => self::TYPE_FLOAT, 'validate' => 'isFloat'),
             'skid_3' =>    array('type' => self::TYPE_FLOAT, 'validate' => 'isFloat'),
+			'skid_g' =>    array('type' => self::TYPE_FLOAT, 'validate' => 'isFloat'),
+			'glob_skid' =>                    array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
             'show_skid' =>                array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
             'with_skid' =>                array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
             'show_price_wo_skid' =>                array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),

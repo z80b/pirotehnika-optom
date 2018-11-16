@@ -363,6 +363,9 @@ class SearchCore
         } else {
             $result_properties = Product::getProductsProperties((int)$id_lang, $result);
 			if (Configuration::get('PS_IS_SHOW_DISCOUNT',null,null,(int)$context->shop->id) && $context->customer->show_skid) {
+				
+				
+				if ($context->customer->glob_skid == false){
 				foreach($result_properties as &$e){
 					if ($e['country_prois'] == 1) {
 						$e['price_discount'] =  round($e['price'] * (100 - MIN($context->customer->skid_1, $e['max_discount'])) / 100, 2);
@@ -374,7 +377,17 @@ class SearchCore
 						$e['price_discount'] = $e['price'];
 					}
 					
+				}}else{
+					foreach($result_properties as &$e){
+						$e['price_discount'] =  round($e['price'] * (100 - MIN(Product::getPriceDiscByManufact((int)$product->id, $context->customer->skid_g), $e['max_discount'])) / 100, 2);
+					}
+					
 				}
+				
+				
+				
+				
+				
 				unset($e);
 			}
         }
